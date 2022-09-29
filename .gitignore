@@ -13,7 +13,8 @@ dmypy.json
 /.coverage
 
 # generated sources
-/gen
+# Since the openapi file has no license and cannot be distributed, include the generated code
+#/gen
 
 # cache
 /.lapidary_cache/

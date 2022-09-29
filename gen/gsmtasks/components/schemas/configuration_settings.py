@@ -1,0 +1,33 @@
+from __future__ import annotations
+
+import typing
+import lapidary_base
+import pydantic
+class ConfigurationSettingsTaskCommandQueueLimit(pydantic.BaseModel):
+    class Config(pydantic.BaseConfig):
+        allow_population_by_field_name = True
+
+class ConfigurationSettings(pydantic.BaseModel):
+    task_command_queue_limit: typing.Annotated[
+        ConfigurationSettingsTaskCommandQueueLimit,
+        pydantic.Field(
+        )
+    ]
+
+    date_format: typing.Annotated[
+        str,
+        pydantic.Field(
+        )
+    ]
+
+    time_format: typing.Annotated[
+        str,
+        pydantic.Field(
+        )
+    ]
+
+    class Config(pydantic.BaseConfig):
+        allow_population_by_field_name = True
+
+ConfigurationSettingsTaskCommandQueueLimit.update_forward_refs()
+ConfigurationSettings.update_forward_refs()
