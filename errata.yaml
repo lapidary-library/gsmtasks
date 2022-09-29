@@ -62,6 +62,13 @@
         - metadatas
         - documents
       uniqueItems: true
+#- op: replace
+#  path: /paths/~1tasks~1/get/parameters/249/schema
+#  value:
+#    type: array
+#    items:
+#      type: string
+#      format: uuid
 - op: replace
   path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.4.11/schema
   value:
@@ -103,20 +110,37 @@
     required:
     - detail
     x-lapidary-model-type: exception
+- op: add
+  path: /components/schemas/ValidationError
+  value:
+    type: object
+    additionalProperties:
+      type: array
+      items:
+        type: string
+    x-lapidary-model-type: exception
 
 - op: add
   path: /components/responses
   value:
-    lapidary-error:
+    generic-error:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GSMTasksError'
-      description: Error
+      description: Generic error
+    validation-error:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+      description: Validation error
 - op: add
   path: /x-lapidary-responses-global
   value:
+    '400':
+      $ref: '#/components/responses/validation-error'
     '4XX':
-      $ref: '#/components/responses/lapidary-error'
+      $ref: '#/components/responses/generic-error'
     '5XX':
-      $ref: '#/components/responses/lapidary-error'
+      $ref: '#/components/responses/generic-error'

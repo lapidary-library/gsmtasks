@@ -257,8 +257,8 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            le=253402300799.0,
             gt=0.0,
+            le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
 

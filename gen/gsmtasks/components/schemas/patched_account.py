@@ -477,8 +477,8 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            le=2147483647.0,
             gt=-2147483648.0,
+            le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -489,8 +489,8 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            le=2147483647.0,
             gt=-2147483648.0,
+            le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
 

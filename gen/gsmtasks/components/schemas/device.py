@@ -89,8 +89,8 @@ class Device(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            le=9.223372036854776e18,
             gt=-9.223372036854776e18,
+            le=9.223372036854776e18,
         ),
     ] = lapidary_base.absent.ABSENT
 

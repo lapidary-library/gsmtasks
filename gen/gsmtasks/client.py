@@ -84,6 +84,8 @@ import gsmtasks.components.schemas.webhook
 import gsmtasks.components.schemas.worker_feature
 import gsmtasks.components.schemas.worker_track
 import gsmtasks.components.schemas.working_state
+import gsmtasks.components.schemas.gsm_tasks_error
+import gsmtasks.components.schemas.validation_error
 import gsmtasks.paths.account_roles_activate_create.param_model
 import gsmtasks.paths.account_roles_create.param_model
 import gsmtasks.paths.account_roles_destroy.param_model
@@ -349,6 +351,9 @@ class ApiClient(lapidary_base.ApiBase):
                 ],
             ),
             global_response_map={
+                "400": {
+                    "application/json": gsmtasks.components.schemas.validation_error.ValidationError,
+                },
                 "4XX": {
                     "application/json": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
                 },
@@ -362,6 +367,37 @@ class ApiClient(lapidary_base.ApiBase):
             api_key=tokenAuth_authorization,
             placement=lapidary_base.ParamPlacement.header,
             value_prefix="Token ",
+        )
+
+    async def account_roles_create(
+        self,
+        request_body: gsmtasks.components.schemas.account_role.AccountRole,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.account_roles_create.param_model.AccountRolesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_role.AccountRole:
+        import gsmtasks.paths.account_roles_create.param_model
+
+        param_model = (
+            gsmtasks.paths.account_roles_create.param_model.AccountRolesCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/account_roles/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
+                },
+            },
+            auth=self.auth_tokenAuth,
         )
 
     async def account_roles_list(
@@ -618,34 +654,26 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def account_roles_create(
+    async def account_roles_destroy(
         self,
-        request_body: gsmtasks.components.schemas.account_role.AccountRole,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.account_roles_create.param_model.AccountRolesCreateFormat,
+            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_role.AccountRole:
-        import gsmtasks.paths.account_roles_create.param_model
+    ) -> None:
+        import gsmtasks.paths.account_roles_destroy.param_model
 
         param_model = (
-            gsmtasks.paths.account_roles_create.param_model.AccountRolesCreate(
+            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroy(
                 **locals()
             )
         )
         return await super()._request(
-            "POST",
-            f"/account_roles/",
+            "DELETE",
+            f"/account_roles/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -737,29 +765,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
                 },
             },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def account_roles_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.account_roles_destroy.param_model
-
-        param_model = (
-            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroy(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "DELETE",
-            f"/account_roles/{p_id}/",
-            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -1134,33 +1139,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_managers_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_user.AccountUser:
-        import gsmtasks.paths.accounts_managers_retrieve.param_model
-
-        param_model = gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/accounts/{p_id}/managers/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def accounts_managers_create(
         self,
         request_body: gsmtasks.components.schemas.account_user.AccountUser,
@@ -1184,6 +1162,33 @@ class ApiClient(lapidary_base.ApiBase):
             f"/accounts/{p_id}/managers/",
             param_model=param_model,
             request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_managers_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_user.AccountUser:
+        import gsmtasks.paths.accounts_managers_retrieve.param_model
+
+        param_model = gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/accounts/{p_id}/managers/",
+            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
@@ -1501,33 +1506,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_workers_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_workers_retrieve.param_model.AccountsWorkersRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_user.AccountUser:
-        import gsmtasks.paths.accounts_workers_retrieve.param_model
-
-        param_model = gsmtasks.paths.accounts_workers_retrieve.param_model.AccountsWorkersRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/accounts/{p_id}/workers/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def accounts_workers_create(
         self,
         request_body: gsmtasks.components.schemas.account_user.AccountUser,
@@ -1551,6 +1529,33 @@ class ApiClient(lapidary_base.ApiBase):
             f"/accounts/{p_id}/workers/",
             param_model=param_model,
             request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_workers_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_workers_retrieve.param_model.AccountsWorkersRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_user.AccountUser:
+        import gsmtasks.paths.accounts_workers_retrieve.param_model
+
+        param_model = gsmtasks.paths.accounts_workers_retrieve.param_model.AccountsWorkersRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/accounts/{p_id}/workers/",
+            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
@@ -1641,6 +1646,37 @@ class ApiClient(lapidary_base.ApiBase):
             },
         )
 
+    async def billing_customers_create(
+        self,
+        request_body: gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.billing_customers_create.param_model.BillingCustomersCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.braintree_customer.BraintreeCustomer:
+        import gsmtasks.paths.billing_customers_create.param_model
+
+        param_model = (
+            gsmtasks.paths.billing_customers_create.param_model.BillingCustomersCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/billing/customers/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def billing_customers_list(
         self,
         *,
@@ -1680,37 +1716,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.braintree_customer.BraintreeCustomer
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def billing_customers_create(
-        self,
-        request_body: gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.billing_customers_create.param_model.BillingCustomersCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.braintree_customer.BraintreeCustomer:
-        import gsmtasks.paths.billing_customers_create.param_model
-
-        param_model = (
-            gsmtasks.paths.billing_customers_create.param_model.BillingCustomersCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/billing/customers/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -2257,6 +2262,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def client_roles_create(
+        self,
+        request_body: gsmtasks.components.schemas.client_role.ClientRole,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.client_roles_create.param_model.ClientRolesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.client_role.ClientRole:
+        import gsmtasks.paths.client_roles_create.param_model
+
+        param_model = gsmtasks.paths.client_roles_create.param_model.ClientRolesCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/client_roles/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def client_roles_list(
         self,
         *,
@@ -2399,35 +2433,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def client_roles_create(
-        self,
-        request_body: gsmtasks.components.schemas.client_role.ClientRole,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.client_roles_create.param_model.ClientRolesCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.client_role.ClientRole:
-        import gsmtasks.paths.client_roles_create.param_model
-
-        param_model = gsmtasks.paths.client_roles_create.param_model.ClientRolesCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/client_roles/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def client_roles_update(
         self,
         request_body: gsmtasks.components.schemas.client_role.ClientRole,
@@ -2542,6 +2547,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client_role.ClientRole,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def clients_create(
+        self,
+        request_body: gsmtasks.components.schemas.client.Client,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.clients_create.param_model.ClientsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.client.Client:
+        import gsmtasks.paths.clients_create.param_model
+
+        param_model = gsmtasks.paths.clients_create.param_model.ClientsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/clients/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.client.Client,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client.Client,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -2670,35 +2704,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.client.Client
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def clients_create(
-        self,
-        request_body: gsmtasks.components.schemas.client.Client,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.clients_create.param_model.ClientsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.client.Client:
-        import gsmtasks.paths.clients_create.param_model
-
-        param_model = gsmtasks.paths.clients_create.param_model.ClientsCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/clients/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.client.Client,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client.Client,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -3275,6 +3280,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def contact_address_import_create(
+        self,
+        request_body: gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.contact_address_import_create.param_model.ContactAddressImportCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport:
+        import gsmtasks.paths.contact_address_import_create.param_model
+
+        param_model = gsmtasks.paths.contact_address_import_create.param_model.ContactAddressImportCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/contact_address_import/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def contact_address_import_list(
         self,
         *,
@@ -3523,35 +3557,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def contact_address_import_create(
-        self,
-        request_body: gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.contact_address_import_create.param_model.ContactAddressImportCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport:
-        import gsmtasks.paths.contact_address_import_create.param_model
-
-        param_model = gsmtasks.paths.contact_address_import_create.param_model.ContactAddressImportCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/contact_address_import/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def contact_address_import_retrieve(
         self,
         *,
@@ -3574,6 +3579,37 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address_background_import.ContactAddressBackgroundImport,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def contact_addresses_create(
+        self,
+        request_body: gsmtasks.components.schemas.contact_address.ContactAddress,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.contact_addresses_create.param_model.ContactAddressesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.contact_address.ContactAddress:
+        import gsmtasks.paths.contact_addresses_create.param_model
+
+        param_model = (
+            gsmtasks.paths.contact_addresses_create.param_model.ContactAddressesCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/contact_addresses/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -4083,37 +4119,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def contact_addresses_create(
-        self,
-        request_body: gsmtasks.components.schemas.contact_address.ContactAddress,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.contact_addresses_create.param_model.ContactAddressesCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.contact_address.ContactAddress:
-        import gsmtasks.paths.contact_addresses_create.param_model
-
-        param_model = (
-            gsmtasks.paths.contact_addresses_create.param_model.ContactAddressesCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/contact_addresses/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def contact_addresses_update(
         self,
         request_body: gsmtasks.components.schemas.contact_address.ContactAddress,
@@ -4198,6 +4203,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def devices_create(
+        self,
+        request_body: gsmtasks.components.schemas.device.Device,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.devices_create.param_model.DevicesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.device.Device:
+        import gsmtasks.paths.devices_create.param_model
+
+        param_model = gsmtasks.paths.devices_create.param_model.DevicesCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/devices/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.device.Device,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.device.Device,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -4291,35 +4325,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def devices_create(
-        self,
-        request_body: gsmtasks.components.schemas.device.Device,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.devices_create.param_model.DevicesCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.device.Device:
-        import gsmtasks.paths.devices_create.param_model
-
-        param_model = gsmtasks.paths.devices_create.param_model.DevicesCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/devices/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.device.Device,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.device.Device,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def devices_retrieve(
         self,
         *,
@@ -4376,6 +4381,35 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/yaml; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
                     "application/vnd.oai.openapi+json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
                     "application/json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def documents_create(
+        self,
+        request_body: gsmtasks.components.schemas.document.Document,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.documents_create.param_model.DocumentsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.document.Document:
+        import gsmtasks.paths.documents_create.param_model
+
+        param_model = gsmtasks.paths.documents_create.param_model.DocumentsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/documents/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.document.Document,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.document.Document,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -4555,35 +4589,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def documents_create(
-        self,
-        request_body: gsmtasks.components.schemas.document.Document,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.documents_create.param_model.DocumentsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.document.Document:
-        import gsmtasks.paths.documents_create.param_model
-
-        param_model = gsmtasks.paths.documents_create.param_model.DocumentsCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/documents/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.document.Document,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.document.Document,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def documents_destroy(
         self,
         *,
@@ -4652,6 +4657,33 @@ class ApiClient(lapidary_base.ApiBase):
             f"/documents/batch_delete/",
             param_model=param_model,
             request_body=request_body,
+            auth=self.auth_tokenAuth,
+        )
+
+    async def emails_create(
+        self,
+        request_body: gsmtasks.components.schemas.email.Email,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.emails_create.param_model.EmailsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.email.Email:
+        import gsmtasks.paths.emails_create.param_model
+
+        param_model = gsmtasks.paths.emails_create.param_model.EmailsCreate(**locals())
+        return await super()._request(
+            "POST",
+            f"/emails/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -4955,30 +4987,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def emails_create(
+    async def emails_destroy(
         self,
-        request_body: gsmtasks.components.schemas.email.Email,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.emails_create.param_model.EmailsCreateFormat,
+            gsmtasks.paths.emails_destroy.param_model.EmailsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.email.Email:
-        import gsmtasks.paths.emails_create.param_model
+    ) -> None:
+        import gsmtasks.paths.emails_destroy.param_model
 
-        param_model = gsmtasks.paths.emails_create.param_model.EmailsCreate(**locals())
+        param_model = gsmtasks.paths.emails_destroy.param_model.EmailsDestroy(
+            **locals()
+        )
         return await super()._request(
-            "POST",
-            f"/emails/",
+            "DELETE",
+            f"/emails/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -5069,27 +5095,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def emails_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.emails_destroy.param_model.EmailsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.emails_destroy.param_model
-
-        param_model = gsmtasks.paths.emails_destroy.param_model.EmailsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/emails/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def emails_resend_create(
         self,
         request_body: gsmtasks.components.schemas.email.Email,
@@ -5117,6 +5122,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def exports_create(
+        self,
+        request_body: gsmtasks.components.schemas.export.Export,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.exports_create.param_model.ExportsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.export.Export:
+        import gsmtasks.paths.exports_create.param_model
+
+        param_model = gsmtasks.paths.exports_create.param_model.ExportsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/exports/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.export.Export,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.export.Export,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -5242,32 +5276,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def exports_create(
+    async def exports_destroy(
         self,
-        request_body: gsmtasks.components.schemas.export.Export,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.exports_create.param_model.ExportsCreateFormat,
+            gsmtasks.paths.exports_destroy.param_model.ExportsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.export.Export:
-        import gsmtasks.paths.exports_create.param_model
+    ) -> None:
+        import gsmtasks.paths.exports_destroy.param_model
 
-        param_model = gsmtasks.paths.exports_create.param_model.ExportsCreate(
+        param_model = gsmtasks.paths.exports_destroy.param_model.ExportsDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/exports/",
+            "DELETE",
+            f"/exports/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.export.Export,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.export.Export,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -5360,24 +5386,32 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def exports_destroy(
+    async def file_uploads_create(
         self,
+        request_body: gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+        /,
         *,
-        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.exports_destroy.param_model.ExportsDestroyFormat,
+            gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.exports_destroy.param_model
+    ) -> gsmtasks.components.schemas.s3_file_upload.S3FileUpload:
+        import gsmtasks.paths.file_uploads_create.param_model
 
-        param_model = gsmtasks.paths.exports_destroy.param_model.ExportsDestroy(
+        param_model = gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreate(
             **locals()
         )
         return await super()._request(
-            "DELETE",
-            f"/exports/{p_id}/",
+            "POST",
+            f"/file_uploads/",
             param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -5539,35 +5573,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def file_uploads_create(
-        self,
-        request_body: gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.s3_file_upload.S3FileUpload:
-        import gsmtasks.paths.file_uploads_create.param_model
-
-        param_model = gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/file_uploads/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def file_uploads_retrieve(
         self,
         *,
@@ -5592,6 +5597,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def formrules_create(
+        self,
+        request_body: gsmtasks.components.schemas.form_rule.FormRule,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.formrules_create.param_model.FormrulesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.form_rule.FormRule:
+        import gsmtasks.paths.formrules_create.param_model
+
+        param_model = gsmtasks.paths.formrules_create.param_model.FormrulesCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/formrules/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -5643,32 +5677,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def formrules_create(
+    async def formrules_destroy(
         self,
-        request_body: gsmtasks.components.schemas.form_rule.FormRule,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.formrules_create.param_model.FormrulesCreateFormat,
+            gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.form_rule.FormRule:
-        import gsmtasks.paths.formrules_create.param_model
+    ) -> None:
+        import gsmtasks.paths.formrules_destroy.param_model
 
-        param_model = gsmtasks.paths.formrules_create.param_model.FormrulesCreate(
+        param_model = gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/formrules/",
+            "DELETE",
+            f"/formrules/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -5761,27 +5787,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def formrules_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.formrules_destroy.param_model
-
-        param_model = gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/formrules/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def integrations_create(
         self,
         request_body: gsmtasks.components.schemas.integration_request.IntegrationRequest,
@@ -5806,6 +5811,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "201": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.integration_request.IntegrationRequest,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.integration_request.IntegrationRequest,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def metafields_create(
+        self,
+        request_body: gsmtasks.components.schemas.metafield.Metafield,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.metafields_create.param_model.MetafieldsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.metafield.Metafield:
+        import gsmtasks.paths.metafields_create.param_model
+
+        param_model = gsmtasks.paths.metafields_create.param_model.MetafieldsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/metafields/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -6005,32 +6039,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def metafields_create(
+    async def metafields_destroy(
         self,
-        request_body: gsmtasks.components.schemas.metafield.Metafield,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.metafields_create.param_model.MetafieldsCreateFormat,
+            gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.metafield.Metafield:
-        import gsmtasks.paths.metafields_create.param_model
+    ) -> None:
+        import gsmtasks.paths.metafields_destroy.param_model
 
-        param_model = gsmtasks.paths.metafields_create.param_model.MetafieldsCreate(
+        param_model = gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/metafields/",
+            "DELETE",
+            f"/metafields/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -6121,24 +6147,32 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def metafields_destroy(
+    async def notification_templates_create(
         self,
+        request_body: gsmtasks.components.schemas.notification_template.NotificationTemplate,
+        /,
         *,
-        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroyFormat,
+            gsmtasks.paths.notification_templates_create.param_model.NotificationTemplatesCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.metafields_destroy.param_model
+    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
+        import gsmtasks.paths.notification_templates_create.param_model
 
-        param_model = gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroy(
+        param_model = gsmtasks.paths.notification_templates_create.param_model.NotificationTemplatesCreate(
             **locals()
         )
         return await super()._request(
-            "DELETE",
-            f"/metafields/{p_id}/",
+            "POST",
+            f"/notification_templates/",
             param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -6300,32 +6334,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def notification_templates_create(
+    async def notification_templates_destroy(
         self,
-        request_body: gsmtasks.components.schemas.notification_template.NotificationTemplate,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.notification_templates_create.param_model.NotificationTemplatesCreateFormat,
+            gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
-        import gsmtasks.paths.notification_templates_create.param_model
+    ) -> None:
+        import gsmtasks.paths.notification_templates_destroy.param_model
 
-        param_model = gsmtasks.paths.notification_templates_create.param_model.NotificationTemplatesCreate(
+        param_model = gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/notification_templates/",
+            "DELETE",
+            f"/notification_templates/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -6416,27 +6442,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def notification_templates_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.notification_templates_destroy.param_model
-
-        param_model = gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/notification_templates/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def notification_templates_render_create(
         self,
         request_body: gsmtasks.components.schemas.render_request.RenderRequest,
@@ -6462,6 +6467,37 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.render_request.RenderRequest,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.render_request.RenderRequest,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def notifications_create(
+        self,
+        request_body: gsmtasks.components.schemas.notification.Notification,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.notifications_create.param_model.NotificationsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.notification.Notification:
+        import gsmtasks.paths.notifications_create.param_model
+
+        param_model = (
+            gsmtasks.paths.notifications_create.param_model.NotificationsCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/notifications/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -6661,37 +6697,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def notifications_create(
-        self,
-        request_body: gsmtasks.components.schemas.notification.Notification,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.notifications_create.param_model.NotificationsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.notification.Notification:
-        import gsmtasks.paths.notifications_create.param_model
-
-        param_model = (
-            gsmtasks.paths.notifications_create.param_model.NotificationsCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/notifications/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def notifications_retrieve(
         self,
         *,
@@ -6716,6 +6721,25 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification.Notification,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def orders_create(
+        self,
+        request_body: gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
+        /,
+    ) -> gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2:
+        param_model = None
+        return await super()._request(
+            "POST",
+            f"/orders/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -6849,25 +6873,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/json; version=2.4.11": list[
                         gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def orders_create(
-        self,
-        request_body: gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
-        /,
-    ) -> gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2:
-        param_model = None
-        return await super()._request(
-            "POST",
-            f"/orders/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -7032,6 +7037,35 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
                 },
             },
+        )
+
+    async def push_notifications_create(
+        self,
+        request_body: gsmtasks.components.schemas.push_notification.PushNotification,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.push_notifications_create.param_model.PushNotificationsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.push_notification.PushNotification:
+        import gsmtasks.paths.push_notifications_create.param_model
+
+        param_model = gsmtasks.paths.push_notifications_create.param_model.PushNotificationsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/push_notifications/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
+                },
+            },
+            auth=self.auth_tokenAuth,
         )
 
     async def push_notifications_list(
@@ -7290,32 +7324,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def push_notifications_create(
+    async def push_notifications_destroy(
         self,
-        request_body: gsmtasks.components.schemas.push_notification.PushNotification,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.push_notifications_create.param_model.PushNotificationsCreateFormat,
+            gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.push_notification.PushNotification:
-        import gsmtasks.paths.push_notifications_create.param_model
+    ) -> None:
+        import gsmtasks.paths.push_notifications_destroy.param_model
 
-        param_model = gsmtasks.paths.push_notifications_create.param_model.PushNotificationsCreate(
+        param_model = gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/push_notifications/",
+            "DELETE",
+            f"/push_notifications/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -7406,27 +7432,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def push_notifications_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.push_notifications_destroy.param_model
-
-        param_model = gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/push_notifications/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def push_notifications_resend_create(
         self,
         request_body: gsmtasks.components.schemas.push_notification.PushNotification,
@@ -7452,6 +7457,25 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def recurrences_create(
+        self,
+        request_body: gsmtasks.components.schemas.recurrence.Recurrence,
+        /,
+    ) -> gsmtasks.components.schemas.recurrence.Recurrence:
+        param_model = None
+        return await super()._request(
+            "POST",
+            f"/recurrences/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.recurrence.Recurrence,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -7852,25 +7876,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def recurrences_create(
-        self,
-        request_body: gsmtasks.components.schemas.recurrence.Recurrence,
-        /,
-    ) -> gsmtasks.components.schemas.recurrence.Recurrence:
-        param_model = None
-        return await super()._request(
-            "POST",
-            f"/recurrences/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.recurrence.Recurrence,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def recurrences_update(
         self,
         request_body: gsmtasks.components.schemas.recurrence.Recurrence,
@@ -8014,6 +8019,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def reviews_create(
+        self,
+        request_body: gsmtasks.components.schemas.review.Review,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.reviews_create.param_model.ReviewsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.review.Review:
+        import gsmtasks.paths.reviews_create.param_model
+
+        param_model = gsmtasks.paths.reviews_create.param_model.ReviewsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/reviews/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.review.Review,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.review.Review,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def reviews_list(
         self,
         *,
@@ -8098,35 +8132,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def reviews_create(
-        self,
-        request_body: gsmtasks.components.schemas.review.Review,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.reviews_create.param_model.ReviewsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.review.Review:
-        import gsmtasks.paths.reviews_create.param_model
-
-        param_model = gsmtasks.paths.reviews_create.param_model.ReviewsCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/reviews/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.review.Review,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.review.Review,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def reviews_retrieve(
         self,
         *,
@@ -8149,6 +8154,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.review.Review,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.review.Review,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def route_optimizations_create(
+        self,
+        request_body: gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.route_optimizations_create.param_model.RouteOptimizationsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
+        import gsmtasks.paths.route_optimizations_create.param_model
+
+        param_model = gsmtasks.paths.route_optimizations_create.param_model.RouteOptimizationsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/route_optimizations/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -8580,35 +8614,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def route_optimizations_create(
-        self,
-        request_body: gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.route_optimizations_create.param_model.RouteOptimizationsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
-        import gsmtasks.paths.route_optimizations_create.param_model
-
-        param_model = gsmtasks.paths.route_optimizations_create.param_model.RouteOptimizationsCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/route_optimizations/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def route_optimizations_retrieve(
         self,
         *,
@@ -8693,33 +8698,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def route_optimizations_routes_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.route_optimizations_routes_retrieve.param_model.RouteOptimizationsRoutesRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
-        import gsmtasks.paths.route_optimizations_routes_retrieve.param_model
-
-        param_model = gsmtasks.paths.route_optimizations_routes_retrieve.param_model.RouteOptimizationsRoutesRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/route_optimizations/{p_id}/routes/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def route_optimizations_routes_create(
         self,
         request_body: gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
@@ -8741,6 +8719,33 @@ class ApiClient(lapidary_base.ApiBase):
             f"/route_optimizations/{p_id}/routes/",
             param_model=param_model,
             request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def route_optimizations_routes_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.route_optimizations_routes_retrieve.param_model.RouteOptimizationsRoutesRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
+        import gsmtasks.paths.route_optimizations_routes_retrieve.param_model
+
+        param_model = gsmtasks.paths.route_optimizations_routes_retrieve.param_model.RouteOptimizationsRoutesRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/route_optimizations/{p_id}/routes/",
+            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
@@ -8775,6 +8780,25 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def routes_create(
+        self,
+        request_body: gsmtasks.components.schemas.route.Route,
+        /,
+    ) -> gsmtasks.components.schemas.route.Route:
+        param_model = None
+        return await super()._request(
+            "POST",
+            f"/routes/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -8905,22 +8929,20 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def routes_create(
+    async def routes_destroy(
         self,
-        request_body: gsmtasks.components.schemas.route.Route,
-        /,
-    ) -> gsmtasks.components.schemas.route.Route:
-        param_model = None
+        *,
+        p_id: uuid.UUID,
+    ) -> None:
+        import gsmtasks.paths.routes_destroy.param_model
+
+        param_model = gsmtasks.paths.routes_destroy.param_model.RoutesDestroy(
+            **locals()
+        )
         return await super()._request(
-            "POST",
-            f"/routes/",
+            "DELETE",
+            f"/routes/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -8993,23 +9015,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
                 },
             },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def routes_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-    ) -> None:
-        import gsmtasks.paths.routes_destroy.param_model
-
-        param_model = gsmtasks.paths.routes_destroy.param_model.RoutesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/routes/{p_id}/",
-            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -14241,6 +14246,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def signatures_create(
+        self,
+        request_body: gsmtasks.components.schemas.signature.Signature,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.signatures_create.param_model.SignaturesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.signature.Signature:
+        import gsmtasks.paths.signatures_create.param_model
+
+        param_model = gsmtasks.paths.signatures_create.param_model.SignaturesCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/signatures/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.signature.Signature,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.signature.Signature,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def signatures_list(
         self,
         *,
@@ -14411,35 +14445,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def signatures_create(
-        self,
-        request_body: gsmtasks.components.schemas.signature.Signature,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.signatures_create.param_model.SignaturesCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.signature.Signature:
-        import gsmtasks.paths.signatures_create.param_model
-
-        param_model = gsmtasks.paths.signatures_create.param_model.SignaturesCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/signatures/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.signature.Signature,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.signature.Signature,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def signatures_destroy(
         self,
         *,
@@ -14508,6 +14513,33 @@ class ApiClient(lapidary_base.ApiBase):
             f"/signatures/batch_delete/",
             param_model=param_model,
             request_body=request_body,
+            auth=self.auth_tokenAuth,
+        )
+
+    async def sms_create(
+        self,
+        request_body: gsmtasks.components.schemas.sms.SMS,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.sms_create.param_model.SmsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.sms.SMS:
+        import gsmtasks.paths.sms_create.param_model
+
+        param_model = gsmtasks.paths.sms_create.param_model.SmsCreate(**locals())
+        return await super()._request(
+            "POST",
+            f"/sms/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -14843,30 +14875,22 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def sms_create(
+    async def sms_destroy(
         self,
-        request_body: gsmtasks.components.schemas.sms.SMS,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.sms_create.param_model.SmsCreateFormat,
+            gsmtasks.paths.sms_destroy.param_model.SmsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.sms.SMS:
-        import gsmtasks.paths.sms_create.param_model
+    ) -> None:
+        import gsmtasks.paths.sms_destroy.param_model
 
-        param_model = gsmtasks.paths.sms_create.param_model.SmsCreate(**locals())
+        param_model = gsmtasks.paths.sms_destroy.param_model.SmsDestroy(**locals())
         return await super()._request(
-            "POST",
-            f"/sms/",
+            "DELETE",
+            f"/sms/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -14950,25 +14974,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
                 },
             },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def sms_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.sms_destroy.param_model.SmsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.sms_destroy.param_model
-
-        param_model = gsmtasks.paths.sms_destroy.param_model.SmsDestroy(**locals())
-        return await super()._request(
-            "DELETE",
-            f"/sms/{p_id}/",
-            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -15283,6 +15288,37 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def task_commands_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_command.TaskCommand,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.task_commands_create.param_model.TaskCommandsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_command.TaskCommand:
+        import gsmtasks.paths.task_commands_create.param_model
+
+        param_model = (
+            gsmtasks.paths.task_commands_create.param_model.TaskCommandsCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/task_commands/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def task_commands_list(
         self,
         *,
@@ -15504,37 +15540,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.task_command.TaskCommand
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def task_commands_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_command.TaskCommand,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.task_commands_create.param_model.TaskCommandsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_command.TaskCommand:
-        import gsmtasks.paths.task_commands_create.param_model
-
-        param_model = (
-            gsmtasks.paths.task_commands_create.param_model.TaskCommandsCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/task_commands/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -18335,6 +18340,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def task_forms_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_form.TaskForm,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.task_forms_create.param_model.TaskFormsCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_form.TaskForm:
+        import gsmtasks.paths.task_forms_create.param_model
+
+        param_model = gsmtasks.paths.task_forms_create.param_model.TaskFormsCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/task_forms/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def task_forms_list(
         self,
         *,
@@ -18461,32 +18495,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def task_forms_create(
+    async def task_forms_destroy(
         self,
-        request_body: gsmtasks.components.schemas.task_form.TaskForm,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.task_forms_create.param_model.TaskFormsCreateFormat,
+            gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_form.TaskForm:
-        import gsmtasks.paths.task_forms_create.param_model
+    ) -> None:
+        import gsmtasks.paths.task_forms_destroy.param_model
 
-        param_model = gsmtasks.paths.task_forms_create.param_model.TaskFormsCreate(
+        param_model = gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/task_forms/",
+            "DELETE",
+            f"/task_forms/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -18579,24 +18605,32 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def task_forms_destroy(
+    async def task_import_create(
         self,
+        request_body: gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+        /,
         *,
-        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroyFormat,
+            gsmtasks.paths.task_import_create.param_model.TaskImportCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.task_forms_destroy.param_model
+    ) -> gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport:
+        import gsmtasks.paths.task_import_create.param_model
 
-        param_model = gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroy(
+        param_model = gsmtasks.paths.task_import_create.param_model.TaskImportCreate(
             **locals()
         )
         return await super()._request(
-            "DELETE",
-            f"/task_forms/{p_id}/",
+            "POST",
+            f"/task_import/",
             param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -18848,35 +18882,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def task_import_create(
-        self,
-        request_body: gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.task_import_create.param_model.TaskImportCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport:
-        import gsmtasks.paths.task_import_create.param_model
-
-        param_model = gsmtasks.paths.task_import_create.param_model.TaskImportCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/task_import/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def task_import_retrieve(
         self,
         *,
@@ -18901,6 +18906,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def task_import_mapping_create(
+        self,
+        request_body: gsmtasks.components.schemas.import_mapping.ImportMapping,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.task_import_mapping_create.param_model.TaskImportMappingCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.import_mapping.ImportMapping:
+        import gsmtasks.paths.task_import_mapping_create.param_model
+
+        param_model = gsmtasks.paths.task_import_mapping_create.param_model.TaskImportMappingCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/task_import_mapping/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.import_mapping.ImportMapping,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.import_mapping.ImportMapping,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -19045,35 +19079,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.import_mapping.ImportMapping
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def task_import_mapping_create(
-        self,
-        request_body: gsmtasks.components.schemas.import_mapping.ImportMapping,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.task_import_mapping_create.param_model.TaskImportMappingCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.import_mapping.ImportMapping:
-        import gsmtasks.paths.task_import_mapping_create.param_model
-
-        param_model = gsmtasks.paths.task_import_mapping_create.param_model.TaskImportMappingCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/task_import_mapping/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.import_mapping.ImportMapping,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.import_mapping.ImportMapping,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -19252,6 +19257,105 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.task_metadata.TaskMetadata,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_metadata.TaskMetadata,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_create.param_model.TasksCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
+        import gsmtasks.paths.tasks_create.param_model
+
+        param_model = gsmtasks.paths.tasks_create.param_model.TasksCreate(**locals())
+        return await super()._request(
+            "POST",
+            f"/tasks/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -21615,105 +21719,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def tasks_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_create.param_model.TasksCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
-        import gsmtasks.paths.tasks_create.param_model
-
-        param_model = gsmtasks.paths.tasks_create.param_model.TasksCreate(**locals())
-        return await super()._request(
-            "POST",
-            f"/tasks/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def tasks_update(
         self,
         request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
@@ -23656,6 +23661,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def time_location_features_create(
+        self,
+        request_body: gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.time_location_features_create.param_model.TimeLocationFeaturesCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.time_location_feature.TimeLocationFeature:
+        import gsmtasks.paths.time_location_features_create.param_model
+
+        param_model = gsmtasks.paths.time_location_features_create.param_model.TimeLocationFeaturesCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/time_location_features/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def time_location_features_list(
         self,
         *,
@@ -23822,32 +23856,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def time_location_features_create(
+    async def time_location_features_destroy(
         self,
-        request_body: gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.time_location_features_create.param_model.TimeLocationFeaturesCreateFormat,
+            gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.time_location_feature.TimeLocationFeature:
-        import gsmtasks.paths.time_location_features_create.param_model
+    ) -> None:
+        import gsmtasks.paths.time_location_features_destroy.param_model
 
-        param_model = gsmtasks.paths.time_location_features_create.param_model.TimeLocationFeaturesCreate(
+        param_model = gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/time_location_features/",
+            "DELETE",
+            f"/time_location_features/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -23938,24 +23964,34 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def time_location_features_destroy(
+    async def time_locations_create(
         self,
+        request_body: gsmtasks.components.schemas.time_location.TimeLocation,
+        /,
         *,
-        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroyFormat,
+            gsmtasks.paths.time_locations_create.param_model.TimeLocationsCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.time_location_features_destroy.param_model
+    ) -> gsmtasks.components.schemas.time_location.TimeLocation:
+        import gsmtasks.paths.time_locations_create.param_model
 
-        param_model = gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroy(
-            **locals()
+        param_model = (
+            gsmtasks.paths.time_locations_create.param_model.TimeLocationsCreate(
+                **locals()
+            )
         )
         return await super()._request(
-            "DELETE",
-            f"/time_location_features/{p_id}/",
+            "POST",
+            f"/time_locations/",
             param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -24125,37 +24161,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def time_locations_create(
-        self,
-        request_body: gsmtasks.components.schemas.time_location.TimeLocation,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.time_locations_create.param_model.TimeLocationsCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.time_location.TimeLocation:
-        import gsmtasks.paths.time_locations_create.param_model
-
-        param_model = (
-            gsmtasks.paths.time_locations_create.param_model.TimeLocationsCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/time_locations/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def time_locations_retrieve(
         self,
         *,
@@ -24180,6 +24185,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location.TimeLocation,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def trackers_create(
+        self,
+        request_body: gsmtasks.components.schemas.tracker.Tracker,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.trackers_create.param_model.TrackersCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.tracker.Tracker:
+        import gsmtasks.paths.trackers_create.param_model
+
+        param_model = gsmtasks.paths.trackers_create.param_model.TrackersCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/trackers/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -24309,35 +24343,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def trackers_create(
-        self,
-        request_body: gsmtasks.components.schemas.tracker.Tracker,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.trackers_create.param_model.TrackersCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.tracker.Tracker:
-        import gsmtasks.paths.trackers_create.param_model
-
-        param_model = gsmtasks.paths.trackers_create.param_model.TrackersCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/trackers/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def trackers_update(
         self,
         request_body: gsmtasks.components.schemas.tracker.Tracker,
@@ -24456,6 +24461,48 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def users_create(
+        self,
+        request_body: gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.users_create.param_model.UsersCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_create.param_model
+
+        param_model = gsmtasks.paths.users_create.param_model.UsersCreate(**locals())
+        return await super()._request(
+            "POST",
+            f"/users/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def users_list(
         self,
         *,
@@ -24513,13 +24560,12 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def users_create(
+    async def users_destroy(
         self,
-        request_body: gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.users_create.param_model.UsersCreateFormat,
+            gsmtasks.paths.users_destroy.param_model.UsersDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> typing.Union[
@@ -24528,14 +24574,13 @@ class ApiClient(lapidary_base.ApiBase):
         gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
         gsmtasks.components.schemas.readable_user.ReadableUser,
     ]:
-        import gsmtasks.paths.users_create.param_model
+        import gsmtasks.paths.users_destroy.param_model
 
-        param_model = gsmtasks.paths.users_create.param_model.UsersCreate(**locals())
+        param_model = gsmtasks.paths.users_destroy.param_model.UsersDestroy(**locals())
         return await super()._request(
-            "POST",
-            f"/users/",
+            "DELETE",
+            f"/users/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": typing.Union[
@@ -24687,46 +24732,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def users_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_destroy.param_model.UsersDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_destroy.param_model
-
-        param_model = gsmtasks.paths.users_destroy.param_model.UsersDestroy(**locals())
-        return await super()._request(
-            "DELETE",
-            f"/users/{p_id}/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def users_activate_create(
         self,
         request_body: gsmtasks.components.schemas.user_activation.UserActivation,
@@ -24755,6 +24760,50 @@ class ApiClient(lapidary_base.ApiBase):
             f"/users/{p_id}/activate/",
             param_model=param_model,
             request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_on_duty_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_on_duty_destroy.param_model.UsersOnDutyDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_on_duty_destroy.param_model
+
+        param_model = (
+            gsmtasks.paths.users_on_duty_destroy.param_model.UsersOnDutyDestroy(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "DELETE",
+            f"/users/{p_id}/on_duty/",
+            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": typing.Union[
@@ -24863,45 +24912,32 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def users_on_duty_destroy(
+    async def users_on_duty_log_create(
         self,
+        request_body: gsmtasks.components.schemas.working_state.WorkingState,
+        /,
         *,
-        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.users_on_duty_destroy.param_model.UsersOnDutyDestroyFormat,
+            gsmtasks.paths.users_on_duty_log_create.param_model.UsersOnDutyLogCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_on_duty_destroy.param_model
+    ) -> gsmtasks.components.schemas.working_state.WorkingState:
+        import gsmtasks.paths.users_on_duty_log_create.param_model
 
         param_model = (
-            gsmtasks.paths.users_on_duty_destroy.param_model.UsersOnDutyDestroy(
+            gsmtasks.paths.users_on_duty_log_create.param_model.UsersOnDutyLogCreate(
                 **locals()
             )
         )
         return await super()._request(
-            "DELETE",
-            f"/users/{p_id}/on_duty/",
+            "POST",
+            f"/users_on_duty_log/",
             param_model=param_model,
+            request_body=request_body,
             response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -25051,37 +25087,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def users_on_duty_log_create(
-        self,
-        request_body: gsmtasks.components.schemas.working_state.WorkingState,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.users_on_duty_log_create.param_model.UsersOnDutyLogCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.working_state.WorkingState:
-        import gsmtasks.paths.users_on_duty_log_create.param_model
-
-        param_model = (
-            gsmtasks.paths.users_on_duty_log_create.param_model.UsersOnDutyLogCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/users_on_duty_log/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def users_on_duty_log_retrieve(
         self,
         *,
@@ -25104,6 +25109,35 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def webhooks_create(
+        self,
+        request_body: gsmtasks.components.schemas.webhook.Webhook,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.webhooks_create.param_model.WebhooksCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.webhook.Webhook:
+        import gsmtasks.paths.webhooks_create.param_model
+
+        param_model = gsmtasks.paths.webhooks_create.param_model.WebhooksCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/webhooks/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -25181,32 +25215,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def webhooks_create(
+    async def webhooks_destroy(
         self,
-        request_body: gsmtasks.components.schemas.webhook.Webhook,
-        /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.webhooks_create.param_model.WebhooksCreateFormat,
+            gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroyFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.webhook.Webhook:
-        import gsmtasks.paths.webhooks_create.param_model
+    ) -> None:
+        import gsmtasks.paths.webhooks_destroy.param_model
 
-        param_model = gsmtasks.paths.webhooks_create.param_model.WebhooksCreate(
+        param_model = gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroy(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/webhooks/",
+            "DELETE",
+            f"/webhooks/{p_id}/",
             param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                },
-            },
             auth=self.auth_tokenAuth,
         )
 
@@ -25296,27 +25322,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
                 },
             },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def webhooks_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.webhooks_destroy.param_model
-
-        param_model = gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/webhooks/{p_id}/",
-            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -25783,6 +25788,37 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def working_state_create(
+        self,
+        request_body: gsmtasks.components.schemas.working_state.WorkingState,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.working_state_create.param_model.WorkingStateCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.working_state.WorkingState:
+        import gsmtasks.paths.working_state_create.param_model
+
+        param_model = (
+            gsmtasks.paths.working_state_create.param_model.WorkingStateCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/working_state/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def working_state_list(
         self,
         *,
@@ -25920,37 +25956,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.working_state.WorkingState
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def working_state_create(
-        self,
-        request_body: gsmtasks.components.schemas.working_state.WorkingState,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.working_state_create.param_model.WorkingStateCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.working_state.WorkingState:
-        import gsmtasks.paths.working_state_create.param_model
-
-        param_model = (
-            gsmtasks.paths.working_state_create.param_model.WorkingStateCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/working_state/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.working_state.WorkingState,
                 },
             },
             auth=self.auth_tokenAuth,
