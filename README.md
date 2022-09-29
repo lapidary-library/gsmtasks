@@ -1,6 +1,6 @@
 Unofficial Python client for [GSMTasks API](https://api.gsmtasks.com/). 
 
-This code is machine generated
+This code is machine generated using [Lapidary](https://github.com/python-lapidary/lapidary/).
 
 ## Licensing
 As this code is machine generated, it's distributed as Public Domain.
