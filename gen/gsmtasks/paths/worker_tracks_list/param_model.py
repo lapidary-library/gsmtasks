@@ -6,9 +6,12 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class WorkerTracksListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class WorkerTracksList(pydantic.BaseModel):
     q_created_at__date: typing.Annotated[
@@ -18,8 +21,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -29,8 +32,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -40,8 +43,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -51,8 +54,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -62,8 +65,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -73,8 +76,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -84,8 +87,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -95,8 +98,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -106,8 +109,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -117,8 +120,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__date: typing.Annotated[
@@ -128,8 +131,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__date',
-        )
+            alias="end_time__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__date_or_isnull: typing.Annotated[
@@ -139,8 +142,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__date_or_isnull',
-        )
+            alias="end_time__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__gt: typing.Annotated[
@@ -150,8 +153,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__gt',
-        )
+            alias="end_time__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__gt_or_isnull: typing.Annotated[
@@ -161,8 +164,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__gt_or_isnull',
-        )
+            alias="end_time__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__gte: typing.Annotated[
@@ -172,8 +175,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__gte',
-        )
+            alias="end_time__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__gte_or_isnull: typing.Annotated[
@@ -183,8 +186,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__gte_or_isnull',
-        )
+            alias="end_time__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__lt: typing.Annotated[
@@ -194,8 +197,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__lt',
-        )
+            alias="end_time__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__lt_or_isnull: typing.Annotated[
@@ -205,8 +208,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__lt_or_isnull',
-        )
+            alias="end_time__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__lte: typing.Annotated[
@@ -216,8 +219,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__lte',
-        )
+            alias="end_time__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_end_time__lte_or_isnull: typing.Annotated[
@@ -227,8 +230,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='end_time__lte_or_isnull',
-        )
+            alias="end_time__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -238,8 +241,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__date: typing.Annotated[
@@ -249,8 +252,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__date',
-        )
+            alias="start_time__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__date_or_isnull: typing.Annotated[
@@ -260,8 +263,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__date_or_isnull',
-        )
+            alias="start_time__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__gt: typing.Annotated[
@@ -271,8 +274,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__gt',
-        )
+            alias="start_time__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__gt_or_isnull: typing.Annotated[
@@ -282,8 +285,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__gt_or_isnull',
-        )
+            alias="start_time__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__gte: typing.Annotated[
@@ -293,8 +296,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__gte',
-        )
+            alias="start_time__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__gte_or_isnull: typing.Annotated[
@@ -304,8 +307,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__gte_or_isnull',
-        )
+            alias="start_time__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__lt: typing.Annotated[
@@ -315,8 +318,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__lt',
-        )
+            alias="start_time__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__lt_or_isnull: typing.Annotated[
@@ -326,8 +329,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__lt_or_isnull',
-        )
+            alias="start_time__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__lte: typing.Annotated[
@@ -337,8 +340,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__lte',
-        )
+            alias="start_time__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_start_time__lte_or_isnull: typing.Annotated[
@@ -348,8 +351,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='start_time__lte_or_isnull',
-        )
+            alias="start_time__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -359,8 +362,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -370,8 +373,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -381,8 +384,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -392,8 +395,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -403,8 +406,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -414,8 +417,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -425,8 +428,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -436,8 +439,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -447,8 +450,8 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -458,11 +461,12 @@ class WorkerTracksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 WorkerTracksList.update_forward_refs()

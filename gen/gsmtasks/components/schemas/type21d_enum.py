@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class Type21dEnum(enum.Enum):
-    service = 'service'
-    delivery = 'delivery'
 
+
+class Type21dEnum(enum.Enum):
+    service = "service"
+    delivery = "delivery"

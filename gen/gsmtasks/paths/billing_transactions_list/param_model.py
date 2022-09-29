@@ -5,21 +5,25 @@ import lapidary_base
 import pydantic
 import enum
 import lapidary_base.absent
+
+
 class BillingTransactionsListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class BillingTransactionsListState(enum.Enum):
-    draft = 'draft'
-    failed = 'failed'
-    saved = 'saved'
-    settled = 'settled'
-    rejected = 'rejected'
-    voided = 'voided'
-    refunded = 'refunded'
-    retried = 'retried'
-    cancelled = 'cancelled'
-    imported = 'imported'
+    draft = "draft"
+    failed = "failed"
+    saved = "saved"
+    settled = "settled"
+    rejected = "rejected"
+    voided = "voided"
+    refunded = "refunded"
+    retried = "retried"
+    cancelled = "cancelled"
+    imported = "imported"
+
 
 class BillingTransactionsList(pydantic.BaseModel):
     q_cursor: typing.Annotated[
@@ -29,8 +33,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_customer: typing.Annotated[
@@ -40,8 +44,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='customer',
-        )
+            alias="customer",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -51,8 +55,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_invoice__account: typing.Annotated[
@@ -62,8 +66,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='invoice__account',
-        )
+            alias="invoice__account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -73,8 +77,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -84,8 +88,8 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -95,11 +99,12 @@ class BillingTransactionsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 BillingTransactionsList.update_forward_refs()

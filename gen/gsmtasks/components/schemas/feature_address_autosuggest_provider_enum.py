@@ -4,9 +4,10 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class FeatureAddressAutosuggestProviderEnum(enum.Enum):
-    google = 'google'
-    heremaps = 'heremaps'
-    regio = 'regio'
-    janaseta = 'janaseta'
 
+
+class FeatureAddressAutosuggestProviderEnum(enum.Enum):
+    google = "google"
+    heremaps = "heremaps"
+    regio = "regio"
+    janaseta = "janaseta"

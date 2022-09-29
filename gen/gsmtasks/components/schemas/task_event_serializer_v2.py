@@ -6,41 +6,37 @@ import pydantic
 import datetime
 import gsmtasks.components.schemas.blank_enum
 import gsmtasks.components.schemas.field_enum
-import gsmtasks.components.schemas.task_serializer_v2
+import gsmtasks.components.schemas.task_event_task
 import lapidary_base.absent
 import uuid
+
+
 class TaskEventSerializerV2(pydantic.BaseModel):
     id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     url: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-        )
-    ]
+    account: typing.Annotated[str, pydantic.Field()]
 
     task: typing.Annotated[
-        gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-        pydantic.Field(
-        )
+        gsmtasks.components.schemas.task_event_task.TaskEventTask, pydantic.Field()
     ]
 
     task_command: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     field: typing.Annotated[
@@ -50,35 +46,35 @@ class TaskEventSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     event: typing.Annotated[
         typing.Any,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     from_state: typing.Annotated[
         typing.Any,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     to_state: typing.Annotated[
         typing.Any,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     user: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     notes: typing.Annotated[
@@ -86,8 +82,7 @@ class TaskEventSerializerV2(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     location: typing.Annotated[
@@ -96,31 +91,27 @@ class TaskEventSerializerV2(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
-    assignee: typing.Annotated[
-        str,
-        pydantic.Field(
-        )
-    ]
+    assignee: typing.Annotated[str, pydantic.Field()]
 
     created_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     updated_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 TaskEventSerializerV2.update_forward_refs()

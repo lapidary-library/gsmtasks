@@ -5,9 +5,12 @@ import lapidary_base
 import pydantic
 import enum
 import lapidary_base.absent
+
+
 class FormrulesListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class FormrulesList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -17,8 +20,8 @@ class FormrulesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -28,8 +31,8 @@ class FormrulesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -39,8 +42,8 @@ class FormrulesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -50,8 +53,8 @@ class FormrulesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -61,11 +64,12 @@ class FormrulesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 FormrulesList.update_forward_refs()

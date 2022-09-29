@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class PatchedBraintreeCustomer(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -14,7 +16,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -24,7 +26,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     braintree_id: typing.Annotated[
@@ -35,7 +37,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=36,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -43,8 +45,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     first_name: typing.Annotated[
@@ -54,7 +55,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=255,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     last_name: typing.Annotated[
@@ -64,7 +65,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=255,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     company: typing.Annotated[
@@ -74,7 +75,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=255,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[
@@ -84,7 +85,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=254,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     phone: typing.Annotated[
@@ -94,7 +95,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=14,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     website: typing.Annotated[
@@ -104,7 +105,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     vat: typing.Annotated[
@@ -114,7 +115,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=20,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     payment_method_nonce: typing.Annotated[
@@ -125,7 +126,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=250,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -135,7 +136,7 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -145,10 +146,11 @@ class PatchedBraintreeCustomer(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedBraintreeCustomer.update_forward_refs()

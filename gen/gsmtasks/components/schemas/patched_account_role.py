@@ -4,10 +4,11 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
-import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.vehicle_profile_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedAccountRole(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -16,7 +17,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -26,7 +27,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -34,8 +35,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     user: typing.Annotated[
@@ -43,8 +43,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -54,7 +53,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[
@@ -64,7 +63,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     display_name: typing.Annotated[
@@ -74,8 +73,8 @@ class PatchedAccountRole(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            max_length=30,
-        )
+            max_length=100,
+        ),
     ] = lapidary_base.absent.ABSENT
 
     phone: typing.Annotated[
@@ -85,7 +84,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=128,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     vehicle_registration_number: typing.Annotated[
@@ -95,7 +94,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=32,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     vehicle_profile: typing.Annotated[
@@ -103,20 +102,18 @@ class PatchedAccountRole(pydantic.BaseModel):
             gsmtasks.components.schemas.vehicle_profile_enum.VehicleProfileEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     vehicle_capacity: typing.Annotated[
         typing.Union[
             list[
-            int,
-        ],
+                int,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     vehicle_speed_factor: typing.Annotated[
@@ -125,8 +122,8 @@ class PatchedAccountRole(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r'^-?\d{0,1}(?:\.\d{0,1})?$',
-        )
+            regex=r"^-?\d{0,1}(?:\.\d{0,1})?$",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     vehicle_service_time_factor: typing.Annotated[
@@ -135,26 +132,26 @@ class PatchedAccountRole(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r'^-?\d{0,1}(?:\.\d{0,1})?$',
-        )
+            regex=r"^-?\d{0,1}(?:\.\d{0,1})?$",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     route_start_address: typing.Annotated[
         typing.Union[
-            gsmtasks.components.schemas.nested_address.NestedAddress,
+            typing.Any,
+            None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     route_end_address: typing.Annotated[
         typing.Union[
-            gsmtasks.components.schemas.nested_address.NestedAddress,
+            typing.Any,
+            None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     signature_image: typing.Annotated[
@@ -164,7 +161,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     is_manager: typing.Annotated[
@@ -172,8 +169,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_worker: typing.Annotated[
@@ -181,8 +177,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_integration: typing.Annotated[
@@ -190,8 +185,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_active: typing.Annotated[
@@ -201,7 +195,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     is_on_duty: typing.Annotated[
@@ -211,7 +205,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     show_unassigned: typing.Annotated[
@@ -219,8 +213,7 @@ class PatchedAccountRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     last_time_location: typing.Annotated[
@@ -230,7 +223,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     activated_at: typing.Annotated[
@@ -240,7 +233,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     deleted_at: typing.Annotated[
@@ -250,7 +243,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -260,7 +253,7 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -270,10 +263,11 @@ class PatchedAccountRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedAccountRole.update_forward_refs()

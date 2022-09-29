@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class BlankEnum(enum.Enum):
-    v_ = ''
 
+
+class BlankEnum(enum.Enum):
+    v_ = ""

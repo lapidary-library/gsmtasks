@@ -5,26 +5,21 @@ import lapidary_base
 import pydantic
 import gsmtasks.components.schemas.level_enum
 import lapidary_base.absent
+
+
 class ConfigurationNotification(pydantic.BaseModel):
     level: typing.Annotated[
-        gsmtasks.components.schemas.level_enum.LevelEnum,
-        pydantic.Field(
-        )
+        gsmtasks.components.schemas.level_enum.LevelEnum, pydantic.Field()
     ]
 
-    message: typing.Annotated[
-        str,
-        pydantic.Field(
-        )
-    ]
+    message: typing.Annotated[str, pydantic.Field()]
 
     url: typing.Annotated[
         typing.Union[
             str,
             None,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ]
 
     persist: typing.Annotated[
@@ -32,8 +27,7 @@ class ConfigurationNotification(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     open_in_new_window: typing.Annotated[
@@ -41,11 +35,11 @@ class ConfigurationNotification(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ConfigurationNotification.update_forward_refs()

@@ -6,9 +6,12 @@ import pydantic
 import enum
 import lapidary_base.absent
 import uuid
+
+
 class ClientsRetrieveFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class ClientsRetrieve(pydantic.BaseModel):
     q_format: typing.Annotated[
@@ -18,19 +21,20 @@ class ClientsRetrieve(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     p_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.path,
-            alias='id',
-        )
+            alias="id",
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ClientsRetrieve.update_forward_refs()

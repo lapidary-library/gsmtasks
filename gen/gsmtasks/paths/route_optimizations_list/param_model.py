@@ -6,22 +6,27 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class RouteOptimizationsListFormat(enum.Enum):
-    json = 'json'
-    xml = 'xml'
+    json = "json"
+    xml = "xml"
+
 
 class RouteOptimizationsListObjective(enum.Enum):
-    vehicles = 'vehicles'
-    transport_time = 'transport_time'
-    completion_time = 'completion_time'
+    vehicles = "vehicles"
+    transport_time = "transport_time"
+    completion_time = "completion_time"
+
 
 class RouteOptimizationsListState(enum.Enum):
-    pending = 'pending'
-    started = 'started'
-    ready = 'ready'
-    completed = 'completed'
-    over_quota = 'over_quota'
-    failed = 'failed'
+    pending = "pending"
+    started = "started"
+    ready = "ready"
+    completed = "completed"
+    over_quota = "over_quota"
+    failed = "failed"
+
 
 class RouteOptimizationsList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -31,8 +36,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_assignees__id__in: typing.Annotated[
@@ -42,8 +47,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='assignees__id__in',
-        )
+            alias="assignees__id__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__date: typing.Annotated[
@@ -53,8 +58,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__date',
-        )
+            alias="commited_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__date_or_isnull: typing.Annotated[
@@ -64,8 +69,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__date_or_isnull',
-        )
+            alias="commited_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__gt: typing.Annotated[
@@ -75,8 +80,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__gt',
-        )
+            alias="commited_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__gt_or_isnull: typing.Annotated[
@@ -86,8 +91,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__gt_or_isnull',
-        )
+            alias="commited_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__gte: typing.Annotated[
@@ -97,8 +102,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__gte',
-        )
+            alias="commited_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__gte_or_isnull: typing.Annotated[
@@ -108,8 +113,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__gte_or_isnull',
-        )
+            alias="commited_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__lt: typing.Annotated[
@@ -119,8 +124,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__lt',
-        )
+            alias="commited_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__lt_or_isnull: typing.Annotated[
@@ -130,8 +135,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__lt_or_isnull',
-        )
+            alias="commited_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__lte: typing.Annotated[
@@ -141,8 +146,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__lte',
-        )
+            alias="commited_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_commited_at__lte_or_isnull: typing.Annotated[
@@ -152,8 +157,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='commited_at__lte_or_isnull',
-        )
+            alias="commited_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__date: typing.Annotated[
@@ -163,8 +168,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__date',
-        )
+            alias="completed_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__date_or_isnull: typing.Annotated[
@@ -174,8 +179,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__date_or_isnull',
-        )
+            alias="completed_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__gt: typing.Annotated[
@@ -185,8 +190,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__gt',
-        )
+            alias="completed_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__gt_or_isnull: typing.Annotated[
@@ -196,8 +201,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__gt_or_isnull',
-        )
+            alias="completed_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__gte: typing.Annotated[
@@ -207,8 +212,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__gte',
-        )
+            alias="completed_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__gte_or_isnull: typing.Annotated[
@@ -218,8 +223,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__gte_or_isnull',
-        )
+            alias="completed_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__lt: typing.Annotated[
@@ -229,8 +234,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__lt',
-        )
+            alias="completed_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__lt_or_isnull: typing.Annotated[
@@ -240,8 +245,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__lt_or_isnull',
-        )
+            alias="completed_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__lte: typing.Annotated[
@@ -251,8 +256,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__lte',
-        )
+            alias="completed_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_completed_at__lte_or_isnull: typing.Annotated[
@@ -262,8 +267,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed_at__lte_or_isnull',
-        )
+            alias="completed_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -273,8 +278,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -284,8 +289,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -295,8 +300,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -306,8 +311,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -317,8 +322,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -328,8 +333,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -339,8 +344,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -350,8 +355,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -361,8 +366,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -372,8 +377,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -383,8 +388,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__date: typing.Annotated[
@@ -394,8 +399,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__date',
-        )
+            alias="failed_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__date_or_isnull: typing.Annotated[
@@ -405,8 +410,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__date_or_isnull',
-        )
+            alias="failed_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__gt: typing.Annotated[
@@ -416,8 +421,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__gt',
-        )
+            alias="failed_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__gt_or_isnull: typing.Annotated[
@@ -427,8 +432,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__gt_or_isnull',
-        )
+            alias="failed_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__gte: typing.Annotated[
@@ -438,8 +443,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__gte',
-        )
+            alias="failed_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__gte_or_isnull: typing.Annotated[
@@ -449,8 +454,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__gte_or_isnull',
-        )
+            alias="failed_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__lt: typing.Annotated[
@@ -460,8 +465,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__lt',
-        )
+            alias="failed_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__lt_or_isnull: typing.Annotated[
@@ -471,8 +476,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__lt_or_isnull',
-        )
+            alias="failed_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__lte: typing.Annotated[
@@ -482,8 +487,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__lte',
-        )
+            alias="failed_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_failed_at__lte_or_isnull: typing.Annotated[
@@ -493,8 +498,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='failed_at__lte_or_isnull',
-        )
+            alias="failed_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -504,8 +509,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_id: typing.Annotated[
@@ -515,8 +520,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='id',
-        )
+            alias="id",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_objective: typing.Annotated[
@@ -526,8 +531,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='objective',
-        )
+            alias="objective",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_objective__in: typing.Annotated[
@@ -537,8 +542,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='objective__in',
-        )
+            alias="objective__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -548,8 +553,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -559,8 +564,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__date: typing.Annotated[
@@ -570,8 +575,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__date',
-        )
+            alias="ready_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__date_or_isnull: typing.Annotated[
@@ -581,8 +586,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__date_or_isnull',
-        )
+            alias="ready_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__gt: typing.Annotated[
@@ -592,8 +597,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__gt',
-        )
+            alias="ready_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__gt_or_isnull: typing.Annotated[
@@ -603,8 +608,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__gt_or_isnull',
-        )
+            alias="ready_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__gte: typing.Annotated[
@@ -614,8 +619,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__gte',
-        )
+            alias="ready_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__gte_or_isnull: typing.Annotated[
@@ -625,8 +630,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__gte_or_isnull',
-        )
+            alias="ready_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__lt: typing.Annotated[
@@ -636,8 +641,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__lt',
-        )
+            alias="ready_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__lt_or_isnull: typing.Annotated[
@@ -647,8 +652,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__lt_or_isnull',
-        )
+            alias="ready_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__lte: typing.Annotated[
@@ -658,8 +663,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__lte',
-        )
+            alias="ready_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ready_at__lte_or_isnull: typing.Annotated[
@@ -669,8 +674,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ready_at__lte_or_isnull',
-        )
+            alias="ready_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__date: typing.Annotated[
@@ -680,8 +685,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__date',
-        )
+            alias="scheduled_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__date_or_isnull: typing.Annotated[
@@ -691,8 +696,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__date_or_isnull',
-        )
+            alias="scheduled_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__gt: typing.Annotated[
@@ -702,8 +707,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__gt',
-        )
+            alias="scheduled_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__gt_or_isnull: typing.Annotated[
@@ -713,8 +718,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__gt_or_isnull',
-        )
+            alias="scheduled_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__gte: typing.Annotated[
@@ -724,8 +729,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__gte',
-        )
+            alias="scheduled_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__gte_or_isnull: typing.Annotated[
@@ -735,8 +740,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__gte_or_isnull',
-        )
+            alias="scheduled_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__lt: typing.Annotated[
@@ -746,8 +751,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__lt',
-        )
+            alias="scheduled_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__lt_or_isnull: typing.Annotated[
@@ -757,8 +762,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__lt_or_isnull',
-        )
+            alias="scheduled_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__lte: typing.Annotated[
@@ -768,8 +773,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__lte',
-        )
+            alias="scheduled_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_scheduled_at__lte_or_isnull: typing.Annotated[
@@ -779,8 +784,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='scheduled_at__lte_or_isnull',
-        )
+            alias="scheduled_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__date: typing.Annotated[
@@ -790,8 +795,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__date',
-        )
+            alias="started_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__date_or_isnull: typing.Annotated[
@@ -801,8 +806,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__date_or_isnull',
-        )
+            alias="started_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__gt: typing.Annotated[
@@ -812,8 +817,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__gt',
-        )
+            alias="started_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__gt_or_isnull: typing.Annotated[
@@ -823,8 +828,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__gt_or_isnull',
-        )
+            alias="started_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__gte: typing.Annotated[
@@ -834,8 +839,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__gte',
-        )
+            alias="started_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__gte_or_isnull: typing.Annotated[
@@ -845,8 +850,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__gte_or_isnull',
-        )
+            alias="started_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__lt: typing.Annotated[
@@ -856,8 +861,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__lt',
-        )
+            alias="started_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__lt_or_isnull: typing.Annotated[
@@ -867,8 +872,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__lt_or_isnull',
-        )
+            alias="started_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__lte: typing.Annotated[
@@ -878,8 +883,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__lte',
-        )
+            alias="started_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_started_at__lte_or_isnull: typing.Annotated[
@@ -889,8 +894,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='started_at__lte_or_isnull',
-        )
+            alias="started_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -900,8 +905,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state__in: typing.Annotated[
@@ -911,8 +916,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state__in',
-        )
+            alias="state__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_distance__gt: typing.Annotated[
@@ -922,8 +927,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_distance__gt',
-        )
+            alias="total_distance__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_distance__gte: typing.Annotated[
@@ -933,8 +938,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_distance__gte',
-        )
+            alias="total_distance__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_distance__lt: typing.Annotated[
@@ -944,8 +949,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_distance__lt',
-        )
+            alias="total_distance__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_distance__lte: typing.Annotated[
@@ -955,8 +960,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_distance__lte',
-        )
+            alias="total_distance__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_duration__gt: typing.Annotated[
@@ -966,8 +971,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_duration__gt',
-        )
+            alias="total_duration__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_duration__gte: typing.Annotated[
@@ -977,8 +982,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_duration__gte',
-        )
+            alias="total_duration__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_duration__lt: typing.Annotated[
@@ -988,8 +993,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_duration__lt',
-        )
+            alias="total_duration__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_total_duration__lte: typing.Annotated[
@@ -999,8 +1004,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='total_duration__lte',
-        )
+            alias="total_duration__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -1010,8 +1015,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -1021,8 +1026,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -1032,8 +1037,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -1043,8 +1048,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -1054,8 +1059,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -1065,8 +1070,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -1076,8 +1081,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -1087,8 +1092,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -1098,8 +1103,8 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -1109,11 +1114,12 @@ class RouteOptimizationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 RouteOptimizationsList.update_forward_refs()

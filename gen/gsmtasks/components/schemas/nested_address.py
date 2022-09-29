@@ -5,6 +5,8 @@ import lapidary_base
 import pydantic
 import datetime
 import lapidary_base.absent
+
+
 class NestedAddress(pydantic.BaseModel):
     raw_address: typing.Annotated[
         typing.Union[
@@ -13,7 +15,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=250,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     formatted_address: typing.Annotated[
@@ -23,7 +25,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=250,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     location: typing.Annotated[
@@ -32,8 +34,7 @@ class NestedAddress(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     google_place_id: typing.Annotated[
@@ -43,7 +44,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=250,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     point_of_interest: typing.Annotated[
@@ -53,7 +54,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     street: typing.Annotated[
@@ -63,7 +64,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     house_number: typing.Annotated[
@@ -73,7 +74,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     apartment_number: typing.Annotated[
@@ -84,7 +85,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     city: typing.Annotated[
@@ -94,7 +95,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -104,7 +105,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     postal_code: typing.Annotated[
@@ -114,7 +115,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     country: typing.Annotated[
@@ -124,7 +125,7 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     country_code: typing.Annotated[
@@ -134,14 +135,14 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=2,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     geocoded_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     geocode_failed_at: typing.Annotated[
@@ -151,10 +152,11 @@ class NestedAddress(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 NestedAddress.update_forward_refs()

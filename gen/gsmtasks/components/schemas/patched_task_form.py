@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class PatchedTaskForm(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -14,7 +16,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -24,7 +26,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     task: typing.Annotated[
@@ -32,8 +34,7 @@ class PatchedTaskForm(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[
@@ -43,7 +44,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=50,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     link: typing.Annotated[
@@ -53,7 +54,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     edit_url: typing.Annotated[
@@ -63,7 +64,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     view_url: typing.Annotated[
@@ -73,7 +74,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     pdf_url: typing.Annotated[
@@ -83,7 +84,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     completed: typing.Annotated[
@@ -91,8 +92,7 @@ class PatchedTaskForm(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -102,7 +102,7 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -112,10 +112,11 @@ class PatchedTaskForm(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedTaskForm.update_forward_refs()

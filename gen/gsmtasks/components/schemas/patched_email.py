@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class PatchedEmail(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -14,7 +16,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -24,7 +26,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -32,8 +34,7 @@ class PatchedEmail(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
@@ -43,7 +44,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=34,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -53,7 +54,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     notification: typing.Annotated[
@@ -63,7 +64,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     sender: typing.Annotated[
@@ -73,7 +74,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     from_email: typing.Annotated[
@@ -83,7 +84,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=254,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     reply_to_email: typing.Annotated[
@@ -93,18 +94,17 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=254,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     to_emails: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     subject: typing.Annotated[
@@ -114,7 +114,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=250,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     message: typing.Annotated[
@@ -122,8 +122,7 @@ class PatchedEmail(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     sent_at: typing.Annotated[
@@ -133,7 +132,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     failed_at: typing.Annotated[
@@ -143,7 +142,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     received_at: typing.Annotated[
@@ -153,7 +152,7 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -163,10 +162,11 @@ class PatchedEmail(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedEmail.update_forward_refs()

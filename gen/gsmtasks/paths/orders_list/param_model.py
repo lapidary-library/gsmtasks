@@ -5,6 +5,8 @@ import lapidary_base
 import pydantic
 import datetime
 import lapidary_base.absent
+
+
 class OrdersList(pydantic.BaseModel):
     q_account: typing.Annotated[
         typing.Union[
@@ -13,8 +15,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -24,8 +26,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -35,8 +37,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -46,8 +48,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -57,8 +59,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -68,8 +70,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -79,8 +81,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -90,8 +92,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -101,8 +103,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -112,8 +114,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -123,8 +125,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -134,8 +136,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_external_id: typing.Annotated[
@@ -145,8 +147,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='external_id',
-        )
+            alias="external_id",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_id: typing.Annotated[
@@ -156,8 +158,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='id',
-        )
+            alias="id",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -167,8 +169,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -178,8 +180,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_reference: typing.Annotated[
@@ -189,8 +191,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='reference',
-        )
+            alias="reference",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -200,8 +202,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -211,8 +213,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -222,8 +224,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -233,8 +235,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -244,8 +246,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -255,8 +257,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -266,8 +268,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -277,8 +279,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -288,8 +290,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -299,8 +301,8 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -310,11 +312,12 @@ class OrdersList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 OrdersList.update_forward_refs()

@@ -4,9 +4,10 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class ValueTypeEnum(enum.Enum):
-    string = 'string'
-    integer = 'integer'
-    decimal = 'decimal'
-    choice = 'choice'
 
+
+class ValueTypeEnum(enum.Enum):
+    string = "string"
+    integer = "integer"
+    decimal = "decimal"
+    choice = "choice"

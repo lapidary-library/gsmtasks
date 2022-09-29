@@ -12,33 +12,31 @@ import gsmtasks.components.schemas.recipient_enum
 import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
+
+
 class Notification(pydantic.BaseModel):
     id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     url: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     method: typing.Annotated[
         typing.Any,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-        )
-    ]
+    task: typing.Annotated[str, pydantic.Field()]
 
     template: typing.Annotated[
         typing.Union[
@@ -46,8 +44,7 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     event: typing.Annotated[
@@ -58,8 +55,7 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -70,8 +66,7 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     assignee_proximity: typing.Annotated[
@@ -82,8 +77,7 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     recipient: typing.Annotated[
@@ -94,31 +88,28 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     emails: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     phones: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     message: typing.Annotated[
@@ -126,8 +117,7 @@ class Notification(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     add_tracking_link: typing.Annotated[
@@ -135,15 +125,14 @@ class Notification(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     sms_count: typing.Annotated[
         int,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     sent_at: typing.Annotated[
@@ -152,46 +141,46 @@ class Notification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     via_app: typing.Annotated[
         bool,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     via_email: typing.Annotated[
         bool,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     via_sms: typing.Annotated[
         bool,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     created_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     updated_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 Notification.update_forward_refs()

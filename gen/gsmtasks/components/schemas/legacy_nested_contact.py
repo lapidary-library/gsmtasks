@@ -4,6 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import lapidary_base.absent
+
+
 class LegacyNestedContact(pydantic.BaseModel):
     name: typing.Annotated[
         typing.Union[
@@ -12,7 +14,7 @@ class LegacyNestedContact(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     company: typing.Annotated[
@@ -22,7 +24,7 @@ class LegacyNestedContact(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     phone: typing.Annotated[
@@ -33,7 +35,7 @@ class LegacyNestedContact(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[
@@ -44,29 +46,27 @@ class LegacyNestedContact(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     phones: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     emails: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     notes: typing.Annotated[
@@ -74,11 +74,11 @@ class LegacyNestedContact(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 LegacyNestedContact.update_forward_refs()

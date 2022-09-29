@@ -6,9 +6,12 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class TaskFormsListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class TaskFormsList(pydantic.BaseModel):
     q_completed: typing.Annotated[
@@ -18,8 +21,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='completed',
-        )
+            alias="completed",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -29,8 +32,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -40,8 +43,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -51,8 +54,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -62,8 +65,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -73,8 +76,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -84,8 +87,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -95,8 +98,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -106,8 +109,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -117,8 +120,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -128,8 +131,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -139,8 +142,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -150,8 +153,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -161,8 +164,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_task: typing.Annotated[
@@ -172,8 +175,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='task',
-        )
+            alias="task",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -183,8 +186,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -194,8 +197,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -205,8 +208,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -216,8 +219,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -227,8 +230,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -238,8 +241,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -249,8 +252,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -260,8 +263,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -271,8 +274,8 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -282,11 +285,12 @@ class TaskFormsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 TaskFormsList.update_forward_refs()

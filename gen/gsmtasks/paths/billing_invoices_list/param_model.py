@@ -6,21 +6,26 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class BillingInvoicesListBillingMethod(enum.Enum):
-    braintree = 'braintree'
-    invoice = 'invoice'
-    stripe = 'stripe'
+    braintree = "braintree"
+    invoice = "invoice"
+    stripe = "stripe"
+
 
 class BillingInvoicesListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class BillingInvoicesListState(enum.Enum):
-    draft = 'draft'
-    confirmed = 'confirmed'
-    overdue = 'overdue'
-    paid = 'paid'
-    cancelled = 'cancelled'
+    draft = "draft"
+    confirmed = "confirmed"
+    overdue = "overdue"
+    paid = "paid"
+    cancelled = "cancelled"
+
 
 class BillingInvoicesList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -30,8 +35,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_billing_method: typing.Annotated[
@@ -41,8 +46,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='billing_method',
-        )
+            alias="billing_method",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__date: typing.Annotated[
@@ -52,8 +57,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__date',
-        )
+            alias="confirmed_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__date_or_isnull: typing.Annotated[
@@ -63,8 +68,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__date_or_isnull',
-        )
+            alias="confirmed_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__gt: typing.Annotated[
@@ -74,8 +79,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__gt',
-        )
+            alias="confirmed_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__gt_or_isnull: typing.Annotated[
@@ -85,8 +90,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__gt_or_isnull',
-        )
+            alias="confirmed_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__gte: typing.Annotated[
@@ -96,8 +101,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__gte',
-        )
+            alias="confirmed_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__gte_or_isnull: typing.Annotated[
@@ -107,8 +112,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__gte_or_isnull',
-        )
+            alias="confirmed_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__lt: typing.Annotated[
@@ -118,8 +123,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__lt',
-        )
+            alias="confirmed_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__lt_or_isnull: typing.Annotated[
@@ -129,8 +134,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__lt_or_isnull',
-        )
+            alias="confirmed_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__lte: typing.Annotated[
@@ -140,8 +145,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__lte',
-        )
+            alias="confirmed_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_confirmed_at__lte_or_isnull: typing.Annotated[
@@ -151,8 +156,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='confirmed_at__lte_or_isnull',
-        )
+            alias="confirmed_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at: typing.Annotated[
@@ -162,8 +167,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at',
-        )
+            alias="created_at",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -173,8 +178,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -184,8 +189,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -195,8 +200,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -206,8 +211,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -217,8 +222,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -228,8 +233,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -239,8 +244,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -250,8 +255,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -261,8 +266,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -272,8 +277,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -283,8 +288,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -294,8 +299,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -305,8 +310,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -316,8 +321,8 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -327,11 +332,12 @@ class BillingInvoicesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 BillingInvoicesList.update_forward_refs()

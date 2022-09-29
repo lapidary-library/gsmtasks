@@ -10,13 +10,13 @@ authors = []
 license = "CC0-1.0 OR 0BSD"
 packages = [
     { include = 'gsmtasks', from = "gen" },
-    { include = 'gsmtasks_extras', from = 'src' }
+#    { include = 'gsmtasks_extras', from = 'src' }
 ]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 deprecation = "^2.0.6"
-lapidary-base = { path = '../../lapidary/lapidary-base', develop = true }
+lapidary-base = "0.3.0"
 pydantic = { extras = ["email"], version = "^1.9.2" }
 
 [tool.poetry.group.dev.dependencies]

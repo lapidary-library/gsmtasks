@@ -7,6 +7,8 @@ import datetime
 import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedTracker(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -15,7 +17,7 @@ class PatchedTracker(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -25,7 +27,7 @@ class PatchedTracker(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -33,19 +35,17 @@ class PatchedTracker(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     tasks: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     active_from: typing.Annotated[
@@ -54,8 +54,7 @@ class PatchedTracker(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     active_until: typing.Annotated[
@@ -64,30 +63,27 @@ class PatchedTracker(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     queued_states: typing.Annotated[
         typing.Union[
             list[
-            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
-        ],
+                gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     active_states: typing.Annotated[
         typing.Union[
             list[
-            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
-        ],
+                gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_driver_info: typing.Annotated[
@@ -95,8 +91,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_destination: typing.Annotated[
@@ -104,8 +99,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_eta: typing.Annotated[
@@ -113,8 +107,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_sms_action: typing.Annotated[
@@ -122,8 +115,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_call_action: typing.Annotated[
@@ -131,8 +123,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_logo: typing.Annotated[
@@ -140,8 +131,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_path: typing.Annotated[
@@ -149,8 +139,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_predicted_delivery: typing.Annotated[
@@ -158,8 +147,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     autozoom: typing.Annotated[
@@ -167,8 +155,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     max_zoom_level: typing.Annotated[
@@ -180,7 +167,7 @@ class PatchedTracker(pydantic.BaseModel):
         pydantic.Field(
             gt=-2147483648.0,
             le=2147483647.0,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     tracking_page_url: typing.Annotated[
@@ -190,7 +177,7 @@ class PatchedTracker(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     reviews_allowed: typing.Annotated[
@@ -198,8 +185,7 @@ class PatchedTracker(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     reviewed_at: typing.Annotated[
@@ -209,7 +195,7 @@ class PatchedTracker(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_by: typing.Annotated[
@@ -219,10 +205,11 @@ class PatchedTracker(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedTracker.update_forward_refs()

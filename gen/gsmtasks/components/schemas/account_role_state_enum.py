@@ -4,8 +4,9 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class AccountRoleStateEnum(enum.Enum):
-    inactive = 'inactive'
-    active = 'active'
-    deleted = 'deleted'
 
+
+class AccountRoleStateEnum(enum.Enum):
+    inactive = "inactive"
+    active = "active"
+    deleted = "deleted"

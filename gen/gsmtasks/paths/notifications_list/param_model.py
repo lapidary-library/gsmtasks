@@ -6,32 +6,37 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class NotificationsListEvent(enum.Enum):
-    create = 'create'
-    assign = 'assign'
-    unassign = 'unassign'
-    reject = 'reject'
-    accept = 'accept'
-    unaccept = 'unaccept'
-    transit = 'transit'
-    activate = 'activate'
-    complete = 'complete'
-    fail = 'fail'
-    cancel = 'cancel'
-    assignee_near = 'assignee_near'
-    assignee_away = 'assignee_away'
-    updated = 'updated'
+    create = "create"
+    assign = "assign"
+    unassign = "unassign"
+    reject = "reject"
+    accept = "accept"
+    unaccept = "unaccept"
+    transit = "transit"
+    activate = "activate"
+    complete = "complete"
+    fail = "fail"
+    cancel = "cancel"
+    assignee_near = "assignee_near"
+    assignee_away = "assignee_away"
+    updated = "updated"
+
 
 class NotificationsListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class NotificationsListRecipient(enum.Enum):
-    account = 'account'
-    assignee = 'assignee'
-    orderer = 'orderer'
-    contact = 'contact'
-    client = 'client'
+    account = "account"
+    assignee = "assignee"
+    orderer = "orderer"
+    contact = "contact"
+    client = "client"
+
 
 class NotificationsList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -41,8 +46,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -52,8 +57,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -63,8 +68,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -74,8 +79,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -85,8 +90,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -96,8 +101,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -107,8 +112,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -118,8 +123,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -129,8 +134,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -140,8 +145,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -151,8 +156,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -162,8 +167,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_event: typing.Annotated[
@@ -173,8 +178,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='event',
-        )
+            alias="event",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -184,8 +189,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -195,8 +200,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -206,8 +211,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_recipient: typing.Annotated[
@@ -217,8 +222,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='recipient',
-        )
+            alias="recipient",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -228,8 +233,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__date: typing.Annotated[
@@ -239,8 +244,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__date',
-        )
+            alias="sent_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__date_or_isnull: typing.Annotated[
@@ -250,8 +255,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__date_or_isnull',
-        )
+            alias="sent_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__gt: typing.Annotated[
@@ -261,8 +266,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__gt',
-        )
+            alias="sent_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__gt_or_isnull: typing.Annotated[
@@ -272,8 +277,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__gt_or_isnull',
-        )
+            alias="sent_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__gte: typing.Annotated[
@@ -283,8 +288,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__gte',
-        )
+            alias="sent_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__gte_or_isnull: typing.Annotated[
@@ -294,8 +299,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__gte_or_isnull',
-        )
+            alias="sent_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__lt: typing.Annotated[
@@ -305,8 +310,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__lt',
-        )
+            alias="sent_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__lt_or_isnull: typing.Annotated[
@@ -316,8 +321,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__lt_or_isnull',
-        )
+            alias="sent_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__lte: typing.Annotated[
@@ -327,8 +332,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__lte',
-        )
+            alias="sent_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_sent_at__lte_or_isnull: typing.Annotated[
@@ -338,8 +343,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='sent_at__lte_or_isnull',
-        )
+            alias="sent_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_task: typing.Annotated[
@@ -349,8 +354,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='task',
-        )
+            alias="task",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -360,8 +365,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -371,8 +376,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -382,8 +387,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -393,8 +398,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -404,8 +409,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -415,8 +420,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -426,8 +431,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -437,8 +442,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -448,8 +453,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -459,8 +464,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_via_app: typing.Annotated[
@@ -470,8 +475,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='via_app',
-        )
+            alias="via_app",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_via_email: typing.Annotated[
@@ -481,8 +486,8 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='via_email',
-        )
+            alias="via_email",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_via_sms: typing.Annotated[
@@ -492,11 +497,12 @@ class NotificationsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='via_sms',
-        )
+            alias="via_sms",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 NotificationsList.update_forward_refs()

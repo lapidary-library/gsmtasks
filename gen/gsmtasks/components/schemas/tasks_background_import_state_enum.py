@@ -4,9 +4,10 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class TasksBackgroundImportStateEnum(enum.Enum):
-    pending = 'pending'
-    started = 'started'
-    completed = 'completed'
-    failed = 'failed'
 
+
+class TasksBackgroundImportStateEnum(enum.Enum):
+    pending = "pending"
+    started = "started"
+    completed = "completed"
+    failed = "failed"

@@ -5,28 +5,33 @@ import lapidary_base
 import pydantic
 import enum
 import lapidary_base.absent
+
+
 class BillingStripePaymentsListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class BillingStripePaymentsListState(enum.Enum):
-    draft = 'draft'
-    failed = 'failed'
-    saved = 'saved'
-    settled = 'settled'
-    rejected = 'rejected'
-    retried = 'retried'
-    cancelled = 'cancelled'
+    draft = "draft"
+    failed = "failed"
+    saved = "saved"
+    settled = "settled"
+    rejected = "rejected"
+    retried = "retried"
+    cancelled = "cancelled"
+
 
 class BillingStripePaymentsListStripeState(enum.Enum):
     none = None
-    requires_payment_method = 'requires_payment_method'
-    requires_confirmation = 'requires_confirmation'
-    requires_capture = 'requires_capture'
-    requires_action = 'requires_action'
-    processing = 'processing'
-    succeeded = 'succeeded'
-    canceled = 'canceled'
+    requires_payment_method = "requires_payment_method"
+    requires_confirmation = "requires_confirmation"
+    requires_capture = "requires_capture"
+    requires_action = "requires_action"
+    processing = "processing"
+    succeeded = "succeeded"
+    canceled = "canceled"
+
 
 class BillingStripePaymentsList(pydantic.BaseModel):
     q_billable_account: typing.Annotated[
@@ -36,8 +41,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='billable_account',
-        )
+            alias="billable_account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -47,8 +52,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -58,8 +63,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_invoice: typing.Annotated[
@@ -69,8 +74,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='invoice',
-        )
+            alias="invoice",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -80,8 +85,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -91,8 +96,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -102,8 +107,8 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_stripe_state: typing.Annotated[
@@ -113,11 +118,12 @@ class BillingStripePaymentsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='stripe_state',
-        )
+            alias="stripe_state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 BillingStripePaymentsList.update_forward_refs()

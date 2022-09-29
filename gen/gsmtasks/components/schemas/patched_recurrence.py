@@ -7,9 +7,12 @@ import datetime
 import gsmtasks.components.schemas.timezone_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedRecurrenceTasksData(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 class PatchedRecurrence(pydantic.BaseModel):
     id: typing.Annotated[
@@ -19,7 +22,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -29,7 +32,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -37,8 +40,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     order: typing.Annotated[
@@ -46,8 +48,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     assignee: typing.Annotated[
@@ -56,8 +57,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_active: typing.Annotated[
@@ -65,8 +65,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     rrule: typing.Annotated[
@@ -74,8 +73,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     timezone: typing.Annotated[
@@ -83,8 +81,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             gsmtasks.components.schemas.timezone_enum.TimezoneEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     last_recurred_at: typing.Annotated[
@@ -94,7 +91,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     last_scheduled_at: typing.Annotated[
@@ -104,7 +101,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     next_scheduled_at: typing.Annotated[
@@ -114,7 +111,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     tasks_data: typing.Annotated[
@@ -122,8 +119,7 @@ class PatchedRecurrence(pydantic.BaseModel):
             PatchedRecurrenceTasksData,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     created_by: typing.Annotated[
@@ -133,7 +129,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -143,7 +139,7 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -153,11 +149,12 @@ class PatchedRecurrence(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedRecurrenceTasksData.update_forward_refs()
 PatchedRecurrence.update_forward_refs()

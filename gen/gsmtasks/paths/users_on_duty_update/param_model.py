@@ -6,9 +6,12 @@ import pydantic
 import enum
 import lapidary_base.absent
 import uuid
+
+
 class UsersOnDutyUpdateFormat(enum.Enum):
-    json = 'json'
-    xml = 'xml'
+    json = "json"
+    xml = "xml"
+
 
 class UsersOnDutyUpdate(pydantic.BaseModel):
     q_format: typing.Annotated[
@@ -18,19 +21,20 @@ class UsersOnDutyUpdate(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     p_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.path,
-            alias='id',
-        )
+            alias="id",
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 UsersOnDutyUpdate.update_forward_refs()

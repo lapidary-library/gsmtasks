@@ -4,12 +4,14 @@ import typing
 import lapidary_base
 import pydantic
 import lapidary_base.absent
+
+
 class ImportMappingLine(pydantic.BaseModel):
     from_field: typing.Annotated[
         str,
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ]
 
     to_field: typing.Annotated[
@@ -19,7 +21,7 @@ class ImportMappingLine(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     format: typing.Annotated[
@@ -30,10 +32,11 @@ class ImportMappingLine(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ImportMappingLine.update_forward_refs()

@@ -10,26 +10,28 @@ import gsmtasks.components.schemas.timezone_enum
 import gsmtasks.components.schemas.type21d_enum
 import lapidary_base.absent
 import uuid
+
+
 class RegistrationAccount(pydantic.BaseModel):
     id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     url: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     name: typing.Annotated[
         str,
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ]
 
     type: typing.Annotated[
@@ -38,8 +40,7 @@ class RegistrationAccount(pydantic.BaseModel):
             gsmtasks.components.schemas.blank_enum.BlankEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     language: typing.Annotated[
@@ -47,8 +48,7 @@ class RegistrationAccount(pydantic.BaseModel):
             typing.Any,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     timezone: typing.Annotated[
@@ -59,8 +59,7 @@ class RegistrationAccount(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     country_code: typing.Annotated[
@@ -69,8 +68,7 @@ class RegistrationAccount(pydantic.BaseModel):
             gsmtasks.components.schemas.blank_enum.BlankEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     website: typing.Annotated[
@@ -80,10 +78,11 @@ class RegistrationAccount(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 RegistrationAccount.update_forward_refs()

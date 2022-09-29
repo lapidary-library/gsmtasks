@@ -5,14 +5,18 @@ import lapidary_base
 import pydantic
 import enum
 import lapidary_base.absent
+
+
 class WebhooksListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class WebhooksListState(enum.Enum):
-    inactive = 'inactive'
-    active = 'active'
-    disabled = 'disabled'
+    inactive = "inactive"
+    active = "active"
+    disabled = "disabled"
+
 
 class WebhooksList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -22,8 +26,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -33,8 +37,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_document_events: typing.Annotated[
@@ -44,8 +48,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='document_events',
-        )
+            alias="document_events",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -55,8 +59,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -66,8 +70,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -77,8 +81,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_review_events: typing.Annotated[
@@ -88,8 +92,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='review_events',
-        )
+            alias="review_events",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -99,8 +103,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_signature_events: typing.Annotated[
@@ -110,8 +114,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='signature_events',
-        )
+            alias="signature_events",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -121,8 +125,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_task_events: typing.Annotated[
@@ -132,8 +136,8 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='task_events',
-        )
+            alias="task_events",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_version: typing.Annotated[
@@ -143,11 +147,12 @@ class WebhooksList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='version',
-        )
+            alias="version",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 WebhooksList.update_forward_refs()

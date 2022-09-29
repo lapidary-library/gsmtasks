@@ -6,9 +6,12 @@ import pydantic
 import enum
 import lapidary_base.absent
 import uuid
+
+
 class ClientRolesUpdateFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class ClientRolesUpdate(pydantic.BaseModel):
     q_format: typing.Annotated[
@@ -18,19 +21,20 @@ class ClientRolesUpdate(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     p_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.path,
-            alias='id',
-        )
+            alias="id",
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ClientRolesUpdate.update_forward_refs()

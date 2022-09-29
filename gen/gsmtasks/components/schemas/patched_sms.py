@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class PatchedSMS(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -14,7 +16,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -24,7 +26,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -32,8 +34,7 @@ class PatchedSMS(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
@@ -43,7 +44,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=34,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -53,7 +54,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     notification: typing.Annotated[
@@ -63,7 +64,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     sender: typing.Annotated[
@@ -73,7 +74,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     alphanumeric_sender_id: typing.Annotated[
@@ -83,7 +84,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=20,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     phone: typing.Annotated[
@@ -93,7 +94,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=128,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     message: typing.Annotated[
@@ -102,8 +103,7 @@ class PatchedSMS(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     segments_count: typing.Annotated[
@@ -114,7 +114,7 @@ class PatchedSMS(pydantic.BaseModel):
         pydantic.Field(
             gt=-2147483648.0,
             le=2147483647.0,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     error: typing.Annotated[
@@ -123,8 +123,7 @@ class PatchedSMS(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     sent_at: typing.Annotated[
@@ -134,7 +133,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     failed_at: typing.Annotated[
@@ -144,7 +143,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     received_at: typing.Annotated[
@@ -154,7 +153,7 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -164,10 +163,11 @@ class PatchedSMS(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedSMS.update_forward_refs()

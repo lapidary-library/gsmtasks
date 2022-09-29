@@ -6,17 +6,22 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class UsersOnDutyLogListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class UsersOnDutyLogListMode(enum.Enum):
-    online = 'online'
-    offline = 'offline'
+    online = "online"
+    offline = "offline"
+
 
 class UsersOnDutyLogListStatus(enum.Enum):
-    on_duty = 'on_duty'
-    off_duty = 'off_duty'
+    on_duty = "on_duty"
+    off_duty = "off_duty"
+
 
 class UsersOnDutyLogList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -26,8 +31,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_account_role: typing.Annotated[
@@ -37,8 +42,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account_role',
-        )
+            alias="account_role",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -48,8 +53,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -59,8 +64,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -70,8 +75,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -81,8 +86,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -92,8 +97,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -103,8 +108,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -114,8 +119,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -125,8 +130,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -136,8 +141,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -147,8 +152,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -158,8 +163,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -169,8 +174,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_mode: typing.Annotated[
@@ -180,8 +185,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='mode',
-        )
+            alias="mode",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -191,8 +196,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -202,8 +207,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_status: typing.Annotated[
@@ -213,8 +218,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='status',
-        )
+            alias="status",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__date: typing.Annotated[
@@ -224,8 +229,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__date',
-        )
+            alias="timestamp__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__date_or_isnull: typing.Annotated[
@@ -235,8 +240,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__date_or_isnull',
-        )
+            alias="timestamp__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__gt: typing.Annotated[
@@ -246,8 +251,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__gt',
-        )
+            alias="timestamp__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__gt_or_isnull: typing.Annotated[
@@ -257,8 +262,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__gt_or_isnull',
-        )
+            alias="timestamp__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__gte: typing.Annotated[
@@ -268,8 +273,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__gte',
-        )
+            alias="timestamp__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__gte_or_isnull: typing.Annotated[
@@ -279,8 +284,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__gte_or_isnull',
-        )
+            alias="timestamp__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__lt: typing.Annotated[
@@ -290,8 +295,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__lt',
-        )
+            alias="timestamp__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__lt_or_isnull: typing.Annotated[
@@ -301,8 +306,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__lt_or_isnull',
-        )
+            alias="timestamp__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__lte: typing.Annotated[
@@ -312,8 +317,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__lte',
-        )
+            alias="timestamp__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_timestamp__lte_or_isnull: typing.Annotated[
@@ -323,8 +328,8 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='timestamp__lte_or_isnull',
-        )
+            alias="timestamp__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_user: typing.Annotated[
@@ -334,11 +339,12 @@ class UsersOnDutyLogList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='user',
-        )
+            alias="user",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 UsersOnDutyLogList.update_forward_refs()

@@ -6,15 +6,19 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class MetafieldsListFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class MetafieldsListValueType(enum.Enum):
-    string = 'string'
-    integer = 'integer'
-    decimal = 'decimal'
-    choice = 'choice'
+    string = "string"
+    integer = "integer"
+    decimal = "decimal"
+    choice = "choice"
+
 
 class MetafieldsList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -24,8 +28,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -35,8 +39,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -46,8 +50,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -57,8 +61,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -68,8 +72,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -79,8 +83,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -90,8 +94,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -101,8 +105,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -112,8 +116,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -123,8 +127,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -134,8 +138,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -145,8 +149,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -156,8 +160,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_editable: typing.Annotated[
@@ -167,8 +171,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_editable',
-        )
+            alias="is_editable",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_editable_assignee: typing.Annotated[
@@ -178,8 +182,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_editable_assignee',
-        )
+            alias="is_editable_assignee",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_persistent: typing.Annotated[
@@ -189,8 +193,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_persistent',
-        )
+            alias="is_persistent",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_required: typing.Annotated[
@@ -200,8 +204,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_required',
-        )
+            alias="is_required",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_searchable: typing.Annotated[
@@ -211,8 +215,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_searchable',
-        )
+            alias="is_searchable",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_key: typing.Annotated[
@@ -222,8 +226,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='key',
-        )
+            alias="key",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_label: typing.Annotated[
@@ -233,8 +237,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='label',
-        )
+            alias="label",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_namespace: typing.Annotated[
@@ -244,8 +248,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='namespace',
-        )
+            alias="namespace",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -255,8 +259,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -266,8 +270,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -277,8 +281,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_in_detail_view: typing.Annotated[
@@ -288,8 +292,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_in_detail_view',
-        )
+            alias="show_in_detail_view",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_in_list_view: typing.Annotated[
@@ -299,8 +303,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_in_list_view',
-        )
+            alias="show_in_list_view",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_in_mobile_app: typing.Annotated[
@@ -310,8 +314,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_in_mobile_app',
-        )
+            alias="show_in_mobile_app",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_in_pod: typing.Annotated[
@@ -321,8 +325,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_in_pod',
-        )
+            alias="show_in_pod",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_when_task_type_assignment: typing.Annotated[
@@ -332,8 +336,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_when_task_type_assignment',
-        )
+            alias="show_when_task_type_assignment",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_when_task_type_drop_off: typing.Annotated[
@@ -343,8 +347,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_when_task_type_drop_off',
-        )
+            alias="show_when_task_type_drop_off",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_show_when_task_type_pick_up: typing.Annotated[
@@ -354,8 +358,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='show_when_task_type_pick_up',
-        )
+            alias="show_when_task_type_pick_up",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -365,8 +369,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -376,8 +380,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -387,8 +391,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -398,8 +402,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -409,8 +413,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -420,8 +424,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -431,8 +435,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -442,8 +446,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -453,8 +457,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -464,8 +468,8 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_value_type: typing.Annotated[
@@ -475,11 +479,12 @@ class MetafieldsList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='value_type',
-        )
+            alias="value_type",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 MetafieldsList.update_forward_refs()

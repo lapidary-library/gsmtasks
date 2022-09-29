@@ -7,26 +7,24 @@ import datetime
 import gsmtasks.components.schemas.value_type_enum
 import lapidary_base.absent
 import uuid
+
+
 class Metafield(pydantic.BaseModel):
     id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     url: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-        )
-    ]
+    account: typing.Annotated[str, pydantic.Field()]
 
     ordering: typing.Annotated[
         typing.Union[
@@ -36,7 +34,7 @@ class Metafield(pydantic.BaseModel):
         pydantic.Field(
             gt=0.0,
             le=2147483647.0,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     namespace: typing.Annotated[
@@ -46,23 +44,23 @@ class Metafield(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=20,
-            regex=r'[a-z0-9]+$',
-        )
+            regex=r"[a-z0-9]+$",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     key: typing.Annotated[
         str,
         pydantic.Field(
             max_length=20,
-            regex=r'[a-z0-9]+$',
-        )
+            regex=r"[a-z0-9]+$",
+        ),
     ]
 
     field_name: typing.Annotated[
         str,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     value_type: typing.Annotated[
@@ -70,8 +68,7 @@ class Metafield(pydantic.BaseModel):
             gsmtasks.components.schemas.value_type_enum.ValueTypeEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     label: typing.Annotated[
@@ -81,19 +78,18 @@ class Metafield(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=40,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     choices: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     choices_url: typing.Annotated[
@@ -104,7 +100,7 @@ class Metafield(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     is_editable: typing.Annotated[
@@ -112,8 +108,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_editable_assignee: typing.Annotated[
@@ -121,8 +116,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_required: typing.Annotated[
@@ -130,8 +124,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_persistent: typing.Annotated[
@@ -139,8 +132,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_searchable: typing.Annotated[
@@ -148,8 +140,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_in_list_view: typing.Annotated[
@@ -157,8 +148,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_in_detail_view: typing.Annotated[
@@ -166,8 +156,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_in_mobile_app: typing.Annotated[
@@ -175,8 +164,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_in_pod: typing.Annotated[
@@ -184,8 +172,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_when_task_type_assignment: typing.Annotated[
@@ -193,8 +180,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_when_task_type_pick_up: typing.Annotated[
@@ -202,8 +188,7 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     show_when_task_type_drop_off: typing.Annotated[
@@ -211,25 +196,25 @@ class Metafield(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     updated_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 Metafield.update_forward_refs()

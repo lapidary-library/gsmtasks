@@ -7,9 +7,12 @@ import datetime
 import gsmtasks.components.schemas.version_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedWebhookHeaders(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 class PatchedWebhook(pydantic.BaseModel):
     id: typing.Annotated[
@@ -19,7 +22,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -29,7 +32,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -37,8 +40,7 @@ class PatchedWebhook(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[
@@ -48,7 +50,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     version: typing.Annotated[
@@ -56,8 +58,7 @@ class PatchedWebhook(pydantic.BaseModel):
             gsmtasks.components.schemas.version_enum.VersionEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -67,7 +68,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     headers: typing.Annotated[
@@ -75,8 +76,7 @@ class PatchedWebhook(pydantic.BaseModel):
             PatchedWebhookHeaders,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     target: typing.Annotated[
@@ -86,7 +86,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=200,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     task_events: typing.Annotated[
@@ -94,8 +94,7 @@ class PatchedWebhook(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     document_events: typing.Annotated[
@@ -103,8 +102,7 @@ class PatchedWebhook(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     signature_events: typing.Annotated[
@@ -112,8 +110,7 @@ class PatchedWebhook(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     review_events: typing.Annotated[
@@ -121,19 +118,17 @@ class PatchedWebhook(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     notification_emails: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     failure_count: typing.Annotated[
@@ -143,7 +138,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     disable_message: typing.Annotated[
@@ -153,7 +148,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     shared_secret: typing.Annotated[
@@ -163,7 +158,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=40,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     activated_at: typing.Annotated[
@@ -173,7 +168,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     disabled_at: typing.Annotated[
@@ -183,7 +178,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -193,7 +188,7 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -203,11 +198,12 @@ class PatchedWebhook(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedWebhookHeaders.update_forward_refs()
 PatchedWebhook.update_forward_refs()

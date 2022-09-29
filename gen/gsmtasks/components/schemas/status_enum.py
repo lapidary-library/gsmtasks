@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class StatusEnum(enum.Enum):
-    on_duty = 'on_duty'
-    off_duty = 'off_duty'
 
+
+class StatusEnum(enum.Enum):
+    on_duty = "on_duty"
+    off_duty = "off_duty"

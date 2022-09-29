@@ -5,9 +5,12 @@ import lapidary_base
 import pydantic
 import enum
 import lapidary_base.absent
+
+
 class DevicesCreateFormat(enum.Enum):
-    json = 'json'
-    xlsx = 'xlsx'
+    json = "json"
+    xlsx = "xlsx"
+
 
 class DevicesCreate(pydantic.BaseModel):
     q_format: typing.Annotated[
@@ -17,11 +20,12 @@ class DevicesCreate(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 DevicesCreate.update_forward_refs()

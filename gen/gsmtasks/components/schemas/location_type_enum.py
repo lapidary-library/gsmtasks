@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class LocationTypeEnum(enum.Enum):
-    Point = 'Point'
 
+
+class LocationTypeEnum(enum.Enum):
+    Point = "Point"

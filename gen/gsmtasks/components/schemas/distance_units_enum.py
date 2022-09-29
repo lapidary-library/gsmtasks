@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class DistanceUnitsEnum(enum.Enum):
-    kilometers = 'kilometers'
-    miles = 'miles'
 
+
+class DistanceUnitsEnum(enum.Enum):
+    kilometers = "kilometers"
+    miles = "miles"

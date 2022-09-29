@@ -6,9 +6,12 @@ import pydantic
 import datetime
 import gsmtasks.components.schemas.nested_address
 import lapidary_base.absent
+
+
 class TaskCommandTaskDataMetafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 class TaskCommandTaskData(pydantic.BaseModel):
     scheduled_time: typing.Annotated[
@@ -16,8 +19,7 @@ class TaskCommandTaskData(pydantic.BaseModel):
             datetime.datetime,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     position: typing.Annotated[
@@ -28,7 +30,7 @@ class TaskCommandTaskData(pydantic.BaseModel):
         pydantic.Field(
             gt=0.0,
             le=253402300799.0,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     metafields: typing.Annotated[
@@ -36,8 +38,7 @@ class TaskCommandTaskData(pydantic.BaseModel):
             TaskCommandTaskDataMetafields,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address: typing.Annotated[
@@ -45,12 +46,12 @@ class TaskCommandTaskData(pydantic.BaseModel):
             gsmtasks.components.schemas.nested_address.NestedAddress,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 TaskCommandTaskDataMetafields.update_forward_refs()
 TaskCommandTaskData.update_forward_refs()

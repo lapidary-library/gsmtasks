@@ -6,14 +6,18 @@ import pydantic
 import datetime
 import enum
 import lapidary_base.absent
+
+
 class AccountRolesListFormat(enum.Enum):
-    json = 'json'
-    xml = 'xml'
+    json = "json"
+    xml = "xml"
+
 
 class AccountRolesListState(enum.Enum):
-    inactive = 'inactive'
-    active = 'active'
-    deleted = 'deleted'
+    inactive = "inactive"
+    active = "active"
+    deleted = "deleted"
+
 
 class AccountRolesList(pydantic.BaseModel):
     q_account: typing.Annotated[
@@ -23,8 +27,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__date: typing.Annotated[
@@ -34,8 +38,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__date',
-        )
+            alias="activated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__date_or_isnull: typing.Annotated[
@@ -45,8 +49,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__date_or_isnull',
-        )
+            alias="activated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__gt: typing.Annotated[
@@ -56,8 +60,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__gt',
-        )
+            alias="activated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__gt_or_isnull: typing.Annotated[
@@ -67,8 +71,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__gt_or_isnull',
-        )
+            alias="activated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__gte: typing.Annotated[
@@ -78,8 +82,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__gte',
-        )
+            alias="activated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__gte_or_isnull: typing.Annotated[
@@ -89,8 +93,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__gte_or_isnull',
-        )
+            alias="activated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__lt: typing.Annotated[
@@ -100,8 +104,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__lt',
-        )
+            alias="activated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__lt_or_isnull: typing.Annotated[
@@ -111,8 +115,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__lt_or_isnull',
-        )
+            alias="activated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__lte: typing.Annotated[
@@ -122,8 +126,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__lte',
-        )
+            alias="activated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_activated_at__lte_or_isnull: typing.Annotated[
@@ -133,8 +137,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='activated_at__lte_or_isnull',
-        )
+            alias="activated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -144,8 +148,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -155,8 +159,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -166,8 +170,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -177,8 +181,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -188,8 +192,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -199,8 +203,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -210,8 +214,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -221,8 +225,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -232,8 +236,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -243,8 +247,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -254,8 +258,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__date: typing.Annotated[
@@ -265,8 +269,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__date',
-        )
+            alias="deleted_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__date_or_isnull: typing.Annotated[
@@ -276,8 +280,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__date_or_isnull',
-        )
+            alias="deleted_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__gt: typing.Annotated[
@@ -287,8 +291,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__gt',
-        )
+            alias="deleted_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__gt_or_isnull: typing.Annotated[
@@ -298,8 +302,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__gt_or_isnull',
-        )
+            alias="deleted_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__gte: typing.Annotated[
@@ -309,8 +313,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__gte',
-        )
+            alias="deleted_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__gte_or_isnull: typing.Annotated[
@@ -320,8 +324,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__gte_or_isnull',
-        )
+            alias="deleted_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__lt: typing.Annotated[
@@ -331,8 +335,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__lt',
-        )
+            alias="deleted_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__lt_or_isnull: typing.Annotated[
@@ -342,8 +346,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__lt_or_isnull',
-        )
+            alias="deleted_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__lte: typing.Annotated[
@@ -353,8 +357,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__lte',
-        )
+            alias="deleted_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_deleted_at__lte_or_isnull: typing.Annotated[
@@ -364,8 +368,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='deleted_at__lte_or_isnull',
-        )
+            alias="deleted_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_display_name: typing.Annotated[
@@ -375,8 +379,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='display_name',
-        )
+            alias="display_name",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_format: typing.Annotated[
@@ -386,8 +390,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='format',
-        )
+            alias="format",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_active: typing.Annotated[
@@ -397,8 +401,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_active',
-        )
+            alias="is_active",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_integration: typing.Annotated[
@@ -408,8 +412,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_integration',
-        )
+            alias="is_integration",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_manager: typing.Annotated[
@@ -419,8 +423,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_manager',
-        )
+            alias="is_manager",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_worker: typing.Annotated[
@@ -430,8 +434,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_worker',
-        )
+            alias="is_worker",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -441,8 +445,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -452,8 +456,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -463,8 +467,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state: typing.Annotated[
@@ -474,8 +478,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state',
-        )
+            alias="state",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state__in: typing.Annotated[
@@ -485,8 +489,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state__in',
-        )
+            alias="state__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state__in_or_isnull: typing.Annotated[
@@ -496,8 +500,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state__in_or_isnull',
-        )
+            alias="state__in_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state__not_in: typing.Annotated[
@@ -507,8 +511,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state__not_in',
-        )
+            alias="state__not_in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_state__not_in_or_isnull: typing.Annotated[
@@ -518,8 +522,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='state__not_in_or_isnull',
-        )
+            alias="state__not_in_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -529,8 +533,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -540,8 +544,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -551,8 +555,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -562,8 +566,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -573,8 +577,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -584,8 +588,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -595,8 +599,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -606,8 +610,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -617,8 +621,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -628,8 +632,8 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_user: typing.Annotated[
@@ -639,11 +643,12 @@ class AccountRolesList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='user',
-        )
+            alias="user",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 AccountRolesList.update_forward_refs()

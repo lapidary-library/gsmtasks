@@ -8,6 +8,8 @@ import gsmtasks.components.schemas.export_model_enum
 import gsmtasks.components.schemas.format_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedExport(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -16,7 +18,7 @@ class PatchedExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -26,7 +28,7 @@ class PatchedExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -34,8 +36,7 @@ class PatchedExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     export_model: typing.Annotated[
@@ -43,20 +44,18 @@ class PatchedExport(pydantic.BaseModel):
             gsmtasks.components.schemas.export_model_enum.ExportModelEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     field_names: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     format: typing.Annotated[
@@ -64,8 +63,7 @@ class PatchedExport(pydantic.BaseModel):
             gsmtasks.components.schemas.format_enum.FormatEnum,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     link: typing.Annotated[
@@ -75,7 +73,7 @@ class PatchedExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -85,7 +83,7 @@ class PatchedExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -95,10 +93,11 @@ class PatchedExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedExport.update_forward_refs()

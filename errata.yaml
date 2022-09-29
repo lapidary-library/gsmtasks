@@ -63,7 +63,7 @@
         - documents
       uniqueItems: true
 - op: replace
-  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.3.5/schema
+  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.4.11/schema
   value:
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
@@ -91,7 +91,7 @@
 - op: add
   path: /x-lapidary-headers-global
   value:
-    Accept: application/json; version=2.3.5
+    Accept: application/json; version=2.4.11
 
 - op: add
   path: /components/schemas/GSMTasksError

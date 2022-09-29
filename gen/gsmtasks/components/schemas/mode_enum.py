@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class ModeEnum(enum.Enum):
-    online = 'online'
-    offline = 'offline'
 
+
+class ModeEnum(enum.Enum):
+    online = "online"
+    offline = "offline"

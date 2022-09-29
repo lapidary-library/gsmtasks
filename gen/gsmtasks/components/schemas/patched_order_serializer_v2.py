@@ -8,6 +8,8 @@ import gsmtasks.components.schemas.nested_contact
 import gsmtasks.components.schemas.task_serializer_v2
 import lapidary_base.absent
 import uuid
+
+
 class PatchedOrderSerializerV2(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -15,8 +17,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -26,7 +27,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -34,8 +35,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
@@ -46,7 +46,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     reference: typing.Annotated[
@@ -56,7 +56,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     client: typing.Annotated[
@@ -64,8 +64,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     orderer: typing.Annotated[
@@ -73,52 +72,41 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             gsmtasks.components.schemas.nested_contact.NestedContact,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     tasks: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     tasks_data: typing.Annotated[
         typing.Union[
             list[
-            gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-        ],
+                gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+            ],
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.write,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     documents: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
-    ] = lapidary_base.absent.ABSENT
-
-    assignee: typing.Annotated[
-        typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ],
-        pydantic.Field(
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     auto_assign: typing.Annotated[
@@ -126,8 +114,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     description: typing.Annotated[
@@ -135,8 +122,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     created_by: typing.Annotated[
@@ -146,7 +132,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -156,7 +142,7 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -166,10 +152,11 @@ class PatchedOrderSerializerV2(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedOrderSerializerV2.update_forward_refs()

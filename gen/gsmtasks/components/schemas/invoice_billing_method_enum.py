@@ -4,8 +4,9 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class InvoiceBillingMethodEnum(enum.Enum):
-    braintree = 'braintree'
-    invoice = 'invoice'
-    stripe = 'stripe'
 
+
+class InvoiceBillingMethodEnum(enum.Enum):
+    braintree = "braintree"
+    invoice = "invoice"
+    stripe = "stripe"

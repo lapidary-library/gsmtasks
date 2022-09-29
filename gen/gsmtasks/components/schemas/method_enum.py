@@ -4,8 +4,9 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class MethodEnum(enum.Enum):
-    app = 'app'
-    email = 'email'
-    sms = 'sms'
 
+
+class MethodEnum(enum.Enum):
+    app = "app"
+    email = "email"
+    sms = "sms"

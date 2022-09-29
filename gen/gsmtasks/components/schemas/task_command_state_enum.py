@@ -4,8 +4,9 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class TaskCommandStateEnum(enum.Enum):
-    pending = 'pending'
-    accepted = 'accepted'
-    rejected = 'rejected'
 
+
+class TaskCommandStateEnum(enum.Enum):
+    pending = "pending"
+    accepted = "accepted"
+    rejected = "rejected"

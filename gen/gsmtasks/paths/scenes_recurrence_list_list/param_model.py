@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class ScenesRecurrenceListList(pydantic.BaseModel):
     q_account: typing.Annotated[
         typing.Union[
@@ -14,8 +16,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account',
-        )
+            alias="account",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_account__in: typing.Annotated[
@@ -25,8 +27,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='account__in',
-        )
+            alias="account__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_assign_worker: typing.Annotated[
@@ -36,8 +38,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='assign_worker',
-        )
+            alias="assign_worker",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_assignee: typing.Annotated[
@@ -47,8 +49,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='assignee',
-        )
+            alias="assignee",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_assignee__in: typing.Annotated[
@@ -58,8 +60,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='assignee__in',
-        )
+            alias="assignee__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date: typing.Annotated[
@@ -69,8 +71,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date',
-        )
+            alias="created_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__date_or_isnull: typing.Annotated[
@@ -80,8 +82,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__date_or_isnull',
-        )
+            alias="created_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt: typing.Annotated[
@@ -91,8 +93,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt',
-        )
+            alias="created_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gt_or_isnull: typing.Annotated[
@@ -102,8 +104,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gt_or_isnull',
-        )
+            alias="created_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte: typing.Annotated[
@@ -113,8 +115,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte',
-        )
+            alias="created_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__gte_or_isnull: typing.Annotated[
@@ -124,8 +126,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__gte_or_isnull',
-        )
+            alias="created_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt: typing.Annotated[
@@ -135,8 +137,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt',
-        )
+            alias="created_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lt_or_isnull: typing.Annotated[
@@ -146,8 +148,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lt_or_isnull',
-        )
+            alias="created_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte: typing.Annotated[
@@ -157,8 +159,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte',
-        )
+            alias="created_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_at__lte_or_isnull: typing.Annotated[
@@ -168,8 +170,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_at__lte_or_isnull',
-        )
+            alias="created_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_by: typing.Annotated[
@@ -179,8 +181,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_by',
-        )
+            alias="created_by",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_created_by__in: typing.Annotated[
@@ -190,8 +192,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='created_by__in',
-        )
+            alias="created_by__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_cursor: typing.Annotated[
@@ -201,8 +203,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='cursor',
-        )
+            alias="cursor",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_is_active: typing.Annotated[
@@ -212,8 +214,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='is_active',
-        )
+            alias="is_active",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__date: typing.Annotated[
@@ -223,8 +225,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__date',
-        )
+            alias="last_errored_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__date_or_isnull: typing.Annotated[
@@ -234,8 +236,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__date_or_isnull',
-        )
+            alias="last_errored_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__gt: typing.Annotated[
@@ -245,8 +247,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__gt',
-        )
+            alias="last_errored_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__gt_or_isnull: typing.Annotated[
@@ -256,8 +258,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__gt_or_isnull',
-        )
+            alias="last_errored_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__gte: typing.Annotated[
@@ -267,8 +269,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__gte',
-        )
+            alias="last_errored_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__gte_or_isnull: typing.Annotated[
@@ -278,8 +280,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__gte_or_isnull',
-        )
+            alias="last_errored_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__lt: typing.Annotated[
@@ -289,8 +291,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__lt',
-        )
+            alias="last_errored_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__lt_or_isnull: typing.Annotated[
@@ -300,8 +302,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__lt_or_isnull',
-        )
+            alias="last_errored_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__lte: typing.Annotated[
@@ -311,8 +313,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__lte',
-        )
+            alias="last_errored_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_errored_at__lte_or_isnull: typing.Annotated[
@@ -322,8 +324,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_errored_at__lte_or_isnull',
-        )
+            alias="last_errored_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__date: typing.Annotated[
@@ -333,8 +335,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__date',
-        )
+            alias="last_recurred_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__date_or_isnull: typing.Annotated[
@@ -344,8 +346,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__date_or_isnull',
-        )
+            alias="last_recurred_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__gt: typing.Annotated[
@@ -355,8 +357,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__gt',
-        )
+            alias="last_recurred_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__gt_or_isnull: typing.Annotated[
@@ -366,8 +368,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__gt_or_isnull',
-        )
+            alias="last_recurred_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__gte: typing.Annotated[
@@ -377,8 +379,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__gte',
-        )
+            alias="last_recurred_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__gte_or_isnull: typing.Annotated[
@@ -388,8 +390,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__gte_or_isnull',
-        )
+            alias="last_recurred_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__lt: typing.Annotated[
@@ -399,8 +401,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__lt',
-        )
+            alias="last_recurred_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__lt_or_isnull: typing.Annotated[
@@ -410,8 +412,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__lt_or_isnull',
-        )
+            alias="last_recurred_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__lte: typing.Annotated[
@@ -421,8 +423,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__lte',
-        )
+            alias="last_recurred_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_recurred_at__lte_or_isnull: typing.Annotated[
@@ -432,8 +434,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_recurred_at__lte_or_isnull',
-        )
+            alias="last_recurred_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__date: typing.Annotated[
@@ -443,8 +445,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__date',
-        )
+            alias="last_scheduled_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__date_or_isnull: typing.Annotated[
@@ -454,8 +456,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__date_or_isnull',
-        )
+            alias="last_scheduled_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__gt: typing.Annotated[
@@ -465,8 +467,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__gt',
-        )
+            alias="last_scheduled_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__gt_or_isnull: typing.Annotated[
@@ -476,8 +478,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__gt_or_isnull',
-        )
+            alias="last_scheduled_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__gte: typing.Annotated[
@@ -487,8 +489,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__gte',
-        )
+            alias="last_scheduled_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__gte_or_isnull: typing.Annotated[
@@ -498,8 +500,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__gte_or_isnull',
-        )
+            alias="last_scheduled_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__lt: typing.Annotated[
@@ -509,8 +511,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__lt',
-        )
+            alias="last_scheduled_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__lt_or_isnull: typing.Annotated[
@@ -520,8 +522,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__lt_or_isnull',
-        )
+            alias="last_scheduled_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__lte: typing.Annotated[
@@ -531,8 +533,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__lte',
-        )
+            alias="last_scheduled_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_last_scheduled_at__lte_or_isnull: typing.Annotated[
@@ -542,8 +544,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='last_scheduled_at__lte_or_isnull',
-        )
+            alias="last_scheduled_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__date: typing.Annotated[
@@ -553,8 +555,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__date',
-        )
+            alias="next_scheduled_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__date_or_isnull: typing.Annotated[
@@ -564,8 +566,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__date_or_isnull',
-        )
+            alias="next_scheduled_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__gt: typing.Annotated[
@@ -575,8 +577,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__gt',
-        )
+            alias="next_scheduled_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__gt_or_isnull: typing.Annotated[
@@ -586,8 +588,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__gt_or_isnull',
-        )
+            alias="next_scheduled_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__gte: typing.Annotated[
@@ -597,8 +599,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__gte',
-        )
+            alias="next_scheduled_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__gte_or_isnull: typing.Annotated[
@@ -608,8 +610,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__gte_or_isnull',
-        )
+            alias="next_scheduled_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__lt: typing.Annotated[
@@ -619,8 +621,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__lt',
-        )
+            alias="next_scheduled_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__lt_or_isnull: typing.Annotated[
@@ -630,8 +632,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__lt_or_isnull',
-        )
+            alias="next_scheduled_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__lte: typing.Annotated[
@@ -641,8 +643,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__lte',
-        )
+            alias="next_scheduled_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_next_scheduled_at__lte_or_isnull: typing.Annotated[
@@ -652,8 +654,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='next_scheduled_at__lte_or_isnull',
-        )
+            alias="next_scheduled_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_order: typing.Annotated[
@@ -663,8 +665,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='order',
-        )
+            alias="order",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_ordering: typing.Annotated[
@@ -674,8 +676,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='ordering',
-        )
+            alias="ordering",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_page_size: typing.Annotated[
@@ -685,8 +687,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='page_size',
-        )
+            alias="page_size",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_search: typing.Annotated[
@@ -696,8 +698,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='search',
-        )
+            alias="search",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__address__formatted_address__exact: typing.Annotated[
@@ -707,8 +709,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__address__formatted_address__exact',
-        )
+            alias="tasks_data__address__formatted_address__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__address__formatted_address__icontains: typing.Annotated[
@@ -718,8 +720,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__address__formatted_address__icontains',
-        )
+            alias="tasks_data__address__formatted_address__icontains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__address__formatted_address__in: typing.Annotated[
@@ -729,8 +731,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__address__formatted_address__in',
-        )
+            alias="tasks_data__address__formatted_address__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__category__exact: typing.Annotated[
@@ -740,8 +742,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__category__exact',
-        )
+            alias="tasks_data__category__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__category__in: typing.Annotated[
@@ -751,8 +753,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__category__in',
-        )
+            alias="tasks_data__category__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__company__exact: typing.Annotated[
@@ -762,8 +764,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__company__exact',
-        )
+            alias="tasks_data__contact__company__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__company__icontains: typing.Annotated[
@@ -773,8 +775,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__company__icontains',
-        )
+            alias="tasks_data__contact__company__icontains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__company__in: typing.Annotated[
@@ -784,8 +786,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__company__in',
-        )
+            alias="tasks_data__contact__company__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__emails__contains: typing.Annotated[
@@ -795,8 +797,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__emails__contains',
-        )
+            alias="tasks_data__contact__emails__contains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__emails__isnull: typing.Annotated[
@@ -806,8 +808,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__emails__isnull',
-        )
+            alias="tasks_data__contact__emails__isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__name__exact: typing.Annotated[
@@ -817,8 +819,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__name__exact',
-        )
+            alias="tasks_data__contact__name__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__name__icontains: typing.Annotated[
@@ -828,8 +830,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__name__icontains',
-        )
+            alias="tasks_data__contact__name__icontains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__name__in: typing.Annotated[
@@ -839,8 +841,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__name__in',
-        )
+            alias="tasks_data__contact__name__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__notes__exact: typing.Annotated[
@@ -850,8 +852,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__notes__exact',
-        )
+            alias="tasks_data__contact__notes__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__notes__icontains: typing.Annotated[
@@ -861,8 +863,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__notes__icontains',
-        )
+            alias="tasks_data__contact__notes__icontains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__phones__contains: typing.Annotated[
@@ -872,8 +874,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__phones__contains',
-        )
+            alias="tasks_data__contact__phones__contains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__contact__phones__isnull: typing.Annotated[
@@ -883,8 +885,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__contact__phones__isnull',
-        )
+            alias="tasks_data__contact__phones__isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__description__icontains: typing.Annotated[
@@ -894,8 +896,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__description__icontains',
-        )
+            alias="tasks_data__description__icontains",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__state__exact: typing.Annotated[
@@ -905,8 +907,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__state__exact',
-        )
+            alias="tasks_data__state__exact",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_tasks_data__state__in: typing.Annotated[
@@ -916,8 +918,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='tasks_data__state__in',
-        )
+            alias="tasks_data__state__in",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date: typing.Annotated[
@@ -927,8 +929,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date',
-        )
+            alias="updated_at__date",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__date_or_isnull: typing.Annotated[
@@ -938,8 +940,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__date_or_isnull',
-        )
+            alias="updated_at__date_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt: typing.Annotated[
@@ -949,8 +951,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt',
-        )
+            alias="updated_at__gt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gt_or_isnull: typing.Annotated[
@@ -960,8 +962,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gt_or_isnull',
-        )
+            alias="updated_at__gt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte: typing.Annotated[
@@ -971,8 +973,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte',
-        )
+            alias="updated_at__gte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__gte_or_isnull: typing.Annotated[
@@ -982,8 +984,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__gte_or_isnull',
-        )
+            alias="updated_at__gte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt: typing.Annotated[
@@ -993,8 +995,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt',
-        )
+            alias="updated_at__lt",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lt_or_isnull: typing.Annotated[
@@ -1004,8 +1006,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lt_or_isnull',
-        )
+            alias="updated_at__lt_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte: typing.Annotated[
@@ -1015,8 +1017,8 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte',
-        )
+            alias="updated_at__lte",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     q_updated_at__lte_or_isnull: typing.Annotated[
@@ -1026,11 +1028,12 @@ class ScenesRecurrenceListList(pydantic.BaseModel):
         ],
         pydantic.Field(
             in_=lapidary_base.ParamPlacement.query,
-            alias='updated_at__lte_or_isnull',
-        )
+            alias="updated_at__lte_or_isnull",
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ScenesRecurrenceListList.update_forward_refs()

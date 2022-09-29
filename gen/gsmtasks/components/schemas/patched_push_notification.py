@@ -9,6 +9,8 @@ import gsmtasks.components.schemas.event_enum
 import gsmtasks.components.schemas.null_enum
 import lapidary_base.absent
 import uuid
+
+
 class PatchedPushNotification(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -17,7 +19,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -27,7 +29,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -35,8 +37,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
@@ -45,8 +46,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
@@ -56,7 +56,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     notification: typing.Annotated[
@@ -66,7 +66,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     recipient: typing.Annotated[
@@ -76,7 +76,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     task: typing.Annotated[
@@ -86,7 +86,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     event: typing.Annotated[
@@ -97,8 +97,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     subject: typing.Annotated[
@@ -106,8 +105,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     message: typing.Annotated[
@@ -115,8 +113,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     error: typing.Annotated[
@@ -125,8 +122,7 @@ class PatchedPushNotification(pydantic.BaseModel):
             None,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     pending_at: typing.Annotated[
@@ -136,7 +132,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     failed_at: typing.Annotated[
@@ -146,7 +142,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     sent_at: typing.Annotated[
@@ -156,7 +152,7 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -166,10 +162,11 @@ class PatchedPushNotification(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedPushNotification.update_forward_refs()

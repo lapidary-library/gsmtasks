@@ -6,6 +6,8 @@ import pydantic
 import datetime
 import lapidary_base.absent
 import uuid
+
+
 class PatchedClientRole(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -14,7 +16,7 @@ class PatchedClientRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
@@ -24,7 +26,7 @@ class PatchedClientRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[
@@ -32,8 +34,7 @@ class PatchedClientRole(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     client: typing.Annotated[
@@ -41,8 +42,7 @@ class PatchedClientRole(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     user: typing.Annotated[
@@ -50,8 +50,7 @@ class PatchedClientRole(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     phone: typing.Annotated[
@@ -61,7 +60,7 @@ class PatchedClientRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=128,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     is_manager: typing.Annotated[
@@ -69,8 +68,7 @@ class PatchedClientRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_active: typing.Annotated[
@@ -78,8 +76,7 @@ class PatchedClientRole(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
@@ -89,7 +86,7 @@ class PatchedClientRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
@@ -99,10 +96,11 @@ class PatchedClientRole(pydantic.BaseModel):
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 PatchedClientRole.update_forward_refs()

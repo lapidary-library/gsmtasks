@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class AssigneeProximityEnum(enum.Enum):
-    away = 'away'
-    near = 'near'
 
+
+class AssigneeProximityEnum(enum.Enum):
+    away = "away"
+    near = "near"

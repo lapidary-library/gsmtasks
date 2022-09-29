@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import enum
+
+
 class NullEnum(enum.Enum):
     none = None
-

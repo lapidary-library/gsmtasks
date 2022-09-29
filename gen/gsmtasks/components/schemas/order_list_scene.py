@@ -7,40 +7,39 @@ import gsmtasks.components.schemas.client
 import gsmtasks.components.schemas.legacy_task
 import gsmtasks.components.schemas.order
 import gsmtasks.components.schemas.public_user
+
+
 class OrderListScene(pydantic.BaseModel):
     clients: typing.Annotated[
         list[
             gsmtasks.components.schemas.client.Client,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ]
 
     orders: typing.Annotated[
         list[
             gsmtasks.components.schemas.order.Order,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ]
 
     tasks: typing.Annotated[
         list[
             gsmtasks.components.schemas.legacy_task.LegacyTask,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ]
 
     assignees: typing.Annotated[
         list[
             gsmtasks.components.schemas.public_user.PublicUser,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 OrderListScene.update_forward_refs()

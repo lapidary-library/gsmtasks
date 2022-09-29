@@ -4,7 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class TaskExpiryStateEnum(enum.Enum):
-    cancelled = 'cancelled'
-    completed = 'completed'
 
+
+class TaskExpiryStateEnum(enum.Enum):
+    cancelled = "cancelled"
+    completed = "completed"

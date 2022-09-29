@@ -7,12 +7,14 @@ import datetime
 import gsmtasks.components.schemas.location
 import lapidary_base.absent
 import uuid
+
+
 class ContactAddressExport(pydantic.BaseModel):
     id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     external_id: typing.Annotated[
@@ -23,7 +25,7 @@ class ContactAddressExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     account__name: typing.Annotated[
@@ -31,8 +33,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     contact__name: typing.Annotated[
@@ -40,8 +41,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     contact__company: typing.Annotated[
@@ -49,30 +49,27 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     contact__phones: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     contact__emails: typing.Annotated[
         typing.Union[
             list[
-            str,
-        ],
+                str,
+            ],
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     contact__notes: typing.Annotated[
@@ -80,8 +77,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__raw_address: typing.Annotated[
@@ -89,8 +85,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__formatted_address: typing.Annotated[
@@ -98,14 +93,11 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__location: typing.Annotated[
-        gsmtasks.components.schemas.location.Location,
-        pydantic.Field(
-        )
+        gsmtasks.components.schemas.location.Location, pydantic.Field()
     ]
 
     address__google_place_id: typing.Annotated[
@@ -113,8 +105,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__point_of_interest: typing.Annotated[
@@ -122,8 +113,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__street: typing.Annotated[
@@ -131,8 +121,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__house_number: typing.Annotated[
@@ -140,8 +129,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__apartment_number: typing.Annotated[
@@ -149,8 +137,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__city: typing.Annotated[
@@ -158,8 +145,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__state: typing.Annotated[
@@ -167,8 +153,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__postal_code: typing.Annotated[
@@ -176,8 +161,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__country: typing.Annotated[
@@ -185,8 +169,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     address__country_code: typing.Annotated[
@@ -194,8 +177,7 @@ class ContactAddressExport(pydantic.BaseModel):
             str,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_orderer: typing.Annotated[
@@ -203,8 +185,7 @@ class ContactAddressExport(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     is_receiver: typing.Annotated[
@@ -212,8 +193,7 @@ class ContactAddressExport(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     source: typing.Annotated[
@@ -223,24 +203,25 @@ class ContactAddressExport(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=100,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     updated_at: typing.Annotated[
         datetime.datetime,
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
-        )
+        ),
     ]
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 ContactAddressExport.update_forward_refs()

@@ -4,6 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import lapidary_base.absent
+
+
 class AccountStripePaymentMethodAttach(pydantic.BaseModel):
     stripe_customer_id: typing.Annotated[
         typing.Union[
@@ -12,14 +14,14 @@ class AccountStripePaymentMethodAttach(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=255,
-        )
+        ),
     ] = lapidary_base.absent.ABSENT
 
     stripe_payment_method_id: typing.Annotated[
         str,
         pydantic.Field(
             max_length=255,
-        )
+        ),
     ]
 
     set_default: typing.Annotated[
@@ -27,11 +29,11 @@ class AccountStripePaymentMethodAttach(pydantic.BaseModel):
             bool,
             lapidary_base.absent.Absent,
         ],
-        pydantic.Field(
-        )
+        pydantic.Field(),
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
         allow_population_by_field_name = True
+
 
 AccountStripePaymentMethodAttach.update_forward_refs()

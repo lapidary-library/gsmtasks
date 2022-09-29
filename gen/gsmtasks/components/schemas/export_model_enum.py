@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import enum
-class ExportModelEnum(enum.Enum):
-    tasks = 'tasks'
 
+
+class ExportModelEnum(enum.Enum):
+    tasks = "tasks"
