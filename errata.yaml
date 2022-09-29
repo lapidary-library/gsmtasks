@@ -1,0 +1,122 @@
+# Account
+- op: replace
+  path: /components/schemas/Account/properties/task_duration
+  value:
+    title: Default task duration
+    oneOf:
+    - type: integer
+    - type: string
+- op: add
+  path: /components/schemas/Account/properties/stripe_payment_method_id/nullable
+  value: true
+
+# Task
+- op: replace
+  path: /components/schemas/TaskSerializerV2/properties/duration
+  value:
+    title: Task duration
+    oneOf:
+    - type: integer
+    - type: string
+- op: replace
+  path: /components/schemas/TaskSerializerV2/properties/actions
+  value:
+    type: array
+    items:
+      type: string
+- op: add
+  path: /components/schemas/Account/properties/stripe_payment_method_id/nullable
+  value: true
+- op: add
+  path: /components/schemas/Account/properties/stripe_customer_id/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/orderer_name/nullable
+  value: true
+- op: add
+  path: /components/schemas/NestedAddress/properties/geocode_failed_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/completed_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/cancelled_at/nullable
+  value: true
+
+# Address
+- op: add
+  path: /components/schemas/NestedAddress/properties/geocode_failed_at/nullable
+  value: true
+
+# task_list
+- op: add
+  path: /paths/~1tasks~1/get/parameters/-
+  value:
+    name: sideload
+    in: query
+    schema:
+      type: array
+      items:
+        type: string
+        enum:
+        - metadatas
+        - documents
+      uniqueItems: true
+- op: replace
+  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.3.5/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - type: object
+      x-lapidary-type-name: TaskListExt
+      properties:
+        tasks:
+          $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+        documents:
+          $ref: '#/components/schemas/PaginatedDocumentList'
+        metadatas:
+          $ref: '#/components/schemas/PaginatedTaskMetadataList'
+      required:
+      - tasks
+
+- op: add
+  path: /components/securitySchemes/tokenAuth/x-lapidary-value-prefix
+  value: 'Token '
+
+- op: add
+  path: /servers
+  value:
+  - url: https://api.gsmtasks.com/
+
+- op: add
+  path: /x-lapidary-headers-global
+  value:
+    Accept: application/json; version=2.3.5
+
+- op: add
+  path: /components/schemas/GSMTasksError
+  value:
+    type: object
+    properties:
+      detail:
+        type: string
+    required:
+    - detail
+    x-lapidary-model-type: exception
+
+- op: add
+  path: /components/responses
+  value:
+    lapidary-error:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GSMTasksError'
+      description: Error
+- op: add
+  path: /x-lapidary-responses-global
+  value:
+    '4XX':
+      $ref: '#/components/responses/lapidary-error'
+    '5XX':
+      $ref: '#/components/responses/lapidary-error'
