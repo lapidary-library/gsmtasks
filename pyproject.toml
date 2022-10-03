@@ -16,7 +16,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.9"
 deprecation = "^2.0.6"
-lapidary-base = "0.3.0"
+lapidary-base = "0.4.1"
 pydantic = { extras = ["email"], version = "^1.9.2" }
 
 [tool.poetry.group.dev.dependencies]
