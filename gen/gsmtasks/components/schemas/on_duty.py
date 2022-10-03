@@ -9,7 +9,7 @@ class OnDuty(pydantic.BaseModel):
     account: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 OnDuty.update_forward_refs()

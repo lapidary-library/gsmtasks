@@ -11,18 +11,24 @@ import uuid
 
 class Tracker(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
@@ -150,17 +156,20 @@ class Tracker(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
 
     tracking_page_url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     reviews_allowed: typing.Annotated[
         typing.Union[
@@ -171,21 +180,27 @@ class Tracker(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     reviewed_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     created_by: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 Tracker.update_forward_refs()

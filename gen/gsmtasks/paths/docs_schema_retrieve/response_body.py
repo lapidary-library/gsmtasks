@@ -7,22 +7,22 @@ import pydantic
 
 class DocsSchemaRetrieve200Response(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class DocsSchemaRetrieve200Response(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class DocsSchemaRetrieve200Response(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class DocsSchemaRetrieve200Response(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 DocsSchemaRetrieve200Response.update_forward_refs()

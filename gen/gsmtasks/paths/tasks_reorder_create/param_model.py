@@ -19,8 +19,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -30,8 +30,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__company",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -41,8 +41,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__company__icontains",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -52,8 +52,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__company__iexact",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -63,8 +63,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__company__istartswith",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -74,8 +74,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__emails__contained_by",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -85,8 +85,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__emails__contains",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -96,8 +96,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__emails__overlap",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -107,8 +107,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__name",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -118,8 +118,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__name__icontains",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -129,8 +129,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__name__iexact",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -140,8 +140,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__name__istartswith",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -151,8 +151,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__notes",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -162,8 +162,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__notes__icontains",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -173,8 +173,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__notes__iexact",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -184,8 +184,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__notes__istartswith",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -195,8 +195,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__phones__contained_by",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -206,8 +206,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__phones__contains",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -217,8 +217,8 @@ class TasksReorderCreate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="order__orderer__phones__overlap",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 

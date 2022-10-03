@@ -9,11 +9,14 @@ import uuid
 
 class IntegrationRequest(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
@@ -33,14 +36,17 @@ class IntegrationRequest(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     user: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 IntegrationRequest.update_forward_refs()

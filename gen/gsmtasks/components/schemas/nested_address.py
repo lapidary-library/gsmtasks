@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.location
 import lapidary_base.absent
 
 
@@ -30,7 +31,7 @@ class NestedAddress(pydantic.BaseModel):
 
     location: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.location.Location,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -139,24 +140,28 @@ class NestedAddress(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     geocoded_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     geocode_failed_at: typing.Annotated[
         typing.Union[
             datetime.datetime,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 NestedAddress.update_forward_refs()

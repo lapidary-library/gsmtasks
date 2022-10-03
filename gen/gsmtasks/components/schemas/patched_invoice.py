@@ -4,7 +4,10 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.invoice_account
+import gsmtasks.components.schemas.invoice_billing_method_enum
 import gsmtasks.components.schemas.invoice_item
+import gsmtasks.components.schemas.invoice_state_enum
 import lapidary_base.absent
 import uuid
 
@@ -32,7 +35,7 @@ class PatchedInvoice(pydantic.BaseModel):
 
     account: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.invoice_account.InvoiceAccount,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -42,7 +45,7 @@ class PatchedInvoice(pydantic.BaseModel):
 
     billing_method: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.invoice_billing_method_enum.InvoiceBillingMethodEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -52,7 +55,7 @@ class PatchedInvoice(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.invoice_state_enum.InvoiceStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -78,8 +81,8 @@ class PatchedInvoice(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -89,8 +92,8 @@ class PatchedInvoice(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -100,8 +103,8 @@ class PatchedInvoice(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -207,7 +210,7 @@ class PatchedInvoice(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedInvoice.update_forward_refs()

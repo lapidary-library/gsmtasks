@@ -7,7 +7,7 @@ import pydantic
 
 class ConfigurationDefaultsTaskDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class ConfigurationDefaults(pydantic.BaseModel):
@@ -16,7 +16,7 @@ class ConfigurationDefaults(pydantic.BaseModel):
     distance_units: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 ConfigurationDefaultsTaskDuration.update_forward_refs()

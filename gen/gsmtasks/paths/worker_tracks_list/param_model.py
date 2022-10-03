@@ -20,8 +20,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -31,8 +31,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -42,8 +42,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -53,8 +53,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -64,8 +64,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -75,8 +75,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -86,8 +86,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -97,8 +97,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -108,8 +108,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -119,8 +119,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -130,8 +130,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -141,8 +141,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -152,8 +152,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -163,8 +163,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -174,8 +174,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -185,8 +185,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -196,8 +196,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -207,8 +207,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -218,8 +218,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -229,8 +229,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="end_time__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -240,8 +240,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -251,8 +251,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -262,8 +262,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -273,8 +273,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -284,8 +284,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -295,8 +295,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -306,8 +306,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -317,8 +317,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -328,8 +328,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -339,8 +339,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -350,8 +350,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="start_time__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -361,8 +361,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -372,8 +372,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -383,8 +383,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -394,8 +394,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -405,8 +405,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -416,8 +416,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -427,8 +427,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -438,8 +438,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -449,8 +449,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -460,8 +460,8 @@ class WorkerTracksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 

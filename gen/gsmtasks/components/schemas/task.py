@@ -4,36 +4,38 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.assignee_proximity_enum
 import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.nested_contact
 import gsmtasks.components.schemas.task_category_enum
+import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class TaskDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskForms(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskActions(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskCounts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class Task(pydantic.BaseModel):
@@ -47,11 +49,14 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
@@ -74,11 +79,14 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     order_reference: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
         typing.Union[
@@ -109,11 +117,14 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     orderer_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     receiver: typing.Annotated[
         typing.Union[
@@ -182,25 +193,34 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     completed_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     cancelled_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     assignee: typing.Annotated[
         typing.Union[
@@ -220,11 +240,14 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     assignee_proximity: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.assignee_proximity_enum.AssigneeProximityEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     position: typing.Annotated[
         typing.Union[
@@ -233,7 +256,7 @@ class Task(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -244,7 +267,7 @@ class Task(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -286,79 +309,109 @@ class Task(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     forms: typing.Annotated[
-        TaskForms,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    created_by: typing.Annotated[
-        str,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    issues: typing.Annotated[
-        list[
-            str,
+        typing.Union[
+            TaskForms,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
+
+    created_by: typing.Annotated[
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    issues: typing.Annotated[
+        typing.Union[
+            list[
+                str,
+            ],
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     events: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     documents: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     signatures: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     actions: typing.Annotated[
-        TaskActions,
+        typing.Union[
+            TaskActions,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     counts: typing.Annotated[
-        TaskCounts,
+        typing.Union[
+            TaskCounts,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TaskDuration.update_forward_refs()

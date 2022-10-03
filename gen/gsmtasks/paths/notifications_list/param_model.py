@@ -45,8 +45,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="account",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -56,8 +56,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -67,8 +67,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -78,8 +78,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -89,8 +89,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -100,8 +100,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -111,8 +111,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -122,8 +122,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -133,8 +133,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -144,8 +144,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -155,8 +155,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="created_at__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -166,8 +166,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="cursor",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -177,8 +177,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="event",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -188,8 +188,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -199,8 +199,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="ordering",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -210,8 +210,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="page_size",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -221,8 +221,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="recipient",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -232,8 +232,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="search",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -243,8 +243,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -254,8 +254,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -265,8 +265,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -276,8 +276,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -287,8 +287,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -298,8 +298,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -309,8 +309,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -320,8 +320,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -331,8 +331,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -342,8 +342,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="sent_at__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -353,8 +353,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="task",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -364,8 +364,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__date",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -375,8 +375,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__date_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -386,8 +386,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -397,8 +397,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -408,8 +408,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -419,8 +419,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__gte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -430,8 +430,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lt",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -441,8 +441,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lt_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -452,8 +452,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lte",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -463,8 +463,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="updated_at__lte_or_isnull",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -474,8 +474,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="via_app",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -485,8 +485,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="via_email",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -496,8 +496,8 @@ class NotificationsList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="via_sms",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 

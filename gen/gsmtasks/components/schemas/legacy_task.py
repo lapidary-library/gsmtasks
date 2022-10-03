@@ -4,36 +4,38 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.assignee_proximity_enum
 import gsmtasks.components.schemas.legacy_nested_contact
 import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.task_category_enum
+import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class LegacyTaskDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class LegacyTaskMetafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class LegacyTaskForms(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class LegacyTaskActions(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class LegacyTaskCounts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class LegacyTask(pydantic.BaseModel):
@@ -47,11 +49,14 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
@@ -74,11 +79,14 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     order_reference: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     external_id: typing.Annotated[
         typing.Union[
@@ -109,11 +117,14 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     orderer_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     receiver: typing.Annotated[
         typing.Union[
@@ -182,25 +193,34 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     state: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     completed_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     cancelled_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     assignee: typing.Annotated[
         typing.Union[
@@ -220,11 +240,14 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     assignee_proximity: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.assignee_proximity_enum.AssigneeProximityEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     position: typing.Annotated[
         typing.Union[
@@ -233,7 +256,7 @@ class LegacyTask(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -244,7 +267,7 @@ class LegacyTask(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -286,79 +309,109 @@ class LegacyTask(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     forms: typing.Annotated[
-        LegacyTaskForms,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    created_by: typing.Annotated[
-        str,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    issues: typing.Annotated[
-        list[
-            str,
+        typing.Union[
+            LegacyTaskForms,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
+
+    created_by: typing.Annotated[
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    issues: typing.Annotated[
+        typing.Union[
+            list[
+                str,
+            ],
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     events: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     documents: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     signatures: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     actions: typing.Annotated[
-        LegacyTaskActions,
+        typing.Union[
+            LegacyTaskActions,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     counts: typing.Annotated[
-        LegacyTaskCounts,
+        typing.Union[
+            LegacyTaskCounts,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 LegacyTaskDuration.update_forward_refs()

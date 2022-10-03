@@ -3,11 +3,16 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import gsmtasks.components.schemas.account_billing_method_enum
+import gsmtasks.components.schemas.account_state_enum
 import gsmtasks.components.schemas.blank_enum
 import gsmtasks.components.schemas.country_code_enum
 import gsmtasks.components.schemas.date_format_enum
 import gsmtasks.components.schemas.distance_units_enum
 import gsmtasks.components.schemas.feature_address_autosuggest_provider_enum
+import gsmtasks.components.schemas.language_enum
+import gsmtasks.components.schemas.nested_address
+import gsmtasks.components.schemas.objective_enum
 import gsmtasks.components.schemas.task_expiry_state_enum
 import gsmtasks.components.schemas.time_format_enum
 import gsmtasks.components.schemas.timezone_enum
@@ -18,33 +23,39 @@ import uuid
 
 class AccountTaskExpiryDurationFromCompleteAfter(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class AccountTaskExpiryDurationFromCompleteBefore(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class AccountAutoAssignRotate(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class Account(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[
         str,
@@ -54,11 +65,14 @@ class Account(pydantic.BaseModel):
     ]
 
     state: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.account_state_enum.AccountStateEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     type: typing.Annotated[
         typing.Union[
@@ -70,19 +84,25 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     slug: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^[-a-zA-Z0-9_]+$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^[-a-zA-Z0-9_]+$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     owner: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[
         typing.Union[
@@ -146,7 +166,7 @@ class Account(pydantic.BaseModel):
 
     language: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.language_enum.LanguageEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(),
@@ -171,7 +191,7 @@ class Account(pydantic.BaseModel):
 
     address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -179,11 +199,14 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     custom_integration_url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     distance_units: typing.Annotated[
         typing.Union[
@@ -234,7 +257,7 @@ class Account(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -257,7 +280,7 @@ class Account(pydantic.BaseModel):
 
     route_start_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -266,7 +289,7 @@ class Account(pydantic.BaseModel):
 
     route_end_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -283,7 +306,7 @@ class Account(pydantic.BaseModel):
 
     optimization_objective: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.objective_enum.ObjectiveEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(),
@@ -303,7 +326,7 @@ class Account(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -324,7 +347,7 @@ class Account(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -346,11 +369,14 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     feature_change_task_account: typing.Annotated[
-        bool,
+        typing.Union[
+            bool,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     feature_show_tutorial: typing.Annotated[
         typing.Union[
@@ -409,11 +435,15 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     feature_geocoding_country_code: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.country_code_enum.CountryCodeEnum,
+            gsmtasks.components.schemas.blank_enum.BlankEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     feature_document_signing: typing.Annotated[
         typing.Union[
@@ -446,7 +476,7 @@ class Account(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -458,7 +488,7 @@ class Account(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -490,66 +520,86 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     dashboard_task_template: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     calendar_task_template: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     dashboard_worker_limit: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     managers: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     workers: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     stripe_customer_id: typing.Annotated[
         typing.Union[
             str,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     stripe_payment_method_id: typing.Annotated[
         typing.Union[
             str,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     billing_method: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.account_billing_method_enum.AccountBillingMethodEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     billing_name: typing.Annotated[
         typing.Union[
@@ -622,7 +672,7 @@ class Account(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 AccountTaskExpiryDurationFromCompleteAfter.update_forward_refs()

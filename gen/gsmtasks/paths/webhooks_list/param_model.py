@@ -25,8 +25,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="account",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -36,8 +36,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="cursor",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -47,8 +47,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="document_events",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -58,8 +58,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -69,8 +69,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="ordering",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -80,8 +80,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="page_size",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -91,8 +91,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="review_events",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -102,8 +102,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="search",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -113,8 +113,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="signature_events",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -124,8 +124,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="state",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -135,8 +135,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="task_events",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -146,8 +146,8 @@ class WebhooksList(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="version",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 

@@ -3,16 +3,20 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import lapidary_base.absent
 import uuid
 
 
 class Addon(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[
         str,
@@ -42,7 +46,7 @@ class Addon(pydantic.BaseModel):
     icon: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 Addon.update_forward_refs()

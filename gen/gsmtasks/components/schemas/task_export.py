@@ -13,47 +13,47 @@ import uuid
 
 class TaskExportDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_unassignedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_assignedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_acceptedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_transitDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_activeDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_completedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_failedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExportMetadata_cancelledDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskExport(pydantic.BaseModel):
@@ -139,7 +139,7 @@ class TaskExport(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -150,7 +150,7 @@ class TaskExport(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -228,28 +228,35 @@ class TaskExport(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     contact_address_external_id: typing.Annotated[
         typing.Union[
             str,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account__name: typing.Annotated[str, pydantic.Field()]
 
@@ -398,11 +405,14 @@ class TaskExport(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     assignee__display_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     assignee__email: typing.Annotated[
         typing.Union[
@@ -553,11 +563,14 @@ class TaskExport(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     created_by__display_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     created_by__email: typing.Annotated[
         typing.Union[
@@ -714,7 +727,7 @@ class TaskExport(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TaskExportDuration.update_forward_refs()

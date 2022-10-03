@@ -9,18 +9,24 @@ import uuid
 
 class ReadableUser(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     first_name: typing.Annotated[
         typing.Union[
@@ -43,11 +49,14 @@ class ReadableUser(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     display_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[str, pydantic.Field()]
 
@@ -62,11 +71,14 @@ class ReadableUser(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     intercom_hash: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     signature_image: typing.Annotated[
         typing.Union[
@@ -77,7 +89,7 @@ class ReadableUser(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 ReadableUser.update_forward_refs()

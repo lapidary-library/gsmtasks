@@ -15,7 +15,7 @@ class PasswordResetConfirm(pydantic.BaseModel):
     new_password2: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PasswordResetConfirm.update_forward_refs()

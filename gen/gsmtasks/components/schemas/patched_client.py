@@ -10,7 +10,7 @@ import uuid
 
 class PatchedClientContactAddressesItem(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedClient(pydantic.BaseModel):
@@ -58,8 +58,8 @@ class PatchedClient(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r"^[-a-zA-Z0-9_]+$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^[-a-zA-Z0-9_]+$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -104,7 +104,7 @@ class PatchedClient(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedClientContactAddressesItem.update_forward_refs()

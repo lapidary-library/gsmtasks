@@ -4,6 +4,8 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.account_role_state_enum
+import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.vehicle_profile_enum
 import lapidary_base.absent
 import uuid
@@ -48,7 +50,7 @@ class PatchedAccountRole(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.account_role_state_enum.AccountRoleStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -138,7 +140,7 @@ class PatchedAccountRole(pydantic.BaseModel):
 
     route_start_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -147,7 +149,7 @@ class PatchedAccountRole(pydantic.BaseModel):
 
     route_end_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -267,7 +269,7 @@ class PatchedAccountRole(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedAccountRole.update_forward_refs()

@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.email_state_enum
 import lapidary_base.absent
 import uuid
 
@@ -49,7 +50,7 @@ class PatchedSMS(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.email_state_enum.EmailStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -112,7 +113,7 @@ class PatchedSMS(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -167,7 +168,7 @@ class PatchedSMS(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedSMS.update_forward_refs()

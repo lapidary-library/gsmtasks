@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.location
 import lapidary_base.absent
 import uuid
 
@@ -85,7 +86,7 @@ class PatchedRoute(pydantic.BaseModel):
 
     start_location: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.location.Location,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -103,7 +104,7 @@ class PatchedRoute(pydantic.BaseModel):
 
     end_location: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.location.Location,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -131,7 +132,7 @@ class PatchedRoute(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedRoute.update_forward_refs()

@@ -10,6 +10,7 @@ import gsmtasks.components.schemas.order
 import gsmtasks.components.schemas.public_user
 import gsmtasks.components.schemas.task_event
 import gsmtasks.components.schemas.task_metadata
+import lapidary_base.absent
 
 
 class TaskListScene(pydantic.BaseModel):
@@ -56,14 +57,17 @@ class TaskListScene(pydantic.BaseModel):
     ]
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TaskListScene.update_forward_refs()

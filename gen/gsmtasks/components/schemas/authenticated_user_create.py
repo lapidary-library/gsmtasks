@@ -10,18 +10,24 @@ import uuid
 
 class AuthenticatedUserCreate(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     first_name: typing.Annotated[
         typing.Union[
@@ -44,11 +50,14 @@ class AuthenticatedUserCreate(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     display_name: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     email: typing.Annotated[str, pydantic.Field()]
 
@@ -81,7 +90,7 @@ class AuthenticatedUserCreate(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 AuthenticatedUserCreate.update_forward_refs()

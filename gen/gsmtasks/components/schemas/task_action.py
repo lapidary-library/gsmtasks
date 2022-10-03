@@ -3,6 +3,7 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import gsmtasks.components.schemas.location
 import lapidary_base.absent
 
 
@@ -17,7 +18,7 @@ class TaskAction(pydantic.BaseModel):
 
     location: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.location.Location,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -25,7 +26,7 @@ class TaskAction(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TaskAction.update_forward_refs()

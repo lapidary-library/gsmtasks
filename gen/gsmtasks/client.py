@@ -37,6 +37,7 @@ import gsmtasks.components.schemas.document
 import gsmtasks.components.schemas.email
 import gsmtasks.components.schemas.export
 import gsmtasks.components.schemas.form_rule
+import gsmtasks.components.schemas.gsm_tasks_error
 import gsmtasks.components.schemas.import_mapping
 import gsmtasks.components.schemas.integration_request
 import gsmtasks.components.schemas.invoice
@@ -80,12 +81,11 @@ import gsmtasks.components.schemas.tasks_states_count_response
 import gsmtasks.components.schemas.time_location
 import gsmtasks.components.schemas.time_location_feature
 import gsmtasks.components.schemas.tracker
+import gsmtasks.components.schemas.validation_error
 import gsmtasks.components.schemas.webhook
 import gsmtasks.components.schemas.worker_feature
 import gsmtasks.components.schemas.worker_track
 import gsmtasks.components.schemas.working_state
-import gsmtasks.components.schemas.gsm_tasks_error
-import gsmtasks.components.schemas.validation_error
 import gsmtasks.paths.account_roles_activate_create.param_model
 import gsmtasks.paths.account_roles_create.param_model
 import gsmtasks.paths.account_roles_destroy.param_model
@@ -369,6 +369,39 @@ class ApiClient(lapidary_base.ApiBase):
             value_prefix="Token ",
         )
 
+    async def __aenter__(self) -> "ApiClient":
+        return await super().__aenter__()
+
+    async def account_roles_activate_create(
+        self,
+        request_body: gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.account_roles_activate_create.param_model.AccountRolesActivateCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_role_activation.AccountRoleActivation:
+        import gsmtasks.paths.account_roles_activate_create.param_model
+
+        param_model = gsmtasks.paths.account_roles_activate_create.param_model.AccountRolesActivateCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/account_roles/{p_id}/activate/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def account_roles_create(
         self,
         request_body: gsmtasks.components.schemas.account_role.AccountRole,
@@ -397,6 +430,29 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def account_roles_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.account_roles_destroy.param_model
+
+        param_model = (
+            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroy(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "DELETE",
+            f"/account_roles/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -654,52 +710,24 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def account_roles_destroy(
+    async def account_roles_notify_create(
         self,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.account_roles_destroy.param_model
-
-        param_model = (
-            gsmtasks.paths.account_roles_destroy.param_model.AccountRolesDestroy(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "DELETE",
-            f"/account_roles/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def account_roles_update(
-        self,
-        request_body: gsmtasks.components.schemas.account_role.AccountRole,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.account_roles_update.param_model.AccountRolesUpdateFormat,
+            gsmtasks.paths.account_roles_notify_create.param_model.AccountRolesNotifyCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.account_role.AccountRole:
-        import gsmtasks.paths.account_roles_update.param_model
+        import gsmtasks.paths.account_roles_notify_create.param_model
 
-        param_model = (
-            gsmtasks.paths.account_roles_update.param_model.AccountRolesUpdate(
-                **locals()
-            )
+        param_model = gsmtasks.paths.account_roles_notify_create.param_model.AccountRolesNotifyCreate(
+            **locals()
         )
         return await super()._request(
-            "PUT",
-            f"/account_roles/{p_id}/",
+            "POST",
+            f"/account_roles/{p_id}/notify/",
             param_model=param_model,
-            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
@@ -768,63 +796,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def account_roles_activate_create(
-        self,
-        request_body: gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.account_roles_activate_create.param_model.AccountRolesActivateCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_role_activation.AccountRoleActivation:
-        import gsmtasks.paths.account_roles_activate_create.param_model
-
-        param_model = gsmtasks.paths.account_roles_activate_create.param_model.AccountRolesActivateCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/account_roles/{p_id}/activate/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role_activation.AccountRoleActivation,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def account_roles_notify_create(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.account_roles_notify_create.param_model.AccountRolesNotifyCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_role.AccountRole:
-        import gsmtasks.paths.account_roles_notify_create.param_model
-
-        param_model = gsmtasks.paths.account_roles_notify_create.param_model.AccountRolesNotifyCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/account_roles/{p_id}/notify/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def account_roles_token_retrieve(
         self,
         *,
@@ -847,6 +818,95 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.account_role_token.AccountRoleToken,
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role_token.AccountRoleToken,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def account_roles_update(
+        self,
+        request_body: gsmtasks.components.schemas.account_role.AccountRole,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.account_roles_update.param_model.AccountRolesUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_role.AccountRole:
+        import gsmtasks.paths.account_roles_update.param_model
+
+        param_model = (
+            gsmtasks.paths.account_roles_update.param_model.AccountRolesUpdate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "PUT",
+            f"/account_roles/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.account_role.AccountRole,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_braintree_customer_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_braintree_customer_retrieve.param_model.AccountsBraintreeCustomerRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account.Account:
+        import gsmtasks.paths.accounts_braintree_customer_retrieve.param_model
+
+        param_model = gsmtasks.paths.accounts_braintree_customer_retrieve.param_model.AccountsBraintreeCustomerRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/accounts/{p_id}/braintree_customer/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account.Account,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account.Account,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_change_owner_create(
+        self,
+        request_body: gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_change_owner_create.param_model.AccountsChangeOwnerCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_owner_change.AccountOwnerChange:
+        import gsmtasks.paths.accounts_change_owner_create.param_model
+
+        param_model = gsmtasks.paths.accounts_change_owner_create.param_model.AccountsChangeOwnerCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/accounts/{p_id}/change_owner/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -972,31 +1032,81 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_update(
+    async def accounts_managers_create(
         self,
-        request_body: gsmtasks.components.schemas.account.Account,
+        request_body: gsmtasks.components.schemas.account_user.AccountUser,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.accounts_update.param_model.AccountsUpdateFormat,
+            gsmtasks.paths.accounts_managers_create.param_model.AccountsManagersCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account.Account:
-        import gsmtasks.paths.accounts_update.param_model
+    ) -> gsmtasks.components.schemas.account_user.AccountUser:
+        import gsmtasks.paths.accounts_managers_create.param_model
 
-        param_model = gsmtasks.paths.accounts_update.param_model.AccountsUpdate(
-            **locals()
+        param_model = (
+            gsmtasks.paths.accounts_managers_create.param_model.AccountsManagersCreate(
+                **locals()
+            )
         )
         return await super()._request(
-            "PUT",
-            f"/accounts/{p_id}/",
+            "POST",
+            f"/accounts/{p_id}/managers/",
             param_model=param_model,
             request_body=request_body,
             response_map={
                 "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account.Account,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account.Account,
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_managers_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_managers_destroy.param_model.AccountsManagersDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.accounts_managers_destroy.param_model
+
+        param_model = gsmtasks.paths.accounts_managers_destroy.param_model.AccountsManagersDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/accounts/{p_id}/managers/",
+            param_model=param_model,
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_managers_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_user.AccountUser:
+        import gsmtasks.paths.accounts_managers_retrieve.param_model
+
+        param_model = gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/accounts/{p_id}/managers/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -1061,143 +1171,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_braintree_customer_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_braintree_customer_retrieve.param_model.AccountsBraintreeCustomerRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account.Account:
-        import gsmtasks.paths.accounts_braintree_customer_retrieve.param_model
-
-        param_model = gsmtasks.paths.accounts_braintree_customer_retrieve.param_model.AccountsBraintreeCustomerRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/accounts/{p_id}/braintree_customer/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account.Account,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account.Account,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def accounts_change_owner_create(
-        self,
-        request_body: gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_change_owner_create.param_model.AccountsChangeOwnerCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_owner_change.AccountOwnerChange:
-        import gsmtasks.paths.accounts_change_owner_create.param_model
-
-        param_model = gsmtasks.paths.accounts_change_owner_create.param_model.AccountsChangeOwnerCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/accounts/{p_id}/change_owner/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_owner_change.AccountOwnerChange,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def accounts_managers_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_managers_destroy.param_model.AccountsManagersDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.accounts_managers_destroy.param_model
-
-        param_model = gsmtasks.paths.accounts_managers_destroy.param_model.AccountsManagersDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/accounts/{p_id}/managers/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def accounts_managers_create(
-        self,
-        request_body: gsmtasks.components.schemas.account_user.AccountUser,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_managers_create.param_model.AccountsManagersCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_user.AccountUser:
-        import gsmtasks.paths.accounts_managers_create.param_model
-
-        param_model = (
-            gsmtasks.paths.accounts_managers_create.param_model.AccountsManagersCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/accounts/{p_id}/managers/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def accounts_managers_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_user.AccountUser:
-        import gsmtasks.paths.accounts_managers_retrieve.param_model
-
-        param_model = gsmtasks.paths.accounts_managers_retrieve.param_model.AccountsManagersRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/accounts/{p_id}/managers/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def accounts_stripe_attach_payment_method_update(
         self,
         request_body: gsmtasks.components.schemas.account_stripe_payment_method_attach.AccountStripePaymentMethodAttach,
@@ -1228,36 +1201,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_stripe_create_setup_intent_update(
-        self,
-        request_body: gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model.AccountsStripeCreateSetupIntentUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate:
-        import gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model
-
-        param_model = gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model.AccountsStripeCreateSetupIntentUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/accounts/{p_id}/stripe_create_setup_intent/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def accounts_stripe_create_setup_intent_create(
         self,
         request_body: gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
@@ -1276,6 +1219,36 @@ class ApiClient(lapidary_base.ApiBase):
         )
         return await super()._request(
             "POST",
+            f"/accounts/{p_id}/stripe_create_setup_intent/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_stripe_create_setup_intent_update(
+        self,
+        request_body: gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model.AccountsStripeCreateSetupIntentUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.account_stripe_setup_intent_create.AccountStripeSetupIntentCreate:
+        import gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model
+
+        param_model = gsmtasks.paths.accounts_stripe_create_setup_intent_update.param_model.AccountsStripeCreateSetupIntentUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
             f"/accounts/{p_id}/stripe_create_setup_intent/",
             param_model=param_model,
             request_body=request_body,
@@ -1483,26 +1456,33 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def accounts_workers_destroy(
+    async def accounts_update(
         self,
+        request_body: gsmtasks.components.schemas.account.Account,
+        /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.accounts_workers_destroy.param_model.AccountsWorkersDestroyFormat,
+            gsmtasks.paths.accounts_update.param_model.AccountsUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.accounts_workers_destroy.param_model
+    ) -> gsmtasks.components.schemas.account.Account:
+        import gsmtasks.paths.accounts_update.param_model
 
-        param_model = (
-            gsmtasks.paths.accounts_workers_destroy.param_model.AccountsWorkersDestroy(
-                **locals()
-            )
+        param_model = gsmtasks.paths.accounts_update.param_model.AccountsUpdate(
+            **locals()
         )
         return await super()._request(
-            "DELETE",
-            f"/accounts/{p_id}/workers/",
+            "PUT",
+            f"/accounts/{p_id}/",
             param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.account.Account,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account.Account,
+                },
+            },
             auth=self.auth_tokenAuth,
         )
 
@@ -1535,6 +1515,29 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.account_user.AccountUser,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def accounts_workers_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.accounts_workers_destroy.param_model.AccountsWorkersDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.accounts_workers_destroy.param_model
+
+        param_model = (
+            gsmtasks.paths.accounts_workers_destroy.param_model.AccountsWorkersDestroy(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "DELETE",
+            f"/accounts/{p_id}/workers/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -1646,6 +1649,33 @@ class ApiClient(lapidary_base.ApiBase):
             },
         )
 
+    async def billing_customers_client_token_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.billing_customers_client_token_retrieve.param_model.BillingCustomersClientTokenRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.braintree_customer.BraintreeCustomer:
+        import gsmtasks.paths.billing_customers_client_token_retrieve.param_model
+
+        param_model = gsmtasks.paths.billing_customers_client_token_retrieve.param_model.BillingCustomersClientTokenRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/billing/customers/{p_id}/client_token/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def billing_customers_create(
         self,
         request_body: gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
@@ -1721,38 +1751,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def billing_customers_update(
-        self,
-        request_body: gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.billing_customers_update.param_model.BillingCustomersUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.braintree_customer.BraintreeCustomer:
-        import gsmtasks.paths.billing_customers_update.param_model
-
-        param_model = (
-            gsmtasks.paths.billing_customers_update.param_model.BillingCustomersUpdate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "PUT",
-            f"/billing/customers/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def billing_customers_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_braintree_customer.PatchedBraintreeCustomer,
@@ -1810,24 +1808,29 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def billing_customers_client_token_retrieve(
+    async def billing_customers_update(
         self,
+        request_body: gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
+        /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.billing_customers_client_token_retrieve.param_model.BillingCustomersClientTokenRetrieveFormat,
+            gsmtasks.paths.billing_customers_update.param_model.BillingCustomersUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.braintree_customer.BraintreeCustomer:
-        import gsmtasks.paths.billing_customers_client_token_retrieve.param_model
+        import gsmtasks.paths.billing_customers_update.param_model
 
-        param_model = gsmtasks.paths.billing_customers_client_token_retrieve.param_model.BillingCustomersClientTokenRetrieve(
-            **locals()
+        param_model = (
+            gsmtasks.paths.billing_customers_update.param_model.BillingCustomersUpdate(
+                **locals()
+            )
         )
         return await super()._request(
-            "GET",
-            f"/billing/customers/{p_id}/client_token/",
+            "PUT",
+            f"/billing/customers/{p_id}/",
             param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.braintree_customer.BraintreeCustomer,
@@ -1977,27 +1980,25 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def billing_invoices_update(
+    async def billing_invoices_mark_as_paid_create(
         self,
         request_body: gsmtasks.components.schemas.invoice.Invoice,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.billing_invoices_update.param_model.BillingInvoicesUpdateFormat,
+            gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model.BillingInvoicesMarkAsPaidCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.invoice.Invoice:
-        import gsmtasks.paths.billing_invoices_update.param_model
+        import gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model
 
-        param_model = (
-            gsmtasks.paths.billing_invoices_update.param_model.BillingInvoicesUpdate(
-                **locals()
-            )
+        param_model = gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model.BillingInvoicesMarkAsPaidCreate(
+            **locals()
         )
         return await super()._request(
-            "PUT",
-            f"/billing/invoices/{p_id}/",
+            "POST",
+            f"/billing/invoices/{p_id}/mark_as_paid/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -2066,25 +2067,27 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def billing_invoices_mark_as_paid_create(
+    async def billing_invoices_update(
         self,
         request_body: gsmtasks.components.schemas.invoice.Invoice,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model.BillingInvoicesMarkAsPaidCreateFormat,
+            gsmtasks.paths.billing_invoices_update.param_model.BillingInvoicesUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.invoice.Invoice:
-        import gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model
+        import gsmtasks.paths.billing_invoices_update.param_model
 
-        param_model = gsmtasks.paths.billing_invoices_mark_as_paid_create.param_model.BillingInvoicesMarkAsPaidCreate(
-            **locals()
+        param_model = (
+            gsmtasks.paths.billing_invoices_update.param_model.BillingInvoicesUpdate(
+                **locals()
+            )
         )
         return await super()._request(
-            "POST",
-            f"/billing/invoices/{p_id}/mark_as_paid/",
+            "PUT",
+            f"/billing/invoices/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -2433,25 +2436,25 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def client_roles_update(
+    async def client_roles_notify_create(
         self,
         request_body: gsmtasks.components.schemas.client_role.ClientRole,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.client_roles_update.param_model.ClientRolesUpdateFormat,
+            gsmtasks.paths.client_roles_notify_create.param_model.ClientRolesNotifyCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.client_role.ClientRole:
-        import gsmtasks.paths.client_roles_update.param_model
+        import gsmtasks.paths.client_roles_notify_create.param_model
 
-        param_model = gsmtasks.paths.client_roles_update.param_model.ClientRolesUpdate(
+        param_model = gsmtasks.paths.client_roles_notify_create.param_model.ClientRolesNotifyCreate(
             **locals()
         )
         return await super()._request(
-            "PUT",
-            f"/client_roles/{p_id}/",
+            "POST",
+            f"/client_roles/{p_id}/notify/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -2522,25 +2525,25 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def client_roles_notify_create(
+    async def client_roles_update(
         self,
         request_body: gsmtasks.components.schemas.client_role.ClientRole,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.client_roles_notify_create.param_model.ClientRolesNotifyCreateFormat,
+            gsmtasks.paths.client_roles_update.param_model.ClientRolesUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.client_role.ClientRole:
-        import gsmtasks.paths.client_roles_notify_create.param_model
+        import gsmtasks.paths.client_roles_update.param_model
 
-        param_model = gsmtasks.paths.client_roles_notify_create.param_model.ClientRolesNotifyCreate(
+        param_model = gsmtasks.paths.client_roles_update.param_model.ClientRolesUpdate(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/client_roles/{p_id}/notify/",
+            "PUT",
+            f"/client_roles/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -2709,36 +2712,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def clients_update(
-        self,
-        request_body: gsmtasks.components.schemas.client.Client,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.clients_update.param_model.ClientsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.client.Client:
-        import gsmtasks.paths.clients_update.param_model
-
-        param_model = gsmtasks.paths.clients_update.param_model.ClientsUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/clients/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.client.Client,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client.Client,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def clients_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_client.PatchedClient,
@@ -2789,6 +2762,36 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/clients/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.client.Client,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.client.Client,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def clients_update(
+        self,
+        request_body: gsmtasks.components.schemas.client.Client,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.clients_update.param_model.ClientsUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.client.Client:
+        import gsmtasks.paths.clients_update.param_model
+
+        param_model = gsmtasks.paths.clients_update.param_model.ClientsUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/clients/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.client.Client,
@@ -4119,38 +4122,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def contact_addresses_update(
-        self,
-        request_body: gsmtasks.components.schemas.contact_address.ContactAddress,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.contact_addresses_update.param_model.ContactAddressesUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.contact_address.ContactAddress:
-        import gsmtasks.paths.contact_addresses_update.param_model
-
-        param_model = (
-            gsmtasks.paths.contact_addresses_update.param_model.ContactAddressesUpdate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "PUT",
-            f"/contact_addresses/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def contact_addresses_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_contact_address.PatchedContactAddress,
@@ -4199,6 +4170,38 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/contact_addresses/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def contact_addresses_update(
+        self,
+        request_body: gsmtasks.components.schemas.contact_address.ContactAddress,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.contact_addresses_update.param_model.ContactAddressesUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.contact_address.ContactAddress:
+        import gsmtasks.paths.contact_addresses_update.param_model
+
+        param_model = (
+            gsmtasks.paths.contact_addresses_update.param_model.ContactAddressesUpdate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "PUT",
+            f"/contact_addresses/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.contact_address.ContactAddress,
@@ -4377,12 +4380,35 @@ class ApiClient(lapidary_base.ApiBase):
             param_model=param_model,
             response_map={
                 "200": {
+                    "application/json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
+                    "application/vnd.oai.openapi+json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
                     "application/vnd.oai.openapi; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
                     "application/yaml; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
-                    "application/vnd.oai.openapi+json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
-                    "application/json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def documents_batch_delete_create(
+        self,
+        request_body: gsmtasks.components.schemas.document_delete_action.DocumentDeleteAction,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.documents_batch_delete_create.param_model.DocumentsBatchDeleteCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.documents_batch_delete_create.param_model
+
+        param_model = gsmtasks.paths.documents_batch_delete_create.param_model.DocumentsBatchDeleteCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/documents/batch_delete/",
+            param_model=param_model,
+            request_body=request_body,
             auth=self.auth_tokenAuth,
         )
 
@@ -4412,6 +4438,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.document.Document,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def documents_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.documents_destroy.param_model.DocumentsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.documents_destroy.param_model
+
+        param_model = gsmtasks.paths.documents_destroy.param_model.DocumentsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/documents/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -4589,27 +4636,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def documents_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.documents_destroy.param_model.DocumentsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.documents_destroy.param_model
-
-        param_model = gsmtasks.paths.documents_destroy.param_model.DocumentsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/documents/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def documents_retrieve(
         self,
         *,
@@ -4637,29 +4663,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def documents_batch_delete_create(
-        self,
-        request_body: gsmtasks.components.schemas.document_delete_action.DocumentDeleteAction,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.documents_batch_delete_create.param_model.DocumentsBatchDeleteCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.documents_batch_delete_create.param_model
-
-        param_model = gsmtasks.paths.documents_batch_delete_create.param_model.DocumentsBatchDeleteCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/documents/batch_delete/",
-            param_model=param_model,
-            request_body=request_body,
-            auth=self.auth_tokenAuth,
-        )
-
     async def emails_create(
         self,
         request_body: gsmtasks.components.schemas.email.Email,
@@ -4684,6 +4687,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def emails_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.emails_destroy.param_model.EmailsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.emails_destroy.param_model
+
+        param_model = gsmtasks.paths.emails_destroy.param_model.EmailsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/emails/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -4987,55 +5011,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def emails_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.emails_destroy.param_model.EmailsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.emails_destroy.param_model
-
-        param_model = gsmtasks.paths.emails_destroy.param_model.EmailsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/emails/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def emails_update(
-        self,
-        request_body: gsmtasks.components.schemas.email.Email,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.emails_update.param_model.EmailsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.email.Email:
-        import gsmtasks.paths.emails_update.param_model
-
-        param_model = gsmtasks.paths.emails_update.param_model.EmailsUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/emails/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def emails_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_email.PatchedEmail,
@@ -5059,33 +5034,6 @@ class ApiClient(lapidary_base.ApiBase):
             f"/emails/{p_id}/",
             param_model=param_model,
             request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def emails_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.emails_retrieve.param_model.EmailsRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.email.Email:
-        import gsmtasks.paths.emails_retrieve.param_model
-
-        param_model = gsmtasks.paths.emails_retrieve.param_model.EmailsRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/emails/{p_id}/",
-            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
@@ -5127,6 +5075,61 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def emails_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.emails_retrieve.param_model.EmailsRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.email.Email:
+        import gsmtasks.paths.emails_retrieve.param_model
+
+        param_model = gsmtasks.paths.emails_retrieve.param_model.EmailsRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/emails/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def emails_update(
+        self,
+        request_body: gsmtasks.components.schemas.email.Email,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.emails_update.param_model.EmailsUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.email.Email:
+        import gsmtasks.paths.emails_update.param_model
+
+        param_model = gsmtasks.paths.emails_update.param_model.EmailsUpdate(**locals())
+        return await super()._request(
+            "PUT",
+            f"/emails/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.email.Email,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def exports_create(
         self,
         request_body: gsmtasks.components.schemas.export.Export,
@@ -5153,6 +5156,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.export.Export,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def exports_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.exports_destroy.param_model.ExportsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.exports_destroy.param_model
+
+        param_model = gsmtasks.paths.exports_destroy.param_model.ExportsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/exports/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -5276,57 +5300,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def exports_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.exports_destroy.param_model.ExportsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.exports_destroy.param_model
-
-        param_model = gsmtasks.paths.exports_destroy.param_model.ExportsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/exports/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def exports_update(
-        self,
-        request_body: gsmtasks.components.schemas.export.Export,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.exports_update.param_model.ExportsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.export.Export:
-        import gsmtasks.paths.exports_update.param_model
-
-        param_model = gsmtasks.paths.exports_update.param_model.ExportsUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/exports/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.export.Export,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.export.Export,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def exports_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_export.PatchedExport,
@@ -5377,6 +5350,36 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/exports/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.export.Export,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.export.Export,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def exports_update(
+        self,
+        request_body: gsmtasks.components.schemas.export.Export,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.exports_update.param_model.ExportsUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.export.Export:
+        import gsmtasks.paths.exports_update.param_model
+
+        param_model = gsmtasks.paths.exports_update.param_model.ExportsUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/exports/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.export.Export,
@@ -5631,6 +5634,27 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def formrules_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.formrules_destroy.param_model
+
+        param_model = gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/formrules/{p_id}/",
+            param_model=param_model,
+            auth=self.auth_tokenAuth,
+        )
+
     async def formrules_list(
         self,
         *,
@@ -5672,57 +5696,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": list[
                         gsmtasks.components.schemas.form_rule.FormRule
                     ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def formrules_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.formrules_destroy.param_model
-
-        param_model = gsmtasks.paths.formrules_destroy.param_model.FormrulesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/formrules/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def formrules_update(
-        self,
-        request_body: gsmtasks.components.schemas.form_rule.FormRule,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.formrules_update.param_model.FormrulesUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.form_rule.FormRule:
-        import gsmtasks.paths.formrules_update.param_model
-
-        param_model = gsmtasks.paths.formrules_update.param_model.FormrulesUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/formrules/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -5787,6 +5760,36 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def formrules_update(
+        self,
+        request_body: gsmtasks.components.schemas.form_rule.FormRule,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.formrules_update.param_model.FormrulesUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.form_rule.FormRule:
+        import gsmtasks.paths.formrules_update.param_model
+
+        param_model = gsmtasks.paths.formrules_update.param_model.FormrulesUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/formrules/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.form_rule.FormRule,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def integrations_create(
         self,
         request_body: gsmtasks.components.schemas.integration_request.IntegrationRequest,
@@ -5842,6 +5845,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def metafields_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.metafields_destroy.param_model
+
+        param_model = gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/metafields/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -6039,57 +6063,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def metafields_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.metafields_destroy.param_model
-
-        param_model = gsmtasks.paths.metafields_destroy.param_model.MetafieldsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/metafields/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def metafields_update(
-        self,
-        request_body: gsmtasks.components.schemas.metafield.Metafield,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.metafields_update.param_model.MetafieldsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.metafield.Metafield:
-        import gsmtasks.paths.metafields_update.param_model
-
-        param_model = gsmtasks.paths.metafields_update.param_model.MetafieldsUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/metafields/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def metafields_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_metafield.PatchedMetafield,
@@ -6147,6 +6120,36 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def metafields_update(
+        self,
+        request_body: gsmtasks.components.schemas.metafield.Metafield,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.metafields_update.param_model.MetafieldsUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.metafield.Metafield:
+        import gsmtasks.paths.metafields_update.param_model
+
+        param_model = gsmtasks.paths.metafields_update.param_model.MetafieldsUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/metafields/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.metafield.Metafield,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def notification_templates_create(
         self,
         request_body: gsmtasks.components.schemas.notification_template.NotificationTemplate,
@@ -6173,6 +6176,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def notification_templates_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.notification_templates_destroy.param_model
+
+        param_model = gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/notification_templates/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -6334,57 +6358,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def notification_templates_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.notification_templates_destroy.param_model
-
-        param_model = gsmtasks.paths.notification_templates_destroy.param_model.NotificationTemplatesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/notification_templates/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def notification_templates_update(
-        self,
-        request_body: gsmtasks.components.schemas.notification_template.NotificationTemplate,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.notification_templates_update.param_model.NotificationTemplatesUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
-        import gsmtasks.paths.notification_templates_update.param_model
-
-        param_model = gsmtasks.paths.notification_templates_update.param_model.NotificationTemplatesUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/notification_templates/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def notification_templates_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_notification_template.PatchedNotificationTemplate,
@@ -6406,33 +6379,6 @@ class ApiClient(lapidary_base.ApiBase):
             f"/notification_templates/{p_id}/",
             param_model=param_model,
             request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def notification_templates_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.notification_templates_retrieve.param_model.NotificationTemplatesRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
-        import gsmtasks.paths.notification_templates_retrieve.param_model
-
-        param_model = gsmtasks.paths.notification_templates_retrieve.param_model.NotificationTemplatesRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/notification_templates/{p_id}/",
-            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
@@ -6467,6 +6413,63 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.render_request.RenderRequest,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.render_request.RenderRequest,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def notification_templates_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.notification_templates_retrieve.param_model.NotificationTemplatesRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
+        import gsmtasks.paths.notification_templates_retrieve.param_model
+
+        param_model = gsmtasks.paths.notification_templates_retrieve.param_model.NotificationTemplatesRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/notification_templates/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def notification_templates_update(
+        self,
+        request_body: gsmtasks.components.schemas.notification_template.NotificationTemplate,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.notification_templates_update.param_model.NotificationTemplatesUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.notification_template.NotificationTemplate:
+        import gsmtasks.paths.notification_templates_update.param_model
+
+        param_model = gsmtasks.paths.notification_templates_update.param_model.NotificationTemplatesUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/notification_templates/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.notification_template.NotificationTemplate,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -6878,29 +6881,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def orders_update(
-        self,
-        request_body: gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
-        /,
-        *,
-        p_id: uuid.UUID,
-    ) -> gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2:
-        import gsmtasks.paths.orders_update.param_model
-
-        param_model = gsmtasks.paths.orders_update.param_model.OrdersUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/orders/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def orders_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_order_serializer_v2.PatchedOrderSerializerV2,
@@ -6950,6 +6930,29 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def orders_update(
+        self,
+        request_body: gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
+        /,
+        *,
+        p_id: uuid.UUID,
+    ) -> gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2:
+        import gsmtasks.paths.orders_update.param_model
+
+        param_model = gsmtasks.paths.orders_update.param_model.OrdersUpdate(**locals())
+        return await super()._request(
+            "PUT",
+            f"/orders/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.order_serializer_v2.OrderSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def password_change_create(
         self,
         request_body: gsmtasks.components.schemas.password_change.PasswordChange,
@@ -6979,6 +6982,34 @@ class ApiClient(lapidary_base.ApiBase):
                 },
             },
             auth=self.auth_tokenAuth,
+        )
+
+    async def password_reset_confirm_create(
+        self,
+        request_body: gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.password_reset_confirm_create.param_model.PasswordResetConfirmCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm:
+        import gsmtasks.paths.password_reset_confirm_create.param_model
+
+        param_model = gsmtasks.paths.password_reset_confirm_create.param_model.PasswordResetConfirmCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/password_reset_confirm/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
+                },
+            },
         )
 
     async def password_reset_create(
@@ -7011,34 +7042,6 @@ class ApiClient(lapidary_base.ApiBase):
             },
         )
 
-    async def password_reset_confirm_create(
-        self,
-        request_body: gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.password_reset_confirm_create.param_model.PasswordResetConfirmCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm:
-        import gsmtasks.paths.password_reset_confirm_create.param_model
-
-        param_model = gsmtasks.paths.password_reset_confirm_create.param_model.PasswordResetConfirmCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/password_reset_confirm/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.password_reset_confirm.PasswordResetConfirm,
-                },
-            },
-        )
-
     async def push_notifications_create(
         self,
         request_body: gsmtasks.components.schemas.push_notification.PushNotification,
@@ -7065,6 +7068,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def push_notifications_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.push_notifications_destroy.param_model
+
+        param_model = gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/push_notifications/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -7324,57 +7348,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def push_notifications_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.push_notifications_destroy.param_model
-
-        param_model = gsmtasks.paths.push_notifications_destroy.param_model.PushNotificationsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/push_notifications/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def push_notifications_update(
-        self,
-        request_body: gsmtasks.components.schemas.push_notification.PushNotification,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.push_notifications_update.param_model.PushNotificationsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.push_notification.PushNotification:
-        import gsmtasks.paths.push_notifications_update.param_model
-
-        param_model = gsmtasks.paths.push_notifications_update.param_model.PushNotificationsUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/push_notifications/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def push_notifications_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_push_notification.PatchedPushNotification,
@@ -7394,6 +7367,36 @@ class ApiClient(lapidary_base.ApiBase):
         return await super()._request(
             "PATCH",
             f"/push_notifications/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.push_notification.PushNotification,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def push_notifications_resend_create(
+        self,
+        request_body: gsmtasks.components.schemas.push_notification.PushNotification,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.push_notifications_resend_create.param_model.PushNotificationsResendCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.push_notification.PushNotification:
+        import gsmtasks.paths.push_notifications_resend_create.param_model
+
+        param_model = gsmtasks.paths.push_notifications_resend_create.param_model.PushNotificationsResendCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/push_notifications/{p_id}/resend/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -7432,25 +7435,25 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def push_notifications_resend_create(
+    async def push_notifications_update(
         self,
         request_body: gsmtasks.components.schemas.push_notification.PushNotification,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.push_notifications_resend_create.param_model.PushNotificationsResendCreateFormat,
+            gsmtasks.paths.push_notifications_update.param_model.PushNotificationsUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.push_notification.PushNotification:
-        import gsmtasks.paths.push_notifications_resend_create.param_model
+        import gsmtasks.paths.push_notifications_update.param_model
 
-        param_model = gsmtasks.paths.push_notifications_resend_create.param_model.PushNotificationsResendCreate(
+        param_model = gsmtasks.paths.push_notifications_update.param_model.PushNotificationsUpdate(
             **locals()
         )
         return await super()._request(
-            "POST",
-            f"/push_notifications/{p_id}/resend/",
+            "PUT",
+            f"/push_notifications/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -7876,31 +7879,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def recurrences_update(
-        self,
-        request_body: gsmtasks.components.schemas.recurrence.Recurrence,
-        /,
-        *,
-        p_id: uuid.UUID,
-    ) -> gsmtasks.components.schemas.recurrence.Recurrence:
-        import gsmtasks.paths.recurrences_update.param_model
-
-        param_model = gsmtasks.paths.recurrences_update.param_model.RecurrencesUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/recurrences/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.recurrence.Recurrence,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def recurrences_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_recurrence.PatchedRecurrence,
@@ -7942,6 +7920,31 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/recurrences/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.recurrence.Recurrence,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def recurrences_update(
+        self,
+        request_body: gsmtasks.components.schemas.recurrence.Recurrence,
+        /,
+        *,
+        p_id: uuid.UUID,
+    ) -> gsmtasks.components.schemas.recurrence.Recurrence:
+        import gsmtasks.paths.recurrences_update.param_model
+
+        param_model = gsmtasks.paths.recurrences_update.param_model.RecurrencesUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/recurrences/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.recurrence.Recurrence,
@@ -8154,6 +8157,36 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.review.Review,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.review.Review,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def route_optimizations_commit_create(
+        self,
+        request_body: gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.route_optimizations_commit_create.param_model.RouteOptimizationsCommitCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
+        import gsmtasks.paths.route_optimizations_commit_create.param_model
+
+        param_model = gsmtasks.paths.route_optimizations_commit_create.param_model.RouteOptimizationsCommitCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/route_optimizations/{p_id}/commit/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -8614,63 +8647,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def route_optimizations_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.route_optimizations_retrieve.param_model.RouteOptimizationsRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
-        import gsmtasks.paths.route_optimizations_retrieve.param_model
-
-        param_model = gsmtasks.paths.route_optimizations_retrieve.param_model.RouteOptimizationsRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/route_optimizations/{p_id}/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def route_optimizations_commit_create(
-        self,
-        request_body: gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.route_optimizations_commit_create.param_model.RouteOptimizationsCommitCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
-        import gsmtasks.paths.route_optimizations_commit_create.param_model
-
-        param_model = gsmtasks.paths.route_optimizations_commit_create.param_model.RouteOptimizationsCommitCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/route_optimizations/{p_id}/commit/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def route_optimizations_results_retrieve(
         self,
         *,
@@ -8688,6 +8664,33 @@ class ApiClient(lapidary_base.ApiBase):
         return await super()._request(
             "GET",
             f"/route_optimizations/{p_id}/results/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def route_optimizations_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.route_optimizations_retrieve.param_model.RouteOptimizationsRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.route_optimization_serializer_v2.RouteOptimizationSerializerV2:
+        import gsmtasks.paths.route_optimizations_retrieve.param_model
+
+        param_model = gsmtasks.paths.route_optimizations_retrieve.param_model.RouteOptimizationsRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/route_optimizations/{p_id}/",
             param_model=param_model,
             response_map={
                 "200": {
@@ -8801,6 +8804,23 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def routes_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+    ) -> None:
+        import gsmtasks.paths.routes_destroy.param_model
+
+        param_model = gsmtasks.paths.routes_destroy.param_model.RoutesDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/routes/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -8929,46 +8949,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def routes_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-    ) -> None:
-        import gsmtasks.paths.routes_destroy.param_model
-
-        param_model = gsmtasks.paths.routes_destroy.param_model.RoutesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/routes/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def routes_update(
-        self,
-        request_body: gsmtasks.components.schemas.route.Route,
-        /,
-        *,
-        p_id: uuid.UUID,
-    ) -> gsmtasks.components.schemas.route.Route:
-        import gsmtasks.paths.routes_update.param_model
-
-        param_model = gsmtasks.paths.routes_update.param_model.RoutesUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/routes/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def routes_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_route.PatchedRoute,
@@ -9010,6 +8990,29 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/routes/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def routes_update(
+        self,
+        request_body: gsmtasks.components.schemas.route.Route,
+        /,
+        *,
+        p_id: uuid.UUID,
+    ) -> gsmtasks.components.schemas.route.Route:
+        import gsmtasks.paths.routes_update.param_model
+
+        param_model = gsmtasks.paths.routes_update.param_model.RoutesUpdate(**locals())
+        return await super()._request(
+            "PUT",
+            f"/routes/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.route.Route,
@@ -14246,6 +14249,29 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def signatures_batch_delete_create(
+        self,
+        request_body: gsmtasks.components.schemas.signature_delete_action.SignatureDeleteAction,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.signatures_batch_delete_create.param_model.SignaturesBatchDeleteCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.signatures_batch_delete_create.param_model
+
+        param_model = gsmtasks.paths.signatures_batch_delete_create.param_model.SignaturesBatchDeleteCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/signatures/batch_delete/",
+            param_model=param_model,
+            request_body=request_body,
+            auth=self.auth_tokenAuth,
+        )
+
     async def signatures_create(
         self,
         request_body: gsmtasks.components.schemas.signature.Signature,
@@ -14272,6 +14298,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.signature.Signature,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def signatures_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.signatures_destroy.param_model.SignaturesDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.signatures_destroy.param_model
+
+        param_model = gsmtasks.paths.signatures_destroy.param_model.SignaturesDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/signatures/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -14445,27 +14492,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def signatures_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.signatures_destroy.param_model.SignaturesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.signatures_destroy.param_model
-
-        param_model = gsmtasks.paths.signatures_destroy.param_model.SignaturesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/signatures/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
     async def signatures_retrieve(
         self,
         *,
@@ -14493,29 +14519,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def signatures_batch_delete_create(
-        self,
-        request_body: gsmtasks.components.schemas.signature_delete_action.SignatureDeleteAction,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.signatures_batch_delete_create.param_model.SignaturesBatchDeleteCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.signatures_batch_delete_create.param_model
-
-        param_model = gsmtasks.paths.signatures_batch_delete_create.param_model.SignaturesBatchDeleteCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/signatures/batch_delete/",
-            param_model=param_model,
-            request_body=request_body,
-            auth=self.auth_tokenAuth,
-        )
-
     async def sms_create(
         self,
         request_body: gsmtasks.components.schemas.sms.SMS,
@@ -14540,6 +14543,25 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def sms_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.sms_destroy.param_model.SmsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.sms_destroy.param_model
+
+        param_model = gsmtasks.paths.sms_destroy.param_model.SmsDestroy(**locals())
+        return await super()._request(
+            "DELETE",
+            f"/sms/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -14875,53 +14897,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def sms_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.sms_destroy.param_model.SmsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.sms_destroy.param_model
-
-        param_model = gsmtasks.paths.sms_destroy.param_model.SmsDestroy(**locals())
-        return await super()._request(
-            "DELETE",
-            f"/sms/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def sms_update(
-        self,
-        request_body: gsmtasks.components.schemas.sms.SMS,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.sms_update.param_model.SmsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.sms.SMS:
-        import gsmtasks.paths.sms_update.param_model
-
-        param_model = gsmtasks.paths.sms_update.param_model.SmsUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/sms/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def sms_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_sms.PatchedSMS,
@@ -14941,6 +14916,36 @@ class ApiClient(lapidary_base.ApiBase):
         return await super()._request(
             "PATCH",
             f"/sms/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.sms.SMS,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def sms_resend_create(
+        self,
+        request_body: gsmtasks.components.schemas.sms.SMS,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.sms_resend_create.param_model.SmsResendCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.sms.SMS:
+        import gsmtasks.paths.sms_resend_create.param_model
+
+        param_model = gsmtasks.paths.sms_resend_create.param_model.SmsResendCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/sms/{p_id}/resend/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -14977,25 +14982,23 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def sms_resend_create(
+    async def sms_update(
         self,
         request_body: gsmtasks.components.schemas.sms.SMS,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.sms_resend_create.param_model.SmsResendCreateFormat,
+            gsmtasks.paths.sms_update.param_model.SmsUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.sms.SMS:
-        import gsmtasks.paths.sms_resend_create.param_model
+        import gsmtasks.paths.sms_update.param_model
 
-        param_model = gsmtasks.paths.sms_resend_create.param_model.SmsResendCreate(
-            **locals()
-        )
+        param_model = gsmtasks.paths.sms_update.param_model.SmsUpdate(**locals())
         return await super()._request(
-            "POST",
-            f"/sms/{p_id}/resend/",
+            "PUT",
+            f"/sms/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -15545,6 +15548,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def task_commands_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.task_commands_retrieve.param_model.TaskCommandsRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_command.TaskCommand:
+        import gsmtasks.paths.task_commands_retrieve.param_model
+
+        param_model = (
+            gsmtasks.paths.task_commands_retrieve.param_model.TaskCommandsRetrieve(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "GET",
+            f"/task_commands/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def task_commands_update(
         self,
         request_body: gsmtasks.components.schemas.task_command.TaskCommand,
@@ -15568,35 +15600,6 @@ class ApiClient(lapidary_base.ApiBase):
             f"/task_commands/{p_id}/",
             param_model=param_model,
             request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def task_commands_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.task_commands_retrieve.param_model.TaskCommandsRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_command.TaskCommand:
-        import gsmtasks.paths.task_commands_retrieve.param_model
-
-        param_model = (
-            gsmtasks.paths.task_commands_retrieve.param_model.TaskCommandsRetrieve(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "GET",
-            f"/task_commands/{p_id}/",
-            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.task_command.TaskCommand,
@@ -18369,6 +18372,27 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def task_forms_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.task_forms_destroy.param_model
+
+        param_model = gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/task_forms/{p_id}/",
+            param_model=param_model,
+            auth=self.auth_tokenAuth,
+        )
+
     async def task_forms_list(
         self,
         *,
@@ -18495,57 +18519,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def task_forms_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.task_forms_destroy.param_model
-
-        param_model = gsmtasks.paths.task_forms_destroy.param_model.TaskFormsDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/task_forms/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def task_forms_update(
-        self,
-        request_body: gsmtasks.components.schemas.task_form.TaskForm,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.task_forms_update.param_model.TaskFormsUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_form.TaskForm:
-        import gsmtasks.paths.task_forms_update.param_model
-
-        param_model = gsmtasks.paths.task_forms_update.param_model.TaskFormsUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/task_forms/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def task_forms_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_task_form.PatchedTaskForm,
@@ -18596,6 +18569,36 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/task_forms/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def task_forms_update(
+        self,
+        request_body: gsmtasks.components.schemas.task_form.TaskForm,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.task_forms_update.param_model.TaskFormsUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_form.TaskForm:
+        import gsmtasks.paths.task_forms_update.param_model
+
+        param_model = gsmtasks.paths.task_forms_update.param_model.TaskFormsUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/task_forms/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.task_form.TaskForm,
@@ -18882,35 +18885,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def task_import_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.task_import_retrieve.param_model.TaskImportRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport:
-        import gsmtasks.paths.task_import_retrieve.param_model
-
-        param_model = (
-            gsmtasks.paths.task_import_retrieve.param_model.TaskImportRetrieve(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "GET",
-            f"/task_import/{p_id}/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def task_import_mapping_create(
         self,
         request_body: gsmtasks.components.schemas.import_mapping.ImportMapping,
@@ -19111,6 +19085,35 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def task_import_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.task_import_retrieve.param_model.TaskImportRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport:
+        import gsmtasks.paths.task_import_retrieve.param_model
+
+        param_model = (
+            gsmtasks.paths.task_import_retrieve.param_model.TaskImportRetrieve(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "GET",
+            f"/task_import/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tasks_background_import.TasksBackgroundImport,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def task_metadatas_list(
         self,
         *,
@@ -19262,9 +19265,630 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def tasks_accept_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_accept_create.param_model.TasksAcceptCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_accept_create.param_model
+
+        param_model = gsmtasks.paths.tasks_accept_create.param_model.TasksAcceptCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/accept/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_account_change_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_account_change.TaskAccountChange,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_account_change_create.param_model.TasksAccountChangeCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_account_change.TaskAccountChange:
+        import gsmtasks.paths.tasks_account_change_create.param_model
+
+        param_model = gsmtasks.paths.tasks_account_change_create.param_model.TasksAccountChangeCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/account_change/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_account_change.TaskAccountChange,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_account_change.TaskAccountChange,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_activate_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_activate_create.param_model.TasksActivateCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_activate_create.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_activate_create.param_model.TasksActivateCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/activate/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_assign_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_assign.TaskAssign,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_assign_create.param_model.TasksAssignCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_assign.TaskAssign:
+        import gsmtasks.paths.tasks_assign_create.param_model
+
+        param_model = gsmtasks.paths.tasks_assign_create.param_model.TasksAssignCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/assign/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_assign.TaskAssign,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_assign.TaskAssign,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_cancel_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_cancel_create.param_model.TasksCancelCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_cancel_create.param_model
+
+        param_model = gsmtasks.paths.tasks_cancel_create.param_model.TasksCancelCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/cancel/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_complete_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_complete_create.param_model.TasksCompleteCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_complete_create.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_complete_create.param_model.TasksCompleteCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/complete/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def tasks_create(
         self,
-        request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        request_body: typing.Union[
+            list[
+                gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+            ],
+            gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        ],
         /,
         *,
         q_format: typing.Union[
@@ -19343,7 +19967,12 @@ class ApiClient(lapidary_base.ApiBase):
             str,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
+    ) -> typing.Union[
+        gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        list[
+            gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        ],
+    ]:
         import gsmtasks.paths.tasks_create.param_model
 
         param_model = gsmtasks.paths.tasks_create.param_model.TasksCreate(**locals())
@@ -19354,8 +19983,317 @@ class ApiClient(lapidary_base.ApiBase):
             request_body=request_body,
             response_map={
                 "201": {
+                    "application/json; version=2.4.11": typing.Union[
+                        list[
+                            gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2
+                        ],
+                        gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                    ],
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_documents_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_documents_retrieve.param_model.TasksDocumentsRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
+        import gsmtasks.paths.tasks_documents_retrieve.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_documents_retrieve.param_model.TasksDocumentsRetrieve(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "GET",
+            f"/tasks/{p_id}/documents/",
+            param_model=param_model,
+            response_map={
+                "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_events_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_events_retrieve.param_model.TasksEventsRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
+        import gsmtasks.paths.tasks_events_retrieve.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_events_retrieve.param_model.TasksEventsRetrieve(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "GET",
+            f"/tasks/{p_id}/events/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_fail_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_fail_create.param_model.TasksFailCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_fail_create.param_model
+
+        param_model = gsmtasks.paths.tasks_fail_create.param_model.TasksFailCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/fail/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -21719,106 +22657,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def tasks_update(
-        self,
-        request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_update.param_model.TasksUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
-        import gsmtasks.paths.tasks_update.param_model
-
-        param_model = gsmtasks.paths.tasks_update.param_model.TasksUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/tasks/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def tasks_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_task_serializer_v2.PatchedTaskSerializerV2,
@@ -21912,6 +22750,314 @@ class ApiClient(lapidary_base.ApiBase):
         return await super()._request(
             "PATCH",
             f"/tasks/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_reject_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_action.TaskAction,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_reject_create.param_model.TasksRejectCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_action.TaskAction:
+        import gsmtasks.paths.tasks_reject_create.param_model
+
+        param_model = gsmtasks.paths.tasks_reject_create.param_model.TasksRejectCreate(
+            **locals()
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/{p_id}/reject/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_reorder_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_reorder_create.param_model.TasksReorderCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest:
+        import gsmtasks.paths.tasks_reorder_create.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_reorder_create.param_model.TasksReorderCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/reorder/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
+                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def tasks_reposition_create(
+        self,
+        request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
+        /,
+        *,
+        q_format: typing.Union[
+            gsmtasks.paths.tasks_reposition_create.param_model.TasksRepositionCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__company__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__emails__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__name__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__icontains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__iexact: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__notes__istartswith: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contained_by: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__contains: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+        q_order__orderer__phones__overlap: typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
+        import gsmtasks.paths.tasks_reposition_create.param_model
+
+        param_model = (
+            gsmtasks.paths.tasks_reposition_create.param_model.TasksRepositionCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/tasks/reposition/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -22017,1028 +23163,6 @@ class ApiClient(lapidary_base.ApiBase):
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
                     "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_accept_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_accept_create.param_model.TasksAcceptCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_accept_create.param_model
-
-        param_model = gsmtasks.paths.tasks_accept_create.param_model.TasksAcceptCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/accept/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_account_change_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_account_change.TaskAccountChange,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_account_change_create.param_model.TasksAccountChangeCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_account_change.TaskAccountChange:
-        import gsmtasks.paths.tasks_account_change_create.param_model
-
-        param_model = gsmtasks.paths.tasks_account_change_create.param_model.TasksAccountChangeCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/account_change/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_account_change.TaskAccountChange,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_account_change.TaskAccountChange,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_activate_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_activate_create.param_model.TasksActivateCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_activate_create.param_model
-
-        param_model = (
-            gsmtasks.paths.tasks_activate_create.param_model.TasksActivateCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/activate/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_assign_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_assign.TaskAssign,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_assign_create.param_model.TasksAssignCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_assign.TaskAssign:
-        import gsmtasks.paths.tasks_assign_create.param_model
-
-        param_model = gsmtasks.paths.tasks_assign_create.param_model.TasksAssignCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/assign/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_assign.TaskAssign,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_assign.TaskAssign,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_cancel_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_cancel_create.param_model.TasksCancelCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_cancel_create.param_model
-
-        param_model = gsmtasks.paths.tasks_cancel_create.param_model.TasksCancelCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/cancel/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_complete_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_complete_create.param_model.TasksCompleteCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_complete_create.param_model
-
-        param_model = (
-            gsmtasks.paths.tasks_complete_create.param_model.TasksCompleteCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/complete/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_documents_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_documents_retrieve.param_model.TasksDocumentsRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
-        import gsmtasks.paths.tasks_documents_retrieve.param_model
-
-        param_model = (
-            gsmtasks.paths.tasks_documents_retrieve.param_model.TasksDocumentsRetrieve(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "GET",
-            f"/tasks/{p_id}/documents/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_events_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_events_retrieve.param_model.TasksEventsRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
-        import gsmtasks.paths.tasks_events_retrieve.param_model
-
-        param_model = (
-            gsmtasks.paths.tasks_events_retrieve.param_model.TasksEventsRetrieve(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "GET",
-            f"/tasks/{p_id}/events/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_fail_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_fail_create.param_model.TasksFailCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_fail_create.param_model
-
-        param_model = gsmtasks.paths.tasks_fail_create.param_model.TasksFailCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/fail/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_reject_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_action.TaskAction,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_reject_create.param_model.TasksRejectCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_action.TaskAction:
-        import gsmtasks.paths.tasks_reject_create.param_model
-
-        param_model = gsmtasks.paths.tasks_reject_create.param_model.TasksRejectCreate(
-            **locals()
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/{p_id}/reject/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_action.TaskAction,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -23455,116 +23579,14 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def tasks_reorder_create(
-        self,
-        request_body: gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
-        /,
-        *,
-        q_format: typing.Union[
-            gsmtasks.paths.tasks_reorder_create.param_model.TasksReorderCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__company__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__emails__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__name__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__icontains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__iexact: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__notes__istartswith: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contained_by: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__contains: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-        q_order__orderer__phones__overlap: typing.Union[
-            str,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest:
-        import gsmtasks.paths.tasks_reorder_create.param_model
-
-        param_model = (
-            gsmtasks.paths.tasks_reorder_create.param_model.TasksReorderCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/tasks/reorder/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
-                    "application/xml; version=2.4.11": gsmtasks.components.schemas.task_list_reorder_request.TaskListReorderRequest,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def tasks_reposition_create(
+    async def tasks_update(
         self,
         request_body: gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
         /,
         *,
+        p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.tasks_reposition_create.param_model.TasksRepositionCreateFormat,
+            gsmtasks.paths.tasks_update.param_model.TasksUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
         q_order__orderer__company: typing.Union[
@@ -23640,16 +23662,12 @@ class ApiClient(lapidary_base.ApiBase):
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2:
-        import gsmtasks.paths.tasks_reposition_create.param_model
+        import gsmtasks.paths.tasks_update.param_model
 
-        param_model = (
-            gsmtasks.paths.tasks_reposition_create.param_model.TasksRepositionCreate(
-                **locals()
-            )
-        )
+        param_model = gsmtasks.paths.tasks_update.param_model.TasksUpdate(**locals())
         return await super()._request(
-            "POST",
-            f"/tasks/reposition/",
+            "PUT",
+            f"/tasks/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={
@@ -23687,6 +23705,27 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
                 },
             },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def time_location_features_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.time_location_features_destroy.param_model
+
+        param_model = gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/time_location_features/{p_id}/",
+            param_model=param_model,
             auth=self.auth_tokenAuth,
         )
 
@@ -23856,57 +23895,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def time_location_features_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.time_location_features_destroy.param_model
-
-        param_model = gsmtasks.paths.time_location_features_destroy.param_model.TimeLocationFeaturesDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/time_location_features/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def time_location_features_update(
-        self,
-        request_body: gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.time_location_features_update.param_model.TimeLocationFeaturesUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.time_location_feature.TimeLocationFeature:
-        import gsmtasks.paths.time_location_features_update.param_model
-
-        param_model = gsmtasks.paths.time_location_features_update.param_model.TimeLocationFeaturesUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/time_location_features/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def time_location_features_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_time_location_feature.PatchedTimeLocationFeature,
@@ -23955,6 +23943,36 @@ class ApiClient(lapidary_base.ApiBase):
             "GET",
             f"/time_location_features/{p_id}/",
             param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def time_location_features_update(
+        self,
+        request_body: gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.time_location_features_update.param_model.TimeLocationFeaturesUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.time_location_feature.TimeLocationFeature:
+        import gsmtasks.paths.time_location_features_update.param_model
+
+        param_model = gsmtasks.paths.time_location_features_update.param_model.TimeLocationFeaturesUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/time_location_features/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.time_location_feature.TimeLocationFeature,
@@ -24343,36 +24361,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def trackers_update(
-        self,
-        request_body: gsmtasks.components.schemas.tracker.Tracker,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.trackers_update.param_model.TrackersUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.tracker.Tracker:
-        import gsmtasks.paths.trackers_update.param_model
-
-        param_model = gsmtasks.paths.trackers_update.param_model.TrackersUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/trackers/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def trackers_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_tracker.PatchedTracker,
@@ -24396,33 +24384,6 @@ class ApiClient(lapidary_base.ApiBase):
             f"/trackers/{p_id}/",
             param_model=param_model,
             request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def trackers_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.trackers_retrieve.param_model.TrackersRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.tracker.Tracker:
-        import gsmtasks.paths.trackers_retrieve.param_model
-
-        param_model = gsmtasks.paths.trackers_retrieve.param_model.TrackersRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/trackers/{p_id}/",
-            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
@@ -24461,6 +24422,110 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def trackers_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.trackers_retrieve.param_model.TrackersRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.tracker.Tracker:
+        import gsmtasks.paths.trackers_retrieve.param_model
+
+        param_model = gsmtasks.paths.trackers_retrieve.param_model.TrackersRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/trackers/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def trackers_update(
+        self,
+        request_body: gsmtasks.components.schemas.tracker.Tracker,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.trackers_update.param_model.TrackersUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.tracker.Tracker:
+        import gsmtasks.paths.trackers_update.param_model
+
+        param_model = gsmtasks.paths.trackers_update.param_model.TrackersUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/trackers/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.tracker.Tracker,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_activate_create(
+        self,
+        request_body: gsmtasks.components.schemas.user_activation.UserActivation,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_activate_create.param_model.UsersActivateCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_activate_create.param_model
+
+        param_model = (
+            gsmtasks.paths.users_activate_create.param_model.UsersActivateCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/users/{p_id}/activate/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def users_create(
         self,
         request_body: gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
@@ -24484,6 +24549,46 @@ class ApiClient(lapidary_base.ApiBase):
             f"/users/",
             param_model=param_model,
             request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_destroy.param_model.UsersDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_destroy.param_model
+
+        param_model = gsmtasks.paths.users_destroy.param_model.UsersDestroy(**locals())
+        return await super()._request(
+            "DELETE",
+            f"/users/{p_id}/",
+            param_model=param_model,
             response_map={
                 "200": {
                     "application/json; version=2.4.11": typing.Union[
@@ -24560,225 +24665,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def users_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_destroy.param_model.UsersDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_destroy.param_model
-
-        param_model = gsmtasks.paths.users_destroy.param_model.UsersDestroy(**locals())
-        return await super()._request(
-            "DELETE",
-            f"/users/{p_id}/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_update(
-        self,
-        request_body: gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_update.param_model.UsersUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_update.param_model
-
-        param_model = gsmtasks.paths.users_update.param_model.UsersUpdate(**locals())
-        return await super()._request(
-            "PUT",
-            f"/users/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_partial_update(
-        self,
-        request_body: gsmtasks.components.schemas.patched_authenticated_user_update.PatchedAuthenticatedUserUpdate,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_partial_update.param_model.UsersPartialUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_partial_update.param_model
-
-        param_model = (
-            gsmtasks.paths.users_partial_update.param_model.UsersPartialUpdate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "PATCH",
-            f"/users/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_retrieve.param_model.UsersRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_retrieve.param_model
-
-        param_model = gsmtasks.paths.users_retrieve.param_model.UsersRetrieve(
-            **locals()
-        )
-        return await super()._request(
-            "GET",
-            f"/users/{p_id}/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_activate_create(
-        self,
-        request_body: gsmtasks.components.schemas.user_activation.UserActivation,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_activate_create.param_model.UsersActivateCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_activate_create.param_model
-
-        param_model = (
-            gsmtasks.paths.users_activate_create.param_model.UsersActivateCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/users/{p_id}/activate/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def users_on_duty_destroy(
         self,
         *,
@@ -24802,95 +24688,6 @@ class ApiClient(lapidary_base.ApiBase):
         )
         return await super()._request(
             "DELETE",
-            f"/users/{p_id}/on_duty/",
-            param_model=param_model,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_on_duty_update(
-        self,
-        request_body: gsmtasks.components.schemas.on_duty.OnDuty,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_on_duty_update.param_model.UsersOnDutyUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_on_duty_update.param_model
-
-        param_model = gsmtasks.paths.users_on_duty_update.param_model.UsersOnDutyUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/users/{p_id}/on_duty/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                    "application/xml; version=2.4.11": typing.Union[
-                        gsmtasks.components.schemas.on_duty.OnDuty,
-                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-                        gsmtasks.components.schemas.readable_user.ReadableUser,
-                    ],
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def users_on_duty_retrieve(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.users_on_duty_retrieve.param_model.UsersOnDutyRetrieveFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> typing.Union[
-        gsmtasks.components.schemas.on_duty.OnDuty,
-        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
-        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
-        gsmtasks.components.schemas.readable_user.ReadableUser,
-    ]:
-        import gsmtasks.paths.users_on_duty_retrieve.param_model
-
-        param_model = (
-            gsmtasks.paths.users_on_duty_retrieve.param_model.UsersOnDutyRetrieve(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "GET",
             f"/users/{p_id}/on_duty/",
             param_model=param_model,
             response_map={
@@ -25114,6 +24911,259 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
+    async def users_on_duty_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_on_duty_retrieve.param_model.UsersOnDutyRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_on_duty_retrieve.param_model
+
+        param_model = (
+            gsmtasks.paths.users_on_duty_retrieve.param_model.UsersOnDutyRetrieve(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "GET",
+            f"/users/{p_id}/on_duty/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_on_duty_update(
+        self,
+        request_body: gsmtasks.components.schemas.on_duty.OnDuty,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_on_duty_update.param_model.UsersOnDutyUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_on_duty_update.param_model
+
+        param_model = gsmtasks.paths.users_on_duty_update.param_model.UsersOnDutyUpdate(
+            **locals()
+        )
+        return await super()._request(
+            "PUT",
+            f"/users/{p_id}/on_duty/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_partial_update(
+        self,
+        request_body: gsmtasks.components.schemas.patched_authenticated_user_update.PatchedAuthenticatedUserUpdate,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_partial_update.param_model.UsersPartialUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_partial_update.param_model
+
+        param_model = (
+            gsmtasks.paths.users_partial_update.param_model.UsersPartialUpdate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "PATCH",
+            f"/users/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_retrieve(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_retrieve.param_model.UsersRetrieveFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_retrieve.param_model
+
+        param_model = gsmtasks.paths.users_retrieve.param_model.UsersRetrieve(
+            **locals()
+        )
+        return await super()._request(
+            "GET",
+            f"/users/{p_id}/",
+            param_model=param_model,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def users_update(
+        self,
+        request_body: gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.users_update.param_model.UsersUpdateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> typing.Union[
+        gsmtasks.components.schemas.on_duty.OnDuty,
+        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+        gsmtasks.components.schemas.readable_user.ReadableUser,
+    ]:
+        import gsmtasks.paths.users_update.param_model
+
+        param_model = gsmtasks.paths.users_update.param_model.UsersUpdate(**locals())
+        return await super()._request(
+            "PUT",
+            f"/users/{p_id}/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                    "application/xml; version=2.4.11": typing.Union[
+                        gsmtasks.components.schemas.on_duty.OnDuty,
+                        gsmtasks.components.schemas.authenticated_user_create.AuthenticatedUserCreate,
+                        gsmtasks.components.schemas.authenticated_user_update.AuthenticatedUserUpdate,
+                        gsmtasks.components.schemas.readable_user.ReadableUser,
+                    ],
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def webhooks_active_create(
+        self,
+        request_body: gsmtasks.components.schemas.webhook.Webhook,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.webhooks_active_create.param_model.WebhooksActiveCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.webhook.Webhook:
+        import gsmtasks.paths.webhooks_active_create.param_model
+
+        param_model = (
+            gsmtasks.paths.webhooks_active_create.param_model.WebhooksActiveCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/webhooks/{p_id}/active/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
     async def webhooks_create(
         self,
         request_body: gsmtasks.components.schemas.webhook.Webhook,
@@ -25136,6 +25186,59 @@ class ApiClient(lapidary_base.ApiBase):
             request_body=request_body,
             response_map={
                 "201": {
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
+                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
+                },
+            },
+            auth=self.auth_tokenAuth,
+        )
+
+    async def webhooks_destroy(
+        self,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroyFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> None:
+        import gsmtasks.paths.webhooks_destroy.param_model
+
+        param_model = gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroy(
+            **locals()
+        )
+        return await super()._request(
+            "DELETE",
+            f"/webhooks/{p_id}/",
+            param_model=param_model,
+            auth=self.auth_tokenAuth,
+        )
+
+    async def webhooks_inactive_create(
+        self,
+        request_body: gsmtasks.components.schemas.webhook.Webhook,
+        /,
+        *,
+        p_id: uuid.UUID,
+        q_format: typing.Union[
+            gsmtasks.paths.webhooks_inactive_create.param_model.WebhooksInactiveCreateFormat,
+            lapidary_base.absent.Absent,
+        ] = lapidary_base.absent.ABSENT,
+    ) -> gsmtasks.components.schemas.webhook.Webhook:
+        import gsmtasks.paths.webhooks_inactive_create.param_model
+
+        param_model = (
+            gsmtasks.paths.webhooks_inactive_create.param_model.WebhooksInactiveCreate(
+                **locals()
+            )
+        )
+        return await super()._request(
+            "POST",
+            f"/webhooks/{p_id}/inactive/",
+            param_model=param_model,
+            request_body=request_body,
+            response_map={
+                "200": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
                 },
@@ -25215,57 +25318,6 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def webhooks_destroy(
-        self,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroyFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> None:
-        import gsmtasks.paths.webhooks_destroy.param_model
-
-        param_model = gsmtasks.paths.webhooks_destroy.param_model.WebhooksDestroy(
-            **locals()
-        )
-        return await super()._request(
-            "DELETE",
-            f"/webhooks/{p_id}/",
-            param_model=param_model,
-            auth=self.auth_tokenAuth,
-        )
-
-    async def webhooks_update(
-        self,
-        request_body: gsmtasks.components.schemas.webhook.Webhook,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.webhooks_update.param_model.WebhooksUpdateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.webhook.Webhook:
-        import gsmtasks.paths.webhooks_update.param_model
-
-        param_model = gsmtasks.paths.webhooks_update.param_model.WebhooksUpdate(
-            **locals()
-        )
-        return await super()._request(
-            "PUT",
-            f"/webhooks/{p_id}/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
     async def webhooks_partial_update(
         self,
         request_body: gsmtasks.components.schemas.patched_webhook.PatchedWebhook,
@@ -25325,59 +25377,25 @@ class ApiClient(lapidary_base.ApiBase):
             auth=self.auth_tokenAuth,
         )
 
-    async def webhooks_active_create(
+    async def webhooks_update(
         self,
         request_body: gsmtasks.components.schemas.webhook.Webhook,
         /,
         *,
         p_id: uuid.UUID,
         q_format: typing.Union[
-            gsmtasks.paths.webhooks_active_create.param_model.WebhooksActiveCreateFormat,
+            gsmtasks.paths.webhooks_update.param_model.WebhooksUpdateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> gsmtasks.components.schemas.webhook.Webhook:
-        import gsmtasks.paths.webhooks_active_create.param_model
+        import gsmtasks.paths.webhooks_update.param_model
 
-        param_model = (
-            gsmtasks.paths.webhooks_active_create.param_model.WebhooksActiveCreate(
-                **locals()
-            )
+        param_model = gsmtasks.paths.webhooks_update.param_model.WebhooksUpdate(
+            **locals()
         )
         return await super()._request(
-            "POST",
-            f"/webhooks/{p_id}/active/",
-            param_model=param_model,
-            request_body=request_body,
-            response_map={
-                "200": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                    "application/xlsx; version=2.4.11": gsmtasks.components.schemas.webhook.Webhook,
-                },
-            },
-            auth=self.auth_tokenAuth,
-        )
-
-    async def webhooks_inactive_create(
-        self,
-        request_body: gsmtasks.components.schemas.webhook.Webhook,
-        /,
-        *,
-        p_id: uuid.UUID,
-        q_format: typing.Union[
-            gsmtasks.paths.webhooks_inactive_create.param_model.WebhooksInactiveCreateFormat,
-            lapidary_base.absent.Absent,
-        ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.webhook.Webhook:
-        import gsmtasks.paths.webhooks_inactive_create.param_model
-
-        param_model = (
-            gsmtasks.paths.webhooks_inactive_create.param_model.WebhooksInactiveCreate(
-                **locals()
-            )
-        )
-        return await super()._request(
-            "POST",
-            f"/webhooks/{p_id}/inactive/",
+            "PUT",
+            f"/webhooks/{p_id}/",
             param_model=param_model,
             request_body=request_body,
             response_map={

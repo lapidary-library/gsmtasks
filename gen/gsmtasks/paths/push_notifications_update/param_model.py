@@ -20,16 +20,16 @@ class PushNotificationsUpdate(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
     p_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.path,
             alias="id",
+            in_=lapidary_base.ParamPlacement.path,
         ),
     ]
 

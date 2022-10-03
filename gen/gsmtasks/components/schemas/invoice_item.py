@@ -10,11 +10,14 @@ import uuid
 
 class InvoiceItem(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     invoice: typing.Annotated[str, pydantic.Field()]
 
@@ -50,29 +53,38 @@ class InvoiceItem(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     total: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 InvoiceItem.update_forward_refs()

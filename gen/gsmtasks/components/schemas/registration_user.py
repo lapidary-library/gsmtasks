@@ -9,18 +9,24 @@ import uuid
 
 class RegistrationUser(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[str, pydantic.Field()]
 
@@ -37,16 +43,19 @@ class RegistrationUser(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     password: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            min_length=6,
-            max_length=100,
             direction=lapidary_base.ParamDirection.write,
+            max_length=100,
+            min_length=6,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 RegistrationUser.update_forward_refs()

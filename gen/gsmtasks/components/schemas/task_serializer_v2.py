@@ -4,26 +4,28 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.assignee_proximity_enum
 import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.nested_contact
 import gsmtasks.components.schemas.task_category_enum
+import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class TaskSerializerV2Forms(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskSerializerV2Metafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskSerializerV2Counts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskSerializerV2(pydantic.BaseModel):
@@ -68,20 +70,26 @@ class TaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
     state: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     assignee: typing.Annotated[
         typing.Union[
@@ -116,11 +124,12 @@ class TaskSerializerV2(pydantic.BaseModel):
         typing.Union[
             str,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     route: typing.Annotated[
         typing.Union[
@@ -190,21 +199,23 @@ class TaskSerializerV2(pydantic.BaseModel):
         typing.Union[
             datetime.datetime,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     cancelled_at: typing.Annotated[
         typing.Union[
             datetime.datetime,
             None,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     auto_assign: typing.Annotated[
         typing.Union[
@@ -215,11 +226,14 @@ class TaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     assignee_proximity: typing.Annotated[
-        typing.Any,
+        typing.Union[
+            gsmtasks.components.schemas.assignee_proximity_enum.AssigneeProximityEnum,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     position: typing.Annotated[
         typing.Union[
@@ -228,7 +242,7 @@ class TaskSerializerV2(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -239,7 +253,7 @@ class TaskSerializerV2(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -265,11 +279,14 @@ class TaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     forms: typing.Annotated[
-        TaskSerializerV2Forms,
+        typing.Union[
+            TaskSerializerV2Forms,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     documents: typing.Annotated[
         typing.Union[
@@ -300,53 +317,73 @@ class TaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     trackers: typing.Annotated[
-        list[
-            str,
+        typing.Union[
+            list[
+                str,
+            ],
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     issues: typing.Annotated[
-        list[
-            str,
+        typing.Union[
+            list[
+                str,
+            ],
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     counts: typing.Annotated[
-        TaskSerializerV2Counts,
+        typing.Union[
+            TaskSerializerV2Counts,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     actions: typing.Annotated[
-        list[
-            str,
+        typing.Union[
+            list[
+                str,
+            ],
+            lapidary_base.absent.Absent,
         ],
-        pydantic.Field(),
-    ]
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.forbid
 
 
 TaskSerializerV2Forms.update_forward_refs()

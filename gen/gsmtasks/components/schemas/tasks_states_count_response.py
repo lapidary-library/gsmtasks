@@ -3,23 +3,27 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import lapidary_base.absent
 
 
 class TasksStatesCountResponseDates(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TasksStatesCountResponse(pydantic.BaseModel):
     dates: typing.Annotated[
-        TasksStatesCountResponseDates,
+        typing.Union[
+            TasksStatesCountResponseDates,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TasksStatesCountResponseDates.update_forward_refs()

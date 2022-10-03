@@ -3,11 +3,16 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import gsmtasks.components.schemas.account_billing_method_enum
+import gsmtasks.components.schemas.account_state_enum
 import gsmtasks.components.schemas.blank_enum
 import gsmtasks.components.schemas.country_code_enum
 import gsmtasks.components.schemas.date_format_enum
 import gsmtasks.components.schemas.distance_units_enum
 import gsmtasks.components.schemas.feature_address_autosuggest_provider_enum
+import gsmtasks.components.schemas.language_enum
+import gsmtasks.components.schemas.nested_address
+import gsmtasks.components.schemas.objective_enum
 import gsmtasks.components.schemas.task_expiry_state_enum
 import gsmtasks.components.schemas.time_format_enum
 import gsmtasks.components.schemas.timezone_enum
@@ -18,22 +23,22 @@ import uuid
 
 class PatchedAccountTaskDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedAccountTaskExpiryDurationFromCompleteAfter(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedAccountTaskExpiryDurationFromCompleteBefore(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedAccountAutoAssignRotate(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedAccount(pydantic.BaseModel):
@@ -69,7 +74,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.account_state_enum.AccountStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -92,8 +97,8 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            regex=r"^[-a-zA-Z0-9_]+$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^[-a-zA-Z0-9_]+$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -169,7 +174,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     language: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.language_enum.LanguageEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(),
@@ -194,7 +199,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -259,7 +264,7 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -282,7 +287,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     route_start_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -291,7 +296,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     route_end_address: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.nested_address.NestedAddress,
             None,
             lapidary_base.absent.Absent,
         ],
@@ -308,7 +313,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     optimization_objective: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.objective_enum.ObjectiveEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(),
@@ -328,7 +333,7 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -349,7 +354,7 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -438,7 +443,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     feature_geocoding_country_code: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.country_code_enum.CountryCodeEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -477,7 +482,7 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -489,7 +494,7 @@ class PatchedAccount(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -592,7 +597,7 @@ class PatchedAccount(pydantic.BaseModel):
 
     billing_method: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.account_billing_method_enum.AccountBillingMethodEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -671,7 +676,7 @@ class PatchedAccount(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedAccountTaskDuration.update_forward_refs()

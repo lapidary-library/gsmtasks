@@ -7,7 +7,7 @@ import pydantic
 
 class ConfigurationSettingsTaskCommandQueueLimit(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class ConfigurationSettings(pydantic.BaseModel):
@@ -20,7 +20,7 @@ class ConfigurationSettings(pydantic.BaseModel):
     time_format: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 ConfigurationSettingsTaskCommandQueueLimit.update_forward_refs()

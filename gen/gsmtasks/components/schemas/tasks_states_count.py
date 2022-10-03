@@ -3,67 +3,92 @@ from __future__ import annotations
 import typing
 import lapidary_base
 import pydantic
+import lapidary_base.absent
 
 
 class TasksStatesCount(pydantic.BaseModel):
     unassigned: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     assigned: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     accepted: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     transit: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     active: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     completed: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     failed: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     cancelled: typing.Annotated[
-        int,
+        typing.Union[
+            int,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TasksStatesCount.update_forward_refs()

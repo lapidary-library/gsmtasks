@@ -5,6 +5,7 @@ import lapidary_base
 import pydantic
 import gsmtasks.components.schemas.blank_enum
 import gsmtasks.components.schemas.country_code_enum
+import gsmtasks.components.schemas.language_enum
 import gsmtasks.components.schemas.null_enum
 import gsmtasks.components.schemas.timezone_enum
 import gsmtasks.components.schemas.type21d_enum
@@ -14,18 +15,24 @@ import uuid
 
 class RegistrationAccount(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     name: typing.Annotated[
         str,
@@ -45,7 +52,7 @@ class RegistrationAccount(pydantic.BaseModel):
 
     language: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.language_enum.LanguageEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(),
@@ -82,7 +89,7 @@ class RegistrationAccount(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 RegistrationAccount.update_forward_refs()

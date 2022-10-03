@@ -36,7 +36,7 @@ class ImportMappingLine(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 ImportMappingLine.update_forward_refs()

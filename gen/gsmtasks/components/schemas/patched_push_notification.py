@@ -7,6 +7,7 @@ import datetime
 import gsmtasks.components.schemas.blank_enum
 import gsmtasks.components.schemas.event_enum
 import gsmtasks.components.schemas.null_enum
+import gsmtasks.components.schemas.push_notification_state_enum
 import lapidary_base.absent
 import uuid
 
@@ -51,7 +52,7 @@ class PatchedPushNotification(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.push_notification_state_enum.PushNotificationStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -166,7 +167,7 @@ class PatchedPushNotification(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedPushNotification.update_forward_refs()

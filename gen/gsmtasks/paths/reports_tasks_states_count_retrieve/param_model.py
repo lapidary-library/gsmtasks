@@ -460,8 +460,8 @@ class ReportsTasksStatesCountRetrieve(pydantic.BaseModel):
     q_account: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="account",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ]
 
@@ -471,8 +471,8 @@ class ReportsTasksStatesCountRetrieve(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="assignee",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -482,24 +482,24 @@ class ReportsTasksStatesCountRetrieve(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="assignee__in",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
     q_date_from: typing.Annotated[
         datetime.date,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="date_from",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ]
 
     q_date_until: typing.Annotated[
         datetime.date,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="date_until",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ]
 
@@ -509,8 +509,8 @@ class ReportsTasksStatesCountRetrieve(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -520,8 +520,8 @@ class ReportsTasksStatesCountRetrieve(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="timezone",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 

@@ -5,13 +5,14 @@ import lapidary_base
 import pydantic
 import datetime
 import gsmtasks.components.schemas.version_enum
+import gsmtasks.components.schemas.webhook_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class PatchedWebhookHeaders(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedWebhook(pydantic.BaseModel):
@@ -63,7 +64,7 @@ class PatchedWebhook(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.webhook_state_enum.WebhookStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -202,7 +203,7 @@ class PatchedWebhook(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedWebhookHeaders.update_forward_refs()

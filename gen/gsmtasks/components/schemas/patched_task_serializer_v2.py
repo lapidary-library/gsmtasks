@@ -4,36 +4,38 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.assignee_proximity_enum
 import gsmtasks.components.schemas.nested_address
 import gsmtasks.components.schemas.nested_contact
 import gsmtasks.components.schemas.task_category_enum
+import gsmtasks.components.schemas.task_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class PatchedTaskSerializerV2Duration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Forms(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Metafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Counts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Actions(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2(pydantic.BaseModel):
@@ -97,7 +99,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.task_state_enum.TaskStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -242,7 +244,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
 
     assignee_proximity: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.assignee_proximity_enum.AssigneeProximityEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -257,7 +259,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=253402300799.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -268,7 +270,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=-2147483648.0,
+            ge=-2147483648.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -396,7 +398,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedTaskSerializerV2Duration.update_forward_refs()

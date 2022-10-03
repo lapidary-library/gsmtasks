@@ -10,58 +10,64 @@ import uuid
 
 class TaskMetadataUnassignedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataAssignedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataAcceptedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataTransitDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataActiveDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataCompletedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataFailedDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadataCancelledDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class TaskMetadata(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     task: typing.Annotated[str, pydantic.Field()]
 
@@ -72,7 +78,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -84,7 +90,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -96,7 +102,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -108,7 +114,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -120,7 +126,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -132,7 +138,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=32767.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -224,7 +230,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -236,7 +242,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -248,7 +254,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -260,7 +266,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -272,7 +278,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -284,7 +290,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -296,7 +302,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -308,7 +314,7 @@ class TaskMetadata(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            gt=0.0,
+            ge=0.0,
             le=2147483647.0,
         ),
     ] = lapidary_base.absent.ABSENT
@@ -386,7 +392,7 @@ class TaskMetadata(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 TaskMetadataUnassignedDuration.update_forward_refs()

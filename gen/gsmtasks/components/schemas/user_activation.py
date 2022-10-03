@@ -9,11 +9,14 @@ import uuid
 
 class UserActivation(pydantic.BaseModel):
     token: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.write,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     password: typing.Annotated[
         typing.Union[
@@ -26,7 +29,7 @@ class UserActivation(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 UserActivation.update_forward_refs()

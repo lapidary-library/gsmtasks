@@ -10,23 +10,29 @@ import uuid
 
 class ClientContactAddressesItem(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class Client(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     url: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     account: typing.Annotated[str, pydantic.Field()]
 
@@ -38,12 +44,15 @@ class Client(pydantic.BaseModel):
     ]
 
     slug: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^[-a-zA-Z0-9_]+$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^[-a-zA-Z0-9_]+$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     archived: typing.Annotated[
         typing.Union[
@@ -54,30 +63,39 @@ class Client(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    updated_at: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    contact_addresses: typing.Annotated[
-        list[
-            ClientContactAddressesItem,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
+
+    updated_at: typing.Annotated[
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    contact_addresses: typing.Annotated[
+        typing.Union[
+            list[
+                ClientContactAddressesItem,
+            ],
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 ClientContactAddressesItem.update_forward_refs()

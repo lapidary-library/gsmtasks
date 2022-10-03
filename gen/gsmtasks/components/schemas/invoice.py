@@ -4,93 +4,129 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.invoice_account
+import gsmtasks.components.schemas.invoice_billing_method_enum
 import gsmtasks.components.schemas.invoice_item
+import gsmtasks.components.schemas.invoice_state_enum
 import lapidary_base.absent
 import uuid
 
 
 class Invoice(pydantic.BaseModel):
     id: typing.Annotated[
-        uuid.UUID,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    url: typing.Annotated[
-        str,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    account: typing.Annotated[
-        typing.Any,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    billing_method: typing.Annotated[
-        typing.Any,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    state: typing.Annotated[
-        typing.Any,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    period: typing.Annotated[
-        list[
-            datetime.date,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
+
+    url: typing.Annotated[
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    account: typing.Annotated[
+        typing.Union[
+            gsmtasks.components.schemas.invoice_account.InvoiceAccount,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    billing_method: typing.Annotated[
+        typing.Union[
+            gsmtasks.components.schemas.invoice_billing_method_enum.InvoiceBillingMethodEnum,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    state: typing.Annotated[
+        typing.Union[
+            gsmtasks.components.schemas.invoice_state_enum.InvoiceStateEnum,
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
+
+    period: typing.Annotated[
+        typing.Union[
+            list[
+                datetime.date,
+            ],
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     total_no_vat: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     total_vat: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     total_with_vat: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
-            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
             direction=lapidary_base.ParamDirection.read,
+            regex=r"^-?\d{0,7}(?:\.\d{0,2})?$",
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     currency: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     vat: typing.Annotated[
-        bool,
+        typing.Union[
+            bool,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     due_date: typing.Annotated[
         typing.Union[
@@ -102,58 +138,79 @@ class Invoice(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     paid_at: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            direction=lapidary_base.ParamDirection.read,
-        ),
-    ]
-
-    items: typing.Annotated[
-        list[
-            gsmtasks.components.schemas.invoice_item.InvoiceItem,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
         ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
+
+    items: typing.Annotated[
+        typing.Union[
+            list[
+                gsmtasks.components.schemas.invoice_item.InvoiceItem,
+            ],
+            lapidary_base.absent.Absent,
+        ],
+        pydantic.Field(
+            direction=lapidary_base.ParamDirection.read,
+        ),
+    ] = lapidary_base.absent.ABSENT
 
     pricing: typing.Annotated[
-        uuid.UUID,
+        typing.Union[
+            uuid.UUID,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     confirmed_by: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     confirmed_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     created_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 Invoice.update_forward_refs()

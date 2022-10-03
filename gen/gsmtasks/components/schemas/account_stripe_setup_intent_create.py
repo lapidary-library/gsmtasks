@@ -14,7 +14,7 @@ class AccountStripeSetupIntentCreate(pydantic.BaseModel):
     ]
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 AccountStripeSetupIntentCreate.update_forward_refs()

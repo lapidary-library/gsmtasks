@@ -9,11 +9,12 @@ import gsmtasks.components.schemas.legacy_task
 import gsmtasks.components.schemas.order
 import gsmtasks.components.schemas.task_metadata
 import gsmtasks.components.schemas.worker_feature
+import lapidary_base.absent
 
 
 class DashboardSceneAssignedTaskCounts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 class DashboardScene(pydantic.BaseModel):
@@ -39,11 +40,14 @@ class DashboardScene(pydantic.BaseModel):
     ]
 
     assigned_task_counts: typing.Annotated[
-        DashboardSceneAssignedTaskCounts,
+        typing.Union[
+            DashboardSceneAssignedTaskCounts,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     workers: typing.Annotated[
         list[
@@ -60,14 +64,17 @@ class DashboardScene(pydantic.BaseModel):
     ]
 
     updated_at: typing.Annotated[
-        datetime.datetime,
+        typing.Union[
+            datetime.datetime,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 DashboardSceneAssignedTaskCounts.update_forward_refs()

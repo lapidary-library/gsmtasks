@@ -4,6 +4,7 @@ import typing
 import lapidary_base
 import pydantic
 import datetime
+import gsmtasks.components.schemas.email_state_enum
 import lapidary_base.absent
 import uuid
 
@@ -49,7 +50,7 @@ class PatchedEmail(pydantic.BaseModel):
 
     state: typing.Annotated[
         typing.Union[
-            typing.Any,
+            gsmtasks.components.schemas.email_state_enum.EmailStateEnum,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -166,7 +167,7 @@ class PatchedEmail(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 PatchedEmail.update_forward_refs()

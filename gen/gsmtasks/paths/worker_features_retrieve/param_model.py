@@ -20,16 +20,16 @@ class WorkerFeaturesRetrieve(pydantic.BaseModel):
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.query,
             alias="format",
+            in_=lapidary_base.ParamPlacement.query,
         ),
     ] = lapidary_base.absent.ABSENT
 
     p_user_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.path,
             alias="user_id",
+            in_=lapidary_base.ParamPlacement.path,
         ),
     ]
 

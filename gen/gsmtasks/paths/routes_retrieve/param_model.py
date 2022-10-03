@@ -10,8 +10,8 @@ class RoutesRetrieve(pydantic.BaseModel):
     p_id: typing.Annotated[
         uuid.UUID,
         pydantic.Field(
-            in_=lapidary_base.ParamPlacement.path,
             alias="id",
+            in_=lapidary_base.ParamPlacement.path,
         ),
     ]
 

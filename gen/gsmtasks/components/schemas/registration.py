@@ -5,6 +5,7 @@ import lapidary_base
 import pydantic
 import gsmtasks.components.schemas.registration_account
 import gsmtasks.components.schemas.registration_user
+import lapidary_base.absent
 
 
 class Registration(pydantic.BaseModel):
@@ -18,14 +19,17 @@ class Registration(pydantic.BaseModel):
     ]
 
     token: typing.Annotated[
-        str,
+        typing.Union[
+            str,
+            lapidary_base.absent.Absent,
+        ],
         pydantic.Field(
             direction=lapidary_base.ParamDirection.read,
         ),
-    ]
+    ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
-        allow_population_by_field_name = True
+        extra = pydantic.Extra.allow
 
 
 Registration.update_forward_refs()

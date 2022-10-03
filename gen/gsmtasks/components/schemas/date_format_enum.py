@@ -7,7 +7,7 @@ import enum
 
 
 class DateFormatEnum(enum.Enum):
-    DD_MM_YYYY = "DD.MM.YYYY"
-    YYYY_MM_DD = "YYYY-MM-DD"
-    DD_MM_YYYY_ = "DD/MM/YYYY"
+    dmy_dot = "DD.MM.YYYY"
+    dmy_slash = "DD/MM/YYYY"
+    iso = "YYYY-MM-DD"
     MM_DD_YYYY = "MM/DD/YYYY"
