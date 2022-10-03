@@ -3,6 +3,7 @@ import os
 import sys
 from pprint import pp
 from unittest import IsolatedAsyncioTestCase
+from uuid import UUID
 
 from gsmtasks.client import ApiClient
 from gsmtasks.components.schemas.account import Account
@@ -45,3 +46,8 @@ class ClientTest(IsolatedAsyncioTestCase):
     #     pp([task.dict(exclude_none=True, exclude_unset=True) for task in tasks], stream=sys.stderr)
     #
     #     self.assertEqual({UUID(hex=id_) for id_ in ids}, {task.id for task in tasks})
+
+    async def test_task_metadata(self):
+        task = await self.client.tasks_retrieve(p_id=UUID(hex='c3a0b9e4-df2b-44c4-b879-c0961dfc3620'))
+        print(type(task.metafields))
+        pp(task.metafields.dict())
