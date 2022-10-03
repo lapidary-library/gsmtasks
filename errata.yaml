@@ -1,4 +1,10 @@
 # Account
+- op: add
+  path: /components/schemas/Account/properties/stripe_payment_method_id/nullable
+  value: true
+- op: add
+  path: /components/schemas/Account/properties/stripe_customer_id/nullable
+  value: true
 - op: replace
   path: /components/schemas/Account/properties/task_duration
   value:
@@ -6,11 +12,36 @@
     oneOf:
     - type: integer
     - type: string
+    additionalProperties: false
+- op: replace
+  path: /components/schemas/Account/properties/feature_geocoding_country_code
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/CountryCodeEnum'
+    - $ref: '#/components/schemas/BlankEnum'
+    readOnly: true
+    description: Limit geocoding to the selected country.
+
 - op: add
-  path: /components/schemas/Account/properties/stripe_payment_method_id/nullable
-  value: true
+  path: /components/schemas/DateFormatEnum/x-lapidary-enum-names
+  value:
+    dmy_dot: DD.MM.YYYY
+    dmy_slash: DD/MM/YYYY
+    iso: YYYY-MM-DD
 
 # Task
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/cancelled_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/completed_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/orderer_name/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/additionalProperties
+  value: false
 - op: replace
   path: /components/schemas/TaskSerializerV2/properties/duration
   value:
@@ -18,30 +49,14 @@
     oneOf:
     - type: integer
     - type: string
+    additionalProperties: false
 - op: replace
   path: /components/schemas/TaskSerializerV2/properties/actions
   value:
     type: array
     items:
       type: string
-- op: add
-  path: /components/schemas/Account/properties/stripe_payment_method_id/nullable
-  value: true
-- op: add
-  path: /components/schemas/Account/properties/stripe_customer_id/nullable
-  value: true
-- op: add
-  path: /components/schemas/TaskSerializerV2/properties/orderer_name/nullable
-  value: true
-- op: add
-  path: /components/schemas/NestedAddress/properties/geocode_failed_at/nullable
-  value: true
-- op: add
-  path: /components/schemas/TaskSerializerV2/properties/completed_at/nullable
-  value: true
-- op: add
-  path: /components/schemas/TaskSerializerV2/properties/cancelled_at/nullable
-  value: true
+    readOnly: true
 
 # Address
 - op: add
@@ -85,6 +100,23 @@
           $ref: '#/components/schemas/PaginatedTaskMetadataList'
       required:
       - tasks
+      additionalProperties: false
+    additionalProperties: false
+
+- op: replace
+  path: /paths/~1tasks~1/post/responses/201/content/application~1json; version=2.4.11/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - $ref: '#/components/schemas/TaskSerializerV2'
+    additionalProperties: false
+- op: replace
+  path: /paths/~1tasks~1/post/requestBody/content/application~1json/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - $ref: '#/components/schemas/TaskSerializerV2'
+    additionalProperties: false
 
 - op: add
   path: /components/securitySchemes/tokenAuth/x-lapidary-value-prefix
@@ -110,6 +142,8 @@
     required:
     - detail
     x-lapidary-model-type: exception
+    additionalProperties: false
+
 - op: add
   path: /components/schemas/ValidationError
   value:
