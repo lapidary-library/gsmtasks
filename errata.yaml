@@ -8,11 +8,7 @@
 - op: replace
   path: /components/schemas/Account/properties/task_duration
   value:
-    title: Default task duration
-    oneOf:
-    - type: integer
-    - type: string
-    additionalProperties: false
+    $ref: '#/components/schemas/TaskDuration_'
 - op: replace
   path: /components/schemas/Account/properties/feature_geocoding_country_code
   value:
@@ -45,11 +41,7 @@
 - op: replace
   path: /components/schemas/TaskSerializerV2/properties/duration
   value:
-    title: Task duration
-    oneOf:
-    - type: integer
-    - type: string
-    additionalProperties: false
+    $ref: '#/components/schemas/TaskDuration_'
 - op: replace
   path: /components/schemas/TaskSerializerV2/properties/actions
   value:
@@ -59,6 +51,9 @@
     readOnly: true
 
 # Address
+- op: add
+  path: /components/schemas/NestedAddress/properties/geocoded_at/nullable
+  value: true
 - op: add
   path: /components/schemas/NestedAddress/properties/geocode_failed_at/nullable
   value: true
@@ -116,6 +111,45 @@
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
     - $ref: '#/components/schemas/TaskSerializerV2'
+    additionalProperties: false
+
+- op: add
+  path: /components/schemas/Document/properties/file_name/nullable
+  value: true
+- op: add
+  path: /components/schemas/Document/properties/mimetype/nullable
+  value: true
+- op: add
+  path: /components/schemas/Document/properties/thumbnail/nullable
+  value: true
+- op: replace
+  path: /paths/~1file_uploads~1/post/responses/201/content/application~1json; version=2.4.11/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedS3FileUploadList'
+    - $ref: '#/components/schemas/S3FileUpload'
+    additionalProperties: false
+- op: replace
+  path: /paths/~1file_uploads~1/post/requestBody/content/application~1json/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedS3FileUploadList'
+    - $ref: '#/components/schemas/S3FileUpload'
+    additionalProperties: false
+
+- op: replace
+  path: /paths/~1documents~1/post/requestBody/content/application~1json/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedDocumentList'
+    - $ref: '#/components/schemas/Document'
+    additionalProperties: false
+- op: replace
+  path: /paths/~1documents~1/post/responses/201/content/application~1json; version=2.4.11/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedDocumentList'
+    - $ref: '#/components/schemas/Document'
     additionalProperties: false
 
 - op: add
@@ -178,3 +212,59 @@
       $ref: '#/components/responses/generic-error'
     '5XX':
       $ref: '#/components/responses/generic-error'
+
+- op: replace
+  path: /components/schemas/Metafield/properties/namespace/pattern
+  value: ^[a-z0-9_]+$
+- op: replace
+  path: /components/schemas/Metafield/properties/key/pattern
+  value: ^[a-z0-9_]+$
+
+- op: add
+  path: /components/schemas/TaskDuration_
+  value:
+    title: Task duration
+    oneOf:
+    - type: integer
+    - type: string
+    additionalProperties: false
+- op: add
+  path: /components/schemas/NullableTaskDuration_
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/TaskDuration_'
+    nullable: true
+    additionalProperties: false
+
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/assigned_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/unassigned_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/accepted_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/transit_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/active_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/completed_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/failed_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/cancelled_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration_'
