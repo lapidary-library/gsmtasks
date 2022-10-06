@@ -32,6 +32,6 @@ pythonpath = [
 ]
 
 [tool.lapidary]
-errata = "errata.yaml"
+errata = "errata"
 specification = 'openapi.yaml'
 package = 'gsmtasks'

@@ -1,0 +1,23 @@
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/cancelled_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/completed_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/properties/orderer_name/nullable
+  value: true
+- op: add
+  path: /components/schemas/TaskSerializerV2/additionalProperties
+  value: false
+- op: replace
+  path: /components/schemas/TaskSerializerV2/properties/duration
+  value:
+    $ref: '#/components/schemas/TaskDuration'
+- op: replace
+  path: /components/schemas/TaskSerializerV2/properties/actions
+  value:
+    type: array
+    items:
+      type: string
+    readOnly: true

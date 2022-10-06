@@ -1,0 +1,59 @@
+- op: add
+  path: /paths/~1tasks~1/get/parameters/-
+  value:
+    name: sideload
+    in: query
+    schema:
+      type: array
+      items:
+        type: string
+        enum:
+        - metadatas
+        - documents
+      uniqueItems: true
+
+# id__in
+- op: replace
+  path: /paths/~1tasks~1/get/parameters/249/schema
+  value:
+    type: array
+    items:
+      type: string
+      format: uuid
+
+- op: add
+  path: /components/schemas/TaskListExt
+  value:
+    type: object
+    properties:
+      tasks:
+        $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+      documents:
+        $ref: '#/components/schemas/PaginatedDocumentList'
+      metadatas:
+        $ref: '#/components/schemas/PaginatedTaskMetadataList'
+    required:
+    - tasks
+    additionalProperties: false
+- op: replace
+  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.4.11/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - $ref: '#/components/schemas/TaskListExt'
+    additionalProperties: false
+
+- op: replace
+  path: /paths/~1tasks~1/post/responses/201/content/application~1json; version=2.4.11/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - $ref: '#/components/schemas/TaskSerializerV2'
+    additionalProperties: false
+- op: replace
+  path: /paths/~1tasks~1/post/requestBody/content/application~1json/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
+    - $ref: '#/components/schemas/TaskSerializerV2'
+    additionalProperties: false

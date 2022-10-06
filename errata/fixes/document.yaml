@@ -1,0 +1,9 @@
+- op: add
+  path: /components/schemas/Document/properties/file_name/nullable
+  value: true
+- op: add
+  path: /components/schemas/Document/properties/mimetype/nullable
+  value: true
+- op: add
+  path: /components/schemas/Document/properties/thumbnail/nullable
+  value: true

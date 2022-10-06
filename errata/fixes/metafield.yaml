@@ -1,0 +1,6 @@
+- op: replace
+  path: /components/schemas/Metafield/properties/namespace/pattern
+  value: ^[a-z0-9_]+$
+- op: replace
+  path: /components/schemas/Metafield/properties/key/pattern
+  value: ^[a-z0-9_]+$

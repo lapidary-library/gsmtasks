@@ -1,0 +1,24 @@
+# Lapidary-specific extensions
+
+# add key names to python enum classes in order to avoid name clashes
+- op: add
+  path: /components/schemas/DateFormatEnum/x-lapidary-enum-names
+  value:
+    dmy_dot: DD.MM.YYYY
+    dmy_slash: DD/MM/YYYY
+    iso: YYYY-MM-DD
+
+- op: add
+  path: /components/securitySchemes/tokenAuth/x-lapidary-value-prefix
+  value: 'Token '
+
+# accept an error response form every endpoint
+- op: add
+  path: /x-lapidary-responses-global
+  value:
+    '400':
+      $ref: '#/components/responses/validation-error'
+    '4XX':
+      $ref: '#/components/responses/generic-error'
+    '5XX':
+      $ref: '#/components/responses/generic-error'

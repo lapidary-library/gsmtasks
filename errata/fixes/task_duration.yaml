@@ -1,0 +1,15 @@
+- op: add
+  path: /components/schemas/TaskDuration
+  value:
+    title: Task duration
+    oneOf:
+    - type: integer
+    - type: string
+    additionalProperties: false
+- op: add
+  path: /components/schemas/NullableTaskDuration
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/TaskDuration'
+    nullable: true
+    additionalProperties: false

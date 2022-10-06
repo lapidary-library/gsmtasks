@@ -1,0 +1,32 @@
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/assigned_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/unassigned_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/accepted_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/transit_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/active_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/completed_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/failed_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'
+- op: replace
+  path: /components/schemas/TaskMetadata/properties/cancelled_duration
+  value:
+    $ref: '#/components/schemas/NullableTaskDuration'

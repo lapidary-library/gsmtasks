@@ -1,0 +1,6 @@
+- op: add
+  path: /components/schemas/NestedAddress/properties/geocoded_at/nullable
+  value: true
+- op: add
+  path: /components/schemas/NestedAddress/properties/geocode_failed_at/nullable
+  value: true
