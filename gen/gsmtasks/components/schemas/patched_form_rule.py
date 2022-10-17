@@ -9,6 +9,7 @@ import uuid
 
 class PatchedFormRuleRules(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -100,6 +101,7 @@ class PatchedFormRule(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

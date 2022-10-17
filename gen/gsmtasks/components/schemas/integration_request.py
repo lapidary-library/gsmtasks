@@ -46,6 +46,7 @@ class IntegrationRequest(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

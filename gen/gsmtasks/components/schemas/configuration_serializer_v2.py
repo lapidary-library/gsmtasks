@@ -15,36 +15,43 @@ import lapidary_base.absent
 
 class ConfigurationSerializerV2Auth(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2Features(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2Templates(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2Tracking(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2Permissions(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2LegacyViews(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ConfigurationSerializerV2Billing(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -228,6 +235,7 @@ class ConfigurationSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

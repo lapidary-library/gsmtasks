@@ -15,26 +15,31 @@ import uuid
 
 class PatchedTaskSerializerV2Duration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Forms(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Metafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Counts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class PatchedTaskSerializerV2Actions(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -398,6 +403,7 @@ class PatchedTaskSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

@@ -31,6 +31,7 @@ class WorkerTrack(pydantic.BaseModel):
     end_time: typing.Annotated[datetime.datetime, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

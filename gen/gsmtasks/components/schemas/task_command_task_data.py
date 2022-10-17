@@ -10,6 +10,7 @@ import lapidary_base.absent
 
 class TaskCommandTaskDataMetafields(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -50,6 +51,7 @@ class TaskCommandTaskData(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

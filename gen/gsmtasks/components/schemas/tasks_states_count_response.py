@@ -8,6 +8,7 @@ import lapidary_base.absent
 
 class TasksStatesCountResponseDates(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -23,6 +24,7 @@ class TasksStatesCountResponse(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

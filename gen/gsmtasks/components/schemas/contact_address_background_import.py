@@ -11,11 +11,13 @@ import uuid
 
 class ContactAddressBackgroundImportContactAddressesDataItem(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
 class ContactAddressBackgroundImportErrors(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -157,6 +159,7 @@ class ContactAddressBackgroundImport(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

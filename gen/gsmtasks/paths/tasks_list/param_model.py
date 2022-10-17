@@ -2784,7 +2784,9 @@ class TasksList(pydantic.BaseModel):
 
     q_id__in: typing.Annotated[
         typing.Union[
-            str,
+            list[
+                uuid.UUID,
+            ],
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(

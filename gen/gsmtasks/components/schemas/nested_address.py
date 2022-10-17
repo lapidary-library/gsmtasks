@@ -142,6 +142,7 @@ class NestedAddress(pydantic.BaseModel):
     geocoded_at: typing.Annotated[
         typing.Union[
             datetime.datetime,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -161,6 +162,7 @@ class NestedAddress(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

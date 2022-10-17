@@ -9,6 +9,7 @@ class TaskAccountChange(pydantic.BaseModel):
     account: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

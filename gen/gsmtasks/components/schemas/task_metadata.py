@@ -8,46 +8,6 @@ import lapidary_base.absent
 import uuid
 
 
-class TaskMetadataUnassignedDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataAssignedDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataAcceptedDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataTransitDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataActiveDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataCompletedDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataFailedDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
-class TaskMetadataCancelledDuration(pydantic.BaseModel):
-    class Config(pydantic.BaseConfig):
-        extra = pydantic.Extra.allow
-
-
 class TaskMetadata(pydantic.BaseModel):
     id: typing.Annotated[
         typing.Union[
@@ -153,7 +113,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     unassigned_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataUnassignedDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -162,7 +125,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     assigned_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataAssignedDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -171,7 +137,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     accepted_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataAcceptedDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -180,7 +149,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     transit_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataTransitDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -189,7 +161,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     active_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataActiveDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -198,7 +173,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     completed_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataCompletedDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -207,7 +185,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     failed_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataFailedDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -216,7 +197,10 @@ class TaskMetadata(pydantic.BaseModel):
 
     cancelled_duration: typing.Annotated[
         typing.Union[
-            TaskMetadataCancelledDuration,
+            typing.Union[
+                int,
+                str,
+            ],
             None,
             lapidary_base.absent.Absent,
         ],
@@ -392,15 +376,8 @@ class TaskMetadata(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
-TaskMetadataUnassignedDuration.update_forward_refs()
-TaskMetadataAssignedDuration.update_forward_refs()
-TaskMetadataAcceptedDuration.update_forward_refs()
-TaskMetadataTransitDuration.update_forward_refs()
-TaskMetadataActiveDuration.update_forward_refs()
-TaskMetadataCompletedDuration.update_forward_refs()
-TaskMetadataFailedDuration.update_forward_refs()
-TaskMetadataCancelledDuration.update_forward_refs()
 TaskMetadata.update_forward_refs()

@@ -158,6 +158,7 @@ class WorkerFeature(pydantic.BaseModel):
     ]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

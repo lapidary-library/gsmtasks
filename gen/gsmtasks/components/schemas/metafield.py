@@ -50,7 +50,7 @@ class Metafield(pydantic.BaseModel):
         ],
         pydantic.Field(
             max_length=20,
-            regex=r"[a-z0-9]+$",
+            regex=r"^[a-z0-9_]+$",
         ),
     ] = lapidary_base.absent.ABSENT
 
@@ -58,7 +58,7 @@ class Metafield(pydantic.BaseModel):
         str,
         pydantic.Field(
             max_length=20,
-            regex=r"[a-z0-9]+$",
+            regex=r"^[a-z0-9_]+$",
         ),
     ]
 
@@ -229,6 +229,7 @@ class Metafield(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

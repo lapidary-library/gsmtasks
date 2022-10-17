@@ -7,6 +7,7 @@ import pydantic
 
 class ConfigurationDefaultsTaskDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -16,6 +17,7 @@ class ConfigurationDefaults(pydantic.BaseModel):
     distance_units: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

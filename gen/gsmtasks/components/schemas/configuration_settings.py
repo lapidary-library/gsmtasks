@@ -7,6 +7,7 @@ import pydantic
 
 class ConfigurationSettingsTaskCommandQueueLimit(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -20,6 +21,7 @@ class ConfigurationSettings(pydantic.BaseModel):
     time_format: typing.Annotated[str, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

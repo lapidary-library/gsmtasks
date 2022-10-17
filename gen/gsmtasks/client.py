@@ -72,6 +72,7 @@ import gsmtasks.components.schemas.task_event_serializer_v2
 import gsmtasks.components.schemas.task_event_track
 import gsmtasks.components.schemas.task_export
 import gsmtasks.components.schemas.task_form
+import gsmtasks.components.schemas.task_list_ext
 import gsmtasks.components.schemas.task_list_reorder_request
 import gsmtasks.components.schemas.task_list_scene
 import gsmtasks.components.schemas.task_metadata
@@ -277,7 +278,6 @@ import gsmtasks.paths.tasks_documents_retrieve.param_model
 import gsmtasks.paths.tasks_events_retrieve.param_model
 import gsmtasks.paths.tasks_fail_create.param_model
 import gsmtasks.paths.tasks_list.param_model
-import gsmtasks.paths.tasks_list.response_body
 import gsmtasks.paths.tasks_partial_update.param_model
 import gsmtasks.paths.tasks_reject_create.param_model
 import gsmtasks.paths.tasks_reorder_create.param_model
@@ -344,21 +344,16 @@ class ApiClient(lapidary_base.ApiBase):
         base_url="https://api.gsmtasks.com/",
     ):
         super().__init__(
-            client=httpx.AsyncClient(
-                base_url=base_url,
-                headers=[
-                    ("Accept", "application/json; version=2.4.11"),
-                ],
-            ),
+            client=httpx.AsyncClient(base_url=base_url, headers=[]),
             global_response_map={
                 "400": {
-                    "application/json": gsmtasks.components.schemas.validation_error.ValidationError,
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.validation_error.ValidationError,
                 },
                 "4XX": {
-                    "application/json": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
                 },
                 "5XX": {
-                    "application/json": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
+                    "application/json; version=2.4.11": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
                 },
             },
         )
@@ -4414,14 +4409,24 @@ class ApiClient(lapidary_base.ApiBase):
 
     async def documents_create(
         self,
-        request_body: gsmtasks.components.schemas.document.Document,
+        request_body: typing.Union[
+            list[
+                gsmtasks.components.schemas.document.Document,
+            ],
+            gsmtasks.components.schemas.document.Document,
+        ],
         /,
         *,
         q_format: typing.Union[
             gsmtasks.paths.documents_create.param_model.DocumentsCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.document.Document:
+    ) -> typing.Union[
+        gsmtasks.components.schemas.document.Document,
+        list[
+            gsmtasks.components.schemas.document.Document,
+        ],
+    ]:
         import gsmtasks.paths.documents_create.param_model
 
         param_model = gsmtasks.paths.documents_create.param_model.DocumentsCreate(
@@ -4434,7 +4439,10 @@ class ApiClient(lapidary_base.ApiBase):
             request_body=request_body,
             response_map={
                 "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.document.Document,
+                    "application/json; version=2.4.11": typing.Union[
+                        list[gsmtasks.components.schemas.document.Document],
+                        gsmtasks.components.schemas.document.Document,
+                    ],
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.document.Document,
                 },
             },
@@ -5391,14 +5399,24 @@ class ApiClient(lapidary_base.ApiBase):
 
     async def file_uploads_create(
         self,
-        request_body: gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+        request_body: typing.Union[
+            list[
+                gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+            ],
+            gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+        ],
         /,
         *,
         q_format: typing.Union[
             gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreateFormat,
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
-    ) -> gsmtasks.components.schemas.s3_file_upload.S3FileUpload:
+    ) -> typing.Union[
+        gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+        list[
+            gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+        ],
+    ]:
         import gsmtasks.paths.file_uploads_create.param_model
 
         param_model = gsmtasks.paths.file_uploads_create.param_model.FileUploadsCreate(
@@ -5411,7 +5429,10 @@ class ApiClient(lapidary_base.ApiBase):
             request_body=request_body,
             response_map={
                 "201": {
-                    "application/json; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+                    "application/json; version=2.4.11": typing.Union[
+                        list[gsmtasks.components.schemas.s3_file_upload.S3FileUpload],
+                        gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
+                    ],
                     "application/xlsx; version=2.4.11": gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
                 },
             },
@@ -21299,7 +21320,9 @@ class ApiClient(lapidary_base.ApiBase):
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
         q_id__in: typing.Union[
-            str,
+            list[
+                uuid.UUID,
+            ],
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
         q_is_optimal: typing.Union[
@@ -22632,7 +22655,7 @@ class ApiClient(lapidary_base.ApiBase):
         list[
             gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
         ],
-        gsmtasks.paths.tasks_list.response_body.TaskListExt,
+        gsmtasks.components.schemas.task_list_ext.TaskListExt,
     ]:
         import gsmtasks.paths.tasks_list.param_model
 
@@ -22647,7 +22670,7 @@ class ApiClient(lapidary_base.ApiBase):
                         list[
                             gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2
                         ],
-                        gsmtasks.paths.tasks_list.response_body.TaskListExt,
+                        gsmtasks.components.schemas.task_list_ext.TaskListExt,
                     ],
                     "application/xml; version=2.4.11": list[
                         gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2

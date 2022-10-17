@@ -14,6 +14,7 @@ import uuid
 
 class RouteOptimizationSerializerV2TotalDuration(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -236,6 +237,7 @@ class RouteOptimizationSerializerV2(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

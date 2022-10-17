@@ -14,6 +14,7 @@ import lapidary_base.absent
 
 class DashboardSceneAssignedTaskCounts(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -74,6 +75,7 @@ class DashboardScene(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

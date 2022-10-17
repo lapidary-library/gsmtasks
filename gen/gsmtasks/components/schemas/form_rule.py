@@ -9,6 +9,7 @@ import uuid
 
 class FormRuleRules(pydantic.BaseModel):
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
@@ -82,6 +83,7 @@ class FormRule(pydantic.BaseModel):
     rules: typing.Annotated[FormRuleRules, pydantic.Field()]
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 

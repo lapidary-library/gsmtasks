@@ -93,6 +93,7 @@ class Document(pydantic.BaseModel):
     file_name: typing.Annotated[
         typing.Union[
             str,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -103,6 +104,7 @@ class Document(pydantic.BaseModel):
     mimetype: typing.Annotated[
         typing.Union[
             str,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -113,6 +115,7 @@ class Document(pydantic.BaseModel):
     thumbnail: typing.Annotated[
         typing.Union[
             str,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -186,6 +189,7 @@ class Document(pydantic.BaseModel):
     ] = lapidary_base.absent.ABSENT
 
     class Config(pydantic.BaseConfig):
+        use_enum_values = True
         extra = pydantic.Extra.allow
 
 
