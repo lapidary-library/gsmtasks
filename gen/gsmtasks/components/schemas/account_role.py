@@ -153,6 +153,7 @@ class AccountRole(pydantic.BaseModel):
     signature_image: typing.Annotated[
         typing.Union[
             str,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -215,6 +216,7 @@ class AccountRole(pydantic.BaseModel):
     last_time_location: typing.Annotated[
         typing.Union[
             str,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
@@ -235,6 +237,7 @@ class AccountRole(pydantic.BaseModel):
     deleted_at: typing.Annotated[
         typing.Union[
             datetime.datetime,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(

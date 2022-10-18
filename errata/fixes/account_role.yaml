@@ -1,0 +1,9 @@
+- op: add
+  path: /components/schemas/AccountRole/properties/signature_image/nullable
+  value: true
+- op: add
+  path: /components/schemas/AccountRole/properties/last_time_location/nullable
+  value: true
+- op: add
+  path: /components/schemas/AccountRole/properties/deleted_at/nullable
+  value: true
