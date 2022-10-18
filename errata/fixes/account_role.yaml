@@ -7,3 +7,6 @@
 - op: add
   path: /components/schemas/AccountRole/properties/deleted_at/nullable
   value: true
+- op: add
+  path: /components/schemas/AccountRole/properties/activated_at/nullable
+  value: true

@@ -227,6 +227,7 @@ class AccountRole(pydantic.BaseModel):
     activated_at: typing.Annotated[
         typing.Union[
             datetime.datetime,
+            None,
             lapidary_base.absent.Absent,
         ],
         pydantic.Field(
