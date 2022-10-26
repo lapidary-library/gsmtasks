@@ -7,4 +7,4 @@ import enum
 
 
 class BlankEnum(enum.Enum):
-    v_ = ""
+    blank = ""

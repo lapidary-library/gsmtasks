@@ -7,5 +7,5 @@ import enum
 
 
 class TimeFormatEnum(enum.Enum):
-    HH_mm = "HH:mm"
-    h_mm_A = "h:mm A"
+    HHu_00003amm = "HH:mm"
+    hu_00003ammu_000020A = "h:mm A"

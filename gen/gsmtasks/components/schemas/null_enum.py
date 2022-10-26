@@ -7,4 +7,4 @@ import enum
 
 
 class NullEnum(enum.Enum):
-    none = None
+    null = None

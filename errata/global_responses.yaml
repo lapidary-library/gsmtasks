@@ -1,0 +1,10 @@
+# accept an error response form every endpoint
+- op: add
+  path: /x-lapidary-responses-global
+  value:
+    '400':
+      $ref: '#/components/responses/validation-error'
+    '4XX':
+      $ref: '#/components/responses/generic-error'
+    '5XX':
+      $ref: '#/components/responses/generic-error'

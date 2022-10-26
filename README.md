@@ -9,19 +9,17 @@ If that's not acceptable to you, you may choose to use it under either CC0 or ze
 Examples are programmed by a human and are distributed under either CC0 or zero-clause BSD licenses
 
 ## Usage
-First, create a client:
 
 ```python
 from gsmtasks.client import ApiClient
-
-client = ApiClient(tokenAuth_authorization='YOUR API KEY')
-```
-
-
-Now call your endpoint and use your models:
-
-```python
 from gsmtasks.components.schemas.account import Account
+
+# First, create a client:
+
+client = ApiClient(tokenAuth_token='YOUR API KEY')
+
+
+# Now call your endpoint and use your models:
 
 response: list[Account] = await client.accounts_list(q_page_size=1)
 ```

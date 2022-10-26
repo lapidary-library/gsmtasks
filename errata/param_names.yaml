@@ -1,0 +1,25 @@
+- op: add
+  path: /paths/~1billing~1stripe_payments~1/get/parameters/7/schema/x-lapidary-names
+  value:
+    null: 'null'
+
+- op: add
+  path: /paths/~1tasks~1/get/parameters/442/x-lapidary-name
+  value: metafields__namespace_key
+
+- op: add
+  path: /paths/~1task_events~1/get/parameters/14/schema/x-lapidary-names
+  value:
+    '': blank
+
+- op: add
+  path: /paths/~1task_exports~1/get/parameters/442/x-lapidary-name
+  value: metafields__namespace_key
+
+- op: add
+  path: /paths/~1scenes~1dashboard~1/get/parameters/442/x-lapidary-name
+  value: metafields__namespace_key
+
+- op: add
+  path: /paths/~1scenes~1task_list~1/get/parameters/442/x-lapidary-name
+  value: metafields__namespace_key

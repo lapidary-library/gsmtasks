@@ -340,11 +340,20 @@ import uuid
 class ApiClient(lapidary_base.ApiBase):
     def __init__(
         self,
-        tokenAuth_authorization: str,
+        tokenAuth_token: str,
         base_url="https://api.gsmtasks.com/",
     ):
+        self.auth_tokenAuth = lapidary_base.HTTPAuth(
+            scheme="Token",
+            token=tokenAuth_token,
+            bearer_format="Token {token}",
+        )
+
         super().__init__(
-            client=httpx.AsyncClient(base_url=base_url, headers=[]),
+            client=httpx.AsyncClient(
+                base_url=base_url,
+                headers=[],
+            ),
             global_response_map={
                 "400": {
                     "application/json; version=2.4.11": gsmtasks.components.schemas.validation_error.ValidationError,
@@ -356,12 +365,6 @@ class ApiClient(lapidary_base.ApiBase):
                     "application/json; version=2.4.11": gsmtasks.components.schemas.gsm_tasks_error.GSMTasksError,
                 },
             },
-        )
-        self.auth_tokenAuth = lapidary_base.ApiKeyAuth(
-            name="Authorization",
-            api_key=tokenAuth_authorization,
-            placement=lapidary_base.ParamPlacement.header,
-            value_prefix="Token ",
         )
 
     async def __aenter__(self) -> "ApiClient":
@@ -4375,10 +4378,10 @@ class ApiClient(lapidary_base.ApiBase):
             param_model=param_model,
             response_map={
                 "200": {
-                    "application/json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
-                    "application/vnd.oai.openapi+json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
-                    "application/vnd.oai.openapi; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
-                    "application/yaml; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200,
+                    "application/json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200Response,
+                    "application/vnd.oai.openapi+json; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200Response,
+                    "application/vnd.oai.openapi; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200Response,
+                    "application/yaml; version=2.4.11": gsmtasks.paths.docs_schema_retrieve.response_body.DocsSchemaRetrieve200Response,
                 },
             },
             auth=self.auth_tokenAuth,
@@ -4422,10 +4425,10 @@ class ApiClient(lapidary_base.ApiBase):
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> typing.Union[
-        gsmtasks.components.schemas.document.Document,
         list[
             gsmtasks.components.schemas.document.Document,
         ],
+        gsmtasks.components.schemas.document.Document,
     ]:
         import gsmtasks.paths.documents_create.param_model
 
@@ -5412,10 +5415,10 @@ class ApiClient(lapidary_base.ApiBase):
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> typing.Union[
-        gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
         list[
             gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
         ],
+        gsmtasks.components.schemas.s3_file_upload.S3FileUpload,
     ]:
         import gsmtasks.paths.file_uploads_create.param_model
 
@@ -19989,10 +19992,10 @@ class ApiClient(lapidary_base.ApiBase):
             lapidary_base.absent.Absent,
         ] = lapidary_base.absent.ABSENT,
     ) -> typing.Union[
-        gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
         list[
             gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
         ],
+        gsmtasks.components.schemas.task_serializer_v2.TaskSerializerV2,
     ]:
         import gsmtasks.paths.tasks_create.param_model
 

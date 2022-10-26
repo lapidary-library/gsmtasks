@@ -26,7 +26,7 @@ class TaskEventsListEvent(enum.Enum):
 
 
 class TaskEventsListField(enum.Enum):
-    v_ = ""
+    blank = ""
     state = "state"
     assignee_proximity = "assignee_proximity"
 

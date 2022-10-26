@@ -23,7 +23,7 @@ class BillingStripePaymentsListState(enum.Enum):
 
 
 class BillingStripePaymentsListStripeState(enum.Enum):
-    none = None
+    null = None
     requires_payment_method = "requires_payment_method"
     requires_confirmation = "requires_confirmation"
     requires_capture = "requires_capture"

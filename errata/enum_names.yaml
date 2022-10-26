@@ -1,0 +1,35 @@
+# add key names to python enum classes in order to avoid name clashes
+
+- op: add
+  path: /components/schemas/BlankEnum/x-lapidary-names
+  value:
+    '': blank
+
+- op: add
+  path: /components/schemas/DateFormatEnum/x-lapidary-names
+  value:
+    DD.MM.YYYY: dotted
+    DD/MM/YYYY: dmy
+    YYYY-MM-DD: iso
+    MM/DD/YYYY: us
+
+- op: add
+  path: /components/schemas/NullEnum/x-lapidary-names
+  value:
+    null: 'null'
+
+- op: add
+  path: /components/schemas/LanguageEnum/x-lapidary-names
+  value:
+    ar-dz: ar_dz
+    en-au: en_au
+    en-gb: en_gb
+    es-ar: es_ar
+    es-co: es_co
+    es-mx: es_mx
+    es-ni: es_ni
+    es-ve: es_ve
+    pt-br: pt_br
+    sr-latn: sr_latn
+    zh-hans: zh_hans
+    zh-hant: zh_hant
