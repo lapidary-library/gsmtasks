@@ -18,7 +18,7 @@ repository = 'https://github.com/lapidary-library/gsmtasks-client'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-lapidary-base = "0.7.2"
+lapidary = "^0.7.2"
 platformdirs = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]

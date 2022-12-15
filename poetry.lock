@@ -41,14 +41,14 @@ tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy 
 
 [[package]]
 name = "certifi"
-version = "2022.9.24"
+version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2022.9.24-py3-none-any.whl", hash = "sha256:90c1a32f1d68f940488354e36370f6cca89f0f106db09518524c88d6ed83f382"},
-    {file = "certifi-2022.9.24.tar.gz", hash = "sha256:0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"},
+    {file = "certifi-2022.12.7-py3-none-any.whl", hash = "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"},
+    {file = "certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
 ]
 
 [[package]]
@@ -255,21 +255,19 @@ version = "0.7.2"
 description = "Python async OpenAPI client library"
 category = "main"
 optional = false
-python-versions = "^3.9"
-files = []
-develop = true
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "lapidary-0.7.2-py3-none-any.whl", hash = "sha256:1345a4baaa48d5f8e003cfa0c551ff5411b21572a15e95a176e10ba1202d7134"},
+    {file = "lapidary-0.7.2.tar.gz", hash = "sha256:ab4c797541bbd507b9671181123896e566cc50928823e87e463d4a7e1e3a3476"},
+]
 
 [package.dependencies]
-httpx = {version = "^0.23.0", extras = ["http2"]}
-inflection = "^0.5.1"
-platformdirs = "^2.6.0"
-pydantic = {version = "^1.10.2", extras = ["email"]}
-python-mimeparse = "^1.6.0"
-pyyaml = "^6.0"
-
-[package.source]
-type = "directory"
-url = "../../lapidary/monorepo/lapidary"
+httpx = {version = ">=0.23.0,<0.24.0", extras = ["http2"]}
+inflection = ">=0.5.1,<0.6.0"
+platformdirs = ">=2.6.0,<3.0.0"
+pydantic = {version = ">=1.10.2,<2.0.0", extras = ["email"]}
+python-mimeparse = ">=1.6.0,<2.0.0"
+pyyaml = ">=6.0,<7.0"
 
 [[package]]
 name = "mslex"
@@ -650,4 +648,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "699fbf6086df10733216bd08102d4673f98601f35f54d00e81f8511c2d677db1"
+content-hash = "4f8cf658228630b542699f01f25e01a1cef032299a7c737dfe39f92140cba099"
