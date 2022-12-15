@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Next]
+
+## [0.4.0](https://github.com/oeklo/gsmtasks-client/releases/tag/v0.4.0) - 2022-12-15
 ### Changed
 - Removed dependency on lapidary generator.
 - Updated lapidary to 0.7.2
