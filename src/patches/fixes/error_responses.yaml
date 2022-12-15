@@ -1,0 +1,37 @@
+- op: add
+  path: /components/schemas/GSMTasksError
+  value:
+    type: object
+    properties:
+      detail:
+        type: string
+    required:
+    - detail
+    x-lapidary-model-type: exception
+    additionalProperties: false
+
+- op: add
+  path: /components/schemas/ValidationError
+  value:
+    type: object
+    additionalProperties:
+      type: array
+      items:
+        type: string
+    x-lapidary-model-type: exception
+
+- op: add
+  path: /components/responses
+  value:
+    generic-error:
+      content:
+        application/json; version=2.4.13:
+          schema:
+            $ref: '#/components/schemas/GSMTasksError'
+      description: Generic error
+    validation-error:
+      content:
+        application/json; version=2.4.13:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+      description: Validation error

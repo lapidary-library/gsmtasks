@@ -10,19 +10,19 @@ authors = []
 license = "CC0-1.0 OR 0BSD"
 packages = [
     { include = 'gsmtasks', from = "gen" },
-    # { include = 'gsmtasks_extras', from = 'src' }
 ]
+include = [
+    'gen/**/*'
+]
+repository = 'https://github.com/lapidary-library/gsmtasks-client'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-deprecation = "^2.0.6"
-#lapidary-base = { git = 'https://github.com/python-lapidary/lapidary-base', branch = 'develop' }
-#lapidary-base = {path='../../lapidary/lapidary-base', develop=true}
-lapidary-base = "0.5.1"
-pydantic = { extras = ["email"], version = "^1.9.2" }
+lapidary-base = "0.7.2"
+platformdirs = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]
-lapidary = "^0.6.1"
+mypy = "^0.990"
 pytest = "^7.1.3"
 taskipy = "^1.10.3"
 
@@ -36,10 +36,15 @@ pythonpath = [
 ]
 
 [tool.lapidary]
-errata = "errata"
-specification = 'openapi.yaml'
 package = 'gsmtasks'
 
 [tool.taskipy.tasks]
 update = 'lapidary update'
 test = 'pytest -s'
+mypy = 'mypy'
+check = 'task mypy && task test'
+
+[tool.mypy]
+mypy_path = ['src', 'gen', 'tests']
+namespace_packages = true
+packages = ['gsmtasks']

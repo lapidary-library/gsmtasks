@@ -19,5 +19,4 @@ dmypy.json
 # cache
 /.lapidary_cache/
 
-# no license to distribute
-/openapi.yaml
+/gen/
