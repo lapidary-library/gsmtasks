@@ -1,6 +1,10 @@
 # Change Log
 
 ## [Next]
+### Changed
+- Removed dependency on lapidary generator.
+- Updated lapidary to 0.7.2
+- Updated GSMTasks OpenAPI to 2.4.13
 
 ## [0.3.0](https://github.com/oeklo/gsmtasks-client/releases/tag/v0.3.0) - 2022-10-27
 ### Added
