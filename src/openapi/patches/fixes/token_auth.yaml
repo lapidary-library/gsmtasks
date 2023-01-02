@@ -2,5 +2,5 @@
   path: /components/securitySchemes/tokenAuth
   value:
     type: http
-    scheme: Token
+    scheme: bearer
     bearerFormat: Token {token}

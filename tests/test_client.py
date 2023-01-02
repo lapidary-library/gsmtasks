@@ -5,14 +5,15 @@ from typing import cast
 from unittest import IsolatedAsyncioTestCase
 from uuid import UUID
 
+import pytest
 from lapidary.runtime import auth
 
-from gsmtasks import Auth, ApiClient
+from gsmtasks.client import Auth, ApiClient
 from gsmtasks.components.schemas.account import Account
 from gsmtasks.components.schemas.gsm_tasks_error import GSMTasksError
 
 logging.basicConfig()
-logging.getLogger('lapidary.runtime').setLevel(logging.INFO)
+logging.getLogger('lapidary').setLevel(logging.INFO)
 
 
 class ClientTest(IsolatedAsyncioTestCase):
@@ -38,3 +39,9 @@ class ClientTest(IsolatedAsyncioTestCase):
 
     async def test_task_metadata(self):
         await self.client.tasks_retrieve(p_id=UUID(hex='c3a0b9e4-df2b-44c4-b879-c0961dfc3620'))
+
+
+@pytest.mark.asyncio
+async def test_simple_call():
+    async with ApiClient(auth=Auth(tokenAuth=auth.HTTP(os.environ['GSM_TASKS_TOKEN']))) as client:
+        await client.accounts_list()

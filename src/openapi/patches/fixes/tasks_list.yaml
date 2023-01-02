@@ -41,7 +41,7 @@
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
     - $ref: '#/components/schemas/TaskListExt'
-    additionalProperties: false
+    x-lapidary-modelType: iterator
 
 - op: replace
   path: /paths/~1tasks~1/post/responses/201/content/application~1json; version=2.4.13/schema
@@ -49,7 +49,6 @@
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
     - $ref: '#/components/schemas/TaskSerializerV2'
-    additionalProperties: false
 - op: replace
   path: /paths/~1tasks~1/post/requestBody/content/application~1json/schema
   value:
@@ -57,3 +56,8 @@
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
     - $ref: '#/components/schemas/TaskSerializerV2'
     additionalProperties: false
+
+- op: add
+  path: /paths/~1tasks~1/get/x-lapidary-pagingPlugin
+  value:
+    factory: 'gsmtasks.ext:GsmTasksPagingPlugin'
