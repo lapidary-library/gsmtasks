@@ -1,4 +1,4 @@
-__pycache__/
+__pycache__
 /dist/
 
 # mypy
@@ -11,12 +11,3 @@ dmypy.json
 
 /coverage.xml
 /.coverage
-
-# generated sources
-# Since the openapi file has no license and cannot be distributed, include the generated code
-#/gen
-
-# cache
-/.lapidary_cache/
-
-/gen/
