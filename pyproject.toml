@@ -7,7 +7,7 @@ name = "gsmtasks-client"
 description = "Client library for https://api.gsmtasks.com/ ."
 version = "0.4.0"
 authors = []
-license = "CC0-1.0 OR 0BSD"
+license = "0BSD"
 packages = [
     { include = 'gsmtasks', from = "src/python" },
     { include = 'gsmtasks', from = "gen" },
