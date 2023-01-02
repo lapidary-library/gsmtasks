@@ -2,12 +2,6 @@ from lapidary.runtime.auth import HTTPfrom lapidary.runtime.auth import HTTPUnof
 
 This code is machine generated using [Lapidary](https://github.com/python-lapidary/lapidary/).
 
-## Licensing
-As this code is machine generated, it's distributed as Public Domain.
-If that's not acceptable to you, you may choose to use it under either CC0 or zero-clause BSD license.
-
-Examples are programmed by a human and are distributed under either CC0 or zero-clause BSD licenses
-
 ## Usage
 
 ```python
