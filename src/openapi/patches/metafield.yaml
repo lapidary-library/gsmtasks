@@ -1,0 +1,9 @@
+- op: add
+  path: /components/schemas/Metafield/description
+  value: |
+    At least one of:
+    - show_in_list_view
+    - show_in_detail_view
+    - show_in_mobile_app
+    - show_in_pod
+    is required
