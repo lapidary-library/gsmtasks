@@ -25,13 +25,13 @@
   value:
     generic-error:
       content:
-        application/json; version=2.4.13:
+        application/json; version=2.4.41:
           schema:
             $ref: '#/components/schemas/GSMTasksError'
       description: Generic error
     validation-error:
       content:
-        application/json; version=2.4.13:
+        application/json; version=2.4.41:
           schema:
             $ref: '#/components/schemas/ValidationError'
       description: Validation error

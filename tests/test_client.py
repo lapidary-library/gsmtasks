@@ -6,11 +6,11 @@ from unittest import IsolatedAsyncioTestCase
 from uuid import UUID
 
 import pytest
-from lapidary.runtime import auth
 
-from gsmtasks.client import Auth, ApiClient
-from gsmtasks.components.schemas.account import Account
-from gsmtasks.components.schemas.gsm_tasks_error import GSMTasksError
+from gsmtasks.client import ApiClient
+from gsmtasks.components.schemas.Account.schema import Account
+from gsmtasks.components.schemas.GSMTasksError.schema import GSMTasksError
+from gsmtasks.components.securitySchemes import api_key_tokenAuth
 
 logging.basicConfig()
 logging.getLogger('lapidary').setLevel(logging.INFO)
@@ -19,7 +19,8 @@ logging.getLogger('lapidary').setLevel(logging.INFO)
 class ClientTest(IsolatedAsyncioTestCase):
 
     async def asyncSetUp(self) -> None:
-        self.client = ApiClient(auth=Auth(tokenAuth=auth.HTTP(os.environ['GSM_TASKS_TOKEN'])))
+        self.client = ApiClient()
+        self.client.lapidary_authenticate(api_key_tokenAuth(os.environ['GSM_TASKS_TOKEN']))
 
     async def asyncTearDown(self) -> None:
         await self.client.__aexit__()
@@ -33,7 +34,10 @@ class ClientTest(IsolatedAsyncioTestCase):
         self.assertEqual(response2.id, account_id)
 
     async def test_invalid_token_raises(self):
-        async with ApiClient(auth=Auth(tokenAuth=auth.HTTP('7'))) as bad_client:
+        client = ApiClient()
+        client.lapidary_authenticate(api_key_tokenAuth('7'))
+
+        async with client as bad_client:
             with self.assertRaises(GSMTasksError):
                 await bad_client.accounts_list(q_page_size=1)
 
@@ -43,5 +47,7 @@ class ClientTest(IsolatedAsyncioTestCase):
 
 @pytest.mark.asyncio
 async def test_simple_call():
-    async with ApiClient(auth=Auth(tokenAuth=auth.HTTP(os.environ['GSM_TASKS_TOKEN']))) as client:
+    client = ApiClient()
+    client.lapidary_authenticate(api_key_tokenAuth(os.environ['GSM_TASKS_TOKEN']))
+    async with client:
         await client.accounts_list()
