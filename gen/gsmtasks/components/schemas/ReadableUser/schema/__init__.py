@@ -12,49 +12,19 @@ import uuid
 
 
 class ReadableUser(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    display_name: typing.Union[None, str]
 
-    email: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='email',
-        )
-    ]
+    email: str
 
-    intercom_hash: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='intercom_hash',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    intercom_hash: typing.Union[None, str]
 
     first_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='first_name',
             max_length=30,
         )
     ] = None
@@ -62,7 +32,6 @@ class ReadableUser(lapidary.runtime.ModelBase):
     last_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='last_name',
             max_length=30,
         )
     ] = None
@@ -70,17 +39,11 @@ class ReadableUser(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
 
-    signature_image: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='signature_image',
-        )
-    ] = None
+    signature_image: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -16,92 +16,29 @@ import uuid
 
 
 class TrackerTasks(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    NestedContact: typing.Annotated[
-        gsmtasks.components.schemas.NestedContact.schema.NestedContact,
-        pydantic.Field(
-            alias='NestedContact',
-        )
-    ]
+    NestedContact: gsmtasks.components.schemas.NestedContact.schema.NestedContact
 
-    NestedAddress: typing.Annotated[
-        gsmtasks.components.schemas.NestedAddress.schema.NestedAddress,
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ]
+    NestedAddress: gsmtasks.components.schemas.NestedAddress.schema.NestedAddress
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    failed_at: typing.Union[None, datetime.datetime]
 
-    TaskStateEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskStateEnum',
-        )
-    ] = None
+    TaskStateEnum: typing.Union[None, str] = None
 
-    TaskCategoryEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskCategoryEnum',
-        )
-    ] = None
+    TaskCategoryEnum: typing.Union[None, str] = None
 
-    assignee: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ] = None
+    assignee: typing.Union[None, uuid.UUID] = None
 
-    duration: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TrackerTasks.properties.duration.schema.duration],
-        pydantic.Field(
-            alias='duration',
-        )
-    ] = None
+    duration: typing.Union[None, gsmtasks.components.schemas.TrackerTasks.properties.duration.schema.duration] = None
 
-    scheduled_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='scheduled_time',
-        )
-    ] = None
+    scheduled_time: typing.Union[None, datetime.datetime] = None
 
-    completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='completed_at',
-        )
-    ] = None
+    completed_at: typing.Union[None, datetime.datetime] = None
 
-    cancelled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='cancelled_at',
-        )
-    ] = None
+    cancelled_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -11,12 +11,7 @@ import lapidary.runtime
 
 
 class RouteArchive(lapidary.runtime.ModelBase):
-    task_action: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task_action',
-        )
-    ] = None
+    task_action: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

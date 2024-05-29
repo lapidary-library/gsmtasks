@@ -11,19 +11,12 @@ import lapidary.runtime
 
 
 class geometry(lapidary.runtime.ModelBase):
-    type: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='type',
-        )
-    ] = None
+    type: typing.Union[None, str] = None
 
     coordinates: typing.Annotated[
         typing.Union[None, list[float]],
         pydantic.Field(
-            alias='coordinates',
             max_length=3,
-            min_length=2,
         )
     ] = None
 

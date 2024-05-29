@@ -12,12 +12,7 @@ import lapidary.runtime
 
 
 class NestedContactAddress(lapidary.runtime.ModelBase):
-    NestedAddress: typing.Annotated[
-        gsmtasks.components.schemas.NestedAddress.schema.NestedAddress,
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ]
+    NestedAddress: gsmtasks.components.schemas.NestedAddress.schema.NestedAddress
 
     model_config = pydantic.ConfigDict(
         extra='allow'

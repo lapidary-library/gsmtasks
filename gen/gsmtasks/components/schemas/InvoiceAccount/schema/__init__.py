@@ -12,27 +12,18 @@ import uuid
 
 
 class InvoiceAccount(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
     slug: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='slug',
-            direction=lapidary.runtime.ParamDirection.read,
-            regex=r'^[-a-zA-Z0-9_]+$',
+            regex='^[-a-zA-Z0-9_]+$',
         )
     ]
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=100,
         )
     ]
@@ -40,7 +31,6 @@ class InvoiceAccount(lapidary.runtime.ModelBase):
     registry_code: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='registry_code',
             max_length=20,
         )
     ] = None
@@ -48,7 +38,6 @@ class InvoiceAccount(lapidary.runtime.ModelBase):
     vatin: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='vatin',
             max_length=20,
         )
     ] = None
@@ -56,7 +45,6 @@ class InvoiceAccount(lapidary.runtime.ModelBase):
     billing_reference: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='billing_reference',
             max_length=20,
         )
     ] = None
@@ -64,17 +52,11 @@ class InvoiceAccount(lapidary.runtime.ModelBase):
     billing_email: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='billing_email',
             max_length=254,
         )
     ] = None
 
-    billing_vat: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='billing_vat',
-        )
-    ] = None
+    billing_vat: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -14,119 +14,43 @@ import uuid
 
 
 class RouteOptimizationResultTask(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        uuid.UUID,
-        pydantic.Field(
-            alias='id',
-        )
-    ]
+    id: uuid.UUID
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
-    reference: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='reference',
-        )
-    ]
+    reference: str
 
-    type: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='type',
-        )
-    ]
+    type: str
 
-    state: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='state',
-        )
-    ]
+    state: str
 
-    assignee: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='assignee',
-        )
-    ]
+    assignee: str
 
-    address: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='address',
-        )
-    ]
+    address: str
 
-    Location: typing.Annotated[
-        gsmtasks.components.schemas.Location.schema.Location,
-        pydantic.Field(
-            alias='Location',
-        )
-    ]
+    Location: gsmtasks.components.schemas.Location.schema.Location
 
-    arrival_time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='arrival_time',
-        )
-    ]
+    arrival_time: datetime.datetime
 
-    actual_arrival_time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='actual_arrival_time',
-        )
-    ]
+    actual_arrival_time: datetime.datetime
 
     position: typing.Annotated[
         float,
         pydantic.Field(
-            alias='position',
             ge=0.0,
             le=253402300799.0,
         )
     ]
 
-    departure_time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='departure_time',
-        )
-    ]
+    departure_time: datetime.datetime
 
-    actual_departure_time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='actual_departure_time',
-        )
-    ]
+    actual_departure_time: datetime.datetime
 
-    distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='distance',
-        )
-    ]
+    distance: int
 
-    actual_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='actual_distance',
-        )
-    ]
+    actual_distance: int
 
-    is_optimal: typing.Annotated[
-        bool,
-        pydantic.Field(
-            alias='is_optimal',
-        )
-    ]
+    is_optimal: bool
 
     model_config = pydantic.ConfigDict(
         extra='allow'

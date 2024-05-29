@@ -13,26 +13,13 @@ import uuid
 
 
 class PatchedAuthenticatedUserUpdate(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
     first_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='first_name',
             max_length=30,
         )
     ] = None
@@ -40,40 +27,22 @@ class PatchedAuthenticatedUserUpdate(lapidary.runtime.ModelBase):
     last_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='last_name',
             max_length=30,
         )
     ] = None
 
-    display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    display_name: typing.Union[None, str] = None
 
-    email: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='email',
-        )
-    ] = None
+    email: typing.Union[None, str] = None
 
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
 
-    NestedAddress: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ] = None
+    NestedAddress: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

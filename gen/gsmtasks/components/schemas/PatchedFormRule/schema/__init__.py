@@ -13,40 +13,17 @@ import uuid
 
 
 class PatchedFormRule(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
-    is_active: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_active',
-        )
-    ] = None
+    is_active: typing.Union[None, bool] = None
 
     name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='name',
             max_length=50,
         )
     ] = None
@@ -54,7 +31,6 @@ class PatchedFormRule(lapidary.runtime.ModelBase):
     edit_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='edit_url',
             max_length=2048,
         )
     ] = None
@@ -62,7 +38,6 @@ class PatchedFormRule(lapidary.runtime.ModelBase):
     view_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='view_url',
             max_length=2048,
         )
     ] = None
@@ -70,24 +45,13 @@ class PatchedFormRule(lapidary.runtime.ModelBase):
     pdf_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='pdf_url',
             max_length=2048,
         )
     ] = None
 
-    rules: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.PatchedFormRule.properties.rules.schema.rules],
-        pydantic.Field(
-            alias='rules',
-        )
-    ] = None
+    rules: typing.Union[None, gsmtasks.components.schemas.PatchedFormRule.properties.rules.schema.rules] = None
 
-    OpenInEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='OpenInEnum',
-        )
-    ] = None
+    OpenInEnum: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

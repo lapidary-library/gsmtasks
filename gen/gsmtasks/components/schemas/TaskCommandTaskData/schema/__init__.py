@@ -16,56 +16,25 @@ import lapidary.runtime
 
 
 class TaskCommandTaskData(lapidary.runtime.ModelBase):
-    scheduled_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='scheduled_time',
-        )
-    ] = None
+    scheduled_time: typing.Union[None, datetime.datetime] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
         pydantic.Field(
-            alias='position',
             ge=0.0,
             le=253402300799.0,
         )
     ] = None
 
-    metafields: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.properties.metafields.schema.metafields],
-        pydantic.Field(
-            alias='metafields',
-        )
-    ] = None
+    metafields: typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.properties.metafields.schema.metafields] = None
 
-    NestedAddress: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ] = None
+    NestedAddress: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    NestedContactAddress: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedContactAddress.schema.NestedContactAddress],
-        pydantic.Field(
-            alias='NestedContactAddress',
-        )
-    ] = None
+    NestedContactAddress: typing.Union[None, gsmtasks.components.schemas.NestedContactAddress.schema.NestedContactAddress] = None
 
-    route: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='route',
-        )
-    ] = None
+    route: typing.Union[None, str] = None
 
-    duration: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.properties.duration.schema.duration],
-        pydantic.Field(
-            alias='duration',
-        )
-    ] = None
+    duration: typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.properties.duration.schema.duration] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

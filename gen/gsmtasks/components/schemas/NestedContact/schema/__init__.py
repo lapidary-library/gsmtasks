@@ -14,7 +14,6 @@ class NestedContact(lapidary.runtime.ModelBase):
     name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='name',
             max_length=200,
         )
     ] = None
@@ -22,31 +21,15 @@ class NestedContact(lapidary.runtime.ModelBase):
     company: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='company',
             max_length=200,
         )
     ] = None
 
-    phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='phones',
-        )
-    ] = None
+    phones: typing.Union[None, list[str]] = None
 
-    emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='emails',
-        )
-    ] = None
+    emails: typing.Union[None, list[str]] = None
 
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

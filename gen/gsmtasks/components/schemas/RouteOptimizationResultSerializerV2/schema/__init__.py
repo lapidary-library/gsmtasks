@@ -12,61 +12,21 @@ import lapidary.runtime
 
 
 class RouteOptimizationResultSerializerV2(lapidary.runtime.ModelBase):
-    vehicles_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='vehicles_count',
-        )
-    ]
+    vehicles_count: int
 
-    unassigned_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='unassigned_count',
-        )
-    ]
+    unassigned_count: int
 
-    distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='distance',
-        )
-    ]
+    distance: int
 
-    completion_time: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='completion_time',
-        )
-    ]
+    completion_time: int
 
-    service_time: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='service_time',
-        )
-    ]
+    service_time: int
 
-    transport_time: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='transport_time',
-        )
-    ]
+    transport_time: int
 
-    waiting_time: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='waiting_time',
-        )
-    ]
+    waiting_time: int
 
-    routes: typing.Annotated[
-        list[gsmtasks.components.schemas.RouteOptimizationResultRoute.schema.RouteOptimizationResultRoute],
-        pydantic.Field(
-            alias='routes',
-        )
-    ]
+    routes: list[gsmtasks.components.schemas.RouteOptimizationResultRoute.schema.RouteOptimizationResultRoute]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -15,116 +15,33 @@ import uuid
 
 
 class ContactAddressBackgroundImport(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    contact_addresses_data: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.contact_addresses_data.items.schema.items]],
-        pydantic.Field(
-            alias='contact_addresses_data',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    contact_addresses_data: typing.Union[None, list[gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.contact_addresses_data.items.schema.items]]
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
-    started_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='started_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    started_at: typing.Union[None, datetime.datetime]
 
-    completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='completed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    completed_at: typing.Union[None, datetime.datetime]
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    failed_at: typing.Union[None, datetime.datetime]
 
-    errors: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.errors.schema.errors],
-        pydantic.Field(
-            alias='errors',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    errors: typing.Union[None, gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.errors.schema.errors]
 
-    celery_task_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='celery_task_id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    celery_task_id: typing.Union[None, str]
 
-    contact_addresses_created: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='contact_addresses_created',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    contact_addresses_created: typing.Union[None, list[str]]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

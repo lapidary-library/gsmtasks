@@ -12,12 +12,7 @@ import lapidary.runtime
 
 
 class InvoicePayment(lapidary.runtime.ModelBase):
-    paid_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='paid_at',
-        )
-    ] = None
+    paid_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

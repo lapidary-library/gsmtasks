@@ -13,80 +13,32 @@ import uuid
 
 
 class BraintreeTransaction(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    invoice: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='invoice',
-        )
-    ]
+    invoice: str
 
-    customer: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='customer',
-        )
-    ]
+    customer: str
 
     amount: typing.Annotated[
         str,
         pydantic.Field(
-            alias='amount',
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ]
 
-    timestamp: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='timestamp',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    timestamp: typing.Union[None, datetime.datetime]
 
-    response: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='response',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    response: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     type: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='type',
             max_length=6,
         )
     ] = None
@@ -94,7 +46,6 @@ class BraintreeTransaction(lapidary.runtime.ModelBase):
     status: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='status',
             max_length=24,
         )
     ] = None
@@ -102,7 +53,6 @@ class BraintreeTransaction(lapidary.runtime.ModelBase):
     currency: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='currency',
             max_length=3,
         )
     ] = None

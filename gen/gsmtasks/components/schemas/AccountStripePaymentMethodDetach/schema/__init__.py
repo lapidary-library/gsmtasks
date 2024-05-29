@@ -14,7 +14,6 @@ class AccountStripePaymentMethodDetach(lapidary.runtime.ModelBase):
     stripe_payment_method_id: typing.Annotated[
         str,
         pydantic.Field(
-            alias='stripe_payment_method_id',
             max_length=255,
         )
     ]

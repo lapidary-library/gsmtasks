@@ -15,194 +15,55 @@ import uuid
 
 
 class RouteOptimizationSerializerV2(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    assignees: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='assignees',
-        )
-    ]
+    assignees: list[str]
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
-    tasks: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='tasks',
-        )
-    ]
+    tasks: list[str]
 
-    total_distance: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='total_distance',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    total_distance: typing.Union[None, int]
 
-    total_duration: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.RouteOptimizationSerializerV2.properties.total_duration.schema.total_duration],
-        pydantic.Field(
-            alias='total_duration',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    total_duration: typing.Union[None, gsmtasks.components.schemas.RouteOptimizationSerializerV2.properties.total_duration.schema.total_duration]
 
-    commited_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='commited_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    commited_at: typing.Union[None, datetime.datetime]
 
-    scheduled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='scheduled_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    scheduled_at: typing.Union[None, datetime.datetime]
 
-    started_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='started_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    started_at: typing.Union[None, datetime.datetime]
 
-    ready_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='ready_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    ready_at: typing.Union[None, datetime.datetime]
 
-    completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='completed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    completed_at: typing.Union[None, datetime.datetime]
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    failed_at: typing.Union[None, datetime.datetime]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    errors: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='errors',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    errors: typing.Union[None, str]
 
-    objective: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='objective',
-        )
-    ] = None
+    objective: typing.Union[None, str, typing.Any] = None
 
-    start_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='start_time',
-        )
-    ] = None
+    start_time: typing.Union[None, datetime.datetime] = None
 
-    start_address: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='start_address',
-        )
-    ] = None
+    start_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    end_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='end_time',
-        )
-    ] = None
+    end_time: typing.Union[None, datetime.datetime] = None
 
-    end_address: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='end_address',
-        )
-    ] = None
+    end_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    unassign_not_optimal: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='unassign_not_optimal',
-        )
-    ] = None
+    unassign_not_optimal: typing.Union[None, bool] = None
 
-    commit: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='commit',
-        )
-    ] = None
+    commit: typing.Union[None, bool] = None
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-        )
-    ] = None
+    created_by: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

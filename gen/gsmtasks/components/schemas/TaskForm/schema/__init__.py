@@ -13,81 +13,37 @@ import uuid
 
 
 class TaskForm(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=50,
         )
     ]
 
-    link: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='link',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    link: typing.Union[None, str]
 
     edit_url: typing.Annotated[
         str,
         pydantic.Field(
-            alias='edit_url',
             max_length=2048,
         )
     ]
 
-    open_in: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='open_in',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    open_in: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     view_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='view_url',
             max_length=2048,
         )
     ] = None
@@ -95,17 +51,11 @@ class TaskForm(lapidary.runtime.ModelBase):
     pdf_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='pdf_url',
             max_length=2048,
         )
     ] = None
 
-    completed: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='completed',
-        )
-    ] = None
+    completed: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

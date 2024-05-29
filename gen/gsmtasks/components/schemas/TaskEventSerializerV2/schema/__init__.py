@@ -15,120 +15,35 @@ import uuid
 
 
 class TaskEventSerializerV2(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    TaskEventTask: typing.Annotated[
-        gsmtasks.components.schemas.TaskEventTask.schema.TaskEventTask,
-        pydantic.Field(
-            alias='TaskEventTask',
-        )
-    ]
+    TaskEventTask: gsmtasks.components.schemas.TaskEventTask.schema.TaskEventTask
 
-    task_command: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task_command',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    task_command: typing.Union[None, str]
 
-    field: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='field',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    field: typing.Union[None, str, typing.Any]
 
-    event: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='event',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    event: typing.Union[None, str]
 
-    from_state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='from_state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    from_state: typing.Union[None, str]
 
-    to_state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='to_state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    to_state: typing.Union[None, str]
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    user: typing.Union[None, str]
 
-    assignee: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='assignee',
-        )
-    ]
+    assignee: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
-    location: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Location.schema.Location],
-        pydantic.Field(
-            alias='location',
-        )
-    ] = None
+    location: typing.Union[None, gsmtasks.components.schemas.Location.schema.Location] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -13,33 +13,15 @@ import uuid
 
 
 class TaskMetadata(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
     events_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='events_count',
             ge=0.0,
             le=32767.0,
         )
@@ -48,7 +30,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     task_event_notes_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='task_event_notes_count',
             ge=0.0,
             le=32767.0,
         )
@@ -57,7 +38,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     documents_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='documents_count',
             ge=0.0,
             le=32767.0,
         )
@@ -66,7 +46,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     signatures_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='signatures_count',
             ge=0.0,
             le=32767.0,
         )
@@ -75,7 +54,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     forms_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='forms_count',
             ge=0.0,
             le=32767.0,
         )
@@ -84,79 +62,32 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     forms_completed_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='forms_completed_count',
             ge=0.0,
             le=32767.0,
         )
     ] = None
 
-    last_task_event_notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='last_task_event_notes',
-        )
-    ] = None
+    last_task_event_notes: typing.Union[None, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
-    NullableTaskDuration: typing.Annotated[
-        typing.Union[None, int, str],
-        pydantic.Field(
-            alias='NullableTaskDuration',
-        )
-    ] = None
+    NullableTaskDuration: typing.Union[None, int, str] = None
 
     unassigned_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='unassigned_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -165,7 +96,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     assigned_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='assigned_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -174,7 +104,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     accepted_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='accepted_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -183,7 +112,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     transit_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='transit_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -192,7 +120,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     active_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='active_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -201,7 +128,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     completed_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='completed_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -210,7 +136,6 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     failed_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='failed_distance',
             ge=0.0,
             le=2147483647.0,
         )
@@ -219,67 +144,26 @@ class TaskMetadata(lapidary.runtime.ModelBase):
     cancelled_distance: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='cancelled_distance',
             ge=0.0,
             le=2147483647.0,
         )
     ] = None
 
-    last_unassigned_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_unassigned_at',
-        )
-    ] = None
+    last_unassigned_at: typing.Union[None, datetime.datetime] = None
 
-    last_assigned_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_assigned_at',
-        )
-    ] = None
+    last_assigned_at: typing.Union[None, datetime.datetime] = None
 
-    last_accepted_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_accepted_at',
-        )
-    ] = None
+    last_accepted_at: typing.Union[None, datetime.datetime] = None
 
-    last_transit_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_transit_at',
-        )
-    ] = None
+    last_transit_at: typing.Union[None, datetime.datetime] = None
 
-    last_active_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_active_at',
-        )
-    ] = None
+    last_active_at: typing.Union[None, datetime.datetime] = None
 
-    last_completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_completed_at',
-        )
-    ] = None
+    last_completed_at: typing.Union[None, datetime.datetime] = None
 
-    last_failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_failed_at',
-        )
-    ] = None
+    last_failed_at: typing.Union[None, datetime.datetime] = None
 
-    last_cancelled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_cancelled_at',
-        )
-    ] = None
+    last_cancelled_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

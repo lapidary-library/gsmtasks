@@ -16,143 +16,46 @@ import uuid
 
 
 class Signature(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
-    file_upload: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file_upload',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    file_upload: typing.Union[None, str]
 
-    file: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    file: typing.Union[None, str]
 
-    file_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    file_name: typing.Union[None, str]
 
-    mimetype: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='mimetype',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    mimetype: typing.Union[None, str]
 
-    thumbnail: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='thumbnail',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    thumbnail: typing.Union[None, str]
 
-    NestedContact: typing.Annotated[
-        gsmtasks.components.schemas.NestedContact.schema.NestedContact,
-        pydantic.Field(
-            alias='NestedContact',
-        )
-    ]
+    NestedContact: gsmtasks.components.schemas.NestedContact.schema.NestedContact
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    documents: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='documents',
-        )
-    ] = None
+    documents: typing.Union[None, list[str]] = None
 
-    location: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Location.schema.Location],
-        pydantic.Field(
-            alias='location',
-        )
-    ] = None
+    location: typing.Union[None, gsmtasks.components.schemas.Location.schema.Location] = None
 
-    s3_response_headers: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Signature.properties.s3_response_headers.schema.s3_response_headers],
-        pydantic.Field(
-            alias='s3_response_headers',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    s3_response_headers: typing.Union[None, gsmtasks.components.schemas.Signature.properties.s3_response_headers.schema.s3_response_headers] = None
 
-    source: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='source',
-        )
-    ] = None
+    source: typing.Union[None, str, typing.Any] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

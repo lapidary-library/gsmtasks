@@ -12,41 +12,17 @@ import uuid
 
 
 class TaskListReorderResponseTask(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    assignee: typing.Union[None, str]
 
-    TaskStateEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskStateEnum',
-        )
-    ] = None
+    TaskStateEnum: typing.Union[None, str] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
         pydantic.Field(
-            alias='position',
             ge=0.0,
             le=253402300799.0,
         )

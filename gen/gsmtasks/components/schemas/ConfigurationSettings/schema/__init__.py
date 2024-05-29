@@ -12,26 +12,11 @@ import lapidary.runtime
 
 
 class ConfigurationSettings(lapidary.runtime.ModelBase):
-    task_command_queue_limit: typing.Annotated[
-        gsmtasks.components.schemas.ConfigurationSettings.properties.task_command_queue_limit.schema.task_command_queue_limit,
-        pydantic.Field(
-            alias='task_command_queue_limit',
-        )
-    ]
+    task_command_queue_limit: gsmtasks.components.schemas.ConfigurationSettings.properties.task_command_queue_limit.schema.task_command_queue_limit
 
-    date_format: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='date_format',
-        )
-    ]
+    date_format: str
 
-    time_format: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='time_format',
-        )
-    ]
+    time_format: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

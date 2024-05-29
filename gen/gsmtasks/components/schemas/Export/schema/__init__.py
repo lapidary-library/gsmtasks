@@ -13,73 +13,23 @@ import uuid
 
 
 class Export(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    ExportModelEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='ExportModelEnum',
-        )
-    ]
+    ExportModelEnum: str
 
-    FormatEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='FormatEnum',
-        )
-    ]
+    FormatEnum: str
 
-    link: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='link',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    link: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    field_names: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='field_names',
-        )
-    ] = None
+    field_names: typing.Union[None, list[str]] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

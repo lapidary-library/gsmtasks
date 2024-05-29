@@ -12,93 +12,31 @@ import lapidary.runtime
 
 
 class properties(lapidary.runtime.ModelBase):
-    model: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='model',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    model: typing.Union[None, str] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    time_location: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='time_location',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    time_location: typing.Union[None, str] = None
 
-    source: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='source',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    source: typing.Union[None, str] = None
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    user: typing.Union[None, str] = None
 
-    user_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    user_name: typing.Union[None, str] = None
 
-    time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='time',
-        )
-    ] = None
+    time: typing.Union[None, datetime.datetime] = None
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-        )
-    ] = None
+    state: typing.Union[None, str] = None
 
-    heading: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='heading',
-        )
-    ] = None
+    heading: typing.Union[None, int] = None
 
-    speed: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='speed',
-        )
-    ] = None
+    speed: typing.Union[None, int] = None
 
-    altitude: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='altitude',
-        )
-    ] = None
+    altitude: typing.Union[None, int] = None
 
     accuracy: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='accuracy',
             ge=-2147483648.0,
             le=2147483647.0,
         )
@@ -107,26 +45,13 @@ class properties(lapidary.runtime.ModelBase):
     battery_level: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='battery_level',
-            regex=r'^-?\d{0,1}(?:\.\d{0,3})?$',
+            regex='^-?\d{0,1}(?:\.\d{0,3})?$',
         )
     ] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

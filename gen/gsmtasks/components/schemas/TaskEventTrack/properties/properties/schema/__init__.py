@@ -13,99 +13,29 @@ import uuid
 
 
 class properties(lapidary.runtime.ModelBase):
-    model: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='model',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    model: typing.Union[None, str] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    task: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='task',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    task: typing.Union[None, uuid.UUID] = None
 
-    task_event: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task_event',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    task_event: typing.Union[None, str] = None
 
-    event: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='event',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    event: typing.Union[None, str] = None
 
-    from_state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='from_state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    from_state: typing.Union[None, str] = None
 
-    to_state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='to_state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    to_state: typing.Union[None, str] = None
 
-    user: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    user: typing.Union[None, uuid.UUID] = None
 
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
-    assignee: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ] = None
+    assignee: typing.Union[None, uuid.UUID] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

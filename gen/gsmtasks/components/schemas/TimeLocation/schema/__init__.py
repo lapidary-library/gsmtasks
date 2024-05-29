@@ -14,79 +14,27 @@ import uuid
 
 
 class TimeLocation(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    source: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='source',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    source: typing.Union[None, str]
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    user: typing.Union[None, str]
 
-    time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='time',
-        )
-    ]
+    time: datetime.datetime
 
-    Location: typing.Annotated[
-        gsmtasks.components.schemas.Location.schema.Location,
-        pydantic.Field(
-            alias='Location',
-        )
-    ]
+    Location: gsmtasks.components.schemas.Location.schema.Location
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    is_moving: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_moving',
-        )
-    ] = None
+    is_moving: typing.Union[None, bool] = None
 
     event: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='event',
             max_length=20,
         )
     ] = None
@@ -94,22 +42,15 @@ class TimeLocation(lapidary.runtime.ModelBase):
     activity_type: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='activity_type',
             max_length=20,
         )
     ] = None
 
-    TimeLocationStateEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TimeLocationStateEnum',
-        )
-    ] = None
+    TimeLocationStateEnum: typing.Union[None, str] = None
 
     heading: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='heading',
             ge=-2147483648.0,
             le=2147483647.0,
         )
@@ -118,7 +59,6 @@ class TimeLocation(lapidary.runtime.ModelBase):
     speed: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='speed',
             ge=-2147483648.0,
             le=2147483647.0,
         )
@@ -127,7 +67,6 @@ class TimeLocation(lapidary.runtime.ModelBase):
     altitude: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='altitude',
             ge=-2147483648.0,
             le=2147483647.0,
         )
@@ -136,7 +75,6 @@ class TimeLocation(lapidary.runtime.ModelBase):
     accuracy: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='accuracy',
             ge=-2147483648.0,
             le=2147483647.0,
         )
@@ -145,8 +83,7 @@ class TimeLocation(lapidary.runtime.ModelBase):
     battery_level: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='battery_level',
-            regex=r'^-?\d{0,1}(?:\.\d{0,3})?$',
+            regex='^-?\d{0,1}(?:\.\d{0,3})?$',
         )
     ] = None
 

@@ -24,147 +24,41 @@ import lapidary.runtime
 
 
 class ConfigurationSerializerV2(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, str]
 
-    account: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Account.schema.Account],
-        pydantic.Field(
-            alias='account',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    account: typing.Union[None, gsmtasks.components.schemas.Account.schema.Account]
 
-    user: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ReadableUser.schema.ReadableUser],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    user: typing.Union[None, gsmtasks.components.schemas.ReadableUser.schema.ReadableUser]
 
-    app: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='app',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    app: typing.Union[None, str]
 
-    version: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='version',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    version: typing.Union[None, str]
 
-    auth: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.auth.schema.auth],
-        pydantic.Field(
-            alias='auth',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    auth: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.auth.schema.auth]
 
-    settings: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSettings.schema.ConfigurationSettings],
-        pydantic.Field(
-            alias='settings',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    settings: typing.Union[None, gsmtasks.components.schemas.ConfigurationSettings.schema.ConfigurationSettings]
 
-    defaults: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationDefaults.schema.ConfigurationDefaults],
-        pydantic.Field(
-            alias='defaults',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    defaults: typing.Union[None, gsmtasks.components.schemas.ConfigurationDefaults.schema.ConfigurationDefaults]
 
-    features: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.features.schema.features],
-        pydantic.Field(
-            alias='features',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    features: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.features.schema.features]
 
-    templates: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.templates.schema.templates],
-        pydantic.Field(
-            alias='templates',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    templates: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.templates.schema.templates]
 
-    tracking: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.tracking.schema.tracking],
-        pydantic.Field(
-            alias='tracking',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    tracking: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.tracking.schema.tracking]
 
-    notifications: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.ConfigurationNotification.schema.ConfigurationNotification]],
-        pydantic.Field(
-            alias='notifications',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    notifications: typing.Union[None, list[gsmtasks.components.schemas.ConfigurationNotification.schema.ConfigurationNotification]]
 
-    permissions: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.permissions.schema.permissions],
-        pydantic.Field(
-            alias='permissions',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    permissions: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.permissions.schema.permissions]
 
-    legacy_views: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.legacy_views.schema.legacy_views],
-        pydantic.Field(
-            alias='legacy_views',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    legacy_views: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.legacy_views.schema.legacy_views]
 
-    services: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.services.schema.services],
-        pydantic.Field(
-            alias='services',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    services: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.services.schema.services]
 
-    billing: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.billing.schema.billing],
-        pydantic.Field(
-            alias='billing',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    billing: typing.Union[None, gsmtasks.components.schemas.ConfigurationSerializerV2.properties.billing.schema.billing]
 
-    is_staff: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_staff',
-        )
-    ] = None
+    is_staff: typing.Union[None, bool] = None
 
-    is_client_role: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_client_role',
-        )
-    ] = None
+    is_client_role: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

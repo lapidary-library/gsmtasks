@@ -13,26 +13,11 @@ import uuid
 
 
 class properties(lapidary.runtime.ModelBase):
-    user: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='user',
-        )
-    ] = None
+    user: typing.Union[None, uuid.UUID] = None
 
-    start_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='start_time',
-        )
-    ] = None
+    start_time: typing.Union[None, datetime.datetime] = None
 
-    end_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='end_time',
-        )
-    ] = None
+    end_time: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

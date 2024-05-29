@@ -12,40 +12,22 @@ import uuid
 
 
 class Addon(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=100,
         )
     ]
 
-    short_description: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='short_description',
-        )
-    ]
+    short_description: str
 
-    description: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='description',
-        )
-    ]
+    description: str
 
     price: typing.Annotated[
         str,
         pydantic.Field(
-            alias='price',
             max_length=50,
         )
     ]
@@ -53,17 +35,11 @@ class Addon(lapidary.runtime.ModelBase):
     unit: typing.Annotated[
         str,
         pydantic.Field(
-            alias='unit',
             max_length=50,
         )
     ]
 
-    icon: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='icon',
-        )
-    ]
+    icon: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

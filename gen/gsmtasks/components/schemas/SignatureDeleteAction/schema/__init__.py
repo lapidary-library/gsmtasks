@@ -11,19 +11,9 @@ import lapidary.runtime
 
 
 class SignatureDeleteAction(lapidary.runtime.ModelBase):
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    signatures: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='signatures',
-        )
-    ]
+    signatures: list[str]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

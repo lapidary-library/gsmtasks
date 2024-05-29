@@ -14,23 +14,8 @@ import lapidary.runtime
 
 
 class TaskListExt(lapidary.runtime.ModelBase):
-    PaginatedTaskSerializerV2List: typing.Annotated[
-        list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2],
-        pydantic.Field(
-            alias='PaginatedTaskSerializerV2List',
-        )
-    ]
+    PaginatedTaskSerializerV2List: list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]
 
-    PaginatedDocumentList: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.Document.schema.Document]],
-        pydantic.Field(
-            alias='PaginatedDocumentList',
-        )
-    ] = None
+    PaginatedDocumentList: typing.Union[None, list[gsmtasks.components.schemas.Document.schema.Document]] = None
 
-    PaginatedTaskMetadataList: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata]],
-        pydantic.Field(
-            alias='PaginatedTaskMetadataList',
-        )
-    ] = None
+    PaginatedTaskMetadataList: typing.Union[None, list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata]] = None

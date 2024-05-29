@@ -15,141 +15,46 @@ import uuid
 
 
 class Recurrence(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    rrule: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='rrule',
-        )
-    ]
+    rrule: str
 
-    last_recurred_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_recurred_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    last_recurred_at: typing.Union[None, datetime.datetime]
 
-    last_scheduled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='last_scheduled_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    last_scheduled_at: typing.Union[None, datetime.datetime]
 
-    next_scheduled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='next_scheduled_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    next_scheduled_at: typing.Union[None, datetime.datetime]
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ] = None
+    assignee: typing.Union[None, str] = None
 
-    route: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='route',
-        )
-    ] = None
+    route: typing.Union[None, str] = None
 
-    OrderData: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.OrderData.schema.OrderData],
-        pydantic.Field(
-            alias='OrderData',
-        )
-    ] = None
+    OrderData: typing.Union[None, gsmtasks.components.schemas.OrderData.schema.OrderData] = None
 
-    tasks_data: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Recurrence.properties.tasks_data.schema.tasks_data],
-        pydantic.Field(
-            alias='tasks_data',
-        )
-    ] = None
+    tasks_data: typing.Union[None, gsmtasks.components.schemas.Recurrence.properties.tasks_data.schema.tasks_data] = None
 
-    is_active: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_active',
-        )
-    ] = None
+    is_active: typing.Union[None, bool] = None
 
-    reset_recurrence: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='reset_recurrence',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    reset_recurrence: typing.Union[None, bool] = None
 
-    TimezoneEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TimezoneEnum',
-        )
-    ] = None
+    TimezoneEnum: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

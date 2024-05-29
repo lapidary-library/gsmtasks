@@ -13,66 +13,29 @@ import uuid
 
 
 class Metafield(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
     key: typing.Annotated[
         str,
         pydantic.Field(
-            alias='key',
             max_length=20,
-            regex=r'^[a-z0-9_]+$',
+            regex='^[a-z0-9_]+$',
         )
     ]
 
-    field_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='field_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    field_name: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     ordering: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='ordering',
             ge=0.0,
             le=2147483647.0,
         )
@@ -81,132 +44,54 @@ class Metafield(lapidary.runtime.ModelBase):
     namespace: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='namespace',
             max_length=20,
-            regex=r'^[a-z0-9_]+$',
+            regex='^[a-z0-9_]+$',
         )
     ] = None
 
-    ValueTypeEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='ValueTypeEnum',
-        )
-    ] = None
+    ValueTypeEnum: typing.Union[None, str] = None
 
     label: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='label',
             max_length=40,
         )
     ] = None
 
-    choices: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='choices',
-        )
-    ] = None
+    choices: typing.Union[None, list[str]] = None
 
     choices_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='choices_url',
             max_length=2048,
         )
     ] = None
 
-    is_editable: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_editable',
-        )
-    ] = None
+    is_editable: typing.Union[None, bool] = None
 
-    is_editable_assignee: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_editable_assignee',
-        )
-    ] = None
+    is_editable_assignee: typing.Union[None, bool] = None
 
-    is_required: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_required',
-        )
-    ] = None
+    is_required: typing.Union[None, bool] = None
 
-    is_persistent: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_persistent',
-        )
-    ] = None
+    is_persistent: typing.Union[None, bool] = None
 
-    is_cloned: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_cloned',
-        )
-    ] = None
+    is_cloned: typing.Union[None, bool] = None
 
-    is_searchable: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_searchable',
-        )
-    ] = None
+    is_searchable: typing.Union[None, bool] = None
 
-    show_in_list_view: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_in_list_view',
-        )
-    ] = None
+    show_in_list_view: typing.Union[None, bool] = None
 
-    show_in_detail_view: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_in_detail_view',
-        )
-    ] = None
+    show_in_detail_view: typing.Union[None, bool] = None
 
-    show_in_mobile_app: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_in_mobile_app',
-        )
-    ] = None
+    show_in_mobile_app: typing.Union[None, bool] = None
 
-    show_in_pod: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_in_pod',
-        )
-    ] = None
+    show_in_pod: typing.Union[None, bool] = None
 
-    show_when_task_type_assignment: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_when_task_type_assignment',
-        )
-    ] = None
+    show_when_task_type_assignment: typing.Union[None, bool] = None
 
-    show_when_task_type_pick_up: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_when_task_type_pick_up',
-        )
-    ] = None
+    show_when_task_type_pick_up: typing.Union[None, bool] = None
 
-    show_when_task_type_drop_off: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_when_task_type_drop_off',
-        )
-    ] = None
+    show_when_task_type_drop_off: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

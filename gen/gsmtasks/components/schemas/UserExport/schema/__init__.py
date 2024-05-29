@@ -13,48 +13,19 @@ import uuid
 
 
 class UserExport(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    display_name: typing.Union[None, str]
 
-    email: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='email',
-        )
-    ]
+    email: str
 
-    phone: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='phone',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    phone: typing.Union[None, str]
 
-    TimeLocation: typing.Annotated[
-        gsmtasks.components.schemas.TimeLocation.schema.TimeLocation,
-        pydantic.Field(
-            alias='TimeLocation',
-        )
-    ]
+    TimeLocation: gsmtasks.components.schemas.TimeLocation.schema.TimeLocation
 
     first_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='first_name',
             max_length=30,
         )
     ] = None
@@ -62,7 +33,6 @@ class UserExport(lapidary.runtime.ModelBase):
     last_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='last_name',
             max_length=30,
         )
     ] = None

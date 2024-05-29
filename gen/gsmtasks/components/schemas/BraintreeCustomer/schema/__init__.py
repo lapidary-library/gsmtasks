@@ -13,49 +13,19 @@ import uuid
 
 
 class BraintreeCustomer(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     braintree_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='braintree_id',
             max_length=36,
         )
     ] = None
@@ -63,7 +33,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     first_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='first_name',
             max_length=255,
         )
     ] = None
@@ -71,7 +40,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     last_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='last_name',
             max_length=255,
         )
     ] = None
@@ -79,7 +47,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     company: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='company',
             max_length=255,
         )
     ] = None
@@ -87,7 +54,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     email: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='email',
             max_length=254,
         )
     ] = None
@@ -95,7 +61,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=14,
         )
     ] = None
@@ -103,7 +68,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     website: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='website',
             max_length=100,
         )
     ] = None
@@ -111,7 +75,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     vat: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='vat',
             max_length=20,
         )
     ] = None
@@ -119,7 +82,6 @@ class BraintreeCustomer(lapidary.runtime.ModelBase):
     payment_method_nonce: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='payment_method_nonce',
             max_length=250,
         )
     ] = None

@@ -11,12 +11,7 @@ import lapidary.runtime
 
 
 class TaskAccountChange(lapidary.runtime.ModelBase):
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

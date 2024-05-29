@@ -12,13 +12,7 @@ import uuid
 
 
 class AccountRoleToken(lapidary.runtime.ModelBase):
-    token: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='token',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    token: typing.Union[None, uuid.UUID]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

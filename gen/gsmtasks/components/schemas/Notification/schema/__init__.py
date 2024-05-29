@@ -13,154 +13,45 @@ import uuid
 
 
 class Notification(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    method: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='method',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    method: typing.Union[None, str]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
-    sms_count: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='sms_count',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    sms_count: typing.Union[None, int]
 
-    via_app: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='via_app',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    via_app: typing.Union[None, bool]
 
-    via_email: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='via_email',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    via_email: typing.Union[None, bool]
 
-    via_sms: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='via_sms',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    via_sms: typing.Union[None, bool]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    template: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='template',
-        )
-    ] = None
+    template: typing.Union[None, str] = None
 
-    event: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='event',
-        )
-    ] = None
+    event: typing.Union[None, str, typing.Any] = None
 
-    state: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='state',
-        )
-    ] = None
+    state: typing.Union[None, str, typing.Any] = None
 
-    assignee_proximity: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='assignee_proximity',
-        )
-    ] = None
+    assignee_proximity: typing.Union[None, str, typing.Any] = None
 
-    recipient: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='recipient',
-        )
-    ] = None
+    recipient: typing.Union[None, str, typing.Any] = None
 
-    emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='emails',
-        )
-    ] = None
+    emails: typing.Union[None, list[str]] = None
 
-    phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='phones',
-        )
-    ] = None
+    phones: typing.Union[None, list[str]] = None
 
-    message: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='message',
-        )
-    ] = None
+    message: typing.Union[None, str] = None
 
-    add_tracking_link: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='add_tracking_link',
-        )
-    ] = None
+    add_tracking_link: typing.Union[None, bool] = None
 
-    sent_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='sent_at',
-        )
-    ] = None
+    sent_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

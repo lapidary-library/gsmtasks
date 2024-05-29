@@ -13,65 +13,28 @@ import uuid
 
 
 class PatchedSMS(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=34,
         )
     ] = None
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    state: typing.Union[None, str] = None
 
-    notification: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notification',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    notification: typing.Union[None, str] = None
 
-    sender: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='sender',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    sender: typing.Union[None, str] = None
 
     alphanumeric_sender_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='alphanumeric_sender_id',
             max_length=20,
         )
     ] = None
@@ -79,65 +42,29 @@ class PatchedSMS(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
 
-    message: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='message',
-        )
-    ] = None
+    message: typing.Union[None, str] = None
 
     segments_count: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='segments_count',
             ge=-2147483648.0,
             le=2147483647.0,
         )
     ] = None
 
-    error: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='error',
-        )
-    ] = None
+    error: typing.Union[None, str] = None
 
-    sent_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='sent_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    sent_at: typing.Union[None, datetime.datetime] = None
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    failed_at: typing.Union[None, datetime.datetime] = None
 
-    received_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='received_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    received_at: typing.Union[None, datetime.datetime] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

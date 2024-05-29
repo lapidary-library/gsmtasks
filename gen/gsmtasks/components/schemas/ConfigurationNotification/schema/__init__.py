@@ -11,40 +11,15 @@ import lapidary.runtime
 
 
 class ConfigurationNotification(lapidary.runtime.ModelBase):
-    LevelEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='LevelEnum',
-        )
-    ]
+    LevelEnum: str
 
-    message: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='message',
-        )
-    ]
+    message: str
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-        )
-    ]
+    url: typing.Union[None, str]
 
-    persist: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='persist',
-        )
-    ] = None
+    persist: typing.Union[None, bool] = None
 
-    open_in_new_window: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='open_in_new_window',
-        )
-    ] = None
+    open_in_new_window: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

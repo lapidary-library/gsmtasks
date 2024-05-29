@@ -13,104 +13,38 @@ import uuid
 
 
 class Email(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
-    notification: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notification',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    notification: typing.Union[None, str]
 
-    sender: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='sender',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    sender: typing.Union[None, str]
 
     subject: typing.Annotated[
         str,
         pydantic.Field(
-            alias='subject',
             max_length=250,
         )
     ]
 
-    message: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='message',
-        )
-    ]
+    message: str
 
-    sent_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='sent_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    sent_at: typing.Union[None, datetime.datetime]
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    failed_at: typing.Union[None, datetime.datetime]
 
-    received_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='received_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    received_at: typing.Union[None, datetime.datetime]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=34,
         )
     ] = None
@@ -118,7 +52,6 @@ class Email(lapidary.runtime.ModelBase):
     from_email: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='from_email',
             max_length=254,
         )
     ] = None
@@ -126,17 +59,11 @@ class Email(lapidary.runtime.ModelBase):
     reply_to_email: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='reply_to_email',
             max_length=254,
         )
     ] = None
 
-    to_emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='to_emails',
-        )
-    ] = None
+    to_emails: typing.Union[None, list[str]] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

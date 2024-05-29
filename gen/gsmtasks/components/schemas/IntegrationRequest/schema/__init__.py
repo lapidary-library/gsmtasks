@@ -12,43 +12,20 @@ import uuid
 
 
 class IntegrationRequest(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=200,
         )
     ]
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    user: typing.Union[None, str]
 
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -14,120 +14,37 @@ import uuid
 
 
 class AccountRole(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
-    email: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='email',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    email: typing.Union[None, str]
 
-    signature_image: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='signature_image',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    signature_image: typing.Union[None, str]
 
-    is_active: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_active',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    is_active: typing.Union[None, bool]
 
-    is_on_duty: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_on_duty',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    is_on_duty: typing.Union[None, bool]
 
-    last_time_location: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='last_time_location',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    last_time_location: typing.Union[None, str]
 
-    activated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='activated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    activated_at: typing.Union[None, datetime.datetime]
 
-    deleted_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='deleted_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    deleted_at: typing.Union[None, datetime.datetime]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-        )
-    ] = None
+    user: typing.Union[None, str] = None
 
     display_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='display_name',
             max_length=100,
         )
     ] = None
@@ -135,7 +52,6 @@ class AccountRole(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
@@ -143,110 +59,47 @@ class AccountRole(lapidary.runtime.ModelBase):
     vehicle_registration_number: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='vehicle_registration_number',
             max_length=32,
         )
     ] = None
 
-    VehicleProfileEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='VehicleProfileEnum',
-        )
-    ] = None
+    VehicleProfileEnum: typing.Union[None, str] = None
 
-    vehicle_capacity: typing.Annotated[
-        typing.Union[None, list[int]],
-        pydantic.Field(
-            alias='vehicle_capacity',
-        )
-    ] = None
+    vehicle_capacity: typing.Union[None, list[int]] = None
 
     vehicle_speed_factor: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='vehicle_speed_factor',
-            regex=r'^-?\d{0,1}(?:\.\d{0,1})?$',
+            regex='^-?\d{0,1}(?:\.\d{0,1})?$',
         )
     ] = None
 
     vehicle_service_time_factor: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='vehicle_service_time_factor',
-            regex=r'^-?\d{0,1}(?:\.\d{0,1})?$',
+            regex='^-?\d{0,1}(?:\.\d{0,1})?$',
         )
     ] = None
 
-    optimize_return_to_depot: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='optimize_return_to_depot',
-        )
-    ] = None
+    optimize_return_to_depot: typing.Union[None, bool] = None
 
-    optimize_earliest_start: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='optimize_earliest_start',
-        )
-    ] = None
+    optimize_earliest_start: typing.Union[None, str] = None
 
-    optimize_latest_end: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='optimize_latest_end',
-        )
-    ] = None
+    optimize_latest_end: typing.Union[None, str] = None
 
-    route_start_address: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='route_start_address',
-        )
-    ] = None
+    route_start_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    route_end_address: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='route_end_address',
-        )
-    ] = None
+    route_end_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    is_admin: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_admin',
-        )
-    ] = None
+    is_admin: typing.Union[None, bool] = None
 
-    is_manager: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_manager',
-        )
-    ] = None
+    is_manager: typing.Union[None, bool] = None
 
-    is_worker: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_worker',
-        )
-    ] = None
+    is_worker: typing.Union[None, bool] = None
 
-    is_integration: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_integration',
-        )
-    ] = None
+    is_integration: typing.Union[None, bool] = None
 
-    show_unassigned: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_unassigned',
-        )
-    ] = None
+    show_unassigned: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

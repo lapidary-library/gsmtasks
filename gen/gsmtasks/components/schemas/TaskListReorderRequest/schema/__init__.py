@@ -11,33 +11,13 @@ import lapidary.runtime
 
 
 class TaskListReorderRequest(lapidary.runtime.ModelBase):
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ]
+    assignee: typing.Union[None, str]
 
-    assign_tasks: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='assign_tasks',
-        )
-    ]
+    assign_tasks: list[str]
 
-    reorder_tasks: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='reorder_tasks',
-        )
-    ]
+    reorder_tasks: list[str]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

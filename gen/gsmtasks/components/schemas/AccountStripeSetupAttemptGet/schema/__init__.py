@@ -14,7 +14,6 @@ class AccountStripeSetupAttemptGet(lapidary.runtime.ModelBase):
     setup_attempt_id: typing.Annotated[
         str,
         pydantic.Field(
-            alias='setup_attempt_id',
             max_length=100,
         )
     ]

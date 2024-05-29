@@ -11,12 +11,7 @@ import lapidary.runtime
 
 
 class PasswordReset(lapidary.runtime.ModelBase):
-    email: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='email',
-        )
-    ]
+    email: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

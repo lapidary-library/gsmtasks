@@ -12,21 +12,9 @@ import uuid
 
 
 class AccountRoleActivation(lapidary.runtime.ModelBase):
-    token: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='token',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    token: typing.Union[None, uuid.UUID]
 
-    password: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='password',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    password: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

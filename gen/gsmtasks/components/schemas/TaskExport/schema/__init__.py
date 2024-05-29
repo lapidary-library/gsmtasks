@@ -23,276 +23,93 @@ import uuid
 
 
 class TaskExport(lapidary.runtime.ModelBase):
-    state: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='state',
-        )
-    ]
+    state: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    contact_address_external_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact_address_external_id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    contact_address_external_id: typing.Union[None, str]
 
-    account__name: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account__name',
-        )
-    ]
+    account__name: str
 
-    assignee__display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee__display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    assignee__display_name: typing.Union[None, str]
 
-    Location: typing.Annotated[
-        gsmtasks.components.schemas.Location.schema.Location,
-        pydantic.Field(
-            alias='Location',
-        )
-    ]
+    Location: gsmtasks.components.schemas.Location.schema.Location
 
-    created_by__display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by__display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by__display_name: typing.Union[None, str]
 
-    metadata__events_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__events_count',
-        )
-    ]
+    metadata__events_count: int
 
-    metadata__documents_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__documents_count',
-        )
-    ]
+    metadata__documents_count: int
 
-    metadata__signatures_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__signatures_count',
-        )
-    ]
+    metadata__signatures_count: int
 
-    metadata__forms_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__forms_count',
-        )
-    ]
+    metadata__forms_count: int
 
-    metadata__forms_completed_count: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__forms_completed_count',
-        )
-    ]
+    metadata__forms_completed_count: int
 
-    metadata__unassigned_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__unassigned_duration.schema.metadata__unassigned_duration,
-        pydantic.Field(
-            alias='metadata__unassigned_duration',
-        )
-    ]
+    metadata__unassigned_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__unassigned_duration.schema.metadata__unassigned_duration
 
-    metadata__assigned_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__assigned_duration.schema.metadata__assigned_duration,
-        pydantic.Field(
-            alias='metadata__assigned_duration',
-        )
-    ]
+    metadata__assigned_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__assigned_duration.schema.metadata__assigned_duration
 
-    metadata__accepted_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__accepted_duration.schema.metadata__accepted_duration,
-        pydantic.Field(
-            alias='metadata__accepted_duration',
-        )
-    ]
+    metadata__accepted_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__accepted_duration.schema.metadata__accepted_duration
 
-    metadata__transit_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__transit_duration.schema.metadata__transit_duration,
-        pydantic.Field(
-            alias='metadata__transit_duration',
-        )
-    ]
+    metadata__transit_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__transit_duration.schema.metadata__transit_duration
 
-    metadata__active_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__active_duration.schema.metadata__active_duration,
-        pydantic.Field(
-            alias='metadata__active_duration',
-        )
-    ]
+    metadata__active_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__active_duration.schema.metadata__active_duration
 
-    metadata__completed_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__completed_duration.schema.metadata__completed_duration,
-        pydantic.Field(
-            alias='metadata__completed_duration',
-        )
-    ]
+    metadata__completed_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__completed_duration.schema.metadata__completed_duration
 
-    metadata__failed_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__failed_duration.schema.metadata__failed_duration,
-        pydantic.Field(
-            alias='metadata__failed_duration',
-        )
-    ]
+    metadata__failed_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__failed_duration.schema.metadata__failed_duration
 
-    metadata__cancelled_duration: typing.Annotated[
-        gsmtasks.components.schemas.TaskExport.properties.metadata__cancelled_duration.schema.metadata__cancelled_duration,
-        pydantic.Field(
-            alias='metadata__cancelled_duration',
-        )
-    ]
+    metadata__cancelled_duration: gsmtasks.components.schemas.TaskExport.properties.metadata__cancelled_duration.schema.metadata__cancelled_duration
 
-    metadata__unassigned_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__unassigned_distance',
-        )
-    ]
+    metadata__unassigned_distance: int
 
-    metadata__assigned_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__assigned_distance',
-        )
-    ]
+    metadata__assigned_distance: int
 
-    metadata__accepted_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__accepted_distance',
-        )
-    ]
+    metadata__accepted_distance: int
 
-    metadata__transit_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__transit_distance',
-        )
-    ]
+    metadata__transit_distance: int
 
-    metadata__active_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__active_distance',
-        )
-    ]
+    metadata__active_distance: int
 
-    metadata__completed_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__completed_distance',
-        )
-    ]
+    metadata__completed_distance: int
 
-    metadata__failed_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__failed_distance',
-        )
-    ]
+    metadata__failed_distance: int
 
-    metadata__cancelled_distance: typing.Annotated[
-        int,
-        pydantic.Field(
-            alias='metadata__cancelled_distance',
-        )
-    ]
+    metadata__cancelled_distance: int
 
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    TaskCategoryEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskCategoryEnum',
-        )
-    ] = None
+    TaskCategoryEnum: typing.Union[None, str] = None
 
-    description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='description',
-        )
-    ] = None
+    description: typing.Union[None, str] = None
 
     reference: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='reference',
             max_length=100,
         )
     ] = None
 
-    complete_after: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='complete_after',
-        )
-    ] = None
+    complete_after: typing.Union[None, datetime.datetime] = None
 
-    complete_before: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='complete_before',
-        )
-    ] = None
+    complete_before: typing.Union[None, datetime.datetime] = None
 
-    scheduled_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='scheduled_time',
-        )
-    ] = None
+    scheduled_time: typing.Union[None, datetime.datetime] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
         pydantic.Field(
-            alias='position',
             ge=0.0,
             le=253402300799.0,
         )
@@ -301,396 +118,120 @@ class TaskExport(lapidary.runtime.ModelBase):
     priority: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='priority',
             ge=-2147483648.0,
             le=2147483647.0,
         )
     ] = None
 
-    duration: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskExport.properties.duration.schema.duration],
-        pydantic.Field(
-            alias='duration',
-        )
-    ] = None
+    duration: typing.Union[None, gsmtasks.components.schemas.TaskExport.properties.duration.schema.duration] = None
 
-    is_full_load: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_full_load',
-        )
-    ] = None
+    is_full_load: typing.Union[None, bool] = None
 
-    AssigneeProximityEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='AssigneeProximityEnum',
-        )
-    ] = None
+    AssigneeProximityEnum: typing.Union[None, str] = None
 
-    auto_assign: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='auto_assign',
-        )
-    ] = None
+    auto_assign: typing.Union[None, bool] = None
 
-    issues: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='issues',
-        )
-    ] = None
+    issues: typing.Union[None, list[str]] = None
 
-    size: typing.Annotated[
-        typing.Union[None, list[int]],
-        pydantic.Field(
-            alias='size',
-        )
-    ] = None
+    size: typing.Union[None, list[int]] = None
 
-    completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='completed_at',
-        )
-    ] = None
+    completed_at: typing.Union[None, datetime.datetime] = None
 
-    cancelled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='cancelled_at',
-        )
-    ] = None
+    cancelled_at: typing.Union[None, datetime.datetime] = None
 
-    order__id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__id',
-        )
-    ] = None
+    order__id: typing.Union[None, str] = None
 
-    order__external_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__external_id',
-        )
-    ] = None
+    order__external_id: typing.Union[None, str] = None
 
-    order__reference: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__reference',
-        )
-    ] = None
+    order__reference: typing.Union[None, str] = None
 
-    order__auto_assign: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__auto_assign',
-        )
-    ] = None
+    order__auto_assign: typing.Union[None, str] = None
 
-    order__created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__created_by',
-        )
-    ] = None
+    order__created_by: typing.Union[None, str] = None
 
-    order__created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='order__created_at',
-        )
-    ] = None
+    order__created_at: typing.Union[None, datetime.datetime] = None
 
-    order__orderer__name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__orderer__name',
-        )
-    ] = None
+    order__orderer__name: typing.Union[None, str] = None
 
-    order__orderer__company: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__orderer__company',
-        )
-    ] = None
+    order__orderer__company: typing.Union[None, str] = None
 
-    order__orderer__emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='order__orderer__emails',
-        )
-    ] = None
+    order__orderer__emails: typing.Union[None, list[str]] = None
 
-    order__orderer__phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='order__orderer__phones',
-        )
-    ] = None
+    order__orderer__phones: typing.Union[None, list[str]] = None
 
-    order__orderer__notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order__orderer__notes',
-        )
-    ] = None
+    order__orderer__notes: typing.Union[None, str] = None
 
-    orderer__name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='orderer__name',
-        )
-    ] = None
+    orderer__name: typing.Union[None, str] = None
 
-    contact__name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__name',
-        )
-    ] = None
+    contact__name: typing.Union[None, str] = None
 
-    contact__company: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__company',
-        )
-    ] = None
+    contact__company: typing.Union[None, str] = None
 
-    contact__emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='contact__emails',
-        )
-    ] = None
+    contact__emails: typing.Union[None, list[str]] = None
 
-    contact__phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='contact__phones',
-        )
-    ] = None
+    contact__phones: typing.Union[None, list[str]] = None
 
-    contact__notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__notes',
-        )
-    ] = None
+    contact__notes: typing.Union[None, str] = None
 
-    assignee__email: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee__email',
-        )
-    ] = None
+    assignee__email: typing.Union[None, str] = None
 
-    assignee__phone: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee__phone',
-        )
-    ] = None
+    assignee__phone: typing.Union[None, str] = None
 
-    address__raw_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__raw_address',
-        )
-    ] = None
+    address__raw_address: typing.Union[None, str] = None
 
-    address__formatted_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__formatted_address',
-        )
-    ] = None
+    address__formatted_address: typing.Union[None, str] = None
 
-    address__google_place_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__google_place_id',
-        )
-    ] = None
+    address__google_place_id: typing.Union[None, str] = None
 
-    address__point_of_interest: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__point_of_interest',
-        )
-    ] = None
+    address__point_of_interest: typing.Union[None, str] = None
 
-    address__street: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__street',
-        )
-    ] = None
+    address__street: typing.Union[None, str] = None
 
-    address__house_number: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__house_number',
-        )
-    ] = None
+    address__house_number: typing.Union[None, str] = None
 
-    address__apartment_number: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__apartment_number',
-        )
-    ] = None
+    address__apartment_number: typing.Union[None, str] = None
 
-    address__city: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__city',
-        )
-    ] = None
+    address__city: typing.Union[None, str] = None
 
-    address__state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__state',
-        )
-    ] = None
+    address__state: typing.Union[None, str] = None
 
-    address__postal_code: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__postal_code',
-        )
-    ] = None
+    address__postal_code: typing.Union[None, str] = None
 
-    address__country: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__country',
-        )
-    ] = None
+    address__country: typing.Union[None, str] = None
 
-    address__country_code: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__country_code',
-        )
-    ] = None
+    address__country_code: typing.Union[None, str] = None
 
-    address__geocoded_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='address__geocoded_at',
-        )
-    ] = None
+    address__geocoded_at: typing.Union[None, datetime.datetime] = None
 
-    address__geocode_failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='address__geocode_failed_at',
-        )
-    ] = None
+    address__geocode_failed_at: typing.Union[None, datetime.datetime] = None
 
-    route__code: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='route__code',
-        )
-    ] = None
+    route__code: typing.Union[None, str] = None
 
-    route__description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='route__description',
-        )
-    ] = None
+    route__description: typing.Union[None, str] = None
 
-    created_by__email: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by__email',
-        )
-    ] = None
+    created_by__email: typing.Union[None, str] = None
 
-    created_by__phone: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by__phone',
-        )
-    ] = None
+    created_by__phone: typing.Union[None, str] = None
 
-    metadata__task_event_notes_count: typing.Annotated[
-        typing.Union[None, int],
-        pydantic.Field(
-            alias='metadata__task_event_notes_count',
-        )
-    ] = None
+    metadata__task_event_notes_count: typing.Union[None, int] = None
 
-    metadata__last_task_event_notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='metadata__last_task_event_notes',
-        )
-    ] = None
+    metadata__last_task_event_notes: typing.Union[None, str] = None
 
-    metadata__last_unassigned_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_unassigned_at',
-        )
-    ] = None
+    metadata__last_unassigned_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_assigned_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_assigned_at',
-        )
-    ] = None
+    metadata__last_assigned_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_accepted_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_accepted_at',
-        )
-    ] = None
+    metadata__last_accepted_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_transit_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_transit_at',
-        )
-    ] = None
+    metadata__last_transit_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_active_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_active_at',
-        )
-    ] = None
+    metadata__last_active_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_completed_at',
-        )
-    ] = None
+    metadata__last_completed_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_failed_at',
-        )
-    ] = None
+    metadata__last_failed_at: typing.Union[None, datetime.datetime] = None
 
-    metadata__last_cancelled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='metadata__last_cancelled_at',
-        )
-    ] = None
+    metadata__last_cancelled_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

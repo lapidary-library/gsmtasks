@@ -13,49 +13,24 @@ import uuid
 
 
 class PatchedTaskForm(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    task: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task',
-        )
-    ] = None
+    task: typing.Union[None, str] = None
 
     name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='name',
             max_length=50,
         )
     ] = None
 
-    link: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='link',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    link: typing.Union[None, str] = None
 
     edit_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='edit_url',
             max_length=2048,
         )
     ] = None
@@ -63,7 +38,6 @@ class PatchedTaskForm(lapidary.runtime.ModelBase):
     view_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='view_url',
             max_length=2048,
         )
     ] = None
@@ -71,41 +45,17 @@ class PatchedTaskForm(lapidary.runtime.ModelBase):
     pdf_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='pdf_url',
             max_length=2048,
         )
     ] = None
 
-    open_in: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='open_in',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    open_in: typing.Union[None, str] = None
 
-    completed: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='completed',
-        )
-    ] = None
+    completed: typing.Union[None, bool] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

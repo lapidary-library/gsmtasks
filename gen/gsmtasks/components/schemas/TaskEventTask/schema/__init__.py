@@ -20,160 +20,47 @@ import uuid
 
 
 class TaskEventTask(lapidary.runtime.ModelBase):
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
-    orderer_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='orderer_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    orderer_name: typing.Union[None, str]
 
-    contact_address_external_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact_address_external_id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    contact_address_external_id: typing.Union[None, str]
 
-    calendar_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='calendar_time',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    calendar_time: typing.Union[None, datetime.datetime]
 
-    completed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='completed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    completed_at: typing.Union[None, datetime.datetime]
 
-    cancelled_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='cancelled_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    cancelled_at: typing.Union[None, datetime.datetime]
 
-    assignee_proximity: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee_proximity',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    assignee_proximity: typing.Union[None, str]
 
-    forms: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.forms.schema.forms],
-        pydantic.Field(
-            alias='forms',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    forms: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.forms.schema.forms]
 
-    trackers: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='trackers',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    trackers: typing.Union[None, list[str]]
 
-    recurrence: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='recurrence',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    recurrence: typing.Union[None, str]
 
-    issues: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='issues',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    issues: typing.Union[None, list[str]]
 
-    counts: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.counts.schema.counts],
-        pydantic.Field(
-            alias='counts',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    counts: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.counts.schema.counts]
 
-    actions: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.actions.schema.actions],
-        pydantic.Field(
-            alias='actions',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    actions: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.actions.schema.actions]
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
@@ -181,114 +68,41 @@ class TaskEventTask(lapidary.runtime.ModelBase):
     reference: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='reference',
             max_length=100,
         )
     ] = None
 
-    barcodes: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='barcodes',
-        )
-    ] = None
+    barcodes: typing.Union[None, list[str]] = None
 
-    assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ] = None
+    assignee: typing.Union[None, str] = None
 
-    order: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order',
-        )
-    ] = None
+    order: typing.Union[None, str] = None
 
-    orderer: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='orderer',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    orderer: typing.Union[None, str] = None
 
-    route: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='route',
-        )
-    ] = None
+    route: typing.Union[None, str] = None
 
-    TaskCategoryEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskCategoryEnum',
-        )
-    ] = None
+    TaskCategoryEnum: typing.Union[None, str] = None
 
-    NestedContact: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedContact.schema.NestedContact],
-        pydantic.Field(
-            alias='NestedContact',
-        )
-    ] = None
+    NestedContact: typing.Union[None, gsmtasks.components.schemas.NestedContact.schema.NestedContact] = None
 
-    NestedAddress: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ] = None
+    NestedAddress: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    contact_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact_address',
-        )
-    ] = None
+    contact_address: typing.Union[None, str] = None
 
-    description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='description',
-        )
-    ] = None
+    description: typing.Union[None, str] = None
 
-    complete_after: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='complete_after',
-        )
-    ] = None
+    complete_after: typing.Union[None, datetime.datetime] = None
 
-    complete_before: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='complete_before',
-        )
-    ] = None
+    complete_before: typing.Union[None, datetime.datetime] = None
 
-    scheduled_time: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='scheduled_time',
-        )
-    ] = None
+    scheduled_time: typing.Union[None, datetime.datetime] = None
 
-    auto_assign: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='auto_assign',
-        )
-    ] = None
+    auto_assign: typing.Union[None, bool] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
         pydantic.Field(
-            alias='position',
             ge=0.0,
             le=253402300799.0,
         )
@@ -297,46 +111,20 @@ class TaskEventTask(lapidary.runtime.ModelBase):
     priority: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='priority',
             ge=-2147483648.0,
             le=2147483647.0,
         )
     ] = None
 
-    duration: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.duration.schema.duration],
-        pydantic.Field(
-            alias='duration',
-        )
-    ] = None
+    duration: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.duration.schema.duration] = None
 
-    size: typing.Annotated[
-        typing.Union[None, list[int]],
-        pydantic.Field(
-            alias='size',
-        )
-    ] = None
+    size: typing.Union[None, list[int]] = None
 
-    documents: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='documents',
-        )
-    ] = None
+    documents: typing.Union[None, list[str]] = None
 
-    signatures: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='signatures',
-        )
-    ] = None
+    signatures: typing.Union[None, list[str]] = None
 
-    metafields: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.metafields.schema.metafields],
-        pydantic.Field(
-            alias='metafields',
-        )
-    ] = None
+    metafields: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.metafields.schema.metafields] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

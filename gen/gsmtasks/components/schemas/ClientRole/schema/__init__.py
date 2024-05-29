@@ -13,80 +13,30 @@ import uuid
 
 
 class ClientRole(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    client: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='client',
-        )
-    ]
+    client: str
 
-    user: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='user',
-        )
-    ]
+    user: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
 
-    is_manager: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_manager',
-        )
-    ] = None
+    is_manager: typing.Union[None, bool] = None
 
-    is_active: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_active',
-        )
-    ] = None
+    is_active: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -13,68 +13,27 @@ import uuid
 
 
 class Review(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    account: typing.Union[None, str]
 
-    tracker: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='tracker',
-        )
-    ]
+    tracker: str
 
     rating: typing.Annotated[
         int,
         pydantic.Field(
-            alias='rating',
             ge=1.0,
             le=5.0,
         )
     ]
 
-    last_task: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='last_task',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    last_task: typing.Union[None, str]
 
-    last_assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='last_assignee',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    last_assignee: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    comment: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='comment',
-        )
-    ] = None
+    comment: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

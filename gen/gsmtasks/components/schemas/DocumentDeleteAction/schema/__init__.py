@@ -11,19 +11,9 @@ import lapidary.runtime
 
 
 class DocumentDeleteAction(lapidary.runtime.ModelBase):
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    documents: typing.Annotated[
-        list[str],
-        pydantic.Field(
-            alias='documents',
-        )
-    ]
+    documents: list[str]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

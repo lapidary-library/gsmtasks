@@ -13,103 +13,46 @@ import uuid
 
 
 class StripePayment(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    billable_account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='billable_account',
-        )
-    ]
+    billable_account: str
 
-    invoice: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='invoice',
-        )
-    ]
+    invoice: typing.Union[None, str]
 
     amount: typing.Annotated[
         str,
         pydantic.Field(
-            alias='amount',
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    StripePaymentStateEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='StripePaymentStateEnum',
-        )
-    ] = None
+    StripePaymentStateEnum: typing.Union[None, str] = None
 
     stripe_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='stripe_id',
             max_length=36,
         )
     ] = None
 
-    stripe_state: typing.Annotated[
-        typing.Union[None, typing.Any],
-        pydantic.Field(
-            alias='stripe_state',
-        )
-    ] = None
+    stripe_state: typing.Union[None, typing.Any] = None
 
     currency: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='currency',
             max_length=3,
         )
     ] = None
 
-    timestamp: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='timestamp',
-        )
-    ] = None
+    timestamp: typing.Union[None, datetime.datetime] = None
 
-    response: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='response',
-        )
-    ] = None
+    response: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

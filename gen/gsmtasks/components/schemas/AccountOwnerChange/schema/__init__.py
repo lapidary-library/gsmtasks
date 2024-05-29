@@ -11,12 +11,7 @@ import lapidary.runtime
 
 
 class AccountOwnerChange(lapidary.runtime.ModelBase):
-    owner: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='owner',
-        )
-    ]
+    owner: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -12,19 +12,9 @@ import lapidary.runtime
 
 
 class TimeLocationFeatureList(lapidary.runtime.ModelBase):
-    GisFeatureCollectionEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='GisFeatureCollectionEnum',
-        )
-    ] = None
+    GisFeatureCollectionEnum: typing.Union[None, str] = None
 
-    features: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature]],
-        pydantic.Field(
-            alias='features',
-        )
-    ] = None
+    features: typing.Union[None, list[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature]] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

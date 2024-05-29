@@ -15,32 +15,15 @@ import uuid
 
 
 class PatchedOrderSerializerV2(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
@@ -48,93 +31,31 @@ class PatchedOrderSerializerV2(lapidary.runtime.ModelBase):
     reference: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='reference',
             max_length=100,
         )
     ] = None
 
-    client: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='client',
-        )
-    ] = None
+    client: typing.Union[None, str] = None
 
-    NestedContact: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedContact.schema.NestedContact],
-        pydantic.Field(
-            alias='NestedContact',
-        )
-    ] = None
+    NestedContact: typing.Union[None, gsmtasks.components.schemas.NestedContact.schema.NestedContact] = None
 
-    tasks: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='tasks',
-        )
-    ] = None
+    tasks: typing.Union[None, list[str]] = None
 
-    tasks_data: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
-        pydantic.Field(
-            alias='tasks_data',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    tasks_data: typing.Union[None, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]] = None
 
-    documents: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='documents',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    documents: typing.Union[None, list[str]] = None
 
-    auto_assign: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='auto_assign',
-        )
-    ] = None
+    auto_assign: typing.Union[None, bool] = None
 
-    description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='description',
-        )
-    ] = None
+    description: typing.Union[None, str] = None
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_by: typing.Union[None, str] = None
 
-    recurrence: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='recurrence',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    recurrence: typing.Union[None, str] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

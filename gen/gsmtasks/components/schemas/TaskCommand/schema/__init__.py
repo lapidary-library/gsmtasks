@@ -15,138 +15,46 @@ import uuid
 
 
 class TaskCommand(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    account: typing.Union[None, str]
 
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
-    time: typing.Annotated[
-        datetime.datetime,
-        pydantic.Field(
-            alias='time',
-        )
-    ]
+    time: datetime.datetime
 
-    ActionEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='ActionEnum',
-        )
-    ]
+    ActionEnum: str
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    user: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
-    location: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Location.schema.Location],
-        pydantic.Field(
-            alias='location',
-        )
-    ] = None
+    location: typing.Union[None, gsmtasks.components.schemas.Location.schema.Location] = None
 
-    assignee: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='assignee',
-        )
-    ] = None
+    assignee: typing.Union[None, str] = None
 
-    TaskCommandStateEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='TaskCommandStateEnum',
-        )
-    ] = None
+    TaskCommandStateEnum: typing.Union[None, str] = None
 
-    error_message: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='error_message',
-        )
-    ] = None
+    error_message: typing.Union[None, str] = None
 
-    TaskCommandTaskData: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.schema.TaskCommandTaskData],
-        pydantic.Field(
-            alias='TaskCommandTaskData',
-        )
-    ] = None
+    TaskCommandTaskData: typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.schema.TaskCommandTaskData] = None
 
-    accepted_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='accepted_at',
-        )
-    ] = None
+    accepted_at: typing.Union[None, datetime.datetime] = None
 
-    rejected_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='rejected_at',
-        )
-    ] = None
+    rejected_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

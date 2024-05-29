@@ -13,73 +13,23 @@ import uuid
 
 
 class PatchedExport(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
-    ExportModelEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='ExportModelEnum',
-        )
-    ] = None
+    ExportModelEnum: typing.Union[None, str] = None
 
-    field_names: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='field_names',
-        )
-    ] = None
+    field_names: typing.Union[None, list[str]] = None
 
-    FormatEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='FormatEnum',
-        )
-    ] = None
+    FormatEnum: typing.Union[None, str] = None
 
-    link: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='link',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    link: typing.Union[None, str] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

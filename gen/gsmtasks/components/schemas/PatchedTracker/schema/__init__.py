@@ -13,166 +13,55 @@ import uuid
 
 
 class PatchedTracker(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
-    tasks: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='tasks',
-        )
-    ] = None
+    tasks: typing.Union[None, list[str]] = None
 
-    active_from: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='active_from',
-        )
-    ] = None
+    active_from: typing.Union[None, datetime.datetime] = None
 
-    active_until: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='active_until',
-        )
-    ] = None
+    active_until: typing.Union[None, datetime.datetime] = None
 
-    queued_states: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='queued_states',
-        )
-    ] = None
+    queued_states: typing.Union[None, list[str]] = None
 
-    active_states: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='active_states',
-        )
-    ] = None
+    active_states: typing.Union[None, list[str]] = None
 
-    show_driver_info: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_driver_info',
-        )
-    ] = None
+    show_driver_info: typing.Union[None, bool] = None
 
-    show_destination: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_destination',
-        )
-    ] = None
+    show_destination: typing.Union[None, bool] = None
 
-    show_eta: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_eta',
-        )
-    ] = None
+    show_eta: typing.Union[None, bool] = None
 
-    show_sms_action: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_sms_action',
-        )
-    ] = None
+    show_sms_action: typing.Union[None, bool] = None
 
-    show_call_action: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_call_action',
-        )
-    ] = None
+    show_call_action: typing.Union[None, bool] = None
 
-    show_logo: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_logo',
-        )
-    ] = None
+    show_logo: typing.Union[None, bool] = None
 
-    show_path: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_path',
-        )
-    ] = None
+    show_path: typing.Union[None, bool] = None
 
-    show_predicted_delivery: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='show_predicted_delivery',
-        )
-    ] = None
+    show_predicted_delivery: typing.Union[None, bool] = None
 
-    autozoom: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='autozoom',
-        )
-    ] = None
+    autozoom: typing.Union[None, bool] = None
 
     max_zoom_level: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='max_zoom_level',
             ge=-2147483648.0,
             le=2147483647.0,
         )
     ] = None
 
-    tracking_page_url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='tracking_page_url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    tracking_page_url: typing.Union[None, str] = None
 
-    reviews_allowed: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='reviews_allowed',
-        )
-    ] = None
+    reviews_allowed: typing.Union[None, bool] = None
 
-    reviewed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='reviewed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    reviewed_at: typing.Union[None, datetime.datetime] = None
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_by: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

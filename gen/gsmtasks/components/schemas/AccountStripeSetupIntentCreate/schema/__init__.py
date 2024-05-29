@@ -14,7 +14,6 @@ class AccountStripeSetupIntentCreate(lapidary.runtime.ModelBase):
     payment_method_id: typing.Annotated[
         str,
         pydantic.Field(
-            alias='payment_method_id',
             max_length=100,
         )
     ]

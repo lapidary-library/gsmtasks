@@ -13,41 +13,17 @@ import uuid
 
 
 class Device(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    user: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='user',
-        )
-    ]
+    user: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
     brand: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='brand',
             max_length=100,
         )
     ] = None
@@ -55,7 +31,6 @@ class Device(lapidary.runtime.ModelBase):
     build_number: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='build_number',
             max_length=100,
         )
     ] = None
@@ -63,7 +38,6 @@ class Device(lapidary.runtime.ModelBase):
     device_country: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='device_country',
             max_length=2,
         )
     ] = None
@@ -71,7 +45,6 @@ class Device(lapidary.runtime.ModelBase):
     device_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='device_id',
             max_length=100,
         )
     ] = None
@@ -79,7 +52,6 @@ class Device(lapidary.runtime.ModelBase):
     device_locale: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='device_locale',
             max_length=100,
         )
     ] = None
@@ -87,7 +59,6 @@ class Device(lapidary.runtime.ModelBase):
     free_disk_storage: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='free_disk_storage',
             ge=-9.223372036854776e+18,
             le=9.223372036854776e+18,
         )
@@ -96,7 +67,6 @@ class Device(lapidary.runtime.ModelBase):
     manufacturer: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='manufacturer',
             max_length=100,
         )
     ] = None
@@ -104,7 +74,6 @@ class Device(lapidary.runtime.ModelBase):
     model: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='model',
             max_length=100,
         )
     ] = None
@@ -112,7 +81,6 @@ class Device(lapidary.runtime.ModelBase):
     readable_version: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='readable_version',
             max_length=100,
         )
     ] = None
@@ -120,7 +88,6 @@ class Device(lapidary.runtime.ModelBase):
     system_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='system_name',
             max_length=100,
         )
     ] = None
@@ -128,22 +95,15 @@ class Device(lapidary.runtime.ModelBase):
     system_version: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='system_version',
             max_length=100,
         )
     ] = None
 
-    timezone: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='timezone',
-        )
-    ] = None
+    timezone: typing.Union[None, str, typing.Any] = None
 
     version: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='version',
             max_length=100,
         )
     ] = None
@@ -151,7 +111,6 @@ class Device(lapidary.runtime.ModelBase):
     location_permission: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='location_permission',
             max_length=100,
         )
     ] = None
@@ -159,7 +118,6 @@ class Device(lapidary.runtime.ModelBase):
     notification_permission: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='notification_permission',
             max_length=100,
         )
     ] = None
@@ -167,7 +125,6 @@ class Device(lapidary.runtime.ModelBase):
     motion_permission: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='motion_permission',
             max_length=100,
         )
     ] = None
@@ -175,7 +132,6 @@ class Device(lapidary.runtime.ModelBase):
     ios_app_tracking_permission: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='ios_app_tracking_permission',
             max_length=100,
         )
     ] = None
@@ -183,18 +139,12 @@ class Device(lapidary.runtime.ModelBase):
     battery_level: typing.Annotated[
         typing.Union[None, int],
         pydantic.Field(
-            alias='battery_level',
             ge=0.0,
             le=2147483647.0,
         )
     ] = None
 
-    is_charging: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_charging',
-        )
-    ] = None
+    is_charging: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

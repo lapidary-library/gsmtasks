@@ -14,146 +14,55 @@ import uuid
 
 
 class Webhook(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=100,
         )
     ]
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    state: typing.Union[None, str]
 
     target: typing.Annotated[
         str,
         pydantic.Field(
-            alias='target',
             max_length=2048,
         )
     ]
 
-    fail_message: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='fail_message',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    fail_message: typing.Union[None, str]
 
-    activated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='activated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    activated_at: typing.Union[None, datetime.datetime]
 
-    failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    failed_at: typing.Union[None, datetime.datetime]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    VersionEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='VersionEnum',
-        )
-    ] = None
+    VersionEnum: typing.Union[None, str] = None
 
-    headers: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Webhook.properties.headers.schema.headers],
-        pydantic.Field(
-            alias='headers',
-        )
-    ] = None
+    headers: typing.Union[None, gsmtasks.components.schemas.Webhook.properties.headers.schema.headers] = None
 
-    task_events: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='task_events',
-        )
-    ] = None
+    task_events: typing.Union[None, bool] = None
 
-    document_events: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='document_events',
-        )
-    ] = None
+    document_events: typing.Union[None, bool] = None
 
-    signature_events: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='signature_events',
-        )
-    ] = None
+    signature_events: typing.Union[None, bool] = None
 
-    review_events: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='review_events',
-        )
-    ] = None
+    review_events: typing.Union[None, bool] = None
 
-    notification_emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='notification_emails',
-        )
-    ] = None
+    notification_emails: typing.Union[None, list[str]] = None
 
     shared_secret: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='shared_secret',
             max_length=40,
         )
     ] = None

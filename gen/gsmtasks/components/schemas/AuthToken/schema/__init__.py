@@ -11,29 +11,11 @@ import lapidary.runtime
 
 
 class AuthToken(lapidary.runtime.ModelBase):
-    username: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='username',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    username: typing.Union[None, str]
 
-    password: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='password',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    password: typing.Union[None, str]
 
-    token: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='token',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    token: typing.Union[None, str]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

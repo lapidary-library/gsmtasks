@@ -15,92 +15,36 @@ import uuid
 
 
 class ContactAddress(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    NestedContact: typing.Annotated[
-        gsmtasks.components.schemas.NestedContact.schema.NestedContact,
-        pydantic.Field(
-            alias='NestedContact',
-        )
-    ]
+    NestedContact: gsmtasks.components.schemas.NestedContact.schema.NestedContact
 
-    NestedAddress: typing.Annotated[
-        gsmtasks.components.schemas.NestedAddress.schema.NestedAddress,
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ]
+    NestedAddress: gsmtasks.components.schemas.NestedAddress.schema.NestedAddress
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    client: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='client',
-        )
-    ] = None
+    client: typing.Union[None, str] = None
 
-    is_orderer: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_orderer',
-        )
-    ] = None
+    is_orderer: typing.Union[None, bool] = None
 
-    is_receiver: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_receiver',
-        )
-    ] = None
+    is_receiver: typing.Union[None, bool] = None
 
     source: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='source',
             max_length=100,
         )
     ] = None

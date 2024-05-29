@@ -12,13 +12,7 @@ import lapidary.runtime
 
 
 class TasksStatesCountResponse(lapidary.runtime.ModelBase):
-    dates: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TasksStatesCountResponse.properties.dates.schema.dates],
-        pydantic.Field(
-            alias='dates',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    dates: typing.Union[None, gsmtasks.components.schemas.TasksStatesCountResponse.properties.dates.schema.dates]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

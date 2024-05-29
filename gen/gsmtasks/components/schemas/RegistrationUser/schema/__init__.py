@@ -12,26 +12,13 @@ import uuid
 
 
 class RegistrationUser(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=30,
         )
     ]
@@ -39,7 +26,6 @@ class RegistrationUser(lapidary.runtime.ModelBase):
     email: typing.Annotated[
         str,
         pydantic.Field(
-            alias='email',
             max_length=254,
         )
     ]
@@ -47,8 +33,6 @@ class RegistrationUser(lapidary.runtime.ModelBase):
     password: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='password',
-            direction=lapidary.runtime.ParamDirection.write,
             max_length=100,
             min_length=6,
         )
@@ -57,7 +41,6 @@ class RegistrationUser(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None

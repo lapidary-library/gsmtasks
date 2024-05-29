@@ -11,43 +11,15 @@ import lapidary.runtime
 
 
 class properties(lapidary.runtime.ModelBase):
-    model: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='model',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    model: typing.Union[None, str] = None
 
-    task: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    task: typing.Union[None, str] = None
 
-    formatted_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='formatted_address',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    formatted_address: typing.Union[None, str] = None
 
-    category: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='category',
-        )
-    ] = None
+    category: typing.Union[None, str] = None
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-        )
-    ] = None
+    state: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

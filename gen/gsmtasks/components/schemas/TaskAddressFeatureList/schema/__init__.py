@@ -12,19 +12,9 @@ import lapidary.runtime
 
 
 class TaskAddressFeatureList(lapidary.runtime.ModelBase):
-    GisFeatureCollectionEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='GisFeatureCollectionEnum',
-        )
-    ] = None
+    GisFeatureCollectionEnum: typing.Union[None, str] = None
 
-    features: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.TaskAddressFeature.schema.TaskAddressFeature]],
-        pydantic.Field(
-            alias='features',
-        )
-    ] = None
+    features: typing.Union[None, list[gsmtasks.components.schemas.TaskAddressFeature.schema.TaskAddressFeature]] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

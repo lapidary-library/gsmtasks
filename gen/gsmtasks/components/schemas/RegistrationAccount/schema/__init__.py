@@ -12,62 +12,28 @@ import uuid
 
 
 class RegistrationAccount(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=100,
         )
     ]
 
-    type: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='type',
-        )
-    ] = None
+    type: typing.Union[None, str, typing.Any] = None
 
-    language: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='language',
-        )
-    ] = None
+    language: typing.Union[None, str] = None
 
-    timezone: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='timezone',
-        )
-    ] = None
+    timezone: typing.Union[None, str, typing.Any] = None
 
-    country_code: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='country_code',
-        )
-    ] = None
+    country_code: typing.Union[None, str, typing.Any] = None
 
     website: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='website',
             max_length=200,
         )
     ] = None

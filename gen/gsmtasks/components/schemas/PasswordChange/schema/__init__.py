@@ -11,26 +11,11 @@ import lapidary.runtime
 
 
 class PasswordChange(lapidary.runtime.ModelBase):
-    old_password: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='old_password',
-        )
-    ]
+    old_password: str
 
-    new_password1: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='new_password1',
-        )
-    ]
+    new_password1: str
 
-    new_password2: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='new_password2',
-        )
-    ]
+    new_password2: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

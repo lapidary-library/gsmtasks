@@ -13,33 +13,15 @@ import uuid
 
 
 class FormRule(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=50,
         )
     ]
@@ -47,29 +29,17 @@ class FormRule(lapidary.runtime.ModelBase):
     edit_url: typing.Annotated[
         str,
         pydantic.Field(
-            alias='edit_url',
             max_length=2048,
         )
     ]
 
-    rules: typing.Annotated[
-        gsmtasks.components.schemas.FormRule.properties.rules.schema.rules,
-        pydantic.Field(
-            alias='rules',
-        )
-    ]
+    rules: gsmtasks.components.schemas.FormRule.properties.rules.schema.rules
 
-    is_active: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_active',
-        )
-    ] = None
+    is_active: typing.Union[None, bool] = None
 
     view_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='view_url',
             max_length=2048,
         )
     ] = None
@@ -77,17 +47,11 @@ class FormRule(lapidary.runtime.ModelBase):
     pdf_url: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='pdf_url',
             max_length=2048,
         )
     ] = None
 
-    OpenInEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='OpenInEnum',
-        )
-    ] = None
+    OpenInEnum: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

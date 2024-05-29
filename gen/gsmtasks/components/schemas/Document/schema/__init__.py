@@ -14,157 +14,50 @@ import uuid
 
 
 class Document(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    file: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    file: typing.Union[None, str]
 
-    file_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    file_name: typing.Union[None, str]
 
-    mimetype: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='mimetype',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    mimetype: typing.Union[None, str]
 
-    thumbnail: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='thumbnail',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    thumbnail: typing.Union[None, str]
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    order: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='order',
-        )
-    ] = None
+    order: typing.Union[None, str] = None
 
-    task: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='task',
-        )
-    ] = None
+    task: typing.Union[None, str] = None
 
-    recurrence: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='recurrence',
-        )
-    ] = None
+    recurrence: typing.Union[None, str] = None
 
-    file_upload: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file_upload',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    file_upload: typing.Union[None, str] = None
 
-    description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='description',
-        )
-    ] = None
+    description: typing.Union[None, str] = None
 
-    s3_response_headers: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Document.properties.s3_response_headers.schema.s3_response_headers],
-        pydantic.Field(
-            alias='s3_response_headers',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    s3_response_headers: typing.Union[None, gsmtasks.components.schemas.Document.properties.s3_response_headers.schema.s3_response_headers] = None
 
-    source: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='source',
-        )
-    ] = None
+    source: typing.Union[None, str, typing.Any] = None
 
-    visible_to_worker: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='visible_to_worker',
-        )
-    ] = None
+    visible_to_worker: typing.Union[None, bool] = None
 
-    visible_to_client: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='visible_to_client',
-        )
-    ] = None
+    visible_to_client: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

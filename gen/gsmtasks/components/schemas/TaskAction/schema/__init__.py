@@ -12,19 +12,9 @@ import lapidary.runtime
 
 
 class TaskAction(lapidary.runtime.ModelBase):
-    notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='notes',
-        )
-    ] = None
+    notes: typing.Union[None, str] = None
 
-    location: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Location.schema.Location],
-        pydantic.Field(
-            alias='location',
-        )
-    ] = None
+    location: typing.Union[None, gsmtasks.components.schemas.Location.schema.Location] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

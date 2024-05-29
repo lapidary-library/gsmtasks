@@ -13,25 +13,13 @@ import uuid
 
 
 class InvoiceItem(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    invoice: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='invoice',
-        )
-    ]
+    invoice: str
 
     name: typing.Annotated[
         str,
         pydantic.Field(
-            alias='name',
             max_length=200,
         )
     ]
@@ -39,48 +27,31 @@ class InvoiceItem(lapidary.runtime.ModelBase):
     unit_price: typing.Annotated[
         str,
         pydantic.Field(
-            alias='unit_price',
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ]
 
     quantity: typing.Annotated[
         str,
         pydantic.Field(
-            alias='quantity',
-            regex=r'^-?\d{0,7}(?:\.\d{0,4})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,4})?$',
         )
     ]
 
     total: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='total',
-            direction=lapidary.runtime.ParamDirection.read,
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     unit: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='unit',
             max_length=50,
         )
     ] = None

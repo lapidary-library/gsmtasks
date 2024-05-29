@@ -14,7 +14,6 @@ class AccountStripePaymentMethodAttach(lapidary.runtime.ModelBase):
     stripe_payment_method_id: typing.Annotated[
         str,
         pydantic.Field(
-            alias='stripe_payment_method_id',
             max_length=255,
         )
     ]
@@ -22,17 +21,11 @@ class AccountStripePaymentMethodAttach(lapidary.runtime.ModelBase):
     stripe_customer_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='stripe_customer_id',
             max_length=255,
         )
     ] = None
 
-    set_default: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='set_default',
-        )
-    ] = None
+    set_default: typing.Union[None, bool] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

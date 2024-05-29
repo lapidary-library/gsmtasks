@@ -12,33 +12,13 @@ import lapidary.runtime
 
 
 class ConfigurationDefaults(lapidary.runtime.ModelBase):
-    task_category: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task_category',
-        )
-    ]
+    task_category: str
 
-    task_duration: typing.Annotated[
-        gsmtasks.components.schemas.ConfigurationDefaults.properties.task_duration.schema.task_duration,
-        pydantic.Field(
-            alias='task_duration',
-        )
-    ]
+    task_duration: gsmtasks.components.schemas.ConfigurationDefaults.properties.task_duration.schema.task_duration
 
-    distance_units: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='distance_units',
-        )
-    ]
+    distance_units: str
 
-    create_contact_address: typing.Annotated[
-        bool,
-        pydantic.Field(
-            alias='create_contact_address',
-        )
-    ]
+    create_contact_address: bool
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -14,35 +14,15 @@ import uuid
 
 
 class S3FileUpload(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    file: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='file',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    file: typing.Union[None, str]
 
     file_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='file_name',
-            direction=lapidary.runtime.ParamDirection.write,
             max_length=100,
         )
     ]
@@ -50,50 +30,19 @@ class S3FileUpload(lapidary.runtime.ModelBase):
     file_type: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='file_type',
-            direction=lapidary.runtime.ParamDirection.write,
             max_length=100,
         )
     ]
 
-    s3_signature: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.S3FileUpload.properties.s3_signature.schema.s3_signature],
-        pydantic.Field(
-            alias='s3_signature',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    s3_signature: typing.Union[None, gsmtasks.components.schemas.S3FileUpload.properties.s3_signature.schema.s3_signature]
 
-    created_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='created_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_by: typing.Union[None, str]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
-    source: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='source',
-        )
-    ] = None
+    source: typing.Union[None, str, typing.Any] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

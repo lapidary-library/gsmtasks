@@ -13,41 +13,17 @@ import uuid
 
 
 class AuthenticatedUserCreate(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    display_name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='display_name',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    display_name: typing.Union[None, str]
 
-    email: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='email',
-        )
-    ]
+    email: str
 
     first_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='first_name',
             max_length=30,
         )
     ] = None
@@ -55,7 +31,6 @@ class AuthenticatedUserCreate(lapidary.runtime.ModelBase):
     last_name: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='last_name',
             max_length=30,
         )
     ] = None
@@ -63,25 +38,13 @@ class AuthenticatedUserCreate(lapidary.runtime.ModelBase):
     phone: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='phone',
             max_length=128,
         )
     ] = None
 
-    password: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='password',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ] = None
+    password: typing.Union[None, str] = None
 
-    NestedAddress: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress],
-        pydantic.Field(
-            alias='NestedAddress',
-        )
-    ] = None
+    NestedAddress: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

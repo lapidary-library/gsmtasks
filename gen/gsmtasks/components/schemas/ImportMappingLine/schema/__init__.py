@@ -14,7 +14,6 @@ class ImportMappingLine(lapidary.runtime.ModelBase):
     from_field: typing.Annotated[
         str,
         pydantic.Field(
-            alias='from_field',
             max_length=100,
         )
     ]
@@ -22,7 +21,6 @@ class ImportMappingLine(lapidary.runtime.ModelBase):
     to_field: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='to_field',
             max_length=100,
         )
     ] = None
@@ -30,7 +28,6 @@ class ImportMappingLine(lapidary.runtime.ModelBase):
     format: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='format',
             max_length=200,
         )
     ] = None

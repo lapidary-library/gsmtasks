@@ -15,159 +15,58 @@ import uuid
 
 
 class PatchedInvoice(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    url: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.InvoiceAccount.schema.InvoiceAccount],
-        pydantic.Field(
-            alias='account',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    account: typing.Union[None, gsmtasks.components.schemas.InvoiceAccount.schema.InvoiceAccount] = None
 
-    billing_method: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='billing_method',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    billing_method: typing.Union[None, str] = None
 
-    state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='state',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    state: typing.Union[None, str] = None
 
-    period: typing.Annotated[
-        typing.Union[None, list[datetime.date]],
-        pydantic.Field(
-            alias='period',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    period: typing.Union[None, list[datetime.date]] = None
 
     total_no_vat: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='total_no_vat',
-            direction=lapidary.runtime.ParamDirection.read,
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ] = None
 
     total_vat: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='total_vat',
-            direction=lapidary.runtime.ParamDirection.read,
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ] = None
 
     total_with_vat: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='total_with_vat',
-            direction=lapidary.runtime.ParamDirection.read,
-            regex=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+            regex='^-?\d{0,7}(?:\.\d{0,2})?$',
         )
     ] = None
 
-    currency: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='currency',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    currency: typing.Union[None, str] = None
 
-    vat: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='vat',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    vat: typing.Union[None, bool] = None
 
-    due_date: typing.Annotated[
-        typing.Union[None, datetime.date],
-        pydantic.Field(
-            alias='due_date',
-        )
-    ] = None
+    due_date: typing.Union[None, datetime.date] = None
 
-    paid_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='paid_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    paid_at: typing.Union[None, datetime.datetime] = None
 
-    items: typing.Annotated[
-        typing.Union[None, list[gsmtasks.components.schemas.InvoiceItem.schema.InvoiceItem]],
-        pydantic.Field(
-            alias='items',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    items: typing.Union[None, list[gsmtasks.components.schemas.InvoiceItem.schema.InvoiceItem]] = None
 
-    pricing: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='pricing',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    pricing: typing.Union[None, uuid.UUID] = None
 
-    confirmed_by: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='confirmed_by',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    confirmed_by: typing.Union[None, str] = None
 
-    confirmed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='confirmed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    confirmed_at: typing.Union[None, datetime.datetime] = None
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

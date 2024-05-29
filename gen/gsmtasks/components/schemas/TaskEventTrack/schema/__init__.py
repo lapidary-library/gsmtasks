@@ -13,34 +13,13 @@ import uuid
 
 
 class TaskEventTrack(lapidary.runtime.ModelBase):
-    GisFeatureEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='GisFeatureEnum',
-        )
-    ] = None
+    GisFeatureEnum: typing.Union[None, str] = None
 
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ] = None
+    id: typing.Union[None, uuid.UUID] = None
 
-    geometry: typing.Annotated[
-        typing.Union[None, typing.Any],
-        pydantic.Field(
-            alias='geometry',
-        )
-    ] = None
+    geometry: typing.Union[None, typing.Any] = None
 
-    properties: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.TaskEventTrack.properties.properties.schema.properties],
-        pydantic.Field(
-            alias='properties',
-        )
-    ] = None
+    properties: typing.Union[None, gsmtasks.components.schemas.TaskEventTrack.properties.properties.schema.properties] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

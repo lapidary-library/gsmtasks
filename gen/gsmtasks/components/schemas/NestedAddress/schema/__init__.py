@@ -13,26 +13,13 @@ import lapidary.runtime
 
 
 class NestedAddress(lapidary.runtime.ModelBase):
-    geocoded_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='geocoded_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    geocoded_at: typing.Union[None, datetime.datetime]
 
-    geocode_failed_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='geocode_failed_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    geocode_failed_at: typing.Union[None, datetime.datetime]
 
     raw_address: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='raw_address',
             max_length=250,
         )
     ] = None
@@ -40,22 +27,15 @@ class NestedAddress(lapidary.runtime.ModelBase):
     formatted_address: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='formatted_address',
             max_length=250,
         )
     ] = None
 
-    location: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.Location.schema.Location],
-        pydantic.Field(
-            alias='location',
-        )
-    ] = None
+    location: typing.Union[None, gsmtasks.components.schemas.Location.schema.Location] = None
 
     google_place_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='google_place_id',
             max_length=250,
         )
     ] = None
@@ -63,7 +43,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     point_of_interest: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='point_of_interest',
             max_length=100,
         )
     ] = None
@@ -71,7 +50,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     street: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='street',
             max_length=200,
         )
     ] = None
@@ -79,7 +57,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     house_number: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='house_number',
             max_length=100,
         )
     ] = None
@@ -87,7 +64,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     apartment_number: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='apartment_number',
             max_length=100,
         )
     ] = None
@@ -95,7 +71,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     city: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='city',
             max_length=100,
         )
     ] = None
@@ -103,7 +78,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     state: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='state',
             max_length=100,
         )
     ] = None
@@ -111,7 +85,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     postal_code: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='postal_code',
             max_length=100,
         )
     ] = None
@@ -119,7 +92,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     country: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='country',
             max_length=100,
         )
     ] = None
@@ -127,7 +99,6 @@ class NestedAddress(lapidary.runtime.ModelBase):
     country_code: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='country_code',
             max_length=2,
         )
     ] = None

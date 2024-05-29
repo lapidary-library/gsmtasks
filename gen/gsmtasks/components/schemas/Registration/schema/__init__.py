@@ -13,27 +13,11 @@ import lapidary.runtime
 
 
 class Registration(lapidary.runtime.ModelBase):
-    RegistrationAccount: typing.Annotated[
-        gsmtasks.components.schemas.RegistrationAccount.schema.RegistrationAccount,
-        pydantic.Field(
-            alias='RegistrationAccount',
-        )
-    ]
+    RegistrationAccount: gsmtasks.components.schemas.RegistrationAccount.schema.RegistrationAccount
 
-    RegistrationUser: typing.Annotated[
-        gsmtasks.components.schemas.RegistrationUser.schema.RegistrationUser,
-        pydantic.Field(
-            alias='RegistrationUser',
-        )
-    ]
+    RegistrationUser: gsmtasks.components.schemas.RegistrationUser.schema.RegistrationUser
 
-    token: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='token',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    token: typing.Union[None, str]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

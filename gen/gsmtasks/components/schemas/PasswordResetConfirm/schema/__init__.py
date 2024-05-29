@@ -11,33 +11,13 @@ import lapidary.runtime
 
 
 class PasswordResetConfirm(lapidary.runtime.ModelBase):
-    uidb64: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='uidb64',
-        )
-    ]
+    uidb64: str
 
-    token: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='token',
-        )
-    ]
+    token: str
 
-    new_password1: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='new_password1',
-        )
-    ]
+    new_password1: str
 
-    new_password2: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='new_password2',
-        )
-    ]
+    new_password2: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

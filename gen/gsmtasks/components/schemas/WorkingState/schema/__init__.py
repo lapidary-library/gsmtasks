@@ -12,55 +12,19 @@ import lapidary.runtime
 
 
 class WorkingState(lapidary.runtime.ModelBase):
-    StatusEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='StatusEnum',
-        )
-    ]
+    StatusEnum: str
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    account_role: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account_role',
-        )
-    ] = None
+    account_role: typing.Union[None, str] = None
 
-    account: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account',
-        )
-    ] = None
+    account: typing.Union[None, str] = None
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-        )
-    ] = None
+    user: typing.Union[None, str] = None
 
-    ModeEnum: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='ModeEnum',
-        )
-    ] = None
+    ModeEnum: typing.Union[None, str] = None
 
-    timestamp: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='timestamp',
-        )
-    ] = None
+    timestamp: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

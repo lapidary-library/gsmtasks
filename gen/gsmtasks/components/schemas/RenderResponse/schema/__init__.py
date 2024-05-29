@@ -11,68 +11,23 @@ import lapidary.runtime
 
 
 class RenderResponse(lapidary.runtime.ModelBase):
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
-    sender: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='sender',
-        )
-    ] = None
+    sender: typing.Union[None, str] = None
 
-    user: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='user',
-        )
-    ] = None
+    user: typing.Union[None, str] = None
 
-    event: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='event',
-        )
-    ] = None
+    event: typing.Union[None, str, typing.Any] = None
 
-    recipient: typing.Annotated[
-        typing.Union[None, str, typing.Any],
-        pydantic.Field(
-            alias='recipient',
-        )
-    ] = None
+    recipient: typing.Union[None, str, typing.Any] = None
 
-    emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='emails',
-        )
-    ] = None
+    emails: typing.Union[None, list[str]] = None
 
-    phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='phones',
-        )
-    ] = None
+    phones: typing.Union[None, list[str]] = None
 
-    app: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='app',
-        )
-    ] = None
+    app: typing.Union[None, bool] = None
 
-    message: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='message',
-        )
-    ] = None
+    message: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

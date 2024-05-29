@@ -11,19 +11,12 @@ import lapidary.runtime
 
 
 class Location(lapidary.runtime.ModelBase):
-    LocationTypeEnum: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='LocationTypeEnum',
-        )
-    ]
+    LocationTypeEnum: str
 
     coordinates: typing.Annotated[
         list[float],
         pydantic.Field(
-            alias='coordinates',
             max_length=2,
-            min_length=2,
         )
     ]
 

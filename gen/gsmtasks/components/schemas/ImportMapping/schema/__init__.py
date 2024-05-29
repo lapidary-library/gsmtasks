@@ -14,51 +14,17 @@ import uuid
 
 
 class ImportMapping(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    url: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='url',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    url: typing.Union[None, str]
 
-    account: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='account',
-        )
-    ]
+    account: str
 
-    field_names: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='field_names',
-            direction=lapidary.runtime.ParamDirection.write,
-        )
-    ]
+    field_names: typing.Union[None, list[str]]
 
-    lines: typing.Annotated[
-        list[gsmtasks.components.schemas.ImportMappingLine.schema.ImportMappingLine],
-        pydantic.Field(
-            alias='lines',
-        )
-    ]
+    lines: list[gsmtasks.components.schemas.ImportMappingLine.schema.ImportMappingLine]
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
     model_config = pydantic.ConfigDict(
         extra='allow'

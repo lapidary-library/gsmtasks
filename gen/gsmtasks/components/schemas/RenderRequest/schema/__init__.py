@@ -11,12 +11,7 @@ import lapidary.runtime
 
 
 class RenderRequest(lapidary.runtime.ModelBase):
-    task: typing.Annotated[
-        str,
-        pydantic.Field(
-            alias='task',
-        )
-    ]
+    task: str
 
     model_config = pydantic.ConfigDict(
         extra='allow'

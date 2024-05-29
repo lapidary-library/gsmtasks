@@ -12,41 +12,20 @@ import lapidary.runtime
 
 
 class OrderData(lapidary.runtime.ModelBase):
-    auto_assign: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='auto_assign',
-        )
-    ] = None
+    auto_assign: typing.Union[None, bool] = None
 
-    description: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='description',
-        )
-    ] = None
+    description: typing.Union[None, str] = None
 
     reference: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='reference',
             max_length=100,
         )
     ] = None
 
-    client: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='client',
-        )
-    ] = None
+    client: typing.Union[None, str] = None
 
-    orderer: typing.Annotated[
-        typing.Union[None, gsmtasks.components.schemas.OrderData.properties.orderer.schema.orderer],
-        pydantic.Field(
-            alias='orderer',
-        )
-    ] = None
+    orderer: typing.Union[None, gsmtasks.components.schemas.OrderData.properties.orderer.schema.orderer] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

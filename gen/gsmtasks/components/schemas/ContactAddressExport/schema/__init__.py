@@ -14,189 +14,64 @@ import uuid
 
 
 class ContactAddressExport(lapidary.runtime.ModelBase):
-    id: typing.Annotated[
-        typing.Union[None, uuid.UUID],
-        pydantic.Field(
-            alias='id',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    id: typing.Union[None, uuid.UUID]
 
-    Location: typing.Annotated[
-        gsmtasks.components.schemas.Location.schema.Location,
-        pydantic.Field(
-            alias='Location',
-        )
-    ]
+    Location: gsmtasks.components.schemas.Location.schema.Location
 
-    created_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='created_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    created_at: typing.Union[None, datetime.datetime]
 
-    updated_at: typing.Annotated[
-        typing.Union[None, datetime.datetime],
-        pydantic.Field(
-            alias='updated_at',
-            direction=lapidary.runtime.ParamDirection.read,
-        )
-    ]
+    updated_at: typing.Union[None, datetime.datetime]
 
     external_id: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='external_id',
             max_length=100,
         )
     ] = None
 
-    account__name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='account__name',
-        )
-    ] = None
+    account__name: typing.Union[None, str] = None
 
-    contact__name: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__name',
-        )
-    ] = None
+    contact__name: typing.Union[None, str] = None
 
-    contact__company: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__company',
-        )
-    ] = None
+    contact__company: typing.Union[None, str] = None
 
-    contact__phones: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='contact__phones',
-        )
-    ] = None
+    contact__phones: typing.Union[None, list[str]] = None
 
-    contact__emails: typing.Annotated[
-        typing.Union[None, list[str]],
-        pydantic.Field(
-            alias='contact__emails',
-        )
-    ] = None
+    contact__emails: typing.Union[None, list[str]] = None
 
-    contact__notes: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='contact__notes',
-        )
-    ] = None
+    contact__notes: typing.Union[None, str] = None
 
-    address__raw_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__raw_address',
-        )
-    ] = None
+    address__raw_address: typing.Union[None, str] = None
 
-    address__formatted_address: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__formatted_address',
-        )
-    ] = None
+    address__formatted_address: typing.Union[None, str] = None
 
-    address__google_place_id: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__google_place_id',
-        )
-    ] = None
+    address__google_place_id: typing.Union[None, str] = None
 
-    address__point_of_interest: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__point_of_interest',
-        )
-    ] = None
+    address__point_of_interest: typing.Union[None, str] = None
 
-    address__street: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__street',
-        )
-    ] = None
+    address__street: typing.Union[None, str] = None
 
-    address__house_number: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__house_number',
-        )
-    ] = None
+    address__house_number: typing.Union[None, str] = None
 
-    address__apartment_number: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__apartment_number',
-        )
-    ] = None
+    address__apartment_number: typing.Union[None, str] = None
 
-    address__city: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__city',
-        )
-    ] = None
+    address__city: typing.Union[None, str] = None
 
-    address__state: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__state',
-        )
-    ] = None
+    address__state: typing.Union[None, str] = None
 
-    address__postal_code: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__postal_code',
-        )
-    ] = None
+    address__postal_code: typing.Union[None, str] = None
 
-    address__country: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__country',
-        )
-    ] = None
+    address__country: typing.Union[None, str] = None
 
-    address__country_code: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            alias='address__country_code',
-        )
-    ] = None
+    address__country_code: typing.Union[None, str] = None
 
-    is_orderer: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_orderer',
-        )
-    ] = None
+    is_orderer: typing.Union[None, bool] = None
 
-    is_receiver: typing.Annotated[
-        typing.Union[None, bool],
-        pydantic.Field(
-            alias='is_receiver',
-        )
-    ] = None
+    is_receiver: typing.Union[None, bool] = None
 
     source: typing.Annotated[
         typing.Union[None, str],
         pydantic.Field(
-            alias='source',
             max_length=100,
         )
     ] = None
