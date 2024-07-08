@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from gsmtasks.components.schemas.validation_error import ValidationError
+from gsmtasks.components.schemas.ValidationError.schema import ValidationError
 
 
 class ValidationErrorTest(TestCase):
