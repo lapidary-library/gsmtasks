@@ -37,6 +37,7 @@ pythonpath = [
 
 [tool.lapidary]
 document_path = 'src/openapi/openapi.yaml'
+origin = 'https://api.gsmtasks.com/docs/schema/'
 package = 'gsmtasks'
 patches = 'src/openapi/patches'
 
