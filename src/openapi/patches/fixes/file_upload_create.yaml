@@ -1,5 +1,5 @@
 - op: replace
-  path: /paths/~1file_uploads~1/post/responses/201/content/application~1json; version=2.4.41/schema
+  path: /paths/~1file_uploads~1/post/responses/201/content/application~1json; version=2.4.42/schema
   value:
     oneOf:
     - $ref: '#/components/schemas/PaginatedS3FileUploadList'

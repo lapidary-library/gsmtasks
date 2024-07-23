@@ -36,8 +36,7 @@ pythonpath = [
 ]
 
 [tool.lapidary]
-document_path = 'https://raw.githubusercontent.com/oeklo/gsmtasks-schema/2.4.41/openapi.yaml'
-origin = 'https://raw.githubusercontent.com/oeklo/gsmtasks-schema/2.4.41/openapi.yaml'
+document_path = 'src/openapi/openapi.yaml'
 package = 'gsmtasks'
 patches = 'src/openapi/patches'
 

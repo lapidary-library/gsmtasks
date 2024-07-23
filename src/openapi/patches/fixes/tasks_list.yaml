@@ -36,14 +36,14 @@
     - tasks
     additionalProperties: false
 - op: replace
-  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.4.41/schema
+  path: /paths/~1tasks~1/get/responses/200/content/application~1json; version=2.4.42/schema
   value:
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
     - $ref: '#/components/schemas/TaskListExt'
 
 - op: replace
-  path: /paths/~1tasks~1/post/responses/201/content/application~1json; version=2.4.41/schema
+  path: /paths/~1tasks~1/post/responses/201/content/application~1json; version=2.4.42/schema
   value:
     oneOf:
     - $ref: '#/components/schemas/PaginatedTaskSerializerV2List'
