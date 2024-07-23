@@ -5,13 +5,11 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.PatchedWebhook.properties.headers.schema
-import uuid
 
 
 class PatchedWebhook(lapidary.runtime.ModelBase):
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -56,13 +54,13 @@ class PatchedWebhook(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    activated_at: typing.Union[None, datetime.datetime] = None
+    activated_at: typing.Union[None, str] = None
 
-    failed_at: typing.Union[None, datetime.datetime] = None
+    failed_at: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

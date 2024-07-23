@@ -5,9 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import decimal
-import uuid
 
 
 class BraintreeTransaction(lapidary.runtime.ModelBase):
@@ -15,9 +12,14 @@ class BraintreeTransaction(lapidary.runtime.ModelBase):
 
     customer: str
 
-    amount: decimal.Decimal
+    amount: typing.Annotated[
+        str,
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -42,13 +44,13 @@ class BraintreeTransaction(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    timestamp: typing.Union[None, datetime.datetime] = None
+    timestamp: typing.Union[None, str] = None
 
     response: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

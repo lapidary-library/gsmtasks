@@ -5,15 +5,13 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
+import gsmtasks.components.schemas.Metafields.schema
 import gsmtasks.components.schemas.NestedAddress.schema
 import gsmtasks.components.schemas.NestedContact.schema
 import gsmtasks.components.schemas.Task.properties.actions.schema
 import gsmtasks.components.schemas.Task.properties.counts.schema
 import gsmtasks.components.schemas.Task.properties.duration.schema
 import gsmtasks.components.schemas.Task.properties.forms.schema
-import gsmtasks.components.schemas.Task.properties.metafields.schema
-import uuid
 
 
 class Task(lapidary.runtime.ModelBase):
@@ -21,7 +19,7 @@ class Task(lapidary.runtime.ModelBase):
 
     address: gsmtasks.components.schemas.NestedAddress.schema.NestedAddress
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -57,17 +55,17 @@ class Task(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    complete_after: typing.Union[None, datetime.datetime] = None
+    complete_after: typing.Union[None, str] = None
 
-    complete_before: typing.Union[None, datetime.datetime] = None
+    complete_before: typing.Union[None, str] = None
 
-    scheduled_time: typing.Union[None, datetime.datetime] = None
+    scheduled_time: typing.Union[None, str] = None
 
     state: typing.Union[None, str] = None
 
-    completed_at: typing.Union[None, datetime.datetime] = None
+    completed_at: typing.Union[None, str] = None
 
-    cancelled_at: typing.Union[None, datetime.datetime] = None
+    cancelled_at: typing.Union[None, str] = None
 
     assignee: typing.Union[None, str] = None
 
@@ -97,17 +95,17 @@ class Task(lapidary.runtime.ModelBase):
 
     is_full_load: typing.Union[None, bool] = None
 
-    metafields: typing.Union[None, gsmtasks.components.schemas.Task.properties.metafields.schema.metafields] = None
+    metafields: typing.Union[None, gsmtasks.components.schemas.Metafields.schema.Metafields] = None
 
     forms: typing.Union[None, gsmtasks.components.schemas.Task.properties.forms.schema.forms] = None
 
     created_by: typing.Union[None, str] = None
 
-    issues: typing.Union[None, list[str]] = None
+    issues: typing.Union[None, list[typing.Union[None, str]]] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     events: typing.Union[None, str] = None
 

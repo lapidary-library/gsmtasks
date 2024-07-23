@@ -5,7 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import uuid
 
 
 class InvoiceAccount(lapidary.runtime.ModelBase):
@@ -16,7 +15,7 @@ class InvoiceAccount(lapidary.runtime.ModelBase):
         )
     ]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     slug: typing.Annotated[
         typing.Union[None, str],

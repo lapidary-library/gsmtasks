@@ -8,23 +8,29 @@ __all__ = [
 import typing_extensions as typing
 from lapidary.runtime import *
 
-import datetime
 import gsmtasks.components.schemas.Account.schema
 import gsmtasks.components.schemas.AccountOwnerChange.schema
 import gsmtasks.components.schemas.AccountRole.schema
 import gsmtasks.components.schemas.AccountRoleActivation.schema
+import gsmtasks.components.schemas.AccountRoleToken.schema
 import gsmtasks.components.schemas.AccountStripePaymentMethodAttach.schema
 import gsmtasks.components.schemas.AccountStripePaymentMethodDetach.schema
 import gsmtasks.components.schemas.AccountStripePaymentMethodSetDefault.schema
+import gsmtasks.components.schemas.AccountStripeSetupAttemptGet.schema
 import gsmtasks.components.schemas.AccountStripeSetupIntentCreate.schema
+import gsmtasks.components.schemas.AccountStripeSetupIntentsGet.schema
+import gsmtasks.components.schemas.Addon.schema
 import gsmtasks.components.schemas.AuthToken.schema
 import gsmtasks.components.schemas.AuthenticatedUserCreate.schema
 import gsmtasks.components.schemas.AuthenticatedUserUpdate.schema
 import gsmtasks.components.schemas.BraintreeCustomer.schema
+import gsmtasks.components.schemas.BraintreeTransaction.schema
 import gsmtasks.components.schemas.Client.schema
 import gsmtasks.components.schemas.ClientRole.schema
+import gsmtasks.components.schemas.ConfigurationSerializerV2.schema
 import gsmtasks.components.schemas.ContactAddress.schema
 import gsmtasks.components.schemas.ContactAddressBackgroundImport.schema
+import gsmtasks.components.schemas.ContactAddressExport.schema
 import gsmtasks.components.schemas.Device.schema
 import gsmtasks.components.schemas.Document.schema
 import gsmtasks.components.schemas.DocumentDeleteAction.schema
@@ -67,262 +73,54 @@ import gsmtasks.components.schemas.PatchedTimeLocationFeature.schema
 import gsmtasks.components.schemas.PatchedTracker.schema
 import gsmtasks.components.schemas.PatchedWebhook.schema
 import gsmtasks.components.schemas.PushNotification.schema
+import gsmtasks.components.schemas.ReadableUser.schema
 import gsmtasks.components.schemas.Recurrence.schema
 import gsmtasks.components.schemas.Registration.schema
 import gsmtasks.components.schemas.RenderRequest.schema
+import gsmtasks.components.schemas.RenderResponse.schema
 import gsmtasks.components.schemas.Review.schema
 import gsmtasks.components.schemas.Route.schema
 import gsmtasks.components.schemas.RouteArchive.schema
+import gsmtasks.components.schemas.RouteOptimizationResultSerializerV2.schema
 import gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema
 import gsmtasks.components.schemas.S3FileUpload.schema
 import gsmtasks.components.schemas.SMS.schema
 import gsmtasks.components.schemas.Signature.schema
 import gsmtasks.components.schemas.SignatureDeleteAction.schema
+import gsmtasks.components.schemas.StripePayment.schema
+import gsmtasks.components.schemas.Task.schema
 import gsmtasks.components.schemas.TaskAccountChange.schema
 import gsmtasks.components.schemas.TaskAction.schema
+import gsmtasks.components.schemas.TaskAddressFeature.schema
+import gsmtasks.components.schemas.TaskAddressFeatureList.schema
 import gsmtasks.components.schemas.TaskAssign.schema
 import gsmtasks.components.schemas.TaskCommand.schema
+import gsmtasks.components.schemas.TaskEvent.schema
+import gsmtasks.components.schemas.TaskEventSerializerV2.schema
+import gsmtasks.components.schemas.TaskEventTrack.schema
+import gsmtasks.components.schemas.TaskEventTrackList.schema
+import gsmtasks.components.schemas.TaskExport.schema
 import gsmtasks.components.schemas.TaskForm.schema
+import gsmtasks.components.schemas.TaskListExt.schema
 import gsmtasks.components.schemas.TaskListReorderRequest.schema
+import gsmtasks.components.schemas.TaskListReorderResponseTask.schema
+import gsmtasks.components.schemas.TaskMetadata.schema
 import gsmtasks.components.schemas.TaskSerializerV2.schema
 import gsmtasks.components.schemas.TasksBackgroundImport.schema
+import gsmtasks.components.schemas.TasksStatesCountResponse.schema
 import gsmtasks.components.schemas.TimeLocation.schema
 import gsmtasks.components.schemas.TimeLocationFeature.schema
+import gsmtasks.components.schemas.TimeLocationFeatureList.schema
 import gsmtasks.components.schemas.Tracker.schema
+import gsmtasks.components.schemas.TrackerPublic.schema
 import gsmtasks.components.schemas.UserActivation.schema
 import gsmtasks.components.schemas.Webhook.schema
+import gsmtasks.components.schemas.WorkerFeature.schema
+import gsmtasks.components.schemas.WorkerFeatureList.schema
+import gsmtasks.components.schemas.WorkerTrackList.schema
 import gsmtasks.components.schemas.WorkingState.schema
-import gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lresend_tokenu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_ltokenu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lbraintree_customeru_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lchange_owneru_l.post.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_attach_payment_methodu_l.put.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.put.responses.u_o01.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_detach_payment_methodu_l.put.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_attemptu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_intentu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_payment_methodsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_set_default_payment_methodu_l.put.responses.u_o00.response
-import gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_setup_intentsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_laddonsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lauthenticateu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_lclient_tokenu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_lmark_as_paidu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_lstripe_paymentsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lbillingu_ltransactionsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lclient_rolesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lclientsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_address_importu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lcontact_address_importu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_addressesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ldevicesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ldevicesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ldocumentsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ldocumentsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lemailsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lemailsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lexportsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lfile_uploadsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lfile_uploadsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lform_rulesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lintegrationsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lmetafieldsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lnotification_templatesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_lrenderu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lnotificationsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lnotificationsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lordersu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lordersu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lpassword_changeu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lpassword_reset_confirmu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lpassword_resetu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lpush_notificationsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lrecurrencesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lregisteru_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lreportsu_ltasksu_lstates_countu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lreviewsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lreviewsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroute_optimizationsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lresultsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroutesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lsignaturesu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lsignaturesu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lsmsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lsmsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_address_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_commandsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_event_tracksu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_eventsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_formsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_import_mappingu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltask_import_mappingu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_importu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltask_importu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltask_metadatasu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltasksu_lreorderu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lacceptu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_laccount_changeu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lassignu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcancelu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcompleteu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lfailu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lrejectu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ltransitu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunacceptu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunassignu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltime_location_featuresu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltime_locationsu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltime_locationsu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltrackersu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_lpublicu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusers_on_duty_logu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lusers_on_duty_logu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.patch.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.put.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_lactiveu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_linactiveu_l.post.responses.u_o00.response
-import gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lworker_featuresu_lu_1zuser_idu_21u_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.response
-import gsmtasks.paths.u_lworking_stateu_l.post.responses.u_o01.response
-import gsmtasks.paths.u_lworking_stateu_lu_1zidu_21u_l.get.responses.u_o00.response
-import uuid
+import gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema
+import gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema
 
 
 class ApiClient(ClientBase):
@@ -349,9 +147,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        activated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('activated_at', )] = None,
-        activated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('activated_at__date', )] = None,
-        activated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('activated_at__date_or_isnull', )] = None,
+        activated_at_q: typing.Annotated[typing.Union[None, str], Query('activated_at', )] = None,
+        activated_at__date_q: typing.Annotated[typing.Union[None, str], Query('activated_at__date', )] = None,
+        activated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('activated_at__date_or_isnull', )] = None,
         activated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('activated_at__gt', )] = None,
         activated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('activated_at__gt_or_isnull', )] = None,
         activated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('activated_at__gte', )] = None,
@@ -360,9 +158,9 @@ class ApiClient(ClientBase):
         activated_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('activated_at__lt_or_isnull', )] = None,
         activated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('activated_at__lte', )] = None,
         activated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('activated_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -372,9 +170,9 @@ class ApiClient(ClientBase):
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        deleted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('deleted_at', )] = None,
-        deleted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('deleted_at__date', )] = None,
-        deleted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('deleted_at__date_or_isnull', )] = None,
+        deleted_at_q: typing.Annotated[typing.Union[None, str], Query('deleted_at', )] = None,
+        deleted_at__date_q: typing.Annotated[typing.Union[None, str], Query('deleted_at__date', )] = None,
+        deleted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('deleted_at__date_or_isnull', )] = None,
         deleted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('deleted_at__gt', )] = None,
         deleted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('deleted_at__gt_or_isnull', )] = None,
         deleted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('deleted_at__gte', )] = None,
@@ -398,9 +196,9 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -411,11 +209,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.AccountRole.schema.AccountRole], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.AccountRole.schema.AccountRole],
+                }),
+            ),
         })
     ]:
         pass
@@ -423,20 +223,22 @@ class ApiClient(ClientBase):
     @post('/account_roles/', security=[{'tokenAuth': []}])
     async def account_roles_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountRole.schema.AccountRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -445,14 +247,16 @@ class ApiClient(ClientBase):
     async def account_roles_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -460,21 +264,23 @@ class ApiClient(ClientBase):
     @put('/account_roles/{id}/', security=[{'tokenAuth': []}])
     async def account_roles_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountRole.schema.AccountRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -482,21 +288,23 @@ class ApiClient(ClientBase):
     @patch('/account_roles/{id}/', security=[{'tokenAuth': []}])
     async def account_roles_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -505,13 +313,15 @@ class ApiClient(ClientBase):
     async def account_roles_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -519,21 +329,23 @@ class ApiClient(ClientBase):
     @post('/account_roles/{id}/activate/', security=[{'tokenAuth': []}])
     async def account_roles_activate_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountRoleActivation.schema.AccountRoleActivation,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountRoleActivation.schema.AccountRoleActivation,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
+        tuple[str, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': str,
+                }),
+            ),
         })
     ]:
         pass
@@ -542,14 +354,16 @@ class ApiClient(ClientBase):
     async def account_roles_notify_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -558,14 +372,16 @@ class ApiClient(ClientBase):
     async def account_roles_resend_token_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lresend_tokenu_l.post.responses.u_o00.response.Response,
+        tuple[str, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_lresend_tokenu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': str,
+                }),
+            ),
         })
     ]:
         pass
@@ -574,14 +390,16 @@ class ApiClient(ClientBase):
     async def account_roles_token_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_ltokenu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountRoleToken.schema.AccountRoleToken, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccount_rolesu_lu_1zidu_21u_ltokenu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRoleToken.schema.AccountRoleToken,
+                }),
+            ),
         })
     ]:
         pass
@@ -590,9 +408,9 @@ class ApiClient(ClientBase):
     async def accounts_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -605,9 +423,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -617,11 +435,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Account.schema.Account], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Account.schema.Account],
+                }),
+            ),
         })
     ]:
         pass
@@ -630,14 +450,16 @@ class ApiClient(ClientBase):
     async def accounts_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Account.schema.Account, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Account.schema.Account,
+                }),
+            ),
         })
     ]:
         pass
@@ -645,21 +467,23 @@ class ApiClient(ClientBase):
     @put('/accounts/{id}/', security=[{'tokenAuth': []}])
     async def accounts_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Account.schema.Account,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Account.schema.Account,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Account.schema.Account, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Account.schema.Account,
+                }),
+            ),
         })
     ]:
         pass
@@ -667,21 +491,23 @@ class ApiClient(ClientBase):
     @patch('/accounts/{id}/', security=[{'tokenAuth': []}])
     async def accounts_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedAccount.schema.PatchedAccount,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedAccount.schema.PatchedAccount,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Account.schema.Account, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Account.schema.Account,
+                }),
+            ),
         })
     ]:
         pass
@@ -690,14 +516,16 @@ class ApiClient(ClientBase):
     async def accounts_braintree_customer_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lbraintree_customeru_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lbraintree_customeru_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
+                }),
+            ),
         })
     ]:
         pass
@@ -705,21 +533,23 @@ class ApiClient(ClientBase):
     @post('/accounts/{id}/change_owner/', security=[{'tokenAuth': []}])
     async def accounts_change_owner_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountOwnerChange.schema.AccountOwnerChange,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountOwnerChange.schema.AccountOwnerChange,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lchange_owneru_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountOwnerChange.schema.AccountOwnerChange, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lchange_owneru_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountOwnerChange.schema.AccountOwnerChange,
+                }),
+            ),
         })
     ]:
         pass
@@ -727,21 +557,23 @@ class ApiClient(ClientBase):
     @put('/accounts/{id}/stripe_attach_payment_method/', security=[{'tokenAuth': []}])
     async def accounts_stripe_attach_payment_method_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountStripePaymentMethodAttach.schema.AccountStripePaymentMethodAttach,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountStripePaymentMethodAttach.schema.AccountStripePaymentMethodAttach,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_attach_payment_methodu_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountStripePaymentMethodAttach.schema.AccountStripePaymentMethodAttach, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_attach_payment_methodu_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountStripePaymentMethodAttach.schema.AccountStripePaymentMethodAttach,
+                }),
+            ),
         })
     ]:
         pass
@@ -749,21 +581,23 @@ class ApiClient(ClientBase):
     @post('/accounts/{id}/stripe_create_setup_intent/', security=[{'tokenAuth': []}])
     async def accounts_stripe_create_setup_intent_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountStripeSetupIntentCreate.schema.AccountStripeSetupIntentCreate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountStripeSetupIntentCreate.schema.AccountStripeSetupIntentCreate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.post.responses.u_o01.response.Response,
+        tuple[typing.Any, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Any,
+                }),
+            ),
         })
     ]:
         pass
@@ -771,21 +605,23 @@ class ApiClient(ClientBase):
     @put('/accounts/{id}/stripe_create_setup_intent/', security=[{'tokenAuth': []}])
     async def accounts_stripe_create_setup_intent_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountStripeSetupIntentCreate.schema.AccountStripeSetupIntentCreate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountStripeSetupIntentCreate.schema.AccountStripeSetupIntentCreate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.put.responses.u_o01.response.Response,
+        tuple[typing.Any, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_create_setup_intentu_l.put.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Any,
+                }),
+            ),
         })
     ]:
         pass
@@ -793,21 +629,23 @@ class ApiClient(ClientBase):
     @put('/accounts/{id}/stripe_detach_payment_method/', security=[{'tokenAuth': []}])
     async def accounts_stripe_detach_payment_method_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountStripePaymentMethodDetach.schema.AccountStripePaymentMethodDetach,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountStripePaymentMethodDetach.schema.AccountStripePaymentMethodDetach,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_detach_payment_methodu_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountStripePaymentMethodDetach.schema.AccountStripePaymentMethodDetach, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_detach_payment_methodu_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountStripePaymentMethodDetach.schema.AccountStripePaymentMethodDetach,
+                }),
+            ),
         })
     ]:
         pass
@@ -816,13 +654,15 @@ class ApiClient(ClientBase):
     async def accounts_stripe_get_payment_method_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -831,14 +671,16 @@ class ApiClient(ClientBase):
     async def accounts_stripe_get_setup_attempt_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_attemptu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountStripeSetupAttemptGet.schema.AccountStripeSetupAttemptGet, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_attemptu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountStripeSetupAttemptGet.schema.AccountStripeSetupAttemptGet,
+                }),
+            ),
         })
     ]:
         pass
@@ -847,14 +689,16 @@ class ApiClient(ClientBase):
     async def accounts_stripe_get_setup_intent_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_intentu_l.get.responses.u_o00.response.Response,
+        tuple[typing.Any, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_get_setup_intentu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Any,
+                }),
+            ),
         })
     ]:
         pass
@@ -863,14 +707,16 @@ class ApiClient(ClientBase):
     async def accounts_stripe_payment_methods_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_payment_methodsu_l.get.responses.u_o00.response.Response,
+        tuple[typing.Any, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_payment_methodsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Any,
+                }),
+            ),
         })
     ]:
         pass
@@ -878,21 +724,23 @@ class ApiClient(ClientBase):
     @put('/accounts/{id}/stripe_set_default_payment_method/', security=[{'tokenAuth': []}])
     async def accounts_stripe_set_default_payment_method_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AccountStripePaymentMethodSetDefault.schema.AccountStripePaymentMethodSetDefault,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AccountStripePaymentMethodSetDefault.schema.AccountStripePaymentMethodSetDefault,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_set_default_payment_methodu_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountStripePaymentMethodSetDefault.schema.AccountStripePaymentMethodSetDefault, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_set_default_payment_methodu_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountStripePaymentMethodSetDefault.schema.AccountStripePaymentMethodSetDefault,
+                }),
+            ),
         })
     ]:
         pass
@@ -901,14 +749,16 @@ class ApiClient(ClientBase):
     async def accounts_stripe_setup_intents_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_setup_intentsu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AccountStripeSetupIntentsGet.schema.AccountStripeSetupIntentsGet, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laccountsu_lu_1zidu_21u_lstripe_setup_intentsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountStripeSetupIntentsGet.schema.AccountStripeSetupIntentsGet,
+                }),
+            ),
         })
     ]:
         pass
@@ -921,11 +771,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Addon.schema.Addon], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Addon.schema.Addon],
+                }),
+            ),
         })
     ]:
         pass
@@ -934,14 +786,16 @@ class ApiClient(ClientBase):
     async def addons_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_laddonsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Addon.schema.Addon, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_laddonsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Addon.schema.Addon,
+                }),
+            ),
         })
     ]:
         pass
@@ -949,18 +803,20 @@ class ApiClient(ClientBase):
     @post('/authenticate/')
     async def authenticate_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AuthToken.schema.AuthToken,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AuthToken.schema.AuthToken,
             }),
         ],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lauthenticateu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AuthToken.schema.AuthToken, None],
         Responses({
-            '200': {
-                'application/json': gsmtasks.paths.u_lauthenticateu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json': gsmtasks.components.schemas.AuthToken.schema.AuthToken,
+                }),
+            ),
         })
     ]:
         pass
@@ -974,11 +830,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer],
+                }),
+            ),
         })
     ]:
         pass
@@ -986,20 +844,22 @@ class ApiClient(ClientBase):
     @post('/billing/customers/', security=[{'tokenAuth': []}])
     async def billing_customers_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
+                }),
+            ),
         })
     ]:
         pass
@@ -1008,14 +868,16 @@ class ApiClient(ClientBase):
     async def billing_customers_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
+                }),
+            ),
         })
     ]:
         pass
@@ -1023,21 +885,23 @@ class ApiClient(ClientBase):
     @put('/billing/customers/{id}/', security=[{'tokenAuth': []}])
     async def billing_customers_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
+                }),
+            ),
         })
     ]:
         pass
@@ -1045,21 +909,23 @@ class ApiClient(ClientBase):
     @patch('/billing/customers/{id}/', security=[{'tokenAuth': []}])
     async def billing_customers_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedBraintreeCustomer.schema.PatchedBraintreeCustomer,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedBraintreeCustomer.schema.PatchedBraintreeCustomer,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer,
+                }),
+            ),
         })
     ]:
         pass
@@ -1068,14 +934,16 @@ class ApiClient(ClientBase):
     async def billing_customers_client_token_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_lclient_tokenu_l.get.responses.u_o00.response.Response,
+        tuple[typing.Any, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lcustomersu_lu_1zidu_21u_lclient_tokenu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Any,
+                }),
+            ),
         })
     ]:
         pass
@@ -1086,9 +954,9 @@ class ApiClient(ClientBase):
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         billing_method_q: typing.Annotated[typing.Union[None, str], Query('billing_method', )] = None,
-        confirmed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('confirmed_at', )] = None,
-        confirmed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('confirmed_at__date', )] = None,
-        confirmed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('confirmed_at__date_or_isnull', )] = None,
+        confirmed_at_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at', )] = None,
+        confirmed_at__date_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__date', )] = None,
+        confirmed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__date_or_isnull', )] = None,
         confirmed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__gt', )] = None,
         confirmed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__gt_or_isnull', )] = None,
         confirmed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__gte', )] = None,
@@ -1097,9 +965,9 @@ class ApiClient(ClientBase):
         confirmed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__lt_or_isnull', )] = None,
         confirmed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__lte', )] = None,
         confirmed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('confirmed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1114,11 +982,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Invoice.schema.Invoice], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Invoice.schema.Invoice],
+                }),
+            ),
         })
     ]:
         pass
@@ -1127,14 +997,16 @@ class ApiClient(ClientBase):
     async def billing_invoices_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Invoice.schema.Invoice, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Invoice.schema.Invoice,
+                }),
+            ),
         })
     ]:
         pass
@@ -1142,21 +1014,23 @@ class ApiClient(ClientBase):
     @put('/billing/invoices/{id}/', security=[{'tokenAuth': []}])
     async def billing_invoices_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Invoice.schema.Invoice,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Invoice.schema.Invoice,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Invoice.schema.Invoice, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Invoice.schema.Invoice,
+                }),
+            ),
         })
     ]:
         pass
@@ -1164,21 +1038,23 @@ class ApiClient(ClientBase):
     @patch('/billing/invoices/{id}/', security=[{'tokenAuth': []}])
     async def billing_invoices_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedInvoice.schema.PatchedInvoice,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedInvoice.schema.PatchedInvoice,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Invoice.schema.Invoice, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Invoice.schema.Invoice,
+                }),
+            ),
         })
     ]:
         pass
@@ -1186,21 +1062,23 @@ class ApiClient(ClientBase):
     @post('/billing/invoices/{id}/mark_as_paid/', security=[{'tokenAuth': []}])
     async def billing_invoices_mark_as_paid_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.InvoicePayment.schema.InvoicePayment,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.InvoicePayment.schema.InvoicePayment,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_lmark_as_paidu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Invoice.schema.Invoice, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_linvoicesu_lu_1zidu_21u_lmark_as_paidu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Invoice.schema.Invoice,
+                }),
+            ),
         })
     ]:
         pass
@@ -1218,11 +1096,13 @@ class ApiClient(ClientBase):
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         stripe_state_q: typing.Annotated[typing.Union[None, str], Query('stripe_state', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.StripePayment.schema.StripePayment], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.StripePayment.schema.StripePayment],
+                }),
+            ),
         })
     ]:
         pass
@@ -1231,14 +1111,16 @@ class ApiClient(ClientBase):
     async def billing_stripe_payments_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_lstripe_paymentsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.StripePayment.schema.StripePayment, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_lstripe_paymentsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.StripePayment.schema.StripePayment,
+                }),
+            ),
         })
     ]:
         pass
@@ -1255,11 +1137,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction],
+                }),
+            ),
         })
     ]:
         pass
@@ -1268,14 +1152,16 @@ class ApiClient(ClientBase):
     async def billing_transactions_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lbillingu_ltransactionsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lbillingu_ltransactionsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction,
+                }),
+            ),
         })
     ]:
         pass
@@ -1286,9 +1172,9 @@ class ApiClient(ClientBase):
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         client_q: typing.Annotated[typing.Union[None, str], Query('client', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1304,9 +1190,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -1318,11 +1204,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__email_q: typing.Annotated[typing.Union[None, str], Query('user__email', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ClientRole.schema.ClientRole], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ClientRole.schema.ClientRole],
+                }),
+            ),
         })
     ]:
         pass
@@ -1330,20 +1218,22 @@ class ApiClient(ClientBase):
     @post('/client_roles/', security=[{'tokenAuth': []}])
     async def client_roles_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ClientRole.schema.ClientRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.ClientRole.schema.ClientRole, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -1352,14 +1242,16 @@ class ApiClient(ClientBase):
     async def client_roles_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ClientRole.schema.ClientRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -1367,21 +1259,23 @@ class ApiClient(ClientBase):
     @put('/client_roles/{id}/', security=[{'tokenAuth': []}])
     async def client_roles_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ClientRole.schema.ClientRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ClientRole.schema.ClientRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -1389,37 +1283,23 @@ class ApiClient(ClientBase):
     @patch('/client_roles/{id}/', security=[{'tokenAuth': []}])
     async def client_roles_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedClientRole.schema.PatchedClientRole,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedClientRole.schema.PatchedClientRole,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ClientRole.schema.ClientRole, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
-        })
-    ]:
-        pass
-
-    @post('/client_roles/{id}/notify/', security=[{'tokenAuth': []}])
-    async def client_roles_notify_create(
-        self: typing.Self,
-        *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
-        format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
-    ) -> typing.Annotated[
-        gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response.Response,
-        Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclient_rolesu_lu_1zidu_21u_lnotifyu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ClientRole.schema.ClientRole,
+                }),
+            ),
         })
     ]:
         pass
@@ -1429,9 +1309,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1445,9 +1325,9 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
         slug_q: typing.Annotated[typing.Union[None, str], Query('slug', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -1457,11 +1337,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Client.schema.Client], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Client.schema.Client],
+                }),
+            ),
         })
     ]:
         pass
@@ -1469,20 +1351,22 @@ class ApiClient(ClientBase):
     @post('/clients/', security=[{'tokenAuth': []}])
     async def clients_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Client.schema.Client,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Client.schema.Client,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclientsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Client.schema.Client, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclientsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Client.schema.Client,
+                }),
+            ),
         })
     ]:
         pass
@@ -1491,14 +1375,16 @@ class ApiClient(ClientBase):
     async def clients_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Client.schema.Client, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Client.schema.Client,
+                }),
+            ),
         })
     ]:
         pass
@@ -1506,21 +1392,23 @@ class ApiClient(ClientBase):
     @put('/clients/{id}/', security=[{'tokenAuth': []}])
     async def clients_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Client.schema.Client,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Client.schema.Client,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Client.schema.Client, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Client.schema.Client,
+                }),
+            ),
         })
     ]:
         pass
@@ -1528,21 +1416,23 @@ class ApiClient(ClientBase):
     @patch('/clients/{id}/', security=[{'tokenAuth': []}])
     async def clients_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedClient.schema.PatchedClient,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedClient.schema.PatchedClient,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Client.schema.Client, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lclientsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Client.schema.Client,
+                }),
+            ),
         })
     ]:
         pass
@@ -1555,11 +1445,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ConfigurationSerializerV2.schema.ConfigurationSerializerV2], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ConfigurationSerializerV2.schema.ConfigurationSerializerV2],
+                }),
+            ),
         })
     ]:
         pass
@@ -1638,9 +1530,9 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1663,9 +1555,9 @@ class ApiClient(ClientBase):
         sourcecontact__name__iregex_q: typing.Annotated[typing.Union[None, str], Query('sourcecontact__name__iregex', )] = None,
         sourcecontact__name__istartswith_q: typing.Annotated[typing.Union[None, str], Query('sourcecontact__name__istartswith', )] = None,
         sourcecontact__name__search_q: typing.Annotated[typing.Union[None, str], Query('sourcecontact__name__search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -1675,11 +1567,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ContactAddressExport.schema.ContactAddressExport], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddressExport.schema.ContactAddressExport],
+                }),
+            ),
         })
     ]:
         pass
@@ -1689,9 +1583,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -1700,9 +1594,9 @@ class ApiClient(ClientBase):
         completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lt_or_isnull', )] = None,
         completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte', )] = None,
         completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1712,9 +1606,9 @@ class ApiClient(ClientBase):
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -1725,9 +1619,9 @@ class ApiClient(ClientBase):
         failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__lte_or_isnull', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        started_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at', )] = None,
-        started_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date', )] = None,
-        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date_or_isnull', )] = None,
+        started_at_q: typing.Annotated[typing.Union[None, str], Query('started_at', )] = None,
+        started_at__date_q: typing.Annotated[typing.Union[None, str], Query('started_at__date', )] = None,
+        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__date_or_isnull', )] = None,
         started_at__gt_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt', )] = None,
         started_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt_or_isnull', )] = None,
         started_at__gte_q: typing.Annotated[typing.Union[None, str], Query('started_at__gte', )] = None,
@@ -1737,9 +1631,9 @@ class ApiClient(ClientBase):
         started_at__lte_q: typing.Annotated[typing.Union[None, str], Query('started_at__lte', )] = None,
         started_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__lte_or_isnull', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -1749,11 +1643,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport],
+                }),
+            ),
         })
     ]:
         pass
@@ -1761,20 +1657,22 @@ class ApiClient(ClientBase):
     @post('/contact_address_import/', security=[{'tokenAuth': []}])
     async def contact_address_import_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_address_importu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_address_importu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport,
+                }),
+            ),
         })
     ]:
         pass
@@ -1783,14 +1681,16 @@ class ApiClient(ClientBase):
     async def contact_address_import_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_address_importu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_address_importu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport,
+                }),
+            ),
         })
     ]:
         pass
@@ -1830,9 +1730,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -1841,9 +1741,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -1907,9 +1807,9 @@ class ApiClient(ClientBase):
         contact__phones__istartswith_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__istartswith', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
         contact__phones__search_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__search', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -1931,9 +1831,9 @@ class ApiClient(ClientBase):
         source__iregex_q: typing.Annotated[typing.Union[None, str], Query('source__iregex', )] = None,
         source__istartswith_q: typing.Annotated[typing.Union[None, str], Query('source__istartswith', )] = None,
         source__search_q: typing.Annotated[typing.Union[None, str], Query('source__search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -1943,11 +1843,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress],
+                }),
+            ),
         })
     ]:
         pass
@@ -1955,20 +1857,22 @@ class ApiClient(ClientBase):
     @post('/contact_addresses/', security=[{'tokenAuth': []}])
     async def contact_addresses_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_addressesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_addressesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
+                }),
+            ),
         })
     ]:
         pass
@@ -1977,14 +1881,16 @@ class ApiClient(ClientBase):
     async def contact_addresses_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
+                }),
+            ),
         })
     ]:
         pass
@@ -1992,21 +1898,23 @@ class ApiClient(ClientBase):
     @put('/contact_addresses/{id}/', security=[{'tokenAuth': []}])
     async def contact_addresses_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
+                }),
+            ),
         })
     ]:
         pass
@@ -2014,21 +1922,23 @@ class ApiClient(ClientBase):
     @patch('/contact_addresses/{id}/', security=[{'tokenAuth': []}])
     async def contact_addresses_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedContactAddress.schema.PatchedContactAddress,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedContactAddress.schema.PatchedContactAddress,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lcontact_addressesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ContactAddress.schema.ContactAddress,
+                }),
+            ),
         })
     ]:
         pass
@@ -2037,9 +1947,9 @@ class ApiClient(ClientBase):
     async def devices_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2055,11 +1965,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__account_roles__account_q: typing.Annotated[typing.Union[None, str], Query('user__account_roles__account', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Device.schema.Device], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Device.schema.Device],
+                }),
+            ),
         })
     ]:
         pass
@@ -2067,20 +1979,22 @@ class ApiClient(ClientBase):
     @post('/devices/', security=[{'tokenAuth': []}])
     async def devices_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Device.schema.Device,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Device.schema.Device,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldevicesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Device.schema.Device, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldevicesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Device.schema.Device,
+                }),
+            ),
         })
     ]:
         pass
@@ -2089,14 +2003,16 @@ class ApiClient(ClientBase):
     async def devices_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldevicesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Device.schema.Device, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldevicesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Device.schema.Device,
+                }),
+            ),
         })
     ]:
         pass
@@ -2108,11 +2024,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         lang_q: typing.Annotated[typing.Union[None, str], Query('lang', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema.schema, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema.schema,
+                }),
+            ),
         })
     ]:
         pass
@@ -2121,11 +2039,11 @@ class ApiClient(ClientBase):
     async def documents_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2134,7 +2052,7 @@ class ApiClient(ClientBase):
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
-        created_by_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('created_by', )] = None,
+        created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         created_by__in_q: typing.Annotated[typing.Union[None, str], Query('created_by__in', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         filename_q: typing.Annotated[typing.Union[None, str], Query('filename', )] = None,
@@ -2145,17 +2063,17 @@ class ApiClient(ClientBase):
         filename__search_q: typing.Annotated[typing.Union[None, str], Query('filename__search', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         mimetype_q: typing.Annotated[typing.Union[None, str], Query('mimetype', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__in_q: typing.Annotated[typing.Union[None, str], Query('order__in', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
         source_q: typing.Annotated[typing.Union[None, str], Query('source', )] = None,
-        task_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task', )] = None,
+        task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
         task__in_q: typing.Annotated[typing.Union[None, str], Query('task__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2165,11 +2083,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Document.schema.Document], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Document.schema.Document],
+                }),
+            ),
         })
     ]:
         pass
@@ -2177,20 +2097,22 @@ class ApiClient(ClientBase):
     @post('/documents/', security=[{'tokenAuth': []}])
     async def documents_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             typing.Union[gsmtasks.components.schemas.Document.schema.Document, list[gsmtasks.components.schemas.Document.schema.Document]],
-            RequestBody({
+            Body({
                 'application/json': typing.Union[gsmtasks.components.schemas.Document.schema.Document, list[gsmtasks.components.schemas.Document.schema.Document]],
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldocumentsu_l.post.responses.u_o01.response.Response,
+        tuple[typing.Union[gsmtasks.components.schemas.Document.schema.Document, list[gsmtasks.components.schemas.Document.schema.Document]], None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldocumentsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.Document.schema.Document, list[gsmtasks.components.schemas.Document.schema.Document]],
+                }),
+            ),
         })
     ]:
         pass
@@ -2199,14 +2121,16 @@ class ApiClient(ClientBase):
     async def documents_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ldocumentsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Document.schema.Document, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ldocumentsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Document.schema.Document,
+                }),
+            ),
         })
     ]:
         pass
@@ -2215,13 +2139,15 @@ class ApiClient(ClientBase):
     async def documents_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2229,19 +2155,21 @@ class ApiClient(ClientBase):
     @post('/documents/batch_delete/', security=[{'tokenAuth': []}])
     async def documents_batch_delete_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.DocumentDeleteAction.schema.DocumentDeleteAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.DocumentDeleteAction.schema.DocumentDeleteAction,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2251,9 +2179,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2265,9 +2193,9 @@ class ApiClient(ClientBase):
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         external_id_q: typing.Annotated[typing.Union[None, str], Query('external_id', )] = None,
         external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('external_id__icontains', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -2284,9 +2212,9 @@ class ApiClient(ClientBase):
         message__icontains_q: typing.Annotated[typing.Union[None, str], Query('message__icontains', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        received_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at', )] = None,
-        received_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at__date', )] = None,
-        received_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at__date_or_isnull', )] = None,
+        received_at_q: typing.Annotated[typing.Union[None, str], Query('received_at', )] = None,
+        received_at__date_q: typing.Annotated[typing.Union[None, str], Query('received_at__date', )] = None,
+        received_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('received_at__date_or_isnull', )] = None,
         received_at__gt_q: typing.Annotated[typing.Union[None, str], Query('received_at__gt', )] = None,
         received_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('received_at__gt_or_isnull', )] = None,
         received_at__gte_q: typing.Annotated[typing.Union[None, str], Query('received_at__gte', )] = None,
@@ -2298,9 +2226,9 @@ class ApiClient(ClientBase):
         reply_to_email_q: typing.Annotated[typing.Union[None, str], Query('reply_to_email', )] = None,
         reply_to_email__icontains_q: typing.Annotated[typing.Union[None, str], Query('reply_to_email__icontains', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        sent_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at', )] = None,
-        sent_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date', )] = None,
-        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date_or_isnull', )] = None,
+        sent_at_q: typing.Annotated[typing.Union[None, str], Query('sent_at', )] = None,
+        sent_at__date_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date', )] = None,
+        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date_or_isnull', )] = None,
         sent_at__gt_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt', )] = None,
         sent_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt_or_isnull', )] = None,
         sent_at__gte_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gte', )] = None,
@@ -2313,9 +2241,9 @@ class ApiClient(ClientBase):
         state__in_q: typing.Annotated[typing.Union[None, str], Query('state__in', )] = None,
         subject_q: typing.Annotated[typing.Union[None, str], Query('subject', )] = None,
         subject__icontains_q: typing.Annotated[typing.Union[None, str], Query('subject__icontains', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2325,11 +2253,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Email.schema.Email], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Email.schema.Email],
+                }),
+            ),
         })
     ]:
         pass
@@ -2337,20 +2267,22 @@ class ApiClient(ClientBase):
     @post('/emails/', security=[{'tokenAuth': []}])
     async def emails_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Email.schema.Email,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Email.schema.Email,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
+                }),
+            ),
         })
     ]:
         pass
@@ -2359,14 +2291,16 @@ class ApiClient(ClientBase):
     async def emails_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
+                }),
+            ),
         })
     ]:
         pass
@@ -2374,21 +2308,23 @@ class ApiClient(ClientBase):
     @put('/emails/{id}/', security=[{'tokenAuth': []}])
     async def emails_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Email.schema.Email,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Email.schema.Email,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
+                }),
+            ),
         })
     ]:
         pass
@@ -2396,21 +2332,23 @@ class ApiClient(ClientBase):
     @patch('/emails/{id}/', security=[{'tokenAuth': []}])
     async def emails_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
+                }),
+            ),
         })
     ]:
         pass
@@ -2419,13 +2357,15 @@ class ApiClient(ClientBase):
     async def emails_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2434,14 +2374,16 @@ class ApiClient(ClientBase):
     async def emails_resend_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lemailsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lemailsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
+                }),
+            ),
         })
     ]:
         pass
@@ -2451,9 +2393,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2465,9 +2407,9 @@ class ApiClient(ClientBase):
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2477,11 +2419,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Export.schema.Export], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Export.schema.Export],
+                }),
+            ),
         })
     ]:
         pass
@@ -2489,20 +2433,22 @@ class ApiClient(ClientBase):
     @post('/exports/', security=[{'tokenAuth': []}])
     async def exports_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Export.schema.Export,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Export.schema.Export,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lexportsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lexportsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
+                }),
+            ),
         })
     ]:
         pass
@@ -2511,14 +2457,16 @@ class ApiClient(ClientBase):
     async def exports_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
+                }),
+            ),
         })
     ]:
         pass
@@ -2526,21 +2474,23 @@ class ApiClient(ClientBase):
     @put('/exports/{id}/', security=[{'tokenAuth': []}])
     async def exports_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Export.schema.Export,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Export.schema.Export,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
+                }),
+            ),
         })
     ]:
         pass
@@ -2548,21 +2498,23 @@ class ApiClient(ClientBase):
     @patch('/exports/{id}/', security=[{'tokenAuth': []}])
     async def exports_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lexportsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
+                }),
+            ),
         })
     ]:
         pass
@@ -2571,13 +2523,15 @@ class ApiClient(ClientBase):
     async def exports_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2586,9 +2540,9 @@ class ApiClient(ClientBase):
     async def file_uploads_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2597,7 +2551,7 @@ class ApiClient(ClientBase):
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
-        created_by_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('created_by', )] = None,
+        created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         created_by__in_q: typing.Annotated[typing.Union[None, str], Query('created_by__in', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         filename_q: typing.Annotated[typing.Union[None, str], Query('filename', )] = None,
@@ -2610,9 +2564,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         source_q: typing.Annotated[typing.Union[None, str], Query('source', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2622,11 +2576,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload],
+                }),
+            ),
         })
     ]:
         pass
@@ -2634,20 +2590,22 @@ class ApiClient(ClientBase):
     @post('/file_uploads/', security=[{'tokenAuth': []}])
     async def file_uploads_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             typing.Union[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload, list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload]],
-            RequestBody({
+            Body({
                 'application/json': typing.Union[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload, list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload]],
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lfile_uploadsu_l.post.responses.u_o01.response.Response,
+        tuple[typing.Union[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload, list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload]], None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lfile_uploadsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload, list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload]],
+                }),
+            ),
         })
     ]:
         pass
@@ -2656,14 +2614,16 @@ class ApiClient(ClientBase):
     async def file_uploads_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lfile_uploadsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lfile_uploadsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload,
+                }),
+            ),
         })
     ]:
         pass
@@ -2679,11 +2639,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.FormRule.schema.FormRule], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.FormRule.schema.FormRule],
+                }),
+            ),
         })
     ]:
         pass
@@ -2691,20 +2653,22 @@ class ApiClient(ClientBase):
     @post('/form_rules/', security=[{'tokenAuth': []}])
     async def form_rules_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.FormRule.schema.FormRule,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.FormRule.schema.FormRule,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lform_rulesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lform_rulesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
+                }),
+            ),
         })
     ]:
         pass
@@ -2713,14 +2677,16 @@ class ApiClient(ClientBase):
     async def form_rules_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
+                }),
+            ),
         })
     ]:
         pass
@@ -2728,21 +2694,23 @@ class ApiClient(ClientBase):
     @put('/form_rules/{id}/', security=[{'tokenAuth': []}])
     async def form_rules_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.FormRule.schema.FormRule,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.FormRule.schema.FormRule,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
+                }),
+            ),
         })
     ]:
         pass
@@ -2750,21 +2718,23 @@ class ApiClient(ClientBase):
     @patch('/form_rules/{id}/', security=[{'tokenAuth': []}])
     async def form_rules_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lform_rulesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
+                }),
+            ),
         })
     ]:
         pass
@@ -2773,13 +2743,15 @@ class ApiClient(ClientBase):
     async def form_rules_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2787,20 +2759,22 @@ class ApiClient(ClientBase):
     @post('/integrations/', security=[{'tokenAuth': []}])
     async def integrations_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.IntegrationRequest.schema.IntegrationRequest,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.IntegrationRequest.schema.IntegrationRequest,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lintegrationsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.IntegrationRequest.schema.IntegrationRequest, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lintegrationsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.IntegrationRequest.schema.IntegrationRequest,
+                }),
+            ),
         })
     ]:
         pass
@@ -2810,9 +2784,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2841,9 +2815,9 @@ class ApiClient(ClientBase):
         show_when_task_type_assignment_q: typing.Annotated[typing.Union[None, str], Query('show_when_task_type_assignment', )] = None,
         show_when_task_type_drop_off_q: typing.Annotated[typing.Union[None, str], Query('show_when_task_type_drop_off', )] = None,
         show_when_task_type_pick_up_q: typing.Annotated[typing.Union[None, str], Query('show_when_task_type_pick_up', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2854,11 +2828,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         value_type_q: typing.Annotated[typing.Union[None, str], Query('value_type', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Metafield.schema.Metafield], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Metafield.schema.Metafield],
+                }),
+            ),
         })
     ]:
         pass
@@ -2866,20 +2842,22 @@ class ApiClient(ClientBase):
     @post('/metafields/', security=[{'tokenAuth': []}])
     async def metafields_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Metafield.schema.Metafield,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Metafield.schema.Metafield,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lmetafieldsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lmetafieldsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
+                }),
+            ),
         })
     ]:
         pass
@@ -2888,14 +2866,16 @@ class ApiClient(ClientBase):
     async def metafields_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
+                }),
+            ),
         })
     ]:
         pass
@@ -2903,21 +2883,23 @@ class ApiClient(ClientBase):
     @put('/metafields/{id}/', security=[{'tokenAuth': []}])
     async def metafields_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Metafield.schema.Metafield,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Metafield.schema.Metafield,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
+                }),
+            ),
         })
     ]:
         pass
@@ -2925,21 +2907,23 @@ class ApiClient(ClientBase):
     @patch('/metafields/{id}/', security=[{'tokenAuth': []}])
     async def metafields_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lmetafieldsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
+                }),
+            ),
         })
     ]:
         pass
@@ -2948,13 +2932,15 @@ class ApiClient(ClientBase):
     async def metafields_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -2964,9 +2950,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -2984,9 +2970,9 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         recipient_q: typing.Annotated[typing.Union[None, str], Query('recipient', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -2999,11 +2985,13 @@ class ApiClient(ClientBase):
         via_email_q: typing.Annotated[typing.Union[None, str], Query('via_email', )] = None,
         via_sms_q: typing.Annotated[typing.Union[None, str], Query('via_sms', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate],
+                }),
+            ),
         })
     ]:
         pass
@@ -3011,20 +2999,22 @@ class ApiClient(ClientBase):
     @post('/notification_templates/', security=[{'tokenAuth': []}])
     async def notification_templates_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
+                }),
+            ),
         })
     ]:
         pass
@@ -3033,14 +3023,16 @@ class ApiClient(ClientBase):
     async def notification_templates_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
+                }),
+            ),
         })
     ]:
         pass
@@ -3048,21 +3040,23 @@ class ApiClient(ClientBase):
     @put('/notification_templates/{id}/', security=[{'tokenAuth': []}])
     async def notification_templates_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
+                }),
+            ),
         })
     ]:
         pass
@@ -3070,21 +3064,23 @@ class ApiClient(ClientBase):
     @patch('/notification_templates/{id}/', security=[{'tokenAuth': []}])
     async def notification_templates_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
+                }),
+            ),
         })
     ]:
         pass
@@ -3093,13 +3089,15 @@ class ApiClient(ClientBase):
     async def notification_templates_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -3107,21 +3105,23 @@ class ApiClient(ClientBase):
     @post('/notification_templates/{id}/render/', security=[{'tokenAuth': []}])
     async def notification_templates_render_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.RenderRequest.schema.RenderRequest,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.RenderRequest.schema.RenderRequest,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_lrenderu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.RenderResponse.schema.RenderResponse, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotification_templatesu_lu_1zidu_21u_lrenderu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.RenderResponse.schema.RenderResponse,
+                }),
+            ),
         })
     ]:
         pass
@@ -3131,9 +3131,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3149,9 +3149,9 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         recipient_q: typing.Annotated[typing.Union[None, str], Query('recipient', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        sent_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at', )] = None,
-        sent_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date', )] = None,
-        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date_or_isnull', )] = None,
+        sent_at_q: typing.Annotated[typing.Union[None, str], Query('sent_at', )] = None,
+        sent_at__date_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date', )] = None,
+        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date_or_isnull', )] = None,
         sent_at__gt_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt', )] = None,
         sent_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt_or_isnull', )] = None,
         sent_at__gte_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gte', )] = None,
@@ -3161,9 +3161,9 @@ class ApiClient(ClientBase):
         sent_at__lte_q: typing.Annotated[typing.Union[None, str], Query('sent_at__lte', )] = None,
         sent_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__lte_or_isnull', )] = None,
         task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -3176,11 +3176,13 @@ class ApiClient(ClientBase):
         via_email_q: typing.Annotated[typing.Union[None, str], Query('via_email', )] = None,
         via_sms_q: typing.Annotated[typing.Union[None, str], Query('via_sms', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Notification.schema.Notification], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Notification.schema.Notification],
+                }),
+            ),
         })
     ]:
         pass
@@ -3188,20 +3190,22 @@ class ApiClient(ClientBase):
     @post('/notifications/', security=[{'tokenAuth': []}])
     async def notifications_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Notification.schema.Notification,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Notification.schema.Notification,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotificationsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Notification.schema.Notification, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotificationsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Notification.schema.Notification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3210,14 +3214,16 @@ class ApiClient(ClientBase):
     async def notifications_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lnotificationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Notification.schema.Notification, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lnotificationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Notification.schema.Notification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3227,9 +3233,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3245,9 +3251,9 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         reference_q: typing.Annotated[typing.Union[None, str], Query('reference', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -3257,11 +3263,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lordersu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lordersu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2],
+                }),
+            ),
         })
     ]:
         pass
@@ -3269,18 +3277,20 @@ class ApiClient(ClientBase):
     @post('/orders/', security=[{'tokenAuth': []}])
     async def orders_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
             }),
         ],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lordersu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lordersu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -3289,13 +3299,15 @@ class ApiClient(ClientBase):
     async def orders_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -3303,20 +3315,22 @@ class ApiClient(ClientBase):
     @put('/orders/{id}/', security=[{'tokenAuth': []}])
     async def orders_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -3324,20 +3338,22 @@ class ApiClient(ClientBase):
     @patch('/orders/{id}/', security=[{'tokenAuth': []}])
     async def orders_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedOrderSerializerV2.schema.PatchedOrderSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedOrderSerializerV2.schema.PatchedOrderSerializerV2,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lordersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -3345,20 +3361,22 @@ class ApiClient(ClientBase):
     @post('/password_change/', security=[{'tokenAuth': []}])
     async def password_change_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PasswordChange.schema.PasswordChange,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PasswordChange.schema.PasswordChange,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpassword_changeu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.PasswordChange.schema.PasswordChange, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpassword_changeu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PasswordChange.schema.PasswordChange,
+                }),
+            ),
         })
     ]:
         pass
@@ -3366,20 +3384,22 @@ class ApiClient(ClientBase):
     @post('/password_reset/')
     async def password_reset_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PasswordReset.schema.PasswordReset,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PasswordReset.schema.PasswordReset,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpassword_resetu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.PasswordReset.schema.PasswordReset, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpassword_resetu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PasswordReset.schema.PasswordReset,
+                }),
+            ),
         })
     ]:
         pass
@@ -3387,20 +3407,22 @@ class ApiClient(ClientBase):
     @post('/password_reset_confirm/')
     async def password_reset_confirm_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PasswordResetConfirm.schema.PasswordResetConfirm,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PasswordResetConfirm.schema.PasswordResetConfirm,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpassword_reset_confirmu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.PasswordResetConfirm.schema.PasswordResetConfirm, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpassword_reset_confirmu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PasswordResetConfirm.schema.PasswordResetConfirm,
+                }),
+            ),
         })
     ]:
         pass
@@ -3410,9 +3432,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3426,9 +3448,9 @@ class ApiClient(ClientBase):
         event__in_q: typing.Annotated[typing.Union[None, str], Query('event__in', )] = None,
         external_id_q: typing.Annotated[typing.Union[None, str], Query('external_id', )] = None,
         external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('external_id__icontains', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -3443,9 +3465,9 @@ class ApiClient(ClientBase):
         message__icontains_q: typing.Annotated[typing.Union[None, str], Query('message__icontains', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        pending_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('pending_at', )] = None,
-        pending_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('pending_at__date', )] = None,
-        pending_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('pending_at__date_or_isnull', )] = None,
+        pending_at_q: typing.Annotated[typing.Union[None, str], Query('pending_at', )] = None,
+        pending_at__date_q: typing.Annotated[typing.Union[None, str], Query('pending_at__date', )] = None,
+        pending_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('pending_at__date_or_isnull', )] = None,
         pending_at__gt_q: typing.Annotated[typing.Union[None, str], Query('pending_at__gt', )] = None,
         pending_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('pending_at__gt_or_isnull', )] = None,
         pending_at__gte_q: typing.Annotated[typing.Union[None, str], Query('pending_at__gte', )] = None,
@@ -3459,9 +3481,9 @@ class ApiClient(ClientBase):
         state__in_q: typing.Annotated[typing.Union[None, str], Query('state__in', )] = None,
         subject_q: typing.Annotated[typing.Union[None, str], Query('subject', )] = None,
         subject__icontains_q: typing.Annotated[typing.Union[None, str], Query('subject__icontains', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -3471,11 +3493,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.PushNotification.schema.PushNotification], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.PushNotification.schema.PushNotification],
+                }),
+            ),
         })
     ]:
         pass
@@ -3483,20 +3507,22 @@ class ApiClient(ClientBase):
     @post('/push_notifications/', security=[{'tokenAuth': []}])
     async def push_notifications_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PushNotification.schema.PushNotification,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3505,14 +3531,16 @@ class ApiClient(ClientBase):
     async def push_notifications_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3520,21 +3548,23 @@ class ApiClient(ClientBase):
     @put('/push_notifications/{id}/', security=[{'tokenAuth': []}])
     async def push_notifications_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PushNotification.schema.PushNotification,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3542,21 +3572,23 @@ class ApiClient(ClientBase):
     @patch('/push_notifications/{id}/', security=[{'tokenAuth': []}])
     async def push_notifications_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3565,13 +3597,15 @@ class ApiClient(ClientBase):
     async def push_notifications_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -3580,14 +3614,16 @@ class ApiClient(ClientBase):
     async def push_notifications_resend_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lpush_notificationsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
+                }),
+            ),
         })
     ]:
         pass
@@ -3596,14 +3632,14 @@ class ApiClient(ClientBase):
     async def recurrences_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         assign_worker_q: typing.Annotated[typing.Union[None, bool], Query('assign_worker', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__in_q: typing.Annotated[typing.Union[None, str], Query('assignee__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3612,13 +3648,13 @@ class ApiClient(ClientBase):
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
-        created_by_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('created_by', )] = None,
+        created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         created_by__in_q: typing.Annotated[typing.Union[None, str], Query('created_by__in', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         is_active_q: typing.Annotated[typing.Union[None, str], Query('is_active', )] = None,
-        last_errored_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_errored_at', )] = None,
-        last_errored_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_errored_at__date', )] = None,
-        last_errored_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_errored_at__date_or_isnull', )] = None,
+        last_errored_at_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at', )] = None,
+        last_errored_at__date_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__date', )] = None,
+        last_errored_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__date_or_isnull', )] = None,
         last_errored_at__gt_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__gt', )] = None,
         last_errored_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__gt_or_isnull', )] = None,
         last_errored_at__gte_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__gte', )] = None,
@@ -3627,9 +3663,9 @@ class ApiClient(ClientBase):
         last_errored_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__lt_or_isnull', )] = None,
         last_errored_at__lte_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__lte', )] = None,
         last_errored_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_errored_at__lte_or_isnull', )] = None,
-        last_recurred_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_recurred_at', )] = None,
-        last_recurred_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_recurred_at__date', )] = None,
-        last_recurred_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_recurred_at__date_or_isnull', )] = None,
+        last_recurred_at_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at', )] = None,
+        last_recurred_at__date_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__date', )] = None,
+        last_recurred_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__date_or_isnull', )] = None,
         last_recurred_at__gt_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__gt', )] = None,
         last_recurred_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__gt_or_isnull', )] = None,
         last_recurred_at__gte_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__gte', )] = None,
@@ -3638,9 +3674,9 @@ class ApiClient(ClientBase):
         last_recurred_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__lt_or_isnull', )] = None,
         last_recurred_at__lte_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__lte', )] = None,
         last_recurred_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_recurred_at__lte_or_isnull', )] = None,
-        last_scheduled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_scheduled_at', )] = None,
-        last_scheduled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_scheduled_at__date', )] = None,
-        last_scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('last_scheduled_at__date_or_isnull', )] = None,
+        last_scheduled_at_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at', )] = None,
+        last_scheduled_at__date_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__date', )] = None,
+        last_scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__date_or_isnull', )] = None,
         last_scheduled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__gt', )] = None,
         last_scheduled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__gt_or_isnull', )] = None,
         last_scheduled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__gte', )] = None,
@@ -3649,9 +3685,9 @@ class ApiClient(ClientBase):
         last_scheduled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__lt_or_isnull', )] = None,
         last_scheduled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__lte', )] = None,
         last_scheduled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('last_scheduled_at__lte_or_isnull', )] = None,
-        next_scheduled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('next_scheduled_at', )] = None,
-        next_scheduled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('next_scheduled_at__date', )] = None,
-        next_scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('next_scheduled_at__date_or_isnull', )] = None,
+        next_scheduled_at_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at', )] = None,
+        next_scheduled_at__date_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__date', )] = None,
+        next_scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__date_or_isnull', )] = None,
         next_scheduled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__gt', )] = None,
         next_scheduled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__gt_or_isnull', )] = None,
         next_scheduled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__gte', )] = None,
@@ -3660,7 +3696,7 @@ class ApiClient(ClientBase):
         next_scheduled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__lt_or_isnull', )] = None,
         next_scheduled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__lte', )] = None,
         next_scheduled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('next_scheduled_at__lte_or_isnull', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
@@ -3684,9 +3720,9 @@ class ApiClient(ClientBase):
         tasks_data__description__icontains_q: typing.Annotated[typing.Union[None, str], Query('tasks_data__description__icontains', )] = None,
         tasks_data__state__exact_q: typing.Annotated[typing.Union[None, str], Query('tasks_data__state__exact', )] = None,
         tasks_data__state__in_q: typing.Annotated[typing.Union[None, str], Query('tasks_data__state__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -3696,11 +3732,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Recurrence.schema.Recurrence], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Recurrence.schema.Recurrence],
+                }),
+            ),
         })
     ]:
         pass
@@ -3708,18 +3746,20 @@ class ApiClient(ClientBase):
     @post('/recurrences/', security=[{'tokenAuth': []}])
     async def recurrences_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Recurrence.schema.Recurrence,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
             }),
         ],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lrecurrencesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Recurrence.schema.Recurrence, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lrecurrencesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
+                }),
+            ),
         })
     ]:
         pass
@@ -3728,13 +3768,15 @@ class ApiClient(ClientBase):
     async def recurrences_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Recurrence.schema.Recurrence, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
+                }),
+            ),
         })
     ]:
         pass
@@ -3742,20 +3784,22 @@ class ApiClient(ClientBase):
     @put('/recurrences/{id}/', security=[{'tokenAuth': []}])
     async def recurrences_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Recurrence.schema.Recurrence,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Recurrence.schema.Recurrence, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
+                }),
+            ),
         })
     ]:
         pass
@@ -3763,20 +3807,22 @@ class ApiClient(ClientBase):
     @patch('/recurrences/{id}/', security=[{'tokenAuth': []}])
     async def recurrences_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedRecurrence.schema.PatchedRecurrence,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedRecurrence.schema.PatchedRecurrence,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Recurrence.schema.Recurrence, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lrecurrencesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Recurrence.schema.Recurrence,
+                }),
+            ),
         })
     ]:
         pass
@@ -3784,20 +3830,22 @@ class ApiClient(ClientBase):
     @post('/register/')
     async def register_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Registration.schema.Registration,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Registration.schema.Registration,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lregisteru_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Registration.schema.Registration, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lregisteru_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Registration.schema.Registration,
+                }),
+            ),
         })
     ]:
         pass
@@ -3806,19 +3854,21 @@ class ApiClient(ClientBase):
     async def reports_tasks_states_count_retrieve(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[uuid.UUID, Query('account', )],
-        date_from_q: typing.Annotated[datetime.date, Query('date_from', )],
-        date_until_q: typing.Annotated[datetime.date, Query('date_until', )],
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        account_q: typing.Annotated[str, Query('account', )],
+        date_from_q: typing.Annotated[str, Query('date_from', )],
+        date_until_q: typing.Annotated[str, Query('date_until', )],
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__in_q: typing.Annotated[typing.Union[None, str], Query('assignee__in', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         timezone_q: typing.Annotated[typing.Union[None, str], Query('timezone', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lreportsu_ltasksu_lstates_countu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TasksStatesCountResponse.schema.TasksStatesCountResponse, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lreportsu_ltasksu_lstates_countu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TasksStatesCountResponse.schema.TasksStatesCountResponse,
+                }),
+            ),
         })
     ]:
         pass
@@ -3828,9 +3878,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3845,11 +3895,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         tracker_q: typing.Annotated[typing.Union[None, str], Query('tracker', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Review.schema.Review], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Review.schema.Review],
+                }),
+            ),
         })
     ]:
         pass
@@ -3857,20 +3909,22 @@ class ApiClient(ClientBase):
     @post('/reviews/', security=[{'tokenAuth': []}, {}])
     async def reviews_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Review.schema.Review,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Review.schema.Review,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lreviewsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Review.schema.Review, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lreviewsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Review.schema.Review,
+                }),
+            ),
         })
     ]:
         pass
@@ -3879,14 +3933,16 @@ class ApiClient(ClientBase):
     async def reviews_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lreviewsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Review.schema.Review, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lreviewsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Review.schema.Review,
+                }),
+            ),
         })
     ]:
         pass
@@ -3897,9 +3953,9 @@ class ApiClient(ClientBase):
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         assignees__id__in_q: typing.Annotated[typing.Union[None, str], Query('assignees__id__in', )] = None,
-        commited_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at', )] = None,
-        commited_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date', )] = None,
-        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date_or_isnull', )] = None,
+        commited_at_q: typing.Annotated[typing.Union[None, str], Query('commited_at', )] = None,
+        commited_at__date_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date', )] = None,
+        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date_or_isnull', )] = None,
         commited_at__gt_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt', )] = None,
         commited_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt_or_isnull', )] = None,
         commited_at__gte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gte', )] = None,
@@ -3908,9 +3964,9 @@ class ApiClient(ClientBase):
         commited_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lt_or_isnull', )] = None,
         commited_at__lte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte', )] = None,
         commited_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -3919,9 +3975,9 @@ class ApiClient(ClientBase):
         completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lt_or_isnull', )] = None,
         completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte', )] = None,
         completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -3932,9 +3988,9 @@ class ApiClient(ClientBase):
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        end_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time', )] = None,
-        end_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date', )] = None,
-        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date_or_isnull', )] = None,
+        end_time_q: typing.Annotated[typing.Union[None, str], Query('end_time', )] = None,
+        end_time__date_q: typing.Annotated[typing.Union[None, str], Query('end_time__date', )] = None,
+        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__date_or_isnull', )] = None,
         end_time__gt_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt', )] = None,
         end_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt_or_isnull', )] = None,
         end_time__gte_q: typing.Annotated[typing.Union[None, str], Query('end_time__gte', )] = None,
@@ -3943,9 +3999,9 @@ class ApiClient(ClientBase):
         end_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lt_or_isnull', )] = None,
         end_time__lte_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte', )] = None,
         end_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte_or_isnull', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -3960,9 +4016,9 @@ class ApiClient(ClientBase):
         objective__in_q: typing.Annotated[typing.Union[None, str], Query('objective__in', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        ready_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at', )] = None,
-        ready_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date', )] = None,
-        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date_or_isnull', )] = None,
+        ready_at_q: typing.Annotated[typing.Union[None, str], Query('ready_at', )] = None,
+        ready_at__date_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date', )] = None,
+        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date_or_isnull', )] = None,
         ready_at__gt_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt', )] = None,
         ready_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt_or_isnull', )] = None,
         ready_at__gte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gte', )] = None,
@@ -3971,9 +4027,9 @@ class ApiClient(ClientBase):
         ready_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lt_or_isnull', )] = None,
         ready_at__lte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte', )] = None,
         ready_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte_or_isnull', )] = None,
-        scheduled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at', )] = None,
-        scheduled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date', )] = None,
-        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date_or_isnull', )] = None,
+        scheduled_at_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at', )] = None,
+        scheduled_at__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date', )] = None,
+        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date_or_isnull', )] = None,
         scheduled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt', )] = None,
         scheduled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt_or_isnull', )] = None,
         scheduled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gte', )] = None,
@@ -3982,9 +4038,9 @@ class ApiClient(ClientBase):
         scheduled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lt_or_isnull', )] = None,
         scheduled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte', )] = None,
         scheduled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte_or_isnull', )] = None,
-        start_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time', )] = None,
-        start_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date', )] = None,
-        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date_or_isnull', )] = None,
+        start_time_q: typing.Annotated[typing.Union[None, str], Query('start_time', )] = None,
+        start_time__date_q: typing.Annotated[typing.Union[None, str], Query('start_time__date', )] = None,
+        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__date_or_isnull', )] = None,
         start_time__gt_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt', )] = None,
         start_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt_or_isnull', )] = None,
         start_time__gte_q: typing.Annotated[typing.Union[None, str], Query('start_time__gte', )] = None,
@@ -3993,9 +4049,9 @@ class ApiClient(ClientBase):
         start_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lt_or_isnull', )] = None,
         start_time__lte_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte', )] = None,
         start_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte_or_isnull', )] = None,
-        started_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at', )] = None,
-        started_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date', )] = None,
-        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date_or_isnull', )] = None,
+        started_at_q: typing.Annotated[typing.Union[None, str], Query('started_at', )] = None,
+        started_at__date_q: typing.Annotated[typing.Union[None, str], Query('started_at__date', )] = None,
+        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__date_or_isnull', )] = None,
         started_at__gt_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt', )] = None,
         started_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt_or_isnull', )] = None,
         started_at__gte_q: typing.Annotated[typing.Union[None, str], Query('started_at__gte', )] = None,
@@ -4015,9 +4071,9 @@ class ApiClient(ClientBase):
         total_duration__gte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__gte', )] = None,
         total_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lt', )] = None,
         total_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lte', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4027,11 +4083,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2],
+                }),
+            ),
         })
     ]:
         pass
@@ -4039,20 +4097,22 @@ class ApiClient(ClientBase):
     @post('/route_optimizations/', security=[{'tokenAuth': []}])
     async def route_optimizations_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -4061,14 +4121,16 @@ class ApiClient(ClientBase):
     async def route_optimizations_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -4077,13 +4139,15 @@ class ApiClient(ClientBase):
     async def route_optimizations_commit_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4092,13 +4156,15 @@ class ApiClient(ClientBase):
     async def route_optimizations_report_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4107,14 +4173,16 @@ class ApiClient(ClientBase):
     async def route_optimizations_results_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lresultsu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.RouteOptimizationResultSerializerV2.schema.RouteOptimizationResultSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lresultsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.RouteOptimizationResultSerializerV2.schema.RouteOptimizationResultSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -4123,12 +4191,12 @@ class ApiClient(ClientBase):
     async def route_optimizations_routes_list(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         assignees__id__in_q: typing.Annotated[typing.Union[None, str], Query('assignees__id__in', )] = None,
-        commited_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at', )] = None,
-        commited_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date', )] = None,
-        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date_or_isnull', )] = None,
+        commited_at_q: typing.Annotated[typing.Union[None, str], Query('commited_at', )] = None,
+        commited_at__date_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date', )] = None,
+        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date_or_isnull', )] = None,
         commited_at__gt_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt', )] = None,
         commited_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt_or_isnull', )] = None,
         commited_at__gte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gte', )] = None,
@@ -4137,9 +4205,9 @@ class ApiClient(ClientBase):
         commited_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lt_or_isnull', )] = None,
         commited_at__lte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte', )] = None,
         commited_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -4148,9 +4216,9 @@ class ApiClient(ClientBase):
         completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lt_or_isnull', )] = None,
         completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte', )] = None,
         completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -4161,9 +4229,9 @@ class ApiClient(ClientBase):
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        end_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time', )] = None,
-        end_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date', )] = None,
-        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date_or_isnull', )] = None,
+        end_time_q: typing.Annotated[typing.Union[None, str], Query('end_time', )] = None,
+        end_time__date_q: typing.Annotated[typing.Union[None, str], Query('end_time__date', )] = None,
+        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__date_or_isnull', )] = None,
         end_time__gt_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt', )] = None,
         end_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt_or_isnull', )] = None,
         end_time__gte_q: typing.Annotated[typing.Union[None, str], Query('end_time__gte', )] = None,
@@ -4172,9 +4240,9 @@ class ApiClient(ClientBase):
         end_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lt_or_isnull', )] = None,
         end_time__lte_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte', )] = None,
         end_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte_or_isnull', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -4189,9 +4257,9 @@ class ApiClient(ClientBase):
         objective__in_q: typing.Annotated[typing.Union[None, str], Query('objective__in', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        ready_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at', )] = None,
-        ready_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date', )] = None,
-        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date_or_isnull', )] = None,
+        ready_at_q: typing.Annotated[typing.Union[None, str], Query('ready_at', )] = None,
+        ready_at__date_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date', )] = None,
+        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date_or_isnull', )] = None,
         ready_at__gt_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt', )] = None,
         ready_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt_or_isnull', )] = None,
         ready_at__gte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gte', )] = None,
@@ -4200,9 +4268,9 @@ class ApiClient(ClientBase):
         ready_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lt_or_isnull', )] = None,
         ready_at__lte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte', )] = None,
         ready_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte_or_isnull', )] = None,
-        scheduled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at', )] = None,
-        scheduled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date', )] = None,
-        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date_or_isnull', )] = None,
+        scheduled_at_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at', )] = None,
+        scheduled_at__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date', )] = None,
+        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date_or_isnull', )] = None,
         scheduled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt', )] = None,
         scheduled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt_or_isnull', )] = None,
         scheduled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gte', )] = None,
@@ -4211,9 +4279,9 @@ class ApiClient(ClientBase):
         scheduled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lt_or_isnull', )] = None,
         scheduled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte', )] = None,
         scheduled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte_or_isnull', )] = None,
-        start_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time', )] = None,
-        start_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date', )] = None,
-        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date_or_isnull', )] = None,
+        start_time_q: typing.Annotated[typing.Union[None, str], Query('start_time', )] = None,
+        start_time__date_q: typing.Annotated[typing.Union[None, str], Query('start_time__date', )] = None,
+        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__date_or_isnull', )] = None,
         start_time__gt_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt', )] = None,
         start_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt_or_isnull', )] = None,
         start_time__gte_q: typing.Annotated[typing.Union[None, str], Query('start_time__gte', )] = None,
@@ -4222,9 +4290,9 @@ class ApiClient(ClientBase):
         start_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lt_or_isnull', )] = None,
         start_time__lte_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte', )] = None,
         start_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte_or_isnull', )] = None,
-        started_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at', )] = None,
-        started_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date', )] = None,
-        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date_or_isnull', )] = None,
+        started_at_q: typing.Annotated[typing.Union[None, str], Query('started_at', )] = None,
+        started_at__date_q: typing.Annotated[typing.Union[None, str], Query('started_at__date', )] = None,
+        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__date_or_isnull', )] = None,
         started_at__gt_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt', )] = None,
         started_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt_or_isnull', )] = None,
         started_at__gte_q: typing.Annotated[typing.Union[None, str], Query('started_at__gte', )] = None,
@@ -4244,9 +4312,9 @@ class ApiClient(ClientBase):
         total_duration__gte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__gte', )] = None,
         total_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lt', )] = None,
         total_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lte', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4256,11 +4324,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Route.schema.Route], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Route.schema.Route],
+                }),
+            ),
         })
     ]:
         pass
@@ -4269,12 +4339,12 @@ class ApiClient(ClientBase):
     async def route_optimizations_routes_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         assignees__id__in_q: typing.Annotated[typing.Union[None, str], Query('assignees__id__in', )] = None,
-        commited_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at', )] = None,
-        commited_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date', )] = None,
-        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('commited_at__date_or_isnull', )] = None,
+        commited_at_q: typing.Annotated[typing.Union[None, str], Query('commited_at', )] = None,
+        commited_at__date_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date', )] = None,
+        commited_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__date_or_isnull', )] = None,
         commited_at__gt_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt', )] = None,
         commited_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gt_or_isnull', )] = None,
         commited_at__gte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__gte', )] = None,
@@ -4283,9 +4353,9 @@ class ApiClient(ClientBase):
         commited_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lt_or_isnull', )] = None,
         commited_at__lte_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte', )] = None,
         commited_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('commited_at__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -4294,9 +4364,9 @@ class ApiClient(ClientBase):
         completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lt_or_isnull', )] = None,
         completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte', )] = None,
         completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -4307,9 +4377,9 @@ class ApiClient(ClientBase):
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        end_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time', )] = None,
-        end_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date', )] = None,
-        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date_or_isnull', )] = None,
+        end_time_q: typing.Annotated[typing.Union[None, str], Query('end_time', )] = None,
+        end_time__date_q: typing.Annotated[typing.Union[None, str], Query('end_time__date', )] = None,
+        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__date_or_isnull', )] = None,
         end_time__gt_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt', )] = None,
         end_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt_or_isnull', )] = None,
         end_time__gte_q: typing.Annotated[typing.Union[None, str], Query('end_time__gte', )] = None,
@@ -4318,9 +4388,9 @@ class ApiClient(ClientBase):
         end_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lt_or_isnull', )] = None,
         end_time__lte_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte', )] = None,
         end_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte_or_isnull', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -4335,9 +4405,9 @@ class ApiClient(ClientBase):
         objective__in_q: typing.Annotated[typing.Union[None, str], Query('objective__in', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        ready_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at', )] = None,
-        ready_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date', )] = None,
-        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('ready_at__date_or_isnull', )] = None,
+        ready_at_q: typing.Annotated[typing.Union[None, str], Query('ready_at', )] = None,
+        ready_at__date_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date', )] = None,
+        ready_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__date_or_isnull', )] = None,
         ready_at__gt_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt', )] = None,
         ready_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gt_or_isnull', )] = None,
         ready_at__gte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__gte', )] = None,
@@ -4346,9 +4416,9 @@ class ApiClient(ClientBase):
         ready_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lt_or_isnull', )] = None,
         ready_at__lte_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte', )] = None,
         ready_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('ready_at__lte_or_isnull', )] = None,
-        scheduled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at', )] = None,
-        scheduled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date', )] = None,
-        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_at__date_or_isnull', )] = None,
+        scheduled_at_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at', )] = None,
+        scheduled_at__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date', )] = None,
+        scheduled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__date_or_isnull', )] = None,
         scheduled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt', )] = None,
         scheduled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gt_or_isnull', )] = None,
         scheduled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__gte', )] = None,
@@ -4357,9 +4427,9 @@ class ApiClient(ClientBase):
         scheduled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lt_or_isnull', )] = None,
         scheduled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte', )] = None,
         scheduled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_at__lte_or_isnull', )] = None,
-        start_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time', )] = None,
-        start_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date', )] = None,
-        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date_or_isnull', )] = None,
+        start_time_q: typing.Annotated[typing.Union[None, str], Query('start_time', )] = None,
+        start_time__date_q: typing.Annotated[typing.Union[None, str], Query('start_time__date', )] = None,
+        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__date_or_isnull', )] = None,
         start_time__gt_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt', )] = None,
         start_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt_or_isnull', )] = None,
         start_time__gte_q: typing.Annotated[typing.Union[None, str], Query('start_time__gte', )] = None,
@@ -4368,9 +4438,9 @@ class ApiClient(ClientBase):
         start_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lt_or_isnull', )] = None,
         start_time__lte_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte', )] = None,
         start_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte_or_isnull', )] = None,
-        started_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at', )] = None,
-        started_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date', )] = None,
-        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date_or_isnull', )] = None,
+        started_at_q: typing.Annotated[typing.Union[None, str], Query('started_at', )] = None,
+        started_at__date_q: typing.Annotated[typing.Union[None, str], Query('started_at__date', )] = None,
+        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__date_or_isnull', )] = None,
         started_at__gt_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt', )] = None,
         started_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt_or_isnull', )] = None,
         started_at__gte_q: typing.Annotated[typing.Union[None, str], Query('started_at__gte', )] = None,
@@ -4390,9 +4460,9 @@ class ApiClient(ClientBase):
         total_duration__gte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__gte', )] = None,
         total_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lt', )] = None,
         total_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('total_duration__lte', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4402,11 +4472,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.post.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Route.schema.Route], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Route.schema.Route],
+                }),
+            ),
         })
     ]:
         pass
@@ -4415,13 +4487,15 @@ class ApiClient(ClientBase):
     async def route_optimizations_schedule_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4430,15 +4504,15 @@ class ApiClient(ClientBase):
     async def routes_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__in_q: typing.Annotated[typing.Union[None, str], Query('assignee__in', )] = None,
         code_q: typing.Annotated[typing.Union[None, str], Query('code', )] = None,
         code__in_q: typing.Annotated[typing.Union[None, str], Query('code__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -4448,9 +4522,9 @@ class ApiClient(ClientBase):
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        end_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time', )] = None,
-        end_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date', )] = None,
-        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date_or_isnull', )] = None,
+        end_time_q: typing.Annotated[typing.Union[None, str], Query('end_time', )] = None,
+        end_time__date_q: typing.Annotated[typing.Union[None, str], Query('end_time__date', )] = None,
+        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__date_or_isnull', )] = None,
         end_time__gt_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt', )] = None,
         end_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt_or_isnull', )] = None,
         end_time__gte_q: typing.Annotated[typing.Union[None, str], Query('end_time__gte', )] = None,
@@ -4468,9 +4542,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
-        start_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time', )] = None,
-        start_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date', )] = None,
-        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date_or_isnull', )] = None,
+        start_time_q: typing.Annotated[typing.Union[None, str], Query('start_time', )] = None,
+        start_time__date_q: typing.Annotated[typing.Union[None, str], Query('start_time__date', )] = None,
+        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__date_or_isnull', )] = None,
         start_time__gt_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt', )] = None,
         start_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt_or_isnull', )] = None,
         start_time__gte_q: typing.Annotated[typing.Union[None, str], Query('start_time__gte', )] = None,
@@ -4481,9 +4555,9 @@ class ApiClient(ClientBase):
         start_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte_or_isnull', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, str], Query('state__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4493,11 +4567,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Route.schema.Route], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Route.schema.Route],
+                }),
+            ),
         })
     ]:
         pass
@@ -4505,18 +4581,20 @@ class ApiClient(ClientBase):
     @post('/routes/', security=[{'tokenAuth': []}])
     async def routes_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Route.schema.Route,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Route.schema.Route,
             }),
         ],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroutesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroutesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
+                }),
+            ),
         })
     ]:
         pass
@@ -4525,13 +4603,15 @@ class ApiClient(ClientBase):
     async def routes_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
+                }),
+            ),
         })
     ]:
         pass
@@ -4539,20 +4619,22 @@ class ApiClient(ClientBase):
     @put('/routes/{id}/', security=[{'tokenAuth': []}])
     async def routes_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Route.schema.Route,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Route.schema.Route,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
+                }),
+            ),
         })
     ]:
         pass
@@ -4560,20 +4642,22 @@ class ApiClient(ClientBase):
     @patch('/routes/{id}/', security=[{'tokenAuth': []}])
     async def routes_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lroutesu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
+                }),
+            ),
         })
     ]:
         pass
@@ -4582,12 +4666,14 @@ class ApiClient(ClientBase):
     async def routes_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4596,12 +4682,14 @@ class ApiClient(ClientBase):
     async def routes_activate_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4609,19 +4697,21 @@ class ApiClient(ClientBase):
     @post('/routes/{id}/archive/', security=[{'tokenAuth': []}])
     async def routes_archive_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.RouteArchive.schema.RouteArchive,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.RouteArchive.schema.RouteArchive,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4630,12 +4720,14 @@ class ApiClient(ClientBase):
     async def routes_draft_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4644,11 +4736,11 @@ class ApiClient(ClientBase):
     async def signatures_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -4657,7 +4749,7 @@ class ApiClient(ClientBase):
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
-        created_by_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('created_by', )] = None,
+        created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         created_by__in_q: typing.Annotated[typing.Union[None, str], Query('created_by__in', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         filename_q: typing.Annotated[typing.Union[None, str], Query('filename', )] = None,
@@ -4672,11 +4764,11 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
         source_q: typing.Annotated[typing.Union[None, str], Query('source', )] = None,
-        task_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task', )] = None,
+        task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
         task__in_q: typing.Annotated[typing.Union[None, str], Query('task__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4686,11 +4778,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Signature.schema.Signature],
+                }),
+            ),
         })
     ]:
         pass
@@ -4698,20 +4792,22 @@ class ApiClient(ClientBase):
     @post('/signatures/', security=[{'tokenAuth': []}])
     async def signatures_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Signature.schema.Signature,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Signature.schema.Signature,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsignaturesu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Signature.schema.Signature, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsignaturesu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Signature.schema.Signature,
+                }),
+            ),
         })
     ]:
         pass
@@ -4720,14 +4816,16 @@ class ApiClient(ClientBase):
     async def signatures_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsignaturesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Signature.schema.Signature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsignaturesu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Signature.schema.Signature,
+                }),
+            ),
         })
     ]:
         pass
@@ -4736,13 +4834,15 @@ class ApiClient(ClientBase):
     async def signatures_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4750,19 +4850,21 @@ class ApiClient(ClientBase):
     @post('/signatures/batch_delete/', security=[{'tokenAuth': []}])
     async def signatures_batch_delete_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.SignatureDeleteAction.schema.SignatureDeleteAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.SignatureDeleteAction.schema.SignatureDeleteAction,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4774,9 +4876,9 @@ class ApiClient(ClientBase):
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         alphanumeric_sender_id_q: typing.Annotated[typing.Union[None, str], Query('alphanumeric_sender_id', )] = None,
         alphanumeric_sender_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('alphanumeric_sender_id__icontains', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -4786,9 +4888,9 @@ class ApiClient(ClientBase):
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -4812,9 +4914,9 @@ class ApiClient(ClientBase):
         price__lte_q: typing.Annotated[typing.Union[None, str], Query('price__lte', )] = None,
         provider_q: typing.Annotated[typing.Union[None, str], Query('provider', )] = None,
         provider__in_q: typing.Annotated[typing.Union[None, str], Query('provider__in', )] = None,
-        received_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at', )] = None,
-        received_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at__date', )] = None,
-        received_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('received_at__date_or_isnull', )] = None,
+        received_at_q: typing.Annotated[typing.Union[None, str], Query('received_at', )] = None,
+        received_at__date_q: typing.Annotated[typing.Union[None, str], Query('received_at__date', )] = None,
+        received_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('received_at__date_or_isnull', )] = None,
         received_at__gt_q: typing.Annotated[typing.Union[None, str], Query('received_at__gt', )] = None,
         received_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('received_at__gt_or_isnull', )] = None,
         received_at__gte_q: typing.Annotated[typing.Union[None, str], Query('received_at__gte', )] = None,
@@ -4829,9 +4931,9 @@ class ApiClient(ClientBase):
         segments_count__gte_q: typing.Annotated[typing.Union[None, str], Query('segments_count__gte', )] = None,
         segments_count__lt_q: typing.Annotated[typing.Union[None, str], Query('segments_count__lt', )] = None,
         segments_count__lte_q: typing.Annotated[typing.Union[None, str], Query('segments_count__lte', )] = None,
-        sent_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at', )] = None,
-        sent_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date', )] = None,
-        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('sent_at__date_or_isnull', )] = None,
+        sent_at_q: typing.Annotated[typing.Union[None, str], Query('sent_at', )] = None,
+        sent_at__date_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date', )] = None,
+        sent_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__date_or_isnull', )] = None,
         sent_at__gt_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt', )] = None,
         sent_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gt_or_isnull', )] = None,
         sent_at__gte_q: typing.Annotated[typing.Union[None, str], Query('sent_at__gte', )] = None,
@@ -4842,9 +4944,9 @@ class ApiClient(ClientBase):
         sent_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('sent_at__lte_or_isnull', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, str], Query('state__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -4854,11 +4956,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.SMS.schema.SMS], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.SMS.schema.SMS],
+                }),
+            ),
         })
     ]:
         pass
@@ -4866,20 +4970,22 @@ class ApiClient(ClientBase):
     @post('/sms/', security=[{'tokenAuth': []}])
     async def sms_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.SMS.schema.SMS,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.SMS.schema.SMS,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
+                }),
+            ),
         })
     ]:
         pass
@@ -4888,14 +4994,16 @@ class ApiClient(ClientBase):
     async def sms_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
+                }),
+            ),
         })
     ]:
         pass
@@ -4903,21 +5011,23 @@ class ApiClient(ClientBase):
     @put('/sms/{id}/', security=[{'tokenAuth': []}])
     async def sms_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.SMS.schema.SMS,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.SMS.schema.SMS,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
+                }),
+            ),
         })
     ]:
         pass
@@ -4925,21 +5035,23 @@ class ApiClient(ClientBase):
     @patch('/sms/{id}/', security=[{'tokenAuth': []}])
     async def sms_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
+                }),
+            ),
         })
     ]:
         pass
@@ -4948,13 +5060,15 @@ class ApiClient(ClientBase):
     async def sms_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -4963,14 +5077,16 @@ class ApiClient(ClientBase):
     async def sms_resend_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lsmsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lsmsu_lu_1zidu_21u_lresendu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
+                }),
+            ),
         })
     ]:
         pass
@@ -4982,9 +5098,9 @@ class ApiClient(ClientBase):
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -4993,9 +5109,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -5004,9 +5120,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5019,9 +5135,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         owner_q: typing.Annotated[typing.Union[None, str], Query('owner', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -5030,9 +5146,9 @@ class ApiClient(ClientBase):
         position__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__lt_or_isnull', )] = None,
         position__lte_q: typing.Annotated[typing.Union[None, str], Query('position__lte', )] = None,
         position__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__lte_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5042,11 +5158,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskAddressFeatureList.schema.TaskAddressFeatureList, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskAddressFeatureList.schema.TaskAddressFeatureList,
+                }),
+            ),
         })
     ]:
         pass
@@ -5055,14 +5173,16 @@ class ApiClient(ClientBase):
     async def task_address_features_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_address_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskAddressFeature.schema.TaskAddressFeature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_address_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskAddressFeature.schema.TaskAddressFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -5071,9 +5191,9 @@ class ApiClient(ClientBase):
     async def task_commands_list(
         self: typing.Self,
         *,
-        accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('accepted_at', )] = None,
-        accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('accepted_at__date', )] = None,
-        accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('accepted_at__date_or_isnull', )] = None,
+        accepted_at_q: typing.Annotated[typing.Union[None, str], Query('accepted_at', )] = None,
+        accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__date', )] = None,
+        accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__date_or_isnull', )] = None,
         accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__gt', )] = None,
         accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__gt_or_isnull', )] = None,
         accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__gte', )] = None,
@@ -5084,9 +5204,9 @@ class ApiClient(ClientBase):
         accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('accepted_at__lte_or_isnull', )] = None,
         action_q: typing.Annotated[typing.Union[None, str], Query('action', )] = None,
         assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5098,9 +5218,9 @@ class ApiClient(ClientBase):
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        rejected_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('rejected_at', )] = None,
-        rejected_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('rejected_at__date', )] = None,
-        rejected_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('rejected_at__date_or_isnull', )] = None,
+        rejected_at_q: typing.Annotated[typing.Union[None, str], Query('rejected_at', )] = None,
+        rejected_at__date_q: typing.Annotated[typing.Union[None, str], Query('rejected_at__date', )] = None,
+        rejected_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('rejected_at__date_or_isnull', )] = None,
         rejected_at__gt_q: typing.Annotated[typing.Union[None, str], Query('rejected_at__gt', )] = None,
         rejected_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('rejected_at__gt_or_isnull', )] = None,
         rejected_at__gte_q: typing.Annotated[typing.Union[None, str], Query('rejected_at__gte', )] = None,
@@ -5113,9 +5233,9 @@ class ApiClient(ClientBase):
         task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
         task__account_q: typing.Annotated[typing.Union[None, str], Query('task__account', )] = None,
         time_q: typing.Annotated[typing.Union[None, str], Query('time', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5126,11 +5246,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand],
+                }),
+            ),
         })
     ]:
         pass
@@ -5138,20 +5260,22 @@ class ApiClient(ClientBase):
     @post('/task_commands/', security=[{'tokenAuth': []}])
     async def task_commands_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_commandsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_commandsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+                }),
+            ),
         })
     ]:
         pass
@@ -5160,14 +5284,16 @@ class ApiClient(ClientBase):
     async def task_commands_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+                }),
+            ),
         })
     ]:
         pass
@@ -5175,21 +5301,23 @@ class ApiClient(ClientBase):
     @put('/task_commands/{id}/', security=[{'tokenAuth': []}])
     async def task_commands_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_commandsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+                }),
+            ),
         })
     ]:
         pass
@@ -5198,11 +5326,11 @@ class ApiClient(ClientBase):
     async def task_event_tracks_list(
         self: typing.Self,
         *,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__in_q: typing.Annotated[typing.Union[None, str], Query('assignee__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5217,12 +5345,12 @@ class ApiClient(ClientBase):
         from_state_q: typing.Annotated[typing.Union[None, str], Query('from_state', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        task_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task', )] = None,
+        task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
         task__in_q: typing.Annotated[typing.Union[None, str], Query('task__in', )] = None,
         to_state_q: typing.Annotated[typing.Union[None, str], Query('to_state', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5231,14 +5359,16 @@ class ApiClient(ClientBase):
         updated_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lt_or_isnull', )] = None,
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
-        user_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('user', )] = None,
+        user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__in_q: typing.Annotated[typing.Union[None, str], Query('user__in', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskEventTrackList.schema.TaskEventTrackList, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskEventTrackList.schema.TaskEventTrackList,
+                }),
+            ),
         })
     ]:
         pass
@@ -5247,14 +5377,16 @@ class ApiClient(ClientBase):
     async def task_event_tracks_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_event_tracksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskEventTrack.schema.TaskEventTrack, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_event_tracksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskEventTrack.schema.TaskEventTrack,
+                }),
+            ),
         })
     ]:
         pass
@@ -5264,9 +5396,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5288,9 +5420,9 @@ class ApiClient(ClientBase):
         task__account_q: typing.Annotated[typing.Union[None, str], Query('task__account', )] = None,
         to_state_q: typing.Annotated[typing.Union[None, str], Query('to_state', )] = None,
         to_state__in_q: typing.Annotated[typing.Union[None, str], Query('to_state__in', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5301,11 +5433,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2],
+                }),
+            ),
         })
     ]:
         pass
@@ -5314,14 +5448,16 @@ class ApiClient(ClientBase):
     async def task_events_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_eventsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_eventsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -5330,7 +5466,7 @@ class ApiClient(ClientBase):
     async def task_exports_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -5362,9 +5498,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -5373,9 +5509,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -5430,7 +5566,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -5465,9 +5601,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -5476,9 +5612,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -5489,9 +5625,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -5500,9 +5636,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -5511,9 +5647,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -5559,7 +5695,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -5569,9 +5705,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5686,9 +5822,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -5697,9 +5833,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -5708,9 +5844,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -5719,9 +5855,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -5730,9 +5866,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -5741,9 +5877,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -5752,9 +5888,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -5763,9 +5899,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -5805,11 +5941,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -5857,7 +5993,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -5873,9 +6009,9 @@ class ApiClient(ClientBase):
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_q: typing.Annotated[typing.Union[None, int], Query('page', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -5894,7 +6030,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -5905,14 +6041,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -5931,14 +6067,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5949,11 +6085,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskExport.schema.TaskExport], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskExport.schema.TaskExport],
+                }),
+            ),
         })
     ]:
         pass
@@ -5962,9 +6100,9 @@ class ApiClient(ClientBase):
     async def task_forms_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -5976,9 +6114,9 @@ class ApiClient(ClientBase):
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -5988,11 +6126,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskForm.schema.TaskForm], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskForm.schema.TaskForm],
+                }),
+            ),
         })
     ]:
         pass
@@ -6000,20 +6140,22 @@ class ApiClient(ClientBase):
     @post('/task_forms/', security=[{'tokenAuth': []}])
     async def task_forms_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskForm.schema.TaskForm,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_formsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_formsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
+                }),
+            ),
         })
     ]:
         pass
@@ -6022,14 +6164,16 @@ class ApiClient(ClientBase):
     async def task_forms_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
+                }),
+            ),
         })
     ]:
         pass
@@ -6037,21 +6181,23 @@ class ApiClient(ClientBase):
     @put('/task_forms/{id}/', security=[{'tokenAuth': []}])
     async def task_forms_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskForm.schema.TaskForm,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
+                }),
+            ),
         })
     ]:
         pass
@@ -6059,21 +6205,23 @@ class ApiClient(ClientBase):
     @patch('/task_forms/{id}/', security=[{'tokenAuth': []}])
     async def task_forms_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_formsu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
+                }),
+            ),
         })
     ]:
         pass
@@ -6082,13 +6230,15 @@ class ApiClient(ClientBase):
     async def task_forms_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -6098,9 +6248,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -6109,9 +6259,9 @@ class ApiClient(ClientBase):
         completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lt_or_isnull', )] = None,
         completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte', )] = None,
         completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__lte_or_isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -6121,9 +6271,9 @@ class ApiClient(ClientBase):
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         cursor_q: typing.Annotated[typing.Union[None, str], Query('cursor', )] = None,
-        failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at', )] = None,
-        failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date', )] = None,
-        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('failed_at__date_or_isnull', )] = None,
+        failed_at_q: typing.Annotated[typing.Union[None, str], Query('failed_at', )] = None,
+        failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date', )] = None,
+        failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__date_or_isnull', )] = None,
         failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt', )] = None,
         failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gt_or_isnull', )] = None,
         failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('failed_at__gte', )] = None,
@@ -6134,9 +6284,9 @@ class ApiClient(ClientBase):
         failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('failed_at__lte_or_isnull', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        started_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at', )] = None,
-        started_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date', )] = None,
-        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('started_at__date_or_isnull', )] = None,
+        started_at_q: typing.Annotated[typing.Union[None, str], Query('started_at', )] = None,
+        started_at__date_q: typing.Annotated[typing.Union[None, str], Query('started_at__date', )] = None,
+        started_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__date_or_isnull', )] = None,
         started_at__gt_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt', )] = None,
         started_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__gt_or_isnull', )] = None,
         started_at__gte_q: typing.Annotated[typing.Union[None, str], Query('started_at__gte', )] = None,
@@ -6146,9 +6296,9 @@ class ApiClient(ClientBase):
         started_at__lte_q: typing.Annotated[typing.Union[None, str], Query('started_at__lte', )] = None,
         started_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('started_at__lte_or_isnull', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -6158,11 +6308,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport],
+                }),
+            ),
         })
     ]:
         pass
@@ -6170,20 +6322,22 @@ class ApiClient(ClientBase):
     @post('/task_import/', security=[{'tokenAuth': []}])
     async def task_import_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_importu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_importu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport,
+                }),
+            ),
         })
     ]:
         pass
@@ -6192,14 +6346,16 @@ class ApiClient(ClientBase):
     async def task_import_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_importu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_importu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport,
+                }),
+            ),
         })
     ]:
         pass
@@ -6209,9 +6365,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -6228,9 +6384,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -6240,11 +6396,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping],
+                }),
+            ),
         })
     ]:
         pass
@@ -6252,20 +6410,22 @@ class ApiClient(ClientBase):
     @post('/task_import_mapping/', security=[{'tokenAuth': []}])
     async def task_import_mapping_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.ImportMapping.schema.ImportMapping,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.ImportMapping.schema.ImportMapping,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_import_mappingu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_import_mappingu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ImportMapping.schema.ImportMapping,
+                }),
+            ),
         })
     ]:
         pass
@@ -6274,14 +6434,16 @@ class ApiClient(ClientBase):
     async def task_import_mapping_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_import_mappingu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_import_mappingu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ImportMapping.schema.ImportMapping,
+                }),
+            ),
         })
     ]:
         pass
@@ -6290,9 +6452,9 @@ class ApiClient(ClientBase):
     async def task_metadatas_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -6306,9 +6468,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         task_q: typing.Annotated[typing.Union[None, str], Query('task', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -6318,11 +6480,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata],
+                }),
+            ),
         })
     ]:
         pass
@@ -6331,14 +6495,16 @@ class ApiClient(ClientBase):
     async def task_metadatas_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltask_metadatasu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltask_metadatasu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata,
+                }),
+            ),
         })
     ]:
         pass
@@ -6347,7 +6513,7 @@ class ApiClient(ClientBase):
     async def tasks_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -6379,9 +6545,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -6390,9 +6556,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -6447,7 +6613,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -6482,9 +6648,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -6493,9 +6659,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -6506,9 +6672,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -6517,9 +6683,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -6528,9 +6694,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -6576,7 +6742,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -6586,9 +6752,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -6596,7 +6762,7 @@ class ApiClient(ClientBase):
         created_at__lt_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt', )] = None,
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
-        created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, list[uuid.UUID]], Query('created_at__lte_or_isnull', )] = None,
+        created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
         created_by_q: typing.Annotated[typing.Union[None, str], Query('created_by', )] = None,
         created_by__in_q: typing.Annotated[typing.Union[None, str], Query('created_by__in', )] = None,
         created_by__isnull_q: typing.Annotated[typing.Union[None, str], Query('created_by__isnull', )] = None,
@@ -6620,7 +6786,7 @@ class ApiClient(ClientBase):
         external_id__search_q: typing.Annotated[typing.Union[None, str], Query('external_id__search', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         id_q: typing.Annotated[typing.Union[None, str], Query('id', )] = None,
-        id__in_q: typing.Annotated[typing.Union[None, str], Query('id__in', )] = None,
+        id__in_q: typing.Annotated[typing.Union[None, list[str]], Query('id__in', style=ParamStyle.simple,)] = None,
         is_optimal_q: typing.Annotated[typing.Union[None, str], Query('is_optimal', )] = None,
         is_optimal__isnull_q: typing.Annotated[typing.Union[None, str], Query('is_optimal__isnull', )] = None,
         metadata__accepted_distance_q: typing.Annotated[typing.Union[None, str], Query('metadata__accepted_distance', )] = None,
@@ -6703,9 +6869,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -6714,9 +6880,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -6725,9 +6891,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -6736,9 +6902,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -6747,9 +6913,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -6758,9 +6924,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -6769,9 +6935,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -6780,9 +6946,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -6822,11 +6988,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -6874,7 +7040,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -6889,9 +7055,9 @@ class ApiClient(ClientBase):
         owner_id__in_q: typing.Annotated[typing.Union[None, str], Query('owner_id__in', )] = None,
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -6910,7 +7076,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -6921,14 +7087,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -6947,14 +7113,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -6966,11 +7132,13 @@ class ApiClient(ClientBase):
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
         sideload_q: typing.Annotated[typing.Union[None, list[str]], Query('sideload', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.response.Response,
+        tuple[typing.Union[gsmtasks.components.schemas.TaskListExt.schema.TaskListExt, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.TaskListExt.schema.TaskListExt, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
+                }),
+            ),
         })
     ]:
         pass
@@ -6978,9 +7146,9 @@ class ApiClient(ClientBase):
     @post('/tasks/', security=[{'tokenAuth': []}])
     async def tasks_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             typing.Union[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
-            RequestBody({
+            Body({
                 'application/json': typing.Union[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
             }),
         ],
@@ -7005,11 +7173,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_l.post.responses.u_o01.response.Response,
+        tuple[typing.Union[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]], None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
+                }),
+            ),
         })
     ]:
         pass
@@ -7018,7 +7188,7 @@ class ApiClient(ClientBase):
     async def tasks_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7039,11 +7209,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7051,14 +7223,14 @@ class ApiClient(ClientBase):
     @put('/tasks/{id}/', security=[{'tokenAuth': []}])
     async def tasks_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7079,11 +7251,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7091,14 +7265,14 @@ class ApiClient(ClientBase):
     @patch('/tasks/{id}/', security=[{'tokenAuth': []}])
     async def tasks_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedTaskSerializerV2.schema.PatchedTaskSerializerV2,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedTaskSerializerV2.schema.PatchedTaskSerializerV2,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7119,11 +7293,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7131,14 +7307,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/accept/', security=[{'tokenAuth': []}])
     async def tasks_accept_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7159,11 +7335,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lacceptu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lacceptu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7171,14 +7349,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/account_change/', security=[{'tokenAuth': []}])
     async def tasks_account_change_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAccountChange.schema.TaskAccountChange,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAccountChange.schema.TaskAccountChange,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7199,11 +7377,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_laccount_changeu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Task.schema.Task, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_laccount_changeu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Task.schema.Task,
+                }),
+            ),
         })
     ]:
         pass
@@ -7211,14 +7391,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/activate/', security=[{'tokenAuth': []}])
     async def tasks_activate_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7239,11 +7419,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7251,14 +7433,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/assign/', security=[{'tokenAuth': []}])
     async def tasks_assign_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAssign.schema.TaskAssign,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAssign.schema.TaskAssign,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7279,11 +7461,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lassignu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lassignu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7291,14 +7475,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/cancel/', security=[{'tokenAuth': []}])
     async def tasks_cancel_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7319,11 +7503,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcancelu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcancelu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7331,14 +7517,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/complete/', security=[{'tokenAuth': []}])
     async def tasks_complete_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -7359,11 +7545,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcompleteu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lcompleteu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -7372,8 +7560,8 @@ class ApiClient(ClientBase):
     async def tasks_documents_list(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        id_p: typing.Annotated[str, Path('id', )],
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -7405,9 +7593,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -7416,9 +7604,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -7473,7 +7661,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -7508,9 +7696,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -7519,9 +7707,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -7532,9 +7720,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -7543,9 +7731,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -7554,9 +7742,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -7602,7 +7790,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -7612,9 +7800,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -7729,9 +7917,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -7740,9 +7928,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -7751,9 +7939,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -7762,9 +7950,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -7773,9 +7961,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -7784,9 +7972,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -7795,9 +7983,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -7806,9 +7994,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -7848,11 +8036,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -7900,7 +8088,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -7915,9 +8103,9 @@ class ApiClient(ClientBase):
         owner_id__in_q: typing.Annotated[typing.Union[None, str], Query('owner_id__in', )] = None,
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -7936,7 +8124,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -7947,14 +8135,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -7973,14 +8161,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -7991,11 +8179,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Document.schema.Document], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Document.schema.Document],
+                }),
+            ),
         })
     ]:
         pass
@@ -8004,8 +8194,8 @@ class ApiClient(ClientBase):
     async def tasks_events_list(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        id_p: typing.Annotated[str, Path('id', )],
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -8037,9 +8227,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -8048,9 +8238,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -8105,7 +8295,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -8140,9 +8330,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -8151,9 +8341,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -8164,9 +8354,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -8175,9 +8365,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -8186,9 +8376,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -8234,7 +8424,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -8244,9 +8434,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -8361,9 +8551,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -8372,9 +8562,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -8383,9 +8573,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -8394,9 +8584,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -8405,9 +8595,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -8416,9 +8606,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -8427,9 +8617,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -8438,9 +8628,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -8480,11 +8670,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -8532,7 +8722,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -8547,9 +8737,9 @@ class ApiClient(ClientBase):
         owner_id__in_q: typing.Annotated[typing.Union[None, str], Query('owner_id__in', )] = None,
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -8568,7 +8758,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -8579,14 +8769,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -8605,14 +8795,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -8623,11 +8813,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskEvent.schema.TaskEvent], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskEvent.schema.TaskEvent],
+                }),
+            ),
         })
     ]:
         pass
@@ -8635,14 +8827,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/fail/', security=[{'tokenAuth': []}])
     async def tasks_fail_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -8663,11 +8855,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lfailu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lfailu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -8676,7 +8870,7 @@ class ApiClient(ClientBase):
     async def tasks_pod_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -8697,10 +8891,12 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '200': {
-            },
+            '200': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -8708,14 +8904,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/reject/', security=[{'tokenAuth': []}])
     async def tasks_reject_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -8736,11 +8932,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lrejectu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lrejectu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -8749,8 +8947,8 @@ class ApiClient(ClientBase):
     async def tasks_signatures_list(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        id_p: typing.Annotated[str, Path('id', )],
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -8782,9 +8980,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -8793,9 +8991,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -8850,7 +9048,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -8885,9 +9083,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -8896,9 +9094,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -8909,9 +9107,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -8920,9 +9118,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -8931,9 +9129,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -8979,7 +9177,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -8989,9 +9187,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -9106,9 +9304,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -9117,9 +9315,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -9128,9 +9326,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -9139,9 +9337,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -9150,9 +9348,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -9161,9 +9359,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -9172,9 +9370,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -9183,9 +9381,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -9225,11 +9423,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -9277,7 +9475,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -9292,9 +9490,9 @@ class ApiClient(ClientBase):
         owner_id__in_q: typing.Annotated[typing.Union[None, str], Query('owner_id__in', )] = None,
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -9313,7 +9511,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -9324,14 +9522,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -9350,14 +9548,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -9368,11 +9566,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Signature.schema.Signature],
+                }),
+            ),
         })
     ]:
         pass
@@ -9380,14 +9580,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/transit/', security=[{'tokenAuth': []}])
     async def tasks_transit_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -9408,11 +9608,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ltransitu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ltransitu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -9420,14 +9622,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/unaccept/', security=[{'tokenAuth': []}])
     async def tasks_unaccept_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -9448,11 +9650,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunacceptu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunacceptu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -9460,14 +9664,14 @@ class ApiClient(ClientBase):
     @post('/tasks/{id}/unassign/', security=[{'tokenAuth': []}])
     async def tasks_unassign_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskAction.schema.TaskAction,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskAction.schema.TaskAction,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         order__orderer__company_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company', )] = None,
         order__orderer__company__icontains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__company__icontains', )] = None,
@@ -9488,11 +9692,13 @@ class ApiClient(ClientBase):
         order__orderer__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__contains', )] = None,
         order__orderer__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('order__orderer__phones__overlap', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunassignu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lunassignu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2,
+                }),
+            ),
         })
     ]:
         pass
@@ -9500,14 +9706,14 @@ class ApiClient(ClientBase):
     @post('/tasks/reorder/', security=[{'tokenAuth': []}])
     async def tasks_reorder_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TaskListReorderRequest.schema.TaskListReorderRequest,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TaskListReorderRequest.schema.TaskListReorderRequest,
             }),
         ],
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
         address__apartment_number_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number', )] = None,
         address__apartment_number__icontains_q: typing.Annotated[typing.Union[None, str], Query('address__apartment_number__icontains', )] = None,
@@ -9539,9 +9745,9 @@ class ApiClient(ClientBase):
         address__formatted_address__iregex_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__iregex', )] = None,
         address__formatted_address__istartswith_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__istartswith', )] = None,
         address__formatted_address__search_q: typing.Annotated[typing.Union[None, str], Query('address__formatted_address__search', )] = None,
-        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at', )] = None,
-        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date', )] = None,
-        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocode_failed_at__date_or_isnull', )] = None,
+        address__geocode_failed_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at', )] = None,
+        address__geocode_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date', )] = None,
+        address__geocode_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__date_or_isnull', )] = None,
         address__geocode_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt', )] = None,
         address__geocode_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gt_or_isnull', )] = None,
         address__geocode_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__gte', )] = None,
@@ -9550,9 +9756,9 @@ class ApiClient(ClientBase):
         address__geocode_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lt_or_isnull', )] = None,
         address__geocode_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte', )] = None,
         address__geocode_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocode_failed_at__lte_or_isnull', )] = None,
-        address__geocoded_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at', )] = None,
-        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date', )] = None,
-        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('address__geocoded_at__date_or_isnull', )] = None,
+        address__geocoded_at_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at', )] = None,
+        address__geocoded_at__date_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date', )] = None,
+        address__geocoded_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__date_or_isnull', )] = None,
         address__geocoded_at__gt_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt', )] = None,
         address__geocoded_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gt_or_isnull', )] = None,
         address__geocoded_at__gte_q: typing.Annotated[typing.Union[None, str], Query('address__geocoded_at__gte', )] = None,
@@ -9607,7 +9813,7 @@ class ApiClient(ClientBase):
         address_id_q: typing.Annotated[typing.Union[None, str], Query('address_id', )] = None,
         address_id__in_q: typing.Annotated[typing.Union[None, str], Query('address_id__in', )] = None,
         address_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('address_id__isnull', )] = None,
-        assignee_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('assignee', )] = None,
+        assignee_q: typing.Annotated[typing.Union[None, str], Query('assignee', )] = None,
         assignee__email_q: typing.Annotated[typing.Union[None, str], Query('assignee__email', )] = None,
         assignee__email__icontains_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__icontains', )] = None,
         assignee__email__iregex_q: typing.Annotated[typing.Union[None, str], Query('assignee__email__iregex', )] = None,
@@ -9642,9 +9848,9 @@ class ApiClient(ClientBase):
         barcodes__contains_q: typing.Annotated[typing.Union[None, str], Query('barcodes__contains', )] = None,
         barcodes__isnull_q: typing.Annotated[typing.Union[None, bool], Query('barcodes__isnull', )] = None,
         barcodes__overlap_q: typing.Annotated[typing.Union[None, str], Query('barcodes__overlap', )] = None,
-        calendar_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time', )] = None,
-        calendar_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date', )] = None,
-        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('calendar_time__date_or_isnull', )] = None,
+        calendar_time_q: typing.Annotated[typing.Union[None, str], Query('calendar_time', )] = None,
+        calendar_time__date_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date', )] = None,
+        calendar_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__date_or_isnull', )] = None,
         calendar_time__gt_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt', )] = None,
         calendar_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gt_or_isnull', )] = None,
         calendar_time__gte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__gte', )] = None,
@@ -9653,9 +9859,9 @@ class ApiClient(ClientBase):
         calendar_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lt_or_isnull', )] = None,
         calendar_time__lte_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte', )] = None,
         calendar_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('calendar_time__lte_or_isnull', )] = None,
-        cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at', )] = None,
-        cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date', )] = None,
-        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('cancelled_at__date_or_isnull', )] = None,
+        cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at', )] = None,
+        cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date', )] = None,
+        cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__date_or_isnull', )] = None,
         cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt', )] = None,
         cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gt_or_isnull', )] = None,
         cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__gte', )] = None,
@@ -9666,9 +9872,9 @@ class ApiClient(ClientBase):
         cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('cancelled_at__lte_or_isnull', )] = None,
         category_q: typing.Annotated[typing.Union[None, str], Query('category', )] = None,
         category__in_q: typing.Annotated[typing.Union[None, str], Query('category__in', )] = None,
-        complete_after_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after', )] = None,
-        complete_after__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date', )] = None,
-        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_after__date_or_isnull', )] = None,
+        complete_after_q: typing.Annotated[typing.Union[None, str], Query('complete_after', )] = None,
+        complete_after__date_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date', )] = None,
+        complete_after__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__date_or_isnull', )] = None,
         complete_after__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt', )] = None,
         complete_after__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gt_or_isnull', )] = None,
         complete_after__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__gte', )] = None,
@@ -9677,9 +9883,9 @@ class ApiClient(ClientBase):
         complete_after__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lt_or_isnull', )] = None,
         complete_after__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte', )] = None,
         complete_after__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_after__lte_or_isnull', )] = None,
-        complete_before_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before', )] = None,
-        complete_before__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date', )] = None,
-        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('complete_before__date_or_isnull', )] = None,
+        complete_before_q: typing.Annotated[typing.Union[None, str], Query('complete_before', )] = None,
+        complete_before__date_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date', )] = None,
+        complete_before__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__date_or_isnull', )] = None,
         complete_before__gt_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt', )] = None,
         complete_before__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gt_or_isnull', )] = None,
         complete_before__gte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__gte', )] = None,
@@ -9688,9 +9894,9 @@ class ApiClient(ClientBase):
         complete_before__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lt_or_isnull', )] = None,
         complete_before__lte_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte', )] = None,
         complete_before__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('complete_before__lte_or_isnull', )] = None,
-        completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at', )] = None,
-        completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date', )] = None,
-        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('completed_at__date_or_isnull', )] = None,
+        completed_at_q: typing.Annotated[typing.Union[None, str], Query('completed_at', )] = None,
+        completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date', )] = None,
+        completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__date_or_isnull', )] = None,
         completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt', )] = None,
         completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gt_or_isnull', )] = None,
         completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('completed_at__gte', )] = None,
@@ -9736,7 +9942,7 @@ class ApiClient(ClientBase):
         contact__phones__contains_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__contains', )] = None,
         contact__phones__isnull_q: typing.Annotated[typing.Union[None, bool], Query('contact__phones__isnull', )] = None,
         contact__phones__overlap_q: typing.Annotated[typing.Union[None, str], Query('contact__phones__overlap', )] = None,
-        contact_address_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('contact_address', )] = None,
+        contact_address_q: typing.Annotated[typing.Union[None, str], Query('contact_address', )] = None,
         contact_address__external_id_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id', )] = None,
         contact_address__external_id__icontains_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__icontains', )] = None,
         contact_address__external_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_address__external_id__in', )] = None,
@@ -9746,9 +9952,9 @@ class ApiClient(ClientBase):
         contact_id_q: typing.Annotated[typing.Union[None, str], Query('contact_id', )] = None,
         contact_id__in_q: typing.Annotated[typing.Union[None, str], Query('contact_id__in', )] = None,
         contact_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('contact_id__isnull', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -9863,9 +10069,9 @@ class ApiClient(ClientBase):
         metadata__forms_count__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__gte', )] = None,
         metadata__forms_count__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lt', )] = None,
         metadata__forms_count__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__forms_count__lte', )] = None,
-        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at', )] = None,
-        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date', )] = None,
-        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
+        metadata__last_accepted_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at', )] = None,
+        metadata__last_accepted_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date', )] = None,
+        metadata__last_accepted_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__date_or_isnull', )] = None,
         metadata__last_accepted_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt', )] = None,
         metadata__last_accepted_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gt_or_isnull', )] = None,
         metadata__last_accepted_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__gte', )] = None,
@@ -9874,9 +10080,9 @@ class ApiClient(ClientBase):
         metadata__last_accepted_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lt_or_isnull', )] = None,
         metadata__last_accepted_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte', )] = None,
         metadata__last_accepted_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_accepted_at__lte_or_isnull', )] = None,
-        metadata__last_active_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at', )] = None,
-        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date', )] = None,
-        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_active_at__date_or_isnull', )] = None,
+        metadata__last_active_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at', )] = None,
+        metadata__last_active_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date', )] = None,
+        metadata__last_active_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__date_or_isnull', )] = None,
         metadata__last_active_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt', )] = None,
         metadata__last_active_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gt_or_isnull', )] = None,
         metadata__last_active_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__gte', )] = None,
@@ -9885,9 +10091,9 @@ class ApiClient(ClientBase):
         metadata__last_active_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lt_or_isnull', )] = None,
         metadata__last_active_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte', )] = None,
         metadata__last_active_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_active_at__lte_or_isnull', )] = None,
-        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at', )] = None,
-        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date', )] = None,
-        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
+        metadata__last_assigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at', )] = None,
+        metadata__last_assigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date', )] = None,
+        metadata__last_assigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__date_or_isnull', )] = None,
         metadata__last_assigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt', )] = None,
         metadata__last_assigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gt_or_isnull', )] = None,
         metadata__last_assigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__gte', )] = None,
@@ -9896,9 +10102,9 @@ class ApiClient(ClientBase):
         metadata__last_assigned_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lt_or_isnull', )] = None,
         metadata__last_assigned_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte', )] = None,
         metadata__last_assigned_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_assigned_at__lte_or_isnull', )] = None,
-        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at', )] = None,
-        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date', )] = None,
-        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
+        metadata__last_cancelled_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at', )] = None,
+        metadata__last_cancelled_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date', )] = None,
+        metadata__last_cancelled_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__date_or_isnull', )] = None,
         metadata__last_cancelled_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt', )] = None,
         metadata__last_cancelled_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gt_or_isnull', )] = None,
         metadata__last_cancelled_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__gte', )] = None,
@@ -9907,9 +10113,9 @@ class ApiClient(ClientBase):
         metadata__last_cancelled_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lt_or_isnull', )] = None,
         metadata__last_cancelled_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte', )] = None,
         metadata__last_cancelled_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_cancelled_at__lte_or_isnull', )] = None,
-        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at', )] = None,
-        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date', )] = None,
-        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_completed_at__date_or_isnull', )] = None,
+        metadata__last_completed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at', )] = None,
+        metadata__last_completed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date', )] = None,
+        metadata__last_completed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__date_or_isnull', )] = None,
         metadata__last_completed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt', )] = None,
         metadata__last_completed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gt_or_isnull', )] = None,
         metadata__last_completed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__gte', )] = None,
@@ -9918,9 +10124,9 @@ class ApiClient(ClientBase):
         metadata__last_completed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lt_or_isnull', )] = None,
         metadata__last_completed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte', )] = None,
         metadata__last_completed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_completed_at__lte_or_isnull', )] = None,
-        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at', )] = None,
-        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date', )] = None,
-        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_failed_at__date_or_isnull', )] = None,
+        metadata__last_failed_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at', )] = None,
+        metadata__last_failed_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date', )] = None,
+        metadata__last_failed_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__date_or_isnull', )] = None,
         metadata__last_failed_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt', )] = None,
         metadata__last_failed_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gt_or_isnull', )] = None,
         metadata__last_failed_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__gte', )] = None,
@@ -9929,9 +10135,9 @@ class ApiClient(ClientBase):
         metadata__last_failed_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lt_or_isnull', )] = None,
         metadata__last_failed_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte', )] = None,
         metadata__last_failed_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_failed_at__lte_or_isnull', )] = None,
-        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at', )] = None,
-        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date', )] = None,
-        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_transit_at__date_or_isnull', )] = None,
+        metadata__last_transit_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at', )] = None,
+        metadata__last_transit_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date', )] = None,
+        metadata__last_transit_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__date_or_isnull', )] = None,
         metadata__last_transit_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt', )] = None,
         metadata__last_transit_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gt_or_isnull', )] = None,
         metadata__last_transit_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__gte', )] = None,
@@ -9940,9 +10146,9 @@ class ApiClient(ClientBase):
         metadata__last_transit_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lt_or_isnull', )] = None,
         metadata__last_transit_at__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte', )] = None,
         metadata__last_transit_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_transit_at__lte_or_isnull', )] = None,
-        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at', )] = None,
-        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date', )] = None,
-        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
+        metadata__last_unassigned_at_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at', )] = None,
+        metadata__last_unassigned_at__date_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date', )] = None,
+        metadata__last_unassigned_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__date_or_isnull', )] = None,
         metadata__last_unassigned_at__gt_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt', )] = None,
         metadata__last_unassigned_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gt_or_isnull', )] = None,
         metadata__last_unassigned_at__gte_q: typing.Annotated[typing.Union[None, str], Query('metadata__last_unassigned_at__gte', )] = None,
@@ -9982,11 +10188,11 @@ class ApiClient(ClientBase):
         metadata__unassigned_duration__lt_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lt', )] = None,
         metadata__unassigned_duration__lte_q: typing.Annotated[typing.Union[None, str], Query('metadata__unassigned_duration__lte', )] = None,
         metafields__namespaceu_wkey_q: typing.Annotated[typing.Union[None, str], Query('metafields__namespace:key', )] = None,
-        order_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('order', )] = None,
+        order_q: typing.Annotated[typing.Union[None, str], Query('order', )] = None,
         order__auto_assign_q: typing.Annotated[typing.Union[None, str], Query('order__auto_assign', )] = None,
-        order__created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at', )] = None,
-        order__created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date', )] = None,
-        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('order__created_at__date_or_isnull', )] = None,
+        order__created_at_q: typing.Annotated[typing.Union[None, str], Query('order__created_at', )] = None,
+        order__created_at__date_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date', )] = None,
+        order__created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__date_or_isnull', )] = None,
         order__created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt', )] = None,
         order__created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gt_or_isnull', )] = None,
         order__created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('order__created_at__gte', )] = None,
@@ -10034,7 +10240,7 @@ class ApiClient(ClientBase):
         order_id_q: typing.Annotated[typing.Union[None, str], Query('order_id', )] = None,
         order_id__in_q: typing.Annotated[typing.Union[None, str], Query('order_id__in', )] = None,
         order_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('order_id__isnull', )] = None,
-        orderer_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('orderer', )] = None,
+        orderer_q: typing.Annotated[typing.Union[None, str], Query('orderer', )] = None,
         orderer__id_q: typing.Annotated[typing.Union[None, str], Query('orderer__id', )] = None,
         orderer__id__in_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__in', )] = None,
         orderer__id__isnull_q: typing.Annotated[typing.Union[None, str], Query('orderer__id__isnull', )] = None,
@@ -10049,9 +10255,9 @@ class ApiClient(ClientBase):
         owner_id__in_q: typing.Annotated[typing.Union[None, str], Query('owner_id__in', )] = None,
         owner_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('owner_id__isnull', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        position_q: typing.Annotated[typing.Union[None, datetime.date], Query('position', )] = None,
-        position__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date', )] = None,
-        position__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('position__date_or_isnull', )] = None,
+        position_q: typing.Annotated[typing.Union[None, str], Query('position', )] = None,
+        position__date_q: typing.Annotated[typing.Union[None, str], Query('position__date', )] = None,
+        position__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__date_or_isnull', )] = None,
         position__gt_q: typing.Annotated[typing.Union[None, str], Query('position__gt', )] = None,
         position__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('position__gt_or_isnull', )] = None,
         position__gte_q: typing.Annotated[typing.Union[None, str], Query('position__gte', )] = None,
@@ -10070,7 +10276,7 @@ class ApiClient(ClientBase):
         priority__in_q: typing.Annotated[typing.Union[None, str], Query('priority__in', )] = None,
         priority__lt_q: typing.Annotated[typing.Union[None, str], Query('priority__lt', )] = None,
         priority__lte_q: typing.Annotated[typing.Union[None, str], Query('priority__lte', )] = None,
-        receiver_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('receiver', )] = None,
+        receiver_q: typing.Annotated[typing.Union[None, str], Query('receiver', )] = None,
         receiver__in_q: typing.Annotated[typing.Union[None, str], Query('receiver__in', )] = None,
         receiver_id_q: typing.Annotated[typing.Union[None, str], Query('receiver_id', )] = None,
         receiver_id__in_q: typing.Annotated[typing.Union[None, str], Query('receiver_id__in', )] = None,
@@ -10081,14 +10287,14 @@ class ApiClient(ClientBase):
         reference__iregex_q: typing.Annotated[typing.Union[None, str], Query('reference__iregex', )] = None,
         reference__istartswith_q: typing.Annotated[typing.Union[None, str], Query('reference__istartswith', )] = None,
         reference__search_q: typing.Annotated[typing.Union[None, str], Query('reference__search', )] = None,
-        route_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('route', )] = None,
+        route_q: typing.Annotated[typing.Union[None, str], Query('route', )] = None,
         route__in_q: typing.Annotated[typing.Union[None, str], Query('route__in', )] = None,
         route_id_q: typing.Annotated[typing.Union[None, str], Query('route_id', )] = None,
         route_id__in_q: typing.Annotated[typing.Union[None, str], Query('route_id__in', )] = None,
         route_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('route_id__isnull', )] = None,
-        scheduled_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time', )] = None,
-        scheduled_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date', )] = None,
-        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('scheduled_time__date_or_isnull', )] = None,
+        scheduled_time_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time', )] = None,
+        scheduled_time__date_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date', )] = None,
+        scheduled_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__date_or_isnull', )] = None,
         scheduled_time__gt_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt', )] = None,
         scheduled_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gt_or_isnull', )] = None,
         scheduled_time__gte_q: typing.Annotated[typing.Union[None, str], Query('scheduled_time__gte', )] = None,
@@ -10107,14 +10313,14 @@ class ApiClient(ClientBase):
         state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
         state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
         state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
-        task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
+        task_import_q: typing.Annotated[typing.Union[None, str], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, str], Query('task_import__in', )] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id', )] = None,
         unassignee_id__in_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__in', )] = None,
         unassignee_id__isnull_q: typing.Annotated[typing.Union[None, str], Query('unassignee_id__isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -10125,11 +10331,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltasksu_lreorderu_l.post.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TaskListReorderResponseTask.schema.TaskListReorderResponseTask], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltasksu_lreorderu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskListReorderResponseTask.schema.TaskListReorderResponseTask],
+                }),
+            ),
         })
     ]:
         pass
@@ -10138,9 +10346,9 @@ class ApiClient(ClientBase):
     async def time_location_features_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -10153,9 +10361,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
-        time_q: typing.Annotated[typing.Union[None, datetime.date], Query('time', )] = None,
-        time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date', )] = None,
-        time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date_or_isnull', )] = None,
+        time_q: typing.Annotated[typing.Union[None, str], Query('time', )] = None,
+        time__date_q: typing.Annotated[typing.Union[None, str], Query('time__date', )] = None,
+        time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__date_or_isnull', )] = None,
         time__gt_q: typing.Annotated[typing.Union[None, str], Query('time__gt', )] = None,
         time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__gt_or_isnull', )] = None,
         time__gte_q: typing.Annotated[typing.Union[None, str], Query('time__gte', )] = None,
@@ -10164,9 +10372,9 @@ class ApiClient(ClientBase):
         time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lt_or_isnull', )] = None,
         time__lte_q: typing.Annotated[typing.Union[None, str], Query('time__lte', )] = None,
         time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lte_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -10177,11 +10385,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocationFeatureList.schema.TimeLocationFeatureList, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeatureList.schema.TimeLocationFeatureList,
+                }),
+            ),
         })
     ]:
         pass
@@ -10189,20 +10399,22 @@ class ApiClient(ClientBase):
     @post('/time_location_features/', security=[{'tokenAuth': []}])
     async def time_location_features_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_location_featuresu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_location_featuresu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -10211,14 +10423,16 @@ class ApiClient(ClientBase):
     async def time_location_features_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -10226,21 +10440,23 @@ class ApiClient(ClientBase):
     @put('/time_location_features/{id}/', security=[{'tokenAuth': []}])
     async def time_location_features_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -10248,21 +10464,23 @@ class ApiClient(ClientBase):
     @patch('/time_location_features/{id}/', security=[{'tokenAuth': []}])
     async def time_location_features_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_location_featuresu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -10271,13 +10489,15 @@ class ApiClient(ClientBase):
     async def time_location_features_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -10286,9 +10506,9 @@ class ApiClient(ClientBase):
     async def time_locations_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -10301,9 +10521,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
-        time_q: typing.Annotated[typing.Union[None, datetime.date], Query('time', )] = None,
-        time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date', )] = None,
-        time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date_or_isnull', )] = None,
+        time_q: typing.Annotated[typing.Union[None, str], Query('time', )] = None,
+        time__date_q: typing.Annotated[typing.Union[None, str], Query('time__date', )] = None,
+        time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__date_or_isnull', )] = None,
         time__gt_q: typing.Annotated[typing.Union[None, str], Query('time__gt', )] = None,
         time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__gt_or_isnull', )] = None,
         time__gte_q: typing.Annotated[typing.Union[None, str], Query('time__gte', )] = None,
@@ -10312,9 +10532,9 @@ class ApiClient(ClientBase):
         time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lt_or_isnull', )] = None,
         time__lte_q: typing.Annotated[typing.Union[None, str], Query('time__lte', )] = None,
         time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lte_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -10325,11 +10545,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation],
+                }),
+            ),
         })
     ]:
         pass
@@ -10337,20 +10559,22 @@ class ApiClient(ClientBase):
     @post('/time_locations/', security=[{'tokenAuth': []}])
     async def time_locations_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.TimeLocation.schema.TimeLocation,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.TimeLocation.schema.TimeLocation,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_locationsu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_locationsu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocation.schema.TimeLocation,
+                }),
+            ),
         })
     ]:
         pass
@@ -10359,14 +10583,16 @@ class ApiClient(ClientBase):
     async def time_locations_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltime_locationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltime_locationsu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocation.schema.TimeLocation,
+                }),
+            ),
         })
     ]:
         pass
@@ -10376,9 +10602,9 @@ class ApiClient(ClientBase):
         self: typing.Self,
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -10391,9 +10617,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -10403,11 +10629,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Tracker.schema.Tracker], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Tracker.schema.Tracker],
+                }),
+            ),
         })
     ]:
         pass
@@ -10415,20 +10643,22 @@ class ApiClient(ClientBase):
     @post('/trackers/', security=[{'tokenAuth': []}])
     async def trackers_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Tracker.schema.Tracker,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Tracker.schema.Tracker,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Tracker.schema.Tracker, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Tracker.schema.Tracker,
+                }),
+            ),
         })
     ]:
         pass
@@ -10437,14 +10667,16 @@ class ApiClient(ClientBase):
     async def trackers_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Tracker.schema.Tracker, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Tracker.schema.Tracker,
+                }),
+            ),
         })
     ]:
         pass
@@ -10452,21 +10684,23 @@ class ApiClient(ClientBase):
     @put('/trackers/{id}/', security=[{'tokenAuth': []}])
     async def trackers_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Tracker.schema.Tracker,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Tracker.schema.Tracker,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Tracker.schema.Tracker, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Tracker.schema.Tracker,
+                }),
+            ),
         })
     ]:
         pass
@@ -10474,21 +10708,23 @@ class ApiClient(ClientBase):
     @patch('/trackers/{id}/', security=[{'tokenAuth': []}])
     async def trackers_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedTracker.schema.PatchedTracker,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedTracker.schema.PatchedTracker,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Tracker.schema.Tracker, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Tracker.schema.Tracker,
+                }),
+            ),
         })
     ]:
         pass
@@ -10497,14 +10733,16 @@ class ApiClient(ClientBase):
     async def trackers_public_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_lpublicu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.TrackerPublic.schema.TrackerPublic, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_ltrackersu_lu_1zidu_21u_lpublicu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TrackerPublic.schema.TrackerPublic,
+                }),
+            ),
         })
     ]:
         pass
@@ -10518,11 +10756,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser],
+                }),
+            ),
         })
     ]:
         pass
@@ -10530,20 +10770,22 @@ class ApiClient(ClientBase):
     @post('/users/', security=[{'tokenAuth': []}])
     async def users_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AuthenticatedUserCreate.schema.AuthenticatedUserCreate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AuthenticatedUserCreate.schema.AuthenticatedUserCreate,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.AuthenticatedUserCreate.schema.AuthenticatedUserCreate, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AuthenticatedUserCreate.schema.AuthenticatedUserCreate,
+                }),
+            ),
         })
     ]:
         pass
@@ -10552,14 +10794,16 @@ class ApiClient(ClientBase):
     async def users_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.ReadableUser.schema.ReadableUser,
+                }),
+            ),
         })
     ]:
         pass
@@ -10567,21 +10811,23 @@ class ApiClient(ClientBase):
     @put('/users/{id}/', security=[{'tokenAuth': []}])
     async def users_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
+                }),
+            ),
         })
     ]:
         pass
@@ -10589,21 +10835,23 @@ class ApiClient(ClientBase):
     @patch('/users/{id}/', security=[{'tokenAuth': []}])
     async def users_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
+                }),
+            ),
         })
     ]:
         pass
@@ -10612,13 +10860,15 @@ class ApiClient(ClientBase):
     async def users_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -10626,21 +10876,23 @@ class ApiClient(ClientBase):
     @post('/users/{id}/activate/', security=[{'tokenAuth': []}])
     async def users_activate_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.UserActivation.schema.UserActivation,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.UserActivation.schema.UserActivation,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema.schema, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema.schema,
+                }),
+            ),
         })
     ]:
         pass
@@ -10649,14 +10901,16 @@ class ApiClient(ClientBase):
     async def users_on_duty_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.OnDuty.schema.OnDuty, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OnDuty.schema.OnDuty,
+                }),
+            ),
         })
     ]:
         pass
@@ -10664,21 +10918,23 @@ class ApiClient(ClientBase):
     @put('/users/{id}/on_duty/', security=[{'tokenAuth': []}])
     async def users_on_duty_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.OnDuty.schema.OnDuty,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.OnDuty.schema.OnDuty,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.OnDuty.schema.OnDuty, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusersu_lu_1zidu_21u_lon_dutyu_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.OnDuty.schema.OnDuty,
+                }),
+            ),
         })
     ]:
         pass
@@ -10687,13 +10943,15 @@ class ApiClient(ClientBase):
     async def users_on_duty_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -10704,9 +10962,9 @@ class ApiClient(ClientBase):
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account_role_q: typing.Annotated[typing.Union[None, str], Query('account_role', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -10721,9 +10979,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         status_q: typing.Annotated[typing.Union[None, str], Query('status', )] = None,
-        timestamp_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp', )] = None,
-        timestamp__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp__date', )] = None,
-        timestamp__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp__date_or_isnull', )] = None,
+        timestamp_q: typing.Annotated[typing.Union[None, str], Query('timestamp', )] = None,
+        timestamp__date_q: typing.Annotated[typing.Union[None, str], Query('timestamp__date', )] = None,
+        timestamp__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__date_or_isnull', )] = None,
         timestamp__gt_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gt', )] = None,
         timestamp__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gt_or_isnull', )] = None,
         timestamp__gte_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gte', )] = None,
@@ -10734,11 +10992,13 @@ class ApiClient(ClientBase):
         timestamp__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.WorkingState.schema.WorkingState],
+                }),
+            ),
         })
     ]:
         pass
@@ -10746,20 +11006,22 @@ class ApiClient(ClientBase):
     @post('/users_on_duty_log/', security=[{'tokenAuth': []}])
     async def users_on_duty_log_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.WorkingState.schema.WorkingState,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusers_on_duty_logu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.WorkingState.schema.WorkingState, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusers_on_duty_logu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
+                }),
+            ),
         })
     ]:
         pass
@@ -10768,14 +11030,16 @@ class ApiClient(ClientBase):
     async def users_on_duty_log_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lusers_on_duty_logu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.WorkingState.schema.WorkingState, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lusers_on_duty_logu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
+                }),
+            ),
         })
     ]:
         pass
@@ -10797,11 +11061,13 @@ class ApiClient(ClientBase):
         task_events_q: typing.Annotated[typing.Union[None, str], Query('task_events', )] = None,
         version_q: typing.Annotated[typing.Union[None, str], Query('version', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.Webhook.schema.Webhook], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.Webhook.schema.Webhook],
+                }),
+            ),
         })
     ]:
         pass
@@ -10809,20 +11075,22 @@ class ApiClient(ClientBase):
     @post('/webhooks/', security=[{'tokenAuth': []}])
     async def webhooks_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Webhook.schema.Webhook,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Webhook.schema.Webhook,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10831,14 +11099,16 @@ class ApiClient(ClientBase):
     async def webhooks_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10846,21 +11116,23 @@ class ApiClient(ClientBase):
     @put('/webhooks/{id}/', security=[{'tokenAuth': []}])
     async def webhooks_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.Webhook.schema.Webhook,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.Webhook.schema.Webhook,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.put.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10868,21 +11140,23 @@ class ApiClient(ClientBase):
     @patch('/webhooks/{id}/', security=[{'tokenAuth': []}])
     async def webhooks_partial_update(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
             }),
         ],
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_l.patch.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10891,13 +11165,15 @@ class ApiClient(ClientBase):
     async def webhooks_destroy(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        None,
+        tuple[None, None],
         Responses({
-            '204': {
-            },
+            '204': Response(
+                Body({
+                }),
+            ),
         })
     ]:
         pass
@@ -10906,14 +11182,16 @@ class ApiClient(ClientBase):
     async def webhooks_active_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_lactiveu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_lactiveu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10922,14 +11200,16 @@ class ApiClient(ClientBase):
     async def webhooks_inactive_create(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_linactiveu_l.post.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lwebhooksu_lu_1zidu_21u_linactiveu_l.post.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
+                }),
+            ),
         })
     ]:
         pass
@@ -10938,11 +11218,11 @@ class ApiClient(ClientBase):
     async def worker_features_list(
         self: typing.Self,
         *,
-        account_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('account', )] = None,
+        account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account__in_q: typing.Annotated[typing.Union[None, str], Query('account__in', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -10955,9 +11235,9 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
-        time_q: typing.Annotated[typing.Union[None, datetime.date], Query('time', )] = None,
-        time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date', )] = None,
-        time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('time__date_or_isnull', )] = None,
+        time_q: typing.Annotated[typing.Union[None, str], Query('time', )] = None,
+        time__date_q: typing.Annotated[typing.Union[None, str], Query('time__date', )] = None,
+        time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__date_or_isnull', )] = None,
         time__gt_q: typing.Annotated[typing.Union[None, str], Query('time__gt', )] = None,
         time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__gt_or_isnull', )] = None,
         time__gte_q: typing.Annotated[typing.Union[None, str], Query('time__gte', )] = None,
@@ -10966,9 +11246,9 @@ class ApiClient(ClientBase):
         time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lt_or_isnull', )] = None,
         time__lte_q: typing.Annotated[typing.Union[None, str], Query('time__lte', )] = None,
         time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('time__lte_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -10977,14 +11257,16 @@ class ApiClient(ClientBase):
         updated_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lt_or_isnull', )] = None,
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
-        user_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('user', )] = None,
+        user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__in_q: typing.Annotated[typing.Union[None, str], Query('user__in', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.WorkerFeatureList.schema.WorkerFeatureList, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkerFeatureList.schema.WorkerFeatureList,
+                }),
+            ),
         })
     ]:
         pass
@@ -10993,14 +11275,16 @@ class ApiClient(ClientBase):
     async def worker_features_retrieve(
         self: typing.Self,
         *,
-        user_id_p: typing.Annotated[uuid.UUID, Path('user_id', )],
+        user_id_p: typing.Annotated[str, Path('user_id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworker_featuresu_lu_1zuser_idu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.WorkerFeature.schema.WorkerFeature, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworker_featuresu_lu_1zuser_idu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkerFeature.schema.WorkerFeature,
+                }),
+            ),
         })
     ]:
         pass
@@ -11009,9 +11293,9 @@ class ApiClient(ClientBase):
     async def worker_tracks_list(
         self: typing.Self,
         *,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -11020,9 +11304,9 @@ class ApiClient(ClientBase):
         created_at__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lt_or_isnull', )] = None,
         created_at__lte_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte', )] = None,
         created_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__lte_or_isnull', )] = None,
-        end_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time', )] = None,
-        end_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date', )] = None,
-        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('end_time__date_or_isnull', )] = None,
+        end_time_q: typing.Annotated[typing.Union[None, str], Query('end_time', )] = None,
+        end_time__date_q: typing.Annotated[typing.Union[None, str], Query('end_time__date', )] = None,
+        end_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__date_or_isnull', )] = None,
         end_time__gt_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt', )] = None,
         end_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__gt_or_isnull', )] = None,
         end_time__gte_q: typing.Annotated[typing.Union[None, str], Query('end_time__gte', )] = None,
@@ -11032,9 +11316,9 @@ class ApiClient(ClientBase):
         end_time__lte_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte', )] = None,
         end_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('end_time__lte_or_isnull', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
-        start_time_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time', )] = None,
-        start_time__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date', )] = None,
-        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('start_time__date_or_isnull', )] = None,
+        start_time_q: typing.Annotated[typing.Union[None, str], Query('start_time', )] = None,
+        start_time__date_q: typing.Annotated[typing.Union[None, str], Query('start_time__date', )] = None,
+        start_time__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__date_or_isnull', )] = None,
         start_time__gt_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt', )] = None,
         start_time__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__gt_or_isnull', )] = None,
         start_time__gte_q: typing.Annotated[typing.Union[None, str], Query('start_time__gte', )] = None,
@@ -11043,9 +11327,9 @@ class ApiClient(ClientBase):
         start_time__lt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lt_or_isnull', )] = None,
         start_time__lte_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte', )] = None,
         start_time__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('start_time__lte_or_isnull', )] = None,
-        updated_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at', )] = None,
-        updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
-        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
+        updated_at_q: typing.Annotated[typing.Union[None, str], Query('updated_at', )] = None,
+        updated_at__date_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date', )] = None,
+        updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__date_or_isnull', )] = None,
         updated_at__gt_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt', )] = None,
         updated_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gt_or_isnull', )] = None,
         updated_at__gte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__gte', )] = None,
@@ -11055,11 +11339,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.WorkerTrackList.schema.WorkerTrackList, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkerTrackList.schema.WorkerTrackList,
+                }),
+            ),
         })
     ]:
         pass
@@ -11070,9 +11356,9 @@ class ApiClient(ClientBase):
         *,
         account_q: typing.Annotated[typing.Union[None, str], Query('account', )] = None,
         account_role_q: typing.Annotated[typing.Union[None, str], Query('account_role', )] = None,
-        created_at_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at', )] = None,
-        created_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date', )] = None,
-        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('created_at__date_or_isnull', )] = None,
+        created_at_q: typing.Annotated[typing.Union[None, str], Query('created_at', )] = None,
+        created_at__date_q: typing.Annotated[typing.Union[None, str], Query('created_at__date', )] = None,
+        created_at__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__date_or_isnull', )] = None,
         created_at__gt_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt', )] = None,
         created_at__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('created_at__gt_or_isnull', )] = None,
         created_at__gte_q: typing.Annotated[typing.Union[None, str], Query('created_at__gte', )] = None,
@@ -11087,9 +11373,9 @@ class ApiClient(ClientBase):
         ordering_q: typing.Annotated[typing.Union[None, str], Query('ordering', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         status_q: typing.Annotated[typing.Union[None, str], Query('status', )] = None,
-        timestamp_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp', )] = None,
-        timestamp__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp__date', )] = None,
-        timestamp__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('timestamp__date_or_isnull', )] = None,
+        timestamp_q: typing.Annotated[typing.Union[None, str], Query('timestamp', )] = None,
+        timestamp__date_q: typing.Annotated[typing.Union[None, str], Query('timestamp__date', )] = None,
+        timestamp__date_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__date_or_isnull', )] = None,
         timestamp__gt_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gt', )] = None,
         timestamp__gt_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gt_or_isnull', )] = None,
         timestamp__gte_q: typing.Annotated[typing.Union[None, str], Query('timestamp__gte', )] = None,
@@ -11100,11 +11386,13 @@ class ApiClient(ClientBase):
         timestamp__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.response.Response,
+        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': list[gsmtasks.components.schemas.WorkingState.schema.WorkingState],
+                }),
+            ),
         })
     ]:
         pass
@@ -11112,20 +11400,22 @@ class ApiClient(ClientBase):
     @post('/working_state/', security=[{'tokenAuth': []}])
     async def working_state_create(
         self: typing.Self,
-        request_body: typing.Annotated[
+        body: typing.Annotated[
             gsmtasks.components.schemas.WorkingState.schema.WorkingState,
-            RequestBody({
+            Body({
                 'application/json': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworking_stateu_l.post.responses.u_o01.response.Response,
+        tuple[gsmtasks.components.schemas.WorkingState.schema.WorkingState, None],
         Responses({
-            '201': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworking_stateu_l.post.responses.u_o01.response.Response,
-            },
+            '201': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
+                }),
+            ),
         })
     ]:
         pass
@@ -11134,14 +11424,16 @@ class ApiClient(ClientBase):
     async def working_state_retrieve(
         self: typing.Self,
         *,
-        id_p: typing.Annotated[uuid.UUID, Path('id', )],
+        id_p: typing.Annotated[str, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        gsmtasks.paths.u_lworking_stateu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
+        tuple[gsmtasks.components.schemas.WorkingState.schema.WorkingState, None],
         Responses({
-            '200': {
-                'application/json; version=2.4.41': gsmtasks.paths.u_lworking_stateu_lu_1zidu_21u_l.get.responses.u_o00.response.Response,
-            },
+            '200': Response(
+                Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.WorkingState.schema.WorkingState,
+                }),
+            ),
         })
     ]:
         pass

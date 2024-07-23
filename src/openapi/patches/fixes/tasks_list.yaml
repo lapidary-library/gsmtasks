@@ -14,12 +14,18 @@
 
 # id__in
 - op: replace
-  path: /paths/~1tasks~1/get/parameters/249/schema
+  path: /paths/~1tasks~1/get/parameters/273
   value:
-    type: array
-    items:
-      type: string
-      format: uuid
+    name: id__in
+    required: false
+    in: query
+    description: id__in
+    schema:
+      type: array
+      items:
+        type: string
+        format: uuid
+    style: simple
 
 - op: add
   path: /components/schemas/TaskListExt

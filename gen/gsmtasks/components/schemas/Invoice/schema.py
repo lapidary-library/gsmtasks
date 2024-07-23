@@ -5,15 +5,12 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import decimal
 import gsmtasks.components.schemas.InvoiceAccount.schema
 import gsmtasks.components.schemas.InvoiceItem.schema
-import uuid
 
 
 class Invoice(lapidary.runtime.ModelBase):
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -23,33 +20,48 @@ class Invoice(lapidary.runtime.ModelBase):
 
     state: typing.Union[None, str] = None
 
-    period: typing.Union[None, list[datetime.date]] = None
+    period: typing.Union[None, list[str]] = None
 
-    total_no_vat: typing.Union[None, decimal.Decimal] = None
+    total_no_vat: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ] = None
 
-    total_vat: typing.Union[None, decimal.Decimal] = None
+    total_vat: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ] = None
 
-    total_with_vat: typing.Union[None, decimal.Decimal] = None
+    total_with_vat: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ] = None
 
     currency: typing.Union[None, str] = None
 
     vat: typing.Union[None, bool] = None
 
-    due_date: typing.Union[None, datetime.date] = None
+    due_date: typing.Union[None, str] = None
 
-    paid_at: typing.Union[None, datetime.datetime] = None
+    paid_at: typing.Union[None, str] = None
 
     items: typing.Union[None, list[gsmtasks.components.schemas.InvoiceItem.schema.InvoiceItem]] = None
 
-    pricing: typing.Union[None, uuid.UUID] = None
+    pricing: typing.Union[None, str] = None
 
     confirmed_by: typing.Union[None, str] = None
 
-    confirmed_at: typing.Union[None, datetime.datetime] = None
+    confirmed_at: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

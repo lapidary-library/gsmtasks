@@ -5,14 +5,11 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import decimal
 import gsmtasks.components.schemas.NestedAddress.schema
-import uuid
 
 
 class PatchedAccountRole(lapidary.runtime.ModelBase):
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -49,15 +46,25 @@ class PatchedAccountRole(lapidary.runtime.ModelBase):
 
     vehicle_capacity: typing.Union[None, list[int]] = None
 
-    vehicle_speed_factor: typing.Union[None, decimal.Decimal] = None
+    vehicle_speed_factor: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,1}(?:\.\d{0,1})?$',
+        )
+    ] = None
 
-    vehicle_service_time_factor: typing.Union[None, decimal.Decimal] = None
+    vehicle_service_time_factor: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,1}(?:\.\d{0,1})?$',
+        )
+    ] = None
 
     optimize_return_to_depot: typing.Union[None, bool] = None
 
-    optimize_earliest_start: typing.Union[None, datetime.time] = None
+    optimize_earliest_start: typing.Union[None, str] = None
 
-    optimize_latest_end: typing.Union[None, datetime.time] = None
+    optimize_latest_end: typing.Union[None, str] = None
 
     route_start_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
@@ -81,13 +88,13 @@ class PatchedAccountRole(lapidary.runtime.ModelBase):
 
     last_time_location: typing.Union[None, str] = None
 
-    activated_at: typing.Union[None, datetime.datetime] = None
+    activated_at: typing.Union[None, str] = None
 
-    deleted_at: typing.Union[None, datetime.datetime] = None
+    deleted_at: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

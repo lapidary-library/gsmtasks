@@ -5,16 +5,14 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import uuid
 
 
 class properties(lapidary.runtime.ModelBase):
-    user: typing.Union[None, uuid.UUID] = None
+    user: typing.Union[None, str] = None
 
-    start_time: typing.Union[None, datetime.datetime] = None
+    start_time: typing.Union[None, str] = None
 
-    end_time: typing.Union[None, datetime.datetime] = None
+    end_time: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

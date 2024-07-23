@@ -5,8 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import uuid
 
 
 class Review(lapidary.runtime.ModelBase):
@@ -20,7 +18,7 @@ class Review(lapidary.runtime.ModelBase):
         )
     ]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     account: typing.Union[None, str] = None
 
@@ -30,7 +28,7 @@ class Review(lapidary.runtime.ModelBase):
 
     last_assignee: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

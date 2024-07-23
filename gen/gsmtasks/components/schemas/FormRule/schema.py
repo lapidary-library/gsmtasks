@@ -6,7 +6,6 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.FormRule.properties.rules.schema
-import uuid
 
 
 class FormRule(lapidary.runtime.ModelBase):
@@ -28,7 +27,7 @@ class FormRule(lapidary.runtime.ModelBase):
 
     rules: gsmtasks.components.schemas.FormRule.properties.rules.schema.rules
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 

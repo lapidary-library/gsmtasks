@@ -5,16 +5,14 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.TasksBackgroundImport.properties.errors.schema
 import gsmtasks.components.schemas.TasksBackgroundImport.properties.tasks_data.items.schema
-import uuid
 
 
 class TasksBackgroundImport(lapidary.runtime.ModelBase):
     account: str
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -26,11 +24,11 @@ class TasksBackgroundImport(lapidary.runtime.ModelBase):
 
     state: typing.Union[None, str] = None
 
-    started_at: typing.Union[None, datetime.datetime] = None
+    started_at: typing.Union[None, str] = None
 
-    completed_at: typing.Union[None, datetime.datetime] = None
+    completed_at: typing.Union[None, str] = None
 
-    failed_at: typing.Union[None, datetime.datetime] = None
+    failed_at: typing.Union[None, str] = None
 
     errors: typing.Union[None, gsmtasks.components.schemas.TasksBackgroundImport.properties.errors.schema.errors] = None
 
@@ -45,9 +43,9 @@ class TasksBackgroundImport(lapidary.runtime.ModelBase):
 
     assignees: typing.Union[None, list[str]] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

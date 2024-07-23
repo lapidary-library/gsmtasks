@@ -6,13 +6,12 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.TaskEventTrack.properties.properties.schema
-import uuid
 
 
 class TaskEventTrack(lapidary.runtime.ModelBase):
     type: typing.Union[None, str] = None
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     geometry: typing.Union[None, typing.Any] = None
 

@@ -5,9 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import decimal
-import uuid
 
 
 class InvoiceItem(lapidary.runtime.ModelBase):
@@ -20,11 +17,21 @@ class InvoiceItem(lapidary.runtime.ModelBase):
         )
     ]
 
-    unit_price: decimal.Decimal
+    unit_price: typing.Annotated[
+        str,
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ]
 
-    quantity: decimal.Decimal
+    quantity: typing.Annotated[
+        str,
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,4})?$',
+        )
+    ]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     unit: typing.Annotated[
         typing.Union[None, str],
@@ -33,11 +40,16 @@ class InvoiceItem(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    total: typing.Union[None, decimal.Decimal] = None
+    total: typing.Annotated[
+        typing.Union[None, str],
+        pydantic.Field(
+            pattern=r'^-?\d{0,7}(?:\.\d{0,2})?$',
+        )
+    ] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -5,10 +5,8 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.OrderData.schema
 import gsmtasks.components.schemas.Recurrence.properties.tasks_data.schema
-import uuid
 
 
 class Recurrence(lapidary.runtime.ModelBase):
@@ -16,7 +14,7 @@ class Recurrence(lapidary.runtime.ModelBase):
 
     rrule: str
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -41,17 +39,17 @@ class Recurrence(lapidary.runtime.ModelBase):
 
     timezone: typing.Union[None, str] = None
 
-    last_recurred_at: typing.Union[None, datetime.datetime] = None
+    last_recurred_at: typing.Union[None, str] = None
 
-    last_scheduled_at: typing.Union[None, datetime.datetime] = None
+    last_scheduled_at: typing.Union[None, str] = None
 
-    next_scheduled_at: typing.Union[None, datetime.datetime] = None
+    next_scheduled_at: typing.Union[None, str] = None
 
     created_by: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

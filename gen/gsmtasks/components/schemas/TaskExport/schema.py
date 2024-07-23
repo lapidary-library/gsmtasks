@@ -5,7 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.Location.schema
 import gsmtasks.components.schemas.TaskExport.properties.duration.schema
 import gsmtasks.components.schemas.TaskExport.properties.metadata__accepted_duration.schema
@@ -16,7 +15,6 @@ import gsmtasks.components.schemas.TaskExport.properties.metadata__completed_dur
 import gsmtasks.components.schemas.TaskExport.properties.metadata__failed_duration.schema
 import gsmtasks.components.schemas.TaskExport.properties.metadata__transit_duration.schema
 import gsmtasks.components.schemas.TaskExport.properties.metadata__unassigned_duration.schema
-import uuid
 
 
 class TaskExport(lapidary.runtime.ModelBase):
@@ -68,7 +66,7 @@ class TaskExport(lapidary.runtime.ModelBase):
 
     metadata__cancelled_distance: int
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
@@ -88,11 +86,11 @@ class TaskExport(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    complete_after: typing.Union[None, datetime.datetime] = None
+    complete_after: typing.Union[None, str] = None
 
-    complete_before: typing.Union[None, datetime.datetime] = None
+    complete_before: typing.Union[None, str] = None
 
-    scheduled_time: typing.Union[None, datetime.datetime] = None
+    scheduled_time: typing.Union[None, str] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
@@ -122,13 +120,13 @@ class TaskExport(lapidary.runtime.ModelBase):
 
     size: typing.Union[None, list[int]] = None
 
-    completed_at: typing.Union[None, datetime.datetime] = None
+    completed_at: typing.Union[None, str] = None
 
-    cancelled_at: typing.Union[None, datetime.datetime] = None
+    cancelled_at: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     contact_address_external_id: typing.Union[None, str] = None
 
@@ -142,7 +140,7 @@ class TaskExport(lapidary.runtime.ModelBase):
 
     order__created_by: typing.Union[None, str] = None
 
-    order__created_at: typing.Union[None, datetime.datetime] = None
+    order__created_at: typing.Union[None, str] = None
 
     order__orderer__name: typing.Union[None, str] = None
 
@@ -196,9 +194,9 @@ class TaskExport(lapidary.runtime.ModelBase):
 
     address__country_code: typing.Union[None, str] = None
 
-    address__geocoded_at: typing.Union[None, datetime.datetime] = None
+    address__geocoded_at: typing.Union[None, str] = None
 
-    address__geocode_failed_at: typing.Union[None, datetime.datetime] = None
+    address__geocode_failed_at: typing.Union[None, str] = None
 
     route__code: typing.Union[None, str] = None
 
@@ -214,21 +212,21 @@ class TaskExport(lapidary.runtime.ModelBase):
 
     metadata__last_task_event_notes: typing.Union[None, str] = None
 
-    metadata__last_unassigned_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_unassigned_at: typing.Union[None, str] = None
 
-    metadata__last_assigned_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_assigned_at: typing.Union[None, str] = None
 
-    metadata__last_accepted_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_accepted_at: typing.Union[None, str] = None
 
-    metadata__last_transit_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_transit_at: typing.Union[None, str] = None
 
-    metadata__last_active_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_active_at: typing.Union[None, str] = None
 
-    metadata__last_completed_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_completed_at: typing.Union[None, str] = None
 
-    metadata__last_failed_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_failed_at: typing.Union[None, str] = None
 
-    metadata__last_cancelled_at: typing.Union[None, datetime.datetime] = None
+    metadata__last_cancelled_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -17,6 +17,8 @@ class ConfigurationDefaults(lapidary.runtime.ModelBase):
 
     create_contact_address: bool
 
+    transit_active_limit: int
+
     model_config = pydantic.ConfigDict(
         extra='allow'
     )

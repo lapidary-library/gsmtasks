@@ -5,21 +5,19 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
+import gsmtasks.components.schemas.Metafields.schema
 import gsmtasks.components.schemas.NestedAddress.schema
 import gsmtasks.components.schemas.NestedContact.schema
 import gsmtasks.components.schemas.TaskEventTask.properties.actions.schema
 import gsmtasks.components.schemas.TaskEventTask.properties.counts.schema
 import gsmtasks.components.schemas.TaskEventTask.properties.duration.schema
 import gsmtasks.components.schemas.TaskEventTask.properties.forms.schema
-import gsmtasks.components.schemas.TaskEventTask.properties.metafields.schema
-import uuid
 
 
 class TaskEventTask(lapidary.runtime.ModelBase):
     account: str
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
@@ -63,17 +61,17 @@ class TaskEventTask(lapidary.runtime.ModelBase):
 
     description: typing.Union[None, str] = None
 
-    calendar_time: typing.Union[None, datetime.datetime] = None
+    calendar_time: typing.Union[None, str] = None
 
-    complete_after: typing.Union[None, datetime.datetime] = None
+    complete_after: typing.Union[None, str] = None
 
-    complete_before: typing.Union[None, datetime.datetime] = None
+    complete_before: typing.Union[None, str] = None
 
-    scheduled_time: typing.Union[None, datetime.datetime] = None
+    scheduled_time: typing.Union[None, str] = None
 
-    completed_at: typing.Union[None, datetime.datetime] = None
+    completed_at: typing.Union[None, str] = None
 
-    cancelled_at: typing.Union[None, datetime.datetime] = None
+    cancelled_at: typing.Union[None, str] = None
 
     auto_assign: typing.Union[None, bool] = None
 
@@ -105,13 +103,13 @@ class TaskEventTask(lapidary.runtime.ModelBase):
 
     signatures: typing.Union[None, list[str]] = None
 
-    metafields: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.metafields.schema.metafields] = None
+    metafields: typing.Union[None, gsmtasks.components.schemas.Metafields.schema.Metafields] = None
 
     trackers: typing.Union[None, list[str]] = None
 
     recurrence: typing.Union[None, str] = None
 
-    issues: typing.Union[None, list[str]] = None
+    issues: typing.Union[None, list[typing.Union[None, str]]] = None
 
     counts: typing.Union[None, gsmtasks.components.schemas.TaskEventTask.properties.counts.schema.counts] = None
 
@@ -119,9 +117,9 @@ class TaskEventTask(lapidary.runtime.ModelBase):
 
     created_by: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
-    updated_at: typing.Union[None, datetime.datetime] = None
+    updated_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

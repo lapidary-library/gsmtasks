@@ -5,8 +5,6 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
-import uuid
 
 
 class SMS(lapidary.runtime.ModelBase):
@@ -19,7 +17,7 @@ class SMS(lapidary.runtime.ModelBase):
         )
     ]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
@@ -55,13 +53,13 @@ class SMS(lapidary.runtime.ModelBase):
 
     error: typing.Union[None, str] = None
 
-    sent_at: typing.Union[None, datetime.datetime] = None
+    sent_at: typing.Union[None, str] = None
 
-    failed_at: typing.Union[None, datetime.datetime] = None
+    failed_at: typing.Union[None, str] = None
 
-    received_at: typing.Union[None, datetime.datetime] = None
+    received_at: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

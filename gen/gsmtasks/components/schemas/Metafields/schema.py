@@ -7,9 +7,7 @@ import pydantic
 import typing_extensions as typing
 
 
-class InvoicePayment(lapidary.runtime.ModelBase):
-    paid_at: typing.Union[None, str] = None
-
+class Metafields(lapidary.runtime.ModelBase):
     model_config = pydantic.ConfigDict(
         extra='allow'
     )

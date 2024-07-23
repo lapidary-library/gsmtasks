@@ -5,9 +5,7 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.ImportMappingLine.schema
-import uuid
 
 
 class ImportMapping(lapidary.runtime.ModelBase):
@@ -15,13 +13,13 @@ class ImportMapping(lapidary.runtime.ModelBase):
 
     lines: list[gsmtasks.components.schemas.ImportMappingLine.schema.ImportMappingLine]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 
     field_names: typing.Union[None, list[str]] = None
 
-    created_at: typing.Union[None, datetime.datetime] = None
+    created_at: typing.Union[None, str] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

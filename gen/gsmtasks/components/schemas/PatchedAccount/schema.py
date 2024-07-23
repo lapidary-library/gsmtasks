@@ -10,11 +10,10 @@ import gsmtasks.components.schemas.PatchedAccount.properties.auto_assign_rotate.
 import gsmtasks.components.schemas.PatchedAccount.properties.task_duration.schema
 import gsmtasks.components.schemas.PatchedAccount.properties.task_expiry_duration_from_complete_after.schema
 import gsmtasks.components.schemas.PatchedAccount.properties.task_expiry_duration_from_complete_before.schema
-import uuid
 
 
 class PatchedAccount(lapidary.runtime.ModelBase):
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     url: typing.Union[None, str] = None
 

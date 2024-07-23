@@ -5,10 +5,8 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
 import gsmtasks.components.schemas.TrackerTasks.schema
 import gsmtasks.components.schemas.UserExport.schema
-import uuid
 
 
 class TrackerPublic(lapidary.runtime.ModelBase):
@@ -18,7 +16,7 @@ class TrackerPublic(lapidary.runtime.ModelBase):
 
     last_task_images: list[str]
 
-    id: typing.Union[None, uuid.UUID] = None
+    id: typing.Union[None, str] = None
 
     state: typing.Union[None, str] = None
 
@@ -26,9 +24,9 @@ class TrackerPublic(lapidary.runtime.ModelBase):
 
     tasks: typing.Union[None, list[gsmtasks.components.schemas.TrackerTasks.schema.TrackerTasks]] = None
 
-    active_from: typing.Union[None, datetime.datetime] = None
+    active_from: typing.Union[None, str] = None
 
-    active_until: typing.Union[None, datetime.datetime] = None
+    active_until: typing.Union[None, str] = None
 
     queued_states: typing.Union[None, list[str]] = None
 
@@ -72,11 +70,11 @@ class TrackerPublic(lapidary.runtime.ModelBase):
 
     reviews_allowed: typing.Union[None, bool] = None
 
-    reviewed_at: typing.Union[None, datetime.datetime] = None
+    reviewed_at: typing.Union[None, str] = None
 
-    predicted_delivery: typing.Union[None, datetime.datetime] = None
+    predicted_delivery: typing.Union[None, str] = None
 
-    predicted_delivery_calculated_at: typing.Union[None, datetime.datetime] = None
+    predicted_delivery_calculated_at: typing.Union[None, str] = None
 
     predicted_delivery_error: typing.Union[None, str] = None
 

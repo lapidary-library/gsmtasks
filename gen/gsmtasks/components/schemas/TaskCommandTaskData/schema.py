@@ -5,15 +5,14 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
-import datetime
+import gsmtasks.components.schemas.Metafields.schema
 import gsmtasks.components.schemas.NestedAddress.schema
 import gsmtasks.components.schemas.NestedContactAddress.schema
 import gsmtasks.components.schemas.TaskCommandTaskData.properties.duration.schema
-import gsmtasks.components.schemas.TaskCommandTaskData.properties.metafields.schema
 
 
 class TaskCommandTaskData(lapidary.runtime.ModelBase):
-    scheduled_time: typing.Union[None, datetime.datetime] = None
+    scheduled_time: typing.Union[None, str] = None
 
     position: typing.Annotated[
         typing.Union[None, float],
@@ -23,7 +22,7 @@ class TaskCommandTaskData(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    metafields: typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.properties.metafields.schema.metafields] = None
+    metafields: typing.Union[None, gsmtasks.components.schemas.Metafields.schema.Metafields] = None
 
     address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
