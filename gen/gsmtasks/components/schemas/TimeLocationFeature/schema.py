@@ -7,12 +7,13 @@ import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.TimeLocationFeature.properties.geometry.schema
 import gsmtasks.components.schemas.TimeLocationFeature.properties.properties.schema
+import uuid
 
 
 class TimeLocationFeature(lapidary.runtime.ModelBase):
     type: typing.Union[None, str] = None
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     geometry: typing.Union[None, gsmtasks.components.schemas.TimeLocationFeature.properties.geometry.schema.geometry] = None
 

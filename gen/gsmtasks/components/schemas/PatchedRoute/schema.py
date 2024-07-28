@@ -5,11 +5,13 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.NestedAddress.schema
+import uuid
 
 
 class PatchedRoute(lapidary.runtime.ModelBase):
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -40,11 +42,11 @@ class PatchedRoute(lapidary.runtime.ModelBase):
 
     assignee: typing.Union[None, str] = None
 
-    start_time: typing.Union[None, str] = None
+    start_time: typing.Union[None, datetime.datetime] = None
 
     start_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    end_time: typing.Union[None, str] = None
+    end_time: typing.Union[None, datetime.datetime] = None
 
     end_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
@@ -52,9 +54,9 @@ class PatchedRoute(lapidary.runtime.ModelBase):
 
     objective: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

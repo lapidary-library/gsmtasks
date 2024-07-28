@@ -5,15 +5,18 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import decimal
 import gsmtasks.components.schemas.Location.schema
+import uuid
 
 
 class TimeLocation(lapidary.runtime.ModelBase):
-    time: str
+    time: datetime.datetime
 
     location: gsmtasks.components.schemas.Location.schema.Location
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -71,16 +74,11 @@ class TimeLocation(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    battery_level: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            pattern=r'^-?\d{0,1}(?:\.\d{0,3})?$',
-        )
-    ] = None
+    battery_level: typing.Union[None, decimal.Decimal] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

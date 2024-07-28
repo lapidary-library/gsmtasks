@@ -5,18 +5,20 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.Location.schema
 import gsmtasks.components.schemas.TaskCommandTaskData.schema
+import uuid
 
 
 class TaskCommand(lapidary.runtime.ModelBase):
     task: str
 
-    time: str
+    time: datetime.datetime
 
     action: str
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -43,13 +45,13 @@ class TaskCommand(lapidary.runtime.ModelBase):
 
     task_data: typing.Union[None, gsmtasks.components.schemas.TaskCommandTaskData.schema.TaskCommandTaskData] = None
 
-    accepted_at: typing.Union[None, str] = None
+    accepted_at: typing.Union[None, datetime.datetime] = None
 
-    rejected_at: typing.Union[None, str] = None
+    rejected_at: typing.Union[None, datetime.datetime] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

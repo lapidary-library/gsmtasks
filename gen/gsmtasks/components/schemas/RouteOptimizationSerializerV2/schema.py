@@ -5,8 +5,10 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.NestedAddress.schema
 import gsmtasks.components.schemas.RouteOptimizationSerializerV2.properties.total_duration.schema
+import uuid
 
 
 class RouteOptimizationSerializerV2(lapidary.runtime.ModelBase):
@@ -16,7 +18,7 @@ class RouteOptimizationSerializerV2(lapidary.runtime.ModelBase):
 
     tasks: list[str]
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -24,11 +26,11 @@ class RouteOptimizationSerializerV2(lapidary.runtime.ModelBase):
 
     objective: typing.Union[None, str, typing.Any] = None
 
-    start_time: typing.Union[None, str] = None
+    start_time: typing.Union[None, datetime.datetime] = None
 
     start_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
-    end_time: typing.Union[None, str] = None
+    end_time: typing.Union[None, datetime.datetime] = None
 
     end_address: typing.Union[None, gsmtasks.components.schemas.NestedAddress.schema.NestedAddress] = None
 
@@ -42,21 +44,21 @@ class RouteOptimizationSerializerV2(lapidary.runtime.ModelBase):
 
     created_by: typing.Union[None, str] = None
 
-    commited_at: typing.Union[None, str] = None
+    commited_at: typing.Union[None, datetime.datetime] = None
 
-    scheduled_at: typing.Union[None, str] = None
+    scheduled_at: typing.Union[None, datetime.datetime] = None
 
-    started_at: typing.Union[None, str] = None
+    started_at: typing.Union[None, datetime.datetime] = None
 
-    ready_at: typing.Union[None, str] = None
+    ready_at: typing.Union[None, datetime.datetime] = None
 
-    completed_at: typing.Union[None, str] = None
+    completed_at: typing.Union[None, datetime.datetime] = None
 
-    failed_at: typing.Union[None, str] = None
+    failed_at: typing.Union[None, datetime.datetime] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     errors: typing.Union[None, str] = None
 

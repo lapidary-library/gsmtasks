@@ -5,6 +5,8 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import uuid
 
 
 class Metafield(lapidary.runtime.ModelBase):
@@ -18,7 +20,7 @@ class Metafield(lapidary.runtime.ModelBase):
         )
     ]
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -84,9 +86,9 @@ class Metafield(lapidary.runtime.ModelBase):
 
     show_when_task_type_drop_off: typing.Union[None, bool] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

@@ -5,17 +5,19 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.Metafields.schema
 import gsmtasks.components.schemas.NestedAddress.schema
 import gsmtasks.components.schemas.NestedContact.schema
 import gsmtasks.components.schemas.TaskSerializerV2.properties.counts.schema
 import gsmtasks.components.schemas.TaskSerializerV2.properties.forms.schema
+import uuid
 
 
 class TaskSerializerV2(lapidary.runtime.ModelBase):
     account: str
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     external_id: typing.Annotated[
         typing.Union[None, str],
@@ -59,17 +61,17 @@ class TaskSerializerV2(lapidary.runtime.ModelBase):
 
     description: typing.Union[None, str] = None
 
-    calendar_time: typing.Union[None, str] = None
+    calendar_time: typing.Union[None, datetime.datetime] = None
 
-    complete_after: typing.Union[None, str] = None
+    complete_after: typing.Union[None, datetime.datetime] = None
 
-    complete_before: typing.Union[None, str] = None
+    complete_before: typing.Union[None, datetime.datetime] = None
 
-    scheduled_time: typing.Union[None, str] = None
+    scheduled_time: typing.Union[None, datetime.datetime] = None
 
-    completed_at: typing.Union[None, str] = None
+    completed_at: typing.Union[None, datetime.datetime] = None
 
-    cancelled_at: typing.Union[None, str] = None
+    cancelled_at: typing.Union[None, datetime.datetime] = None
 
     auto_assign: typing.Union[None, bool] = None
 
@@ -115,6 +117,6 @@ class TaskSerializerV2(lapidary.runtime.ModelBase):
 
     created_by: typing.Union[None, str] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None

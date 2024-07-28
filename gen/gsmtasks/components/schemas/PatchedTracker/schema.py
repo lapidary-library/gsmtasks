@@ -5,10 +5,12 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import uuid
 
 
 class PatchedTracker(lapidary.runtime.ModelBase):
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -16,9 +18,9 @@ class PatchedTracker(lapidary.runtime.ModelBase):
 
     tasks: typing.Union[None, list[str]] = None
 
-    active_from: typing.Union[None, str] = None
+    active_from: typing.Union[None, datetime.datetime] = None
 
-    active_until: typing.Union[None, str] = None
+    active_until: typing.Union[None, datetime.datetime] = None
 
     queued_states: typing.Union[None, list[str]] = None
 
@@ -54,7 +56,7 @@ class PatchedTracker(lapidary.runtime.ModelBase):
 
     reviews_allowed: typing.Union[None, bool] = None
 
-    reviewed_at: typing.Union[None, str] = None
+    reviewed_at: typing.Union[None, datetime.datetime] = None
 
     created_by: typing.Union[None, str] = None
 

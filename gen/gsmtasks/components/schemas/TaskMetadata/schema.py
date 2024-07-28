@@ -5,12 +5,14 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import uuid
 
 
 class TaskMetadata(lapidary.runtime.ModelBase):
     task: str
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -144,21 +146,21 @@ class TaskMetadata(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    last_unassigned_at: typing.Union[None, str] = None
+    last_unassigned_at: typing.Union[None, datetime.datetime] = None
 
-    last_assigned_at: typing.Union[None, str] = None
+    last_assigned_at: typing.Union[None, datetime.datetime] = None
 
-    last_accepted_at: typing.Union[None, str] = None
+    last_accepted_at: typing.Union[None, datetime.datetime] = None
 
-    last_transit_at: typing.Union[None, str] = None
+    last_transit_at: typing.Union[None, datetime.datetime] = None
 
-    last_active_at: typing.Union[None, str] = None
+    last_active_at: typing.Union[None, datetime.datetime] = None
 
-    last_completed_at: typing.Union[None, str] = None
+    last_completed_at: typing.Union[None, datetime.datetime] = None
 
-    last_failed_at: typing.Union[None, str] = None
+    last_failed_at: typing.Union[None, datetime.datetime] = None
 
-    last_cancelled_at: typing.Union[None, str] = None
+    last_cancelled_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

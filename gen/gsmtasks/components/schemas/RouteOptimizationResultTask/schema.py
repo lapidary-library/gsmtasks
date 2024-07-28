@@ -5,11 +5,13 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.Location.schema
+import uuid
 
 
 class RouteOptimizationResultTask(lapidary.runtime.ModelBase):
-    id: str
+    id: uuid.UUID
 
     task: str
 
@@ -25,9 +27,9 @@ class RouteOptimizationResultTask(lapidary.runtime.ModelBase):
 
     location: gsmtasks.components.schemas.Location.schema.Location
 
-    arrival_time: str
+    arrival_time: datetime.datetime
 
-    actual_arrival_time: str
+    actual_arrival_time: datetime.datetime
 
     position: typing.Annotated[
         float,
@@ -37,9 +39,9 @@ class RouteOptimizationResultTask(lapidary.runtime.ModelBase):
         )
     ]
 
-    departure_time: str
+    departure_time: datetime.datetime
 
-    actual_departure_time: str
+    actual_departure_time: datetime.datetime
 
     distance: int
 

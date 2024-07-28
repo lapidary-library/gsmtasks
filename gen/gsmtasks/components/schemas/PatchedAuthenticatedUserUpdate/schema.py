@@ -6,10 +6,11 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.NestedAddress.schema
+import uuid
 
 
 class PatchedAuthenticatedUserUpdate(lapidary.runtime.ModelBase):
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 

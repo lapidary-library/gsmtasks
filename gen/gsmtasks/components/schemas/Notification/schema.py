@@ -5,12 +5,14 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import uuid
 
 
 class Notification(lapidary.runtime.ModelBase):
     task: str
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -36,7 +38,7 @@ class Notification(lapidary.runtime.ModelBase):
 
     sms_count: typing.Union[None, int] = None
 
-    sent_at: typing.Union[None, str] = None
+    sent_at: typing.Union[None, datetime.datetime] = None
 
     via_app: typing.Union[None, bool] = None
 
@@ -44,9 +46,9 @@ class Notification(lapidary.runtime.ModelBase):
 
     via_sms: typing.Union[None, bool] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

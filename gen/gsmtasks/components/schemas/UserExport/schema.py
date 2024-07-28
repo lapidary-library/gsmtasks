@@ -6,6 +6,7 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.TimeLocation.schema
+import uuid
 
 
 class UserExport(lapidary.runtime.ModelBase):
@@ -13,7 +14,7 @@ class UserExport(lapidary.runtime.ModelBase):
 
     last_time_location: gsmtasks.components.schemas.TimeLocation.schema.TimeLocation
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     first_name: typing.Annotated[
         typing.Union[None, str],

@@ -1,5 +1,6 @@
 import logging
 import os
+import uuid
 
 import pytest
 
@@ -13,7 +14,7 @@ logging.getLogger('lapidary').setLevel(logging.INFO)
 
 @pytest.fixture
 def client_authenticated() -> ApiClient:
-    client = ApiClient()
+    client = ApiClient(timeout=30.)
     client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
     return client
 
@@ -42,7 +43,7 @@ async def test_invalid_token_raises(client_authenticated: ApiClient):
 # @pytest.mark.skip(reason="custom accept not supported")
 @pytest.mark.asyncio
 async def test_task_metadata(client_authenticated: ApiClient):
-    task, _ = await client_authenticated.tasks_retrieve(id_p='c3a0b9e4-df2b-44c4-b879-c0961dfc3620')
+    task, _ = await client_authenticated.tasks_retrieve(id_p=uuid.UUID('c3a0b9e4-df2b-44c4-b879-c0961dfc3620'))
     print(type(task.metafields))
     print(task.metafields)
     # TODO custom metadata model

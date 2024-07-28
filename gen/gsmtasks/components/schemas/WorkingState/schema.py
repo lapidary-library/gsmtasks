@@ -5,6 +5,7 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 
 
 class WorkingState(lapidary.runtime.ModelBase):
@@ -18,9 +19,9 @@ class WorkingState(lapidary.runtime.ModelBase):
 
     mode: typing.Union[None, str] = None
 
-    timestamp: typing.Union[None, str] = None
+    timestamp: typing.Union[None, datetime.datetime] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

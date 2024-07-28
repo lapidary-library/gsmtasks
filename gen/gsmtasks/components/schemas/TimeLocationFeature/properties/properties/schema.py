@@ -5,6 +5,8 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
+import decimal
 
 
 class properties(lapidary.runtime.ModelBase):
@@ -14,7 +16,7 @@ class properties(lapidary.runtime.ModelBase):
 
     user: typing.Union[None, str] = None
 
-    time: typing.Union[None, str] = None
+    time: typing.Union[None, datetime.datetime] = None
 
     state: typing.Union[None, str] = None
 
@@ -50,16 +52,11 @@ class properties(lapidary.runtime.ModelBase):
         )
     ] = None
 
-    battery_level: typing.Annotated[
-        typing.Union[None, str],
-        pydantic.Field(
-            pattern=r'^-?\d{0,1}(?:\.\d{0,3})?$',
-        )
-    ] = None
+    battery_level: typing.Union[None, decimal.Decimal] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

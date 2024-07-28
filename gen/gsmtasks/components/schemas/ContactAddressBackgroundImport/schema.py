@@ -5,14 +5,16 @@ from __future__ import annotations
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
+import datetime
 import gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.contact_addresses_data.items.schema
 import gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.errors.schema
+import uuid
 
 
 class ContactAddressBackgroundImport(lapidary.runtime.ModelBase):
     account: str
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     url: typing.Union[None, str] = None
 
@@ -22,11 +24,11 @@ class ContactAddressBackgroundImport(lapidary.runtime.ModelBase):
 
     state: typing.Union[None, str] = None
 
-    started_at: typing.Union[None, str] = None
+    started_at: typing.Union[None, datetime.datetime] = None
 
-    completed_at: typing.Union[None, str] = None
+    completed_at: typing.Union[None, datetime.datetime] = None
 
-    failed_at: typing.Union[None, str] = None
+    failed_at: typing.Union[None, datetime.datetime] = None
 
     errors: typing.Union[None, gsmtasks.components.schemas.ContactAddressBackgroundImport.properties.errors.schema.errors] = None
 
@@ -34,9 +36,9 @@ class ContactAddressBackgroundImport(lapidary.runtime.ModelBase):
 
     contact_addresses_created: typing.Union[None, list[str]] = None
 
-    created_at: typing.Union[None, str] = None
+    created_at: typing.Union[None, datetime.datetime] = None
 
-    updated_at: typing.Union[None, str] = None
+    updated_at: typing.Union[None, datetime.datetime] = None
 
     model_config = pydantic.ConfigDict(
         extra='allow'

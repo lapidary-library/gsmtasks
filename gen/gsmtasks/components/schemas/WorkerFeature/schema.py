@@ -7,12 +7,13 @@ import pydantic
 import typing_extensions as typing
 import gsmtasks.components.schemas.WorkerFeature.properties.geometry.schema
 import gsmtasks.components.schemas.WorkerFeature.properties.properties.schema
+import uuid
 
 
 class WorkerFeature(lapidary.runtime.ModelBase):
     type: typing.Union[None, str] = None
 
-    id: typing.Union[None, str] = None
+    id: typing.Union[None, uuid.UUID] = None
 
     geometry: typing.Union[None, gsmtasks.components.schemas.WorkerFeature.properties.geometry.schema.geometry] = None
 
