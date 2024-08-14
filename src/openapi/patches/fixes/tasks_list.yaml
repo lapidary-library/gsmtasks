@@ -25,7 +25,7 @@
       items:
         type: string
         format: uuid
-    style: simple
+    explode: false
 
 - op: add
   path: /components/schemas/TaskListExt

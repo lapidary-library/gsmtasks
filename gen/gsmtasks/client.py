@@ -6788,7 +6788,7 @@ class ApiClient(ClientBase):
         external_id__search_q: typing.Annotated[typing.Union[None, str], Query('external_id__search', )] = None,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         id_q: typing.Annotated[typing.Union[None, str], Query('id', )] = None,
-        id__in_q: typing.Annotated[typing.Union[None, list[uuid.UUID]], Query('id__in', style=Simple,)] = None,
+        id__in_q: typing.Annotated[typing.Union[None, list[uuid.UUID]], Query('id__in', style=Form,)] = None,
         is_optimal_q: typing.Annotated[typing.Union[None, str], Query('is_optimal', )] = None,
         is_optimal__isnull_q: typing.Annotated[typing.Union[None, str], Query('is_optimal__isnull', )] = None,
         metadata__accepted_distance_q: typing.Annotated[typing.Union[None, str], Query('metadata__accepted_distance', )] = None,
