@@ -6,5 +6,8 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 
-class ValidationError(Exception):
-    pass
+
+class ValidationError(lapidary.runtime.ModelBase):
+    model_config = pydantic.ConfigDict(
+        extra='allow'
+    )

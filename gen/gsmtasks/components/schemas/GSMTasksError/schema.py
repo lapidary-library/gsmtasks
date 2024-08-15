@@ -6,5 +6,6 @@ import lapidary.runtime
 import pydantic
 import typing_extensions as typing
 
-class GSMTasksError(Exception):
-    pass
+
+class GSMTasksError(lapidary.runtime.ModelBase):
+    detail: str
