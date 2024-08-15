@@ -1,0 +1,24 @@
+- op: add
+  path: /components/schemas/Metafields
+  value:
+    type: object
+- op: replace
+  path: /components/schemas/PatchedTaskSerializerV2/properties/metafields
+  value:
+    $ref: /components/schemas/Metafields
+- op: replace
+  path: /components/schemas/Task/properties/metafields
+  value:
+    $ref: /components/schemas/Metafields
+- op: replace
+  path: /components/schemas/TaskCommandTaskData/properties/metafields
+  value:
+    $ref: /components/schemas/Metafields
+- op: replace
+  path: /components/schemas/TaskEventTask/properties/metafields
+  value:
+    $ref: /components/schemas/Metafields
+- op: replace
+  path: /components/schemas/TaskSerializerV2/properties/metafields
+  value:
+    $ref: /components/schemas/Metafields

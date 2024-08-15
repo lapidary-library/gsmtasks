@@ -1,4 +1,0 @@
-- op: add
-  path: /servers
-  value:
-  - url: https://api.gsmtasks.com/

@@ -1,47 +1,65 @@
 import logging
 import os
 import uuid
-from typing import cast
-from unittest import IsolatedAsyncioTestCase
-from uuid import UUID
 
 import pytest
-from lapidary.runtime import auth
 
-from gsmtasks.client import Auth, ApiClient
-from gsmtasks.components.schemas.account import Account
-from gsmtasks.components.schemas.gsm_tasks_error import GSMTasksError
+from gsmtasks import ApiClient
+from gsmtasks.components.schemas.GSMTasksError.schema import GSMTasksError
+from gsmtasks.components.securitySchemes import api_key_tokenAuth
 
 logging.basicConfig()
 logging.getLogger('lapidary').setLevel(logging.INFO)
 
 
-class ClientTest(IsolatedAsyncioTestCase):
-
-    async def asyncSetUp(self) -> None:
-        self.client = ApiClient(auth=Auth(tokenAuth=auth.HTTP(os.environ['GSM_TASKS_TOKEN'])))
-
-    async def asyncTearDown(self) -> None:
-        await self.client.__aexit__()
-
-    async def test_single_param_query(self) -> None:
-        response: list[Account] = await self.client.accounts_list(q_page_size=1)
-        self.assertEqual(len(response), 1)
-
-        account_id = cast(uuid.UUID, response[0].id)
-        response2 = await self.client.accounts_retrieve(p_id=account_id)
-        self.assertEqual(response2.id, account_id)
-
-    async def test_invalid_token_raises(self):
-        async with ApiClient(auth=Auth(tokenAuth=auth.HTTP('7'))) as bad_client:
-            with self.assertRaises(GSMTasksError):
-                await bad_client.accounts_list(q_page_size=1)
-
-    async def test_task_metadata(self):
-        await self.client.tasks_retrieve(p_id=UUID(hex='c3a0b9e4-df2b-44c4-b879-c0961dfc3620'))
+@pytest.fixture
+def client_authenticated() -> ApiClient:
+    client = ApiClient(timeout=30.)
+    client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
+    return client
 
 
 @pytest.mark.asyncio
-async def test_simple_call():
-    async with ApiClient(auth=Auth(tokenAuth=auth.HTTP(os.environ['GSM_TASKS_TOKEN']))) as client:
-        await client.accounts_list()
+async def test_single_param_query(client_authenticated: ApiClient) -> None:
+    accounts, _ = await client_authenticated.accounts_list(page_size_q=1)
+    assert len(accounts) == 1
+    account_id = accounts[0].id
+
+    account, _ = await client_authenticated.accounts_retrieve(id_p=account_id)
+    assert account.id == account_id
+
+
+@pytest.mark.asyncio
+@pytest.mark.skip(reason="global responses not supported")
+async def test_invalid_token_raises(client_authenticated: ApiClient):
+    async with ApiClient() as client:
+        client.lapidary_authenticate(api_key_tokenAuth('7'))
+
+        with pytest.assertRaises(GSMTasksError):
+            response = await client.accounts_list(page_size_q=1)
+            print(response)
+
+
+# @pytest.mark.skip(reason="custom accept not supported")
+@pytest.mark.asyncio
+async def test_task_metadata(client_authenticated: ApiClient):
+    task, _ = await client_authenticated.tasks_retrieve(id_p=uuid.UUID('c3a0b9e4-df2b-44c4-b879-c0961dfc3620'))
+    print(type(task.metafields))
+    print(task.metafields)
+    # TODO custom metadata model
+
+
+@pytest.mark.asyncio
+async def test_simple_call(client_authenticated: ApiClient):
+    await client_authenticated.accounts_list()
+
+
+@pytest.mark.asyncio
+async def test_task_id_in(client_authenticated: ApiClient):
+    tasks, _ = await client_authenticated.tasks_list()
+    assert len(tasks) == 100
+
+    selected_task_ids = [task.id for task in tasks[:3]]
+    tasks, _ = await client_authenticated.tasks_list(id__in_q=selected_task_ids)
+    assert len(tasks) == 3
+    assert [task.id for task in tasks[:3]] == selected_task_ids

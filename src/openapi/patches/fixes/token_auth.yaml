@@ -1,6 +1,0 @@
-- op: replace
-  path: /components/securitySchemes/tokenAuth
-  value:
-    type: http
-    scheme: bearer
-    bearerFormat: Token {token}
