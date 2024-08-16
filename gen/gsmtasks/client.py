@@ -131,18 +131,11 @@ class ApiClient(ClientBase):
         *,
         base_url: str = 'https://api.gsmtasks.com/',
         **kwargs,
-    ):
+    ) -> None:
         super().__init__(
             base_url=base_url,
             **kwargs,
         )
-
-    async def __aenter__(self) -> 'ApiClient':
-        await super().__aenter__()
-        return self
-
-    async def __aexit__(self, __exc_type=None, __exc_value=None, __traceback=None) -> typing.Optional[bool]:
-        return await super().__aexit__(__exc_type, __exc_value, __traceback)
 
     @get('/account_roles/', security=[{'tokenAuth': []}])
     async def account_roles_list(
