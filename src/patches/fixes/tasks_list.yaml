@@ -11,22 +11,6 @@
         - metadatas
         - documents
       uniqueItems: true
-
-# id__in
-- op: replace
-  path: /paths/~1tasks~1/get/parameters/273
-  value:
-    name: id__in
-    required: false
-    in: query
-    description: id__in
-    schema:
-      type: array
-      items:
-        type: string
-        format: uuid
-    explode: false
-
 - op: add
   path: /components/schemas/TaskListExt
   value:

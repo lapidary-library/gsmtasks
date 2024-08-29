@@ -7,7 +7,6 @@
         type: string
     required:
     - detail
-    x-lapidary-modelType: exception
     additionalProperties: false
 
 - op: add
@@ -18,7 +17,6 @@
       type: array
       items:
         type: string
-    x-lapidary-modelType: exception
 
 - op: add
   path: /components/responses
