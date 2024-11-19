@@ -82,8 +82,8 @@ class PatchedTaskSerializerV2(lapidary.runtime.ModelBase):
     position: typing.Annotated[
         typing.Union[None, float],
         pydantic.Field(
-            ge=0.0,
-            le=253402300799.0,
+            ge=0,
+            le=253402300799,
         )
     ] = None
 

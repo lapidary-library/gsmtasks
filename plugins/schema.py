@@ -19,9 +19,10 @@ class GSMTasksSchemaPlugin:
     async def process_mapping(self, model: dict, _: object, _1: object) -> dict:
         for path_obj in model['paths'].values():
             for op in path_obj.values():
-                op['responses'] = sorted_dict({**global_responses, **op['responses']}) if op[
-                    'responses'] else global_responses
+                op['responses'] = sorted_dict({**global_responses, **op.get('responses', {})})
                 self._fix_in_parameter_type(model, op)
+                if op['operationId'].endswith('_list'):
+                    add_next_link(op)
         return model
 
     @staticmethod
@@ -52,10 +53,24 @@ class GSMTasksSchemaPlugin:
                     elif re.search(r'_count($|_)', name):
                         schema['type'] = 'integer'
 
-                    if re.search(r"__in(_or_is_null)?$", name):
+                    if re.search(r"__in(_or_isnull)?$", name) or re.search(r"__not_in(_or_isnull)?$", name):
                         if (schema := parameter.get('schema')) and schema.get('type') != 'array':
                             parameter['schema'] = {
                                 'type': 'array',
                                 'items': schema,
                             }
                             parameter['explode'] = False
+
+
+def add_next_link(operation: dict) -> None:
+    operation['responses']['200']['headers'] = {
+        'link': {
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'string'
+                },
+            },
+            'explode': False,
+        }
+    }

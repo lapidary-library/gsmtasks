@@ -55,7 +55,7 @@ class Device(lapidary.runtime.ModelBase):
         typing.Union[None, int],
         pydantic.Field(
             ge=-9223372036854775808,
-            le=9223372036854775807,
+            le=9223372036854775808,
         )
     ] = None
 

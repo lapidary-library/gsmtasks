@@ -1,0 +1,16 @@
+- op: replace
+  path: /paths/~1task_commands~1/post/requestBody/content/application~1json/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/TaskCommand'
+    - type: array
+      items:
+        $ref: '#/components/schemas/TaskCommand'
+- op: replace
+  path: /paths/~1task_commands~1/post/responses/201/content/application~1json; version=2.4.42/schema
+  value:
+    oneOf:
+    - $ref: '#/components/schemas/TaskCommand'
+    - type: array
+      items:
+        $ref: '#/components/schemas/TaskCommand'

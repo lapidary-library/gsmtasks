@@ -14,6 +14,7 @@ class Location(lapidary.runtime.ModelBase):
         list[float],
         pydantic.Field(
             max_length=2,
+            min_length=2,
         )
     ]
 

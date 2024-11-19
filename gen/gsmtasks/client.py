@@ -122,8 +122,61 @@ import gsmtasks.components.schemas.WorkerFeature.schema
 import gsmtasks.components.schemas.WorkerFeatureList.schema
 import gsmtasks.components.schemas.WorkerTrackList.schema
 import gsmtasks.components.schemas.WorkingState.schema
+import gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.headers
 import gsmtasks.paths.u_ldocsu_lschemau_l.get.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema
+import gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lordersu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lusersu_l.get.responses.u_o00.headers
 import gsmtasks.paths.u_lusersu_lu_1zidu_21u_lactivateu_l.post.responses.u_o00.content.applicationu_ljsonu_xu_Wversionu_z2u_k4u_k42.schema.schema
+import gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.headers
+import gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.headers
 import uuid
 
 
@@ -190,9 +243,9 @@ class ApiClient(ClientBase):
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         updated_at_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at', )] = None,
         updated_at__date_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date', )] = None,
         updated_at__date_or_isnull_q: typing.Annotated[typing.Union[None, datetime.date], Query('updated_at__date_or_isnull', )] = None,
@@ -206,12 +259,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.AccountRole.schema.AccountRole], None],
+        tuple[list[gsmtasks.components.schemas.AccountRole.schema.AccountRole], gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.AccountRole.schema.AccountRole],
                 }),
+                gsmtasks.paths.u_laccount_rolesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -342,24 +396,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/account_roles/{id}/', security=[{'tokenAuth': []}])
-    async def account_roles_partial_update(
+    @delete('/account_roles/{id}/', security=[{'tokenAuth': []}])
+    async def account_roles_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
                 }),
             ),
             '400': Response(
@@ -381,17 +428,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/account_roles/{id}/', security=[{'tokenAuth': []}])
-    async def account_roles_destroy(
+    @patch('/account_roles/{id}/', security=[{'tokenAuth': []}])
+    async def account_roles_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedAccountRole.schema.PatchedAccountRole,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.AccountRole.schema.AccountRole, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AccountRole.schema.AccountRole,
                 }),
             ),
             '400': Response(
@@ -582,12 +636,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Account.schema.Account], None],
+        tuple[list[gsmtasks.components.schemas.Account.schema.Account], gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Account.schema.Account],
                 }),
+                gsmtasks.paths.u_laccountsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1158,12 +1213,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Addon.schema.Addon], None],
+        tuple[list[gsmtasks.components.schemas.Addon.schema.Addon], gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Addon.schema.Addon],
                 }),
+                gsmtasks.paths.u_laddonsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1262,12 +1318,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer], None],
+        tuple[list[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer], gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.BraintreeCustomer.schema.BraintreeCustomer],
                 }),
+                gsmtasks.paths.u_lbillingu_lcustomersu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1504,12 +1561,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Invoice.schema.Invoice], None],
+        tuple[list[gsmtasks.components.schemas.Invoice.schema.Invoice], gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Invoice.schema.Invoice],
                 }),
+                gsmtasks.paths.u_lbillingu_linvoicesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1693,12 +1751,13 @@ class ApiClient(ClientBase):
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         stripe_state_q: typing.Annotated[typing.Union[None, str], Query('stripe_state', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.StripePayment.schema.StripePayment], None],
+        tuple[list[gsmtasks.components.schemas.StripePayment.schema.StripePayment], gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.StripePayment.schema.StripePayment],
                 }),
+                gsmtasks.paths.u_lbillingu_lstripe_paymentsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1764,12 +1823,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction], None],
+        tuple[list[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction], gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.BraintreeTransaction.schema.BraintreeTransaction],
                 }),
+                gsmtasks.paths.u_lbillingu_ltransactionsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -1861,12 +1921,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__email_q: typing.Annotated[typing.Union[None, str], Query('user__email', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ClientRole.schema.ClientRole], None],
+        tuple[list[gsmtasks.components.schemas.ClientRole.schema.ClientRole], gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ClientRole.schema.ClientRole],
                 }),
+                gsmtasks.paths.u_lclient_rolesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2069,12 +2130,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Client.schema.Client], None],
+        tuple[list[gsmtasks.components.schemas.Client.schema.Client], gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Client.schema.Client],
                 }),
+                gsmtasks.paths.u_lclientsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2252,12 +2314,13 @@ class ApiClient(ClientBase):
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ConfigurationSerializerV2.schema.ConfigurationSerializerV2], None],
+        tuple[list[gsmtasks.components.schemas.ConfigurationSerializerV2.schema.ConfigurationSerializerV2], gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ConfigurationSerializerV2.schema.ConfigurationSerializerV2],
                 }),
+                gsmtasks.paths.u_lconfigurationsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2389,12 +2452,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ContactAddressExport.schema.ContactAddressExport], None],
+        tuple[list[gsmtasks.components.schemas.ContactAddressExport.schema.ContactAddressExport], gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddressExport.schema.ContactAddressExport],
                 }),
+                gsmtasks.paths.u_lcontact_address_exportsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2480,12 +2544,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport], None],
+        tuple[list[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport], gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddressBackgroundImport.schema.ContactAddressBackgroundImport],
                 }),
+                gsmtasks.paths.u_lcontact_address_importu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2725,12 +2790,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress], None],
+        tuple[list[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress], gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ContactAddress.schema.ContactAddress],
                 }),
+                gsmtasks.paths.u_lcontact_addressesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -2922,12 +2988,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
         user__account_roles__account_q: typing.Annotated[typing.Union[None, str], Query('user__account_roles__account', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Device.schema.Device], None],
+        tuple[list[gsmtasks.components.schemas.Device.schema.Device], gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Device.schema.Device],
                 }),
+                gsmtasks.paths.u_ldevicesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -3100,12 +3167,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Document.schema.Document], None],
+        tuple[list[gsmtasks.components.schemas.Document.schema.Document], gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Document.schema.Document],
                 }),
+                gsmtasks.paths.u_ldocumentsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -3345,12 +3413,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Email.schema.Email], None],
+        tuple[list[gsmtasks.components.schemas.Email.schema.Email], gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Email.schema.Email],
                 }),
+                gsmtasks.paths.u_lemailsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -3481,24 +3550,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/emails/{id}/', security=[{'tokenAuth': []}])
-    async def emails_partial_update(
+    @delete('/emails/{id}/', security=[{'tokenAuth': []}])
+    async def emails_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
                 }),
             ),
             '400': Response(
@@ -3520,17 +3582,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/emails/{id}/', security=[{'tokenAuth': []}])
-    async def emails_destroy(
+    @patch('/emails/{id}/', security=[{'tokenAuth': []}])
+    async def emails_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedEmail.schema.PatchedEmail,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.Email.schema.Email, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Email.schema.Email,
                 }),
             ),
             '400': Response(
@@ -3616,12 +3685,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Export.schema.Export], None],
+        tuple[list[gsmtasks.components.schemas.Export.schema.Export], gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Export.schema.Export],
                 }),
+                gsmtasks.paths.u_lexportsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -3752,24 +3822,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/exports/{id}/', security=[{'tokenAuth': []}])
-    async def exports_partial_update(
+    @delete('/exports/{id}/', security=[{'tokenAuth': []}])
+    async def exports_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
                 }),
             ),
             '400': Response(
@@ -3791,17 +3854,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/exports/{id}/', security=[{'tokenAuth': []}])
-    async def exports_destroy(
+    @patch('/exports/{id}/', security=[{'tokenAuth': []}])
+    async def exports_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedExport.schema.PatchedExport,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.Export.schema.Export, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Export.schema.Export,
                 }),
             ),
             '400': Response(
@@ -3863,12 +3933,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload], None],
+        tuple[list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload], gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.S3FileUpload.schema.S3FileUpload],
                 }),
+                gsmtasks.paths.u_lfile_uploadsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -3971,12 +4042,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.FormRule.schema.FormRule], None],
+        tuple[list[gsmtasks.components.schemas.FormRule.schema.FormRule], gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.FormRule.schema.FormRule],
                 }),
+                gsmtasks.paths.u_lform_rulesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -4107,24 +4179,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/form_rules/{id}/', security=[{'tokenAuth': []}])
-    async def form_rules_partial_update(
+    @delete('/form_rules/{id}/', security=[{'tokenAuth': []}])
+    async def form_rules_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
                 }),
             ),
             '400': Response(
@@ -4146,17 +4211,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/form_rules/{id}/', security=[{'tokenAuth': []}])
-    async def form_rules_destroy(
+    @patch('/form_rules/{id}/', security=[{'tokenAuth': []}])
+    async def form_rules_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedFormRule.schema.PatchedFormRule,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.FormRule.schema.FormRule, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.FormRule.schema.FormRule,
                 }),
             ),
             '400': Response(
@@ -4265,12 +4337,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         value_type_q: typing.Annotated[typing.Union[None, str], Query('value_type', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Metafield.schema.Metafield], None],
+        tuple[list[gsmtasks.components.schemas.Metafield.schema.Metafield], gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Metafield.schema.Metafield],
                 }),
+                gsmtasks.paths.u_lmetafieldsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -4401,24 +4474,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/metafields/{id}/', security=[{'tokenAuth': []}])
-    async def metafields_partial_update(
+    @delete('/metafields/{id}/', security=[{'tokenAuth': []}])
+    async def metafields_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
                 }),
             ),
             '400': Response(
@@ -4440,17 +4506,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/metafields/{id}/', security=[{'tokenAuth': []}])
-    async def metafields_destroy(
+    @patch('/metafields/{id}/', security=[{'tokenAuth': []}])
+    async def metafields_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedMetafield.schema.PatchedMetafield,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.Metafield.schema.Metafield, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Metafield.schema.Metafield,
                 }),
             ),
             '400': Response(
@@ -4512,12 +4585,13 @@ class ApiClient(ClientBase):
         via_email_q: typing.Annotated[typing.Union[None, str], Query('via_email', )] = None,
         via_sms_q: typing.Annotated[typing.Union[None, str], Query('via_sms', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate], None],
+        tuple[list[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate], gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate],
                 }),
+                gsmtasks.paths.u_lnotification_templatesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -4648,24 +4722,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/notification_templates/{id}/', security=[{'tokenAuth': []}])
-    async def notification_templates_partial_update(
+    @delete('/notification_templates/{id}/', security=[{'tokenAuth': []}])
+    async def notification_templates_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
                 }),
             ),
             '400': Response(
@@ -4687,17 +4754,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/notification_templates/{id}/', security=[{'tokenAuth': []}])
-    async def notification_templates_destroy(
+    @patch('/notification_templates/{id}/', security=[{'tokenAuth': []}])
+    async def notification_templates_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedNotificationTemplate.schema.PatchedNotificationTemplate,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.NotificationTemplate.schema.NotificationTemplate,
                 }),
             ),
             '400': Response(
@@ -4808,12 +4882,13 @@ class ApiClient(ClientBase):
         via_email_q: typing.Annotated[typing.Union[None, str], Query('via_email', )] = None,
         via_sms_q: typing.Annotated[typing.Union[None, str], Query('via_sms', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Notification.schema.Notification], None],
+        tuple[list[gsmtasks.components.schemas.Notification.schema.Notification], gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Notification.schema.Notification],
                 }),
+                gsmtasks.paths.u_lnotificationsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -4940,12 +5015,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2], None],
+        tuple[list[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2], gsmtasks.paths.u_lordersu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.OrderSerializerV2.schema.OrderSerializerV2],
                 }),
+                gsmtasks.paths.u_lordersu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -5290,12 +5366,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.PushNotification.schema.PushNotification], None],
+        tuple[list[gsmtasks.components.schemas.PushNotification.schema.PushNotification], gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.PushNotification.schema.PushNotification],
                 }),
+                gsmtasks.paths.u_lpush_notificationsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -5426,24 +5503,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/push_notifications/{id}/', security=[{'tokenAuth': []}])
-    async def push_notifications_partial_update(
+    @delete('/push_notifications/{id}/', security=[{'tokenAuth': []}])
+    async def push_notifications_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
                 }),
             ),
             '400': Response(
@@ -5465,17 +5535,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/push_notifications/{id}/', security=[{'tokenAuth': []}])
-    async def push_notifications_destroy(
+    @patch('/push_notifications/{id}/', security=[{'tokenAuth': []}])
+    async def push_notifications_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedPushNotification.schema.PatchedPushNotification,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.PushNotification.schema.PushNotification, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.PushNotification.schema.PushNotification,
                 }),
             ),
             '400': Response(
@@ -5634,12 +5711,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Recurrence.schema.Recurrence], None],
+        tuple[list[gsmtasks.components.schemas.Recurrence.schema.Recurrence], gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Recurrence.schema.Recurrence],
                 }),
+                gsmtasks.paths.u_lrecurrencesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -5902,12 +5980,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         tracker_q: typing.Annotated[typing.Union[None, str], Query('tracker', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Review.schema.Review], None],
+        tuple[list[gsmtasks.components.schemas.Review.schema.Review], gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Review.schema.Review],
                 }),
+                gsmtasks.paths.u_lreviewsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -6135,12 +6214,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2], None],
+        tuple[list[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2], gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.RouteOptimizationSerializerV2.schema.RouteOptimizationSerializerV2],
                 }),
+                gsmtasks.paths.u_lroute_optimizationsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -6466,12 +6546,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Route.schema.Route], None],
+        tuple[list[gsmtasks.components.schemas.Route.schema.Route], gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Route.schema.Route],
                 }),
+                gsmtasks.paths.u_lroute_optimizationsu_lu_1zidu_21u_lroutesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -6754,12 +6835,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Route.schema.Route], None],
+        tuple[list[gsmtasks.components.schemas.Route.schema.Route], gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Route.schema.Route],
                 }),
+                gsmtasks.paths.u_lroutesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -6886,23 +6968,16 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/routes/{id}/', security=[{'tokenAuth': []}])
-    async def routes_partial_update(
+    @delete('/routes/{id}/', security=[{'tokenAuth': []}])
+    async def routes_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
                 }),
             ),
             '400': Response(
@@ -6924,16 +6999,23 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/routes/{id}/', security=[{'tokenAuth': []}])
-    async def routes_destroy(
+    @patch('/routes/{id}/', security=[{'tokenAuth': []}])
+    async def routes_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedRoute.schema.PatchedRoute,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.Route.schema.Route, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Route.schema.Route,
                 }),
             ),
             '400': Response(
@@ -7100,12 +7182,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], None],
+        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Signature.schema.Signature],
                 }),
+                gsmtasks.paths.u_lsignaturesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -7353,12 +7436,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.SMS.schema.SMS], None],
+        tuple[list[gsmtasks.components.schemas.SMS.schema.SMS], gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.SMS.schema.SMS],
                 }),
+                gsmtasks.paths.u_lsmsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -7489,24 +7573,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/sms/{id}/', security=[{'tokenAuth': []}])
-    async def sms_partial_update(
+    @delete('/sms/{id}/', security=[{'tokenAuth': []}])
+    async def sms_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
                 }),
             ),
             '400': Response(
@@ -7528,17 +7605,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/sms/{id}/', security=[{'tokenAuth': []}])
-    async def sms_destroy(
+    @patch('/sms/{id}/', security=[{'tokenAuth': []}])
+    async def sms_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedSMS.schema.PatchedSMS,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.SMS.schema.SMS, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.SMS.schema.SMS,
                 }),
             ),
             '400': Response(
@@ -7660,12 +7744,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TaskAddressFeatureList.schema.TaskAddressFeatureList, None],
+        tuple[gsmtasks.components.schemas.TaskAddressFeatureList.schema.TaskAddressFeatureList, gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': gsmtasks.components.schemas.TaskAddressFeatureList.schema.TaskAddressFeatureList,
                 }),
+                gsmtasks.paths.u_ltask_address_featuresu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -7778,12 +7863,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand], None],
+        tuple[list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand], gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand],
                 }),
+                gsmtasks.paths.u_ltask_commandsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -7808,19 +7894,19 @@ class ApiClient(ClientBase):
     async def task_commands_create(
         self: typing.Self,
         body: typing.Annotated[
-            gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+            typing.Union[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand]],
             Body({
-                'application/json': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+                'application/json': typing.Union[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand]],
             }),
         ],
         *,
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, None],
+        tuple[typing.Union[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand]], None],
         Responses({
             '201': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskCommand.schema.TaskCommand,
+                    'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand, list[gsmtasks.components.schemas.TaskCommand.schema.TaskCommand]],
                 }),
             ),
             '400': Response(
@@ -7954,12 +8040,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('user', )] = None,
         user__in_q: typing.Annotated[typing.Union[None, list[str]], Query('user__in', style=Form,)] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TaskEventTrackList.schema.TaskEventTrackList, None],
+        tuple[gsmtasks.components.schemas.TaskEventTrackList.schema.TaskEventTrackList, gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': gsmtasks.components.schemas.TaskEventTrackList.schema.TaskEventTrackList,
                 }),
+                gsmtasks.paths.u_ltask_event_tracksu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -8055,12 +8142,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2], None],
+        tuple[list[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2], gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskEventSerializerV2.schema.TaskEventSerializerV2],
                 }),
+                gsmtasks.paths.u_ltask_eventsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -8716,9 +8804,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -8737,12 +8825,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskExport.schema.TaskExport], None],
+        tuple[list[gsmtasks.components.schemas.TaskExport.schema.TaskExport], gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskExport.schema.TaskExport],
                 }),
+                gsmtasks.paths.u_ltask_exportsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -8793,12 +8882,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskForm.schema.TaskForm], None],
+        tuple[list[gsmtasks.components.schemas.TaskForm.schema.TaskForm], gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskForm.schema.TaskForm],
                 }),
+                gsmtasks.paths.u_ltask_formsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -8929,24 +9019,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/task_forms/{id}/', security=[{'tokenAuth': []}])
-    async def task_forms_partial_update(
+    @delete('/task_forms/{id}/', security=[{'tokenAuth': []}])
+    async def task_forms_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
                 }),
             ),
             '400': Response(
@@ -8968,17 +9051,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/task_forms/{id}/', security=[{'tokenAuth': []}])
-    async def task_forms_destroy(
+    @patch('/task_forms/{id}/', security=[{'tokenAuth': []}])
+    async def task_forms_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedTaskForm.schema.PatchedTaskForm,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.TaskForm.schema.TaskForm, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TaskForm.schema.TaskForm,
                 }),
             ),
             '400': Response(
@@ -9065,12 +9155,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport], None],
+        tuple[list[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport], gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TasksBackgroundImport.schema.TasksBackgroundImport],
                 }),
+                gsmtasks.paths.u_ltask_importu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -9198,12 +9289,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping], None],
+        tuple[list[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping], gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ImportMapping.schema.ImportMapping],
                 }),
+                gsmtasks.paths.u_ltask_import_mappingu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -9327,12 +9419,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata], None],
+        tuple[list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata], gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskMetadata.schema.TaskMetadata],
                 }),
+                gsmtasks.paths.u_ltask_metadatasu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -9987,9 +10080,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -10007,14 +10100,15 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
-        sideload_q: typing.Annotated[typing.Union[None, list[str]], Query('sideload', )] = None,
+        sideload_q: typing.Annotated[typing.Union[None, list[str]], Query('sideload', style=Form,)] = None,
     ) -> typing.Annotated[
-        tuple[typing.Union[gsmtasks.components.schemas.TaskListExt.schema.TaskListExt, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]], None],
+        tuple[typing.Union[gsmtasks.components.schemas.TaskListExt.schema.TaskListExt, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]], gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': typing.Union[gsmtasks.components.schemas.TaskListExt.schema.TaskListExt, list[gsmtasks.components.schemas.TaskSerializerV2.schema.TaskSerializerV2]],
                 }),
+                gsmtasks.paths.u_ltasksu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -11200,9 +11294,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -11221,12 +11315,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Document.schema.Document], None],
+        tuple[list[gsmtasks.components.schemas.Document.schema.Document], gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Document.schema.Document],
                 }),
+                gsmtasks.paths.u_ltasksu_lu_1zidu_21u_ldocumentsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -11849,9 +11944,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -11870,12 +11965,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TaskEvent.schema.TaskEvent], None],
+        tuple[list[gsmtasks.components.schemas.TaskEvent.schema.TaskEvent], gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TaskEvent.schema.TaskEvent],
                 }),
+                gsmtasks.paths.u_ltasksu_lu_1zidu_21u_leventsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -12662,9 +12758,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -12683,12 +12779,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         updated_at_delay_latest_q: typing.Annotated[typing.Union[None, bool], Query('updated_at_delay_latest', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], None],
+        tuple[list[gsmtasks.components.schemas.Signature.schema.Signature], gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Signature.schema.Signature],
                 }),
+                gsmtasks.paths.u_ltasksu_lu_1zidu_21u_lsignaturesu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -13487,9 +13584,9 @@ class ApiClient(ClientBase):
         size__overlap_q: typing.Annotated[typing.Union[None, str], Query('size__overlap', )] = None,
         state_q: typing.Annotated[typing.Union[None, str], Query('state', )] = None,
         state__in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in', style=Form,)] = None,
-        state__in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__in_or_isnull', )] = None,
-        state__not_in_q: typing.Annotated[typing.Union[None, str], Query('state__not_in', )] = None,
-        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('state__not_in_or_isnull', )] = None,
+        state__in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__in_or_isnull', style=Form,)] = None,
+        state__not_in_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in', style=Form,)] = None,
+        state__not_in_or_isnull_q: typing.Annotated[typing.Union[None, list[str]], Query('state__not_in_or_isnull', style=Form,)] = None,
         task_import_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('task_import', )] = None,
         task_import__in_q: typing.Annotated[typing.Union[None, list[str]], Query('task_import__in', style=Form,)] = None,
         unassignee_id_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('unassignee_id', )] = None,
@@ -13577,12 +13674,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TimeLocationFeatureList.schema.TimeLocationFeatureList, None],
+        tuple[gsmtasks.components.schemas.TimeLocationFeatureList.schema.TimeLocationFeatureList, gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeatureList.schema.TimeLocationFeatureList,
                 }),
+                gsmtasks.paths.u_ltime_location_featuresu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -13713,24 +13811,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/time_location_features/{id}/', security=[{'tokenAuth': []}])
-    async def time_location_features_partial_update(
+    @delete('/time_location_features/{id}/', security=[{'tokenAuth': []}])
+    async def time_location_features_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
                 }),
             ),
             '400': Response(
@@ -13752,17 +13843,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/time_location_features/{id}/', security=[{'tokenAuth': []}])
-    async def time_location_features_destroy(
+    @patch('/time_location_features/{id}/', security=[{'tokenAuth': []}])
+    async def time_location_features_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedTimeLocationFeature.schema.PatchedTimeLocationFeature,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.TimeLocationFeature.schema.TimeLocationFeature,
                 }),
             ),
             '400': Response(
@@ -13827,12 +13925,13 @@ class ApiClient(ClientBase):
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation], None],
+        tuple[list[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation], gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.TimeLocation.schema.TimeLocation],
                 }),
+                gsmtasks.paths.u_ltime_locationsu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -13956,12 +14055,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Tracker.schema.Tracker], None],
+        tuple[list[gsmtasks.components.schemas.Tracker.schema.Tracker], gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Tracker.schema.Tracker],
                 }),
+                gsmtasks.paths.u_ltrackersu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -14173,12 +14273,13 @@ class ApiClient(ClientBase):
         page_size_q: typing.Annotated[typing.Union[None, int], Query('page_size', )] = None,
         search_q: typing.Annotated[typing.Union[None, str], Query('search', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser], None],
+        tuple[list[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser], gsmtasks.paths.u_lusersu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.ReadableUser.schema.ReadableUser],
                 }),
+                gsmtasks.paths.u_lusersu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -14309,24 +14410,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/users/{id}/', security=[{'tokenAuth': []}])
-    async def users_partial_update(
+    @delete('/users/{id}/', security=[{'tokenAuth': []}])
+    async def users_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
                 }),
             ),
             '400': Response(
@@ -14348,17 +14442,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/users/{id}/', security=[{'tokenAuth': []}])
-    async def users_destroy(
+    @patch('/users/{id}/', security=[{'tokenAuth': []}])
+    async def users_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedAuthenticatedUserUpdate.schema.PatchedAuthenticatedUserUpdate,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.AuthenticatedUserUpdate.schema.AuthenticatedUserUpdate,
                 }),
             ),
             '400': Response(
@@ -14559,12 +14660,13 @@ class ApiClient(ClientBase):
         timestamp__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], None],
+        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.WorkingState.schema.WorkingState],
                 }),
+                gsmtasks.paths.u_lusers_on_duty_logu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -14673,12 +14775,13 @@ class ApiClient(ClientBase):
         task_events_q: typing.Annotated[typing.Union[None, str], Query('task_events', )] = None,
         version_q: typing.Annotated[typing.Union[None, str], Query('version', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.Webhook.schema.Webhook], None],
+        tuple[list[gsmtasks.components.schemas.Webhook.schema.Webhook], gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.Webhook.schema.Webhook],
                 }),
+                gsmtasks.paths.u_lwebhooksu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -14809,24 +14912,17 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @patch('/webhooks/{id}/', security=[{'tokenAuth': []}])
-    async def webhooks_partial_update(
+    @delete('/webhooks/{id}/', security=[{'tokenAuth': []}])
+    async def webhooks_destroy(
         self: typing.Self,
-        body: typing.Annotated[
-            gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
-            Body({
-                'application/json': gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
-            }),
-        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
+        tuple[None, None],
         Responses({
-            '200': Response(
+            '204': Response(
                 Body({
-                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
                 }),
             ),
             '400': Response(
@@ -14848,17 +14944,24 @@ class ApiClient(ClientBase):
     ]:
         pass
 
-    @delete('/webhooks/{id}/', security=[{'tokenAuth': []}])
-    async def webhooks_destroy(
+    @patch('/webhooks/{id}/', security=[{'tokenAuth': []}])
+    async def webhooks_partial_update(
         self: typing.Self,
+        body: typing.Annotated[
+            gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
+            Body({
+                'application/json': gsmtasks.components.schemas.PatchedWebhook.schema.PatchedWebhook,
+            }),
+        ],
         *,
         id_p: typing.Annotated[uuid.UUID, Path('id', )],
         format_q: typing.Annotated[typing.Union[None, str], Query('format', )] = None,
     ) -> typing.Annotated[
-        tuple[None, None],
+        tuple[gsmtasks.components.schemas.Webhook.schema.Webhook, None],
         Responses({
-            '204': Response(
+            '200': Response(
                 Body({
+                    'application/json; version=2.4.42': gsmtasks.components.schemas.Webhook.schema.Webhook,
                 }),
             ),
             '400': Response(
@@ -14992,12 +15095,13 @@ class ApiClient(ClientBase):
         user_q: typing.Annotated[typing.Union[None, uuid.UUID], Query('user', )] = None,
         user__in_q: typing.Annotated[typing.Union[None, list[str]], Query('user__in', style=Form,)] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.WorkerFeatureList.schema.WorkerFeatureList, None],
+        tuple[gsmtasks.components.schemas.WorkerFeatureList.schema.WorkerFeatureList, gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': gsmtasks.components.schemas.WorkerFeatureList.schema.WorkerFeatureList,
                 }),
+                gsmtasks.paths.u_lworker_featuresu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -15101,12 +15205,13 @@ class ApiClient(ClientBase):
         updated_at__lte_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte', )] = None,
         updated_at__lte_or_isnull_q: typing.Annotated[typing.Union[None, datetime.datetime], Query('updated_at__lte_or_isnull', )] = None,
     ) -> typing.Annotated[
-        tuple[gsmtasks.components.schemas.WorkerTrackList.schema.WorkerTrackList, None],
+        tuple[gsmtasks.components.schemas.WorkerTrackList.schema.WorkerTrackList, gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': gsmtasks.components.schemas.WorkerTrackList.schema.WorkerTrackList,
                 }),
+                gsmtasks.paths.u_lworker_tracksu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({
@@ -15163,12 +15268,13 @@ class ApiClient(ClientBase):
         timestamp__lte_or_isnull_q: typing.Annotated[typing.Union[None, str], Query('timestamp__lte_or_isnull', )] = None,
         user_q: typing.Annotated[typing.Union[None, str], Query('user', )] = None,
     ) -> typing.Annotated[
-        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], None],
+        tuple[list[gsmtasks.components.schemas.WorkingState.schema.WorkingState], gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.headers.ResponseMetadata],
         Responses({
             '200': Response(
                 Body({
                     'application/json; version=2.4.42': list[gsmtasks.components.schemas.WorkingState.schema.WorkingState],
                 }),
+                gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.headers.ResponseMetadata
             ),
             '400': Response(
                 Body({

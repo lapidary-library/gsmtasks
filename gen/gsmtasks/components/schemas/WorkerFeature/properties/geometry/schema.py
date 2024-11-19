@@ -14,6 +14,7 @@ class geometry(lapidary.runtime.ModelBase):
         typing.Union[None, list[float]],
         pydantic.Field(
             max_length=3,
+            min_length=2,
         )
     ] = None
 
