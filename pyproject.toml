@@ -18,7 +18,7 @@ repository = 'https://github.com/lapidary-library/gsmtasks'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-lapidary = {path = "../../lapidary/lapidary", develop = true}
+lapidary = "^0.12.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
