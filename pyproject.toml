@@ -9,11 +9,9 @@ version = "0.5.0"
 authors = []
 license = "0BSD"
 packages = [
-    { include = 'gsmtasks', from = "gen" },
+    { include = 'gsmtasks', from = "src" },
 ]
-include = [
-    'gen/**/*',
-]
+
 repository = 'https://github.com/lapidary-library/gsmtasks'
 
 [tool.poetry.dependencies]
@@ -29,24 +27,36 @@ testpaths = [
     "tests",
 ]
 pythonpath = [
-    "gen",
+    "src",
 ]
 
 [tool.lapidary]
-document_path = 'openapi/openapi.yaml'
+document_path = 'lapidary/openapi/openapi.yaml'
 origin = 'https://api.gsmtasks.com/docs/schema/'
 package = 'gsmtasks'
-plugins=[
-    'lapidary.render.plugins:JSONPatchPlugin',
-    'schema:GSMTasksSchemaPlugin',
-]
-extra_sources = ['src']
-
-[tool.taskipy.tasks]
-update = 'lapidary render'
-test = 'pytest -s'
 
 [tool.mypy]
-mypy_path = ['gen', 'tests']
 namespace_packages = true
 packages = ['gsmtasks']
+
+[tool.ruff]
+target-version = "py39"
+extend-exclude = [
+    "tests/e2e",
+]
+line-length = 120
+namespace-packages = ["lapidary/render"]
+src = ["src"]
+
+[tool.ruff.lint]
+extend-select = ['I', 'UP']
+extend-ignore = [
+    'F401', 'F403', 'F405',
+    'UP040', 'UP008',
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true

@@ -1,3 +1,0 @@
-- op: replace
-  path: /components/schemas/TrackerPublic/properties/queue_positions/items/type
-  value: integer
