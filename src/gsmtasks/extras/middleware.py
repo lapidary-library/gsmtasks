@@ -1,20 +1,19 @@
+import typing
+
 import httpx
-from lapidary.runtime import HttpxMiddleware
+from lapidary.runtime import Next
 
 
-class MediaFixer(HttpxMiddleware[str|None]):
-    async def handle_request(self, request: httpx.Request) -> str|None:
-        accept_arr = request.headers.get_list('Accept')
-        if len(accept_arr)==0:
-            return None
-        elif len(accept_arr)==1:
-            return accept_arr[0]
-        else:
-            accept = max(accept_arr, key=len)
-            request.headers['Accept'] = accept
-            return accept
+def _select_accept(request: httpx.Request) -> str | None:
+    accept_arr = request.headers.get_list('Accept')
+    if not accept_arr or len(accept_arr) == 1:
+        return None
+    else:
+        return typing.cast(str, max(accept_arr, key=len))
 
 
-    async def handle_response(self, response: httpx.Response, request: httpx.Request, state: str|None) -> None:
-        if state:
-            response.headers['Content-Type'] = state
+async def fix_accept(request: httpx.Request, next_: Next) -> httpx.Response:
+    if accept := _select_accept(request):
+        request.headers['Accept'] = accept
+
+    return await next_(request)

@@ -184,8 +184,6 @@ import gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.headers
 import types
 import uuid
 
-from gsmtasks.extras import MediaFixer
-
 
 class ApiClient(lapidary.runtime.ClientBase):
     

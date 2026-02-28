@@ -10,7 +10,7 @@ from lapidary.runtime import HttpErrorResponse
 
 from gsmtasks import ApiClient
 from gsmtasks.components.securitySchemes import api_key_tokenAuth
-from gsmtasks.extras import MediaFixer
+from gsmtasks.extras import fix_accept
 
 logging.basicConfig()
 logging.getLogger('lapidary').setLevel(logging.INFO)
@@ -21,7 +21,7 @@ async def client_authenticated() -> AsyncGenerator[ApiClient, None]:
     async with httpx.AsyncClient(timeout=30.0) as httpx_client:
         client = ApiClient(
             httpx_client,
-            middlewares=[MediaFixer()],
+            middlewares=[fix_accept],
         )
         client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
         yield client
@@ -39,7 +39,7 @@ async def test_single_param_query(client_authenticated: ApiClient) -> None:
 
 @pytest.mark.asyncio
 async def test_invalid_token_raises():
-    client = ApiClient(middlewares=[MediaFixer()])
+    client = ApiClient(middlewares=[fix_accept])
     client.lapidary_authenticate(api_key_tokenAuth('7'))
 
     with pytest.raises(HttpErrorResponse):
