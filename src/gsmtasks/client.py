@@ -6,6 +6,7 @@ __all__ = (
     'ApiClient',
 )
 
+import httpx
 import lapidary.runtime
 import pydantic
 import typing_extensions as typing
@@ -183,15 +184,19 @@ import gsmtasks.paths.u_lworking_stateu_l.get.responses.u_o00.headers
 import types
 import uuid
 
+from gsmtasks.extras import MediaFixer
+
 
 class ApiClient(lapidary.runtime.ClientBase):
     
     def __init__(
         self,
-        *, base_url: str = 'https://api.gsmtasks.com/',
+        client: httpx.AsyncClient | None = None,
+        *, base_url: str = 'https://api.gsmtasks.com',
         **kwargs,
     ) -> None:
         super().__init__(
+            client=client,
             base_url=base_url,
             **kwargs,
         )

@@ -1,8 +1,11 @@
 import logging
 import os
 import uuid
+from typing import AsyncGenerator
 
+import httpx
 import pytest
+import pytest_asyncio
 from lapidary.runtime import HttpErrorResponse
 
 from gsmtasks import ApiClient
@@ -13,14 +16,15 @@ logging.basicConfig()
 logging.getLogger('lapidary').setLevel(logging.INFO)
 
 
-@pytest.fixture
-def client_authenticated() -> ApiClient:
-    client = ApiClient(
-        timeout=30.0,
-        middlewares=[MediaFixer()],
-    )
-    client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
-    return client
+@pytest_asyncio.fixture
+async def client_authenticated() -> AsyncGenerator[ApiClient, None]:
+    async with httpx.AsyncClient(timeout=30.0) as httpx_client:
+        client = ApiClient(
+            httpx_client,
+            middlewares=[MediaFixer()],
+        )
+        client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
+        yield client
 
 
 @pytest.mark.asyncio
@@ -34,12 +38,12 @@ async def test_single_param_query(client_authenticated: ApiClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_invalid_token_raises(client_authenticated: ApiClient):
-    async with ApiClient(middlewares=[MediaFixer()]) as client:
-        client.lapidary_authenticate(api_key_tokenAuth('7'))
+async def test_invalid_token_raises():
+    client = ApiClient(middlewares=[MediaFixer()])
+    client.lapidary_authenticate(api_key_tokenAuth('7'))
 
-        with pytest.raises(HttpErrorResponse):
-            await client.accounts_list(page_size_q=1)
+    with pytest.raises(HttpErrorResponse):
+        await client.accounts_list(page_size_q=1)
 
 
 @pytest.mark.skip(reason="custom accept not supported")
