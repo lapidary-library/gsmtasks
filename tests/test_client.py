@@ -6,7 +6,8 @@ from typing import AsyncGenerator
 import httpx
 import pytest
 import pytest_asyncio
-from lapidary.runtime import HttpErrorResponse
+from lapidary.runtime import HttpErrorResponse, lapidary_user_agent
+from lapidary.runtime.http_consts import USER_AGENT
 
 from gsmtasks import ApiClient
 from gsmtasks.components.securitySchemes import api_key_tokenAuth
@@ -18,7 +19,12 @@ logging.getLogger('lapidary').setLevel(logging.INFO)
 
 @pytest_asyncio.fixture
 async def client_authenticated() -> AsyncGenerator[ApiClient, None]:
-    async with httpx.AsyncClient(timeout=30.0) as httpx_client:
+    async with httpx.AsyncClient(
+        timeout=30.0,
+        headers={
+            USER_AGENT: lapidary_user_agent(),
+        }
+    ) as httpx_client:
         client = ApiClient(
             httpx_client,
             middlewares=[fix_accept],
