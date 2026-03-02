@@ -6,12 +6,11 @@ import pydantic
 import typing_extensions as typing
 import collections.abc
 import httpx
-import httpx_auth
 import lapidary.runtime.auth
 
 
-def api_key_tokenAuth(api_key: str) -> lapidary.runtime.NamedAuth:
-    return 'tokenAuth', lapidary.runtime.auth.HeaderApiKey(
+def api_key_tokenAuth(api_key: str) -> httpx.Auth:
+    return lapidary.runtime.auth.HeaderApiKey(
         api_key=api_key,
         header_name='Authorization',
     )

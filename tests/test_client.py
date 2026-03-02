@@ -6,7 +6,7 @@ from typing import AsyncGenerator
 import httpx
 import pytest
 import pytest_asyncio
-from lapidary.runtime import HttpErrorResponse, lapidary_user_agent
+from lapidary.runtime import HttpErrorResponse, lapidary_user_agent, with_auth
 from lapidary.runtime.http_consts import USER_AGENT
 
 from gsmtasks import ApiClient
@@ -25,11 +25,13 @@ async def client_authenticated() -> AsyncGenerator[ApiClient, None]:
             USER_AGENT: lapidary_user_agent(),
         }
     ) as httpx_client:
-        client = ApiClient(
-            httpx_client,
-            middlewares=[fix_accept],
+        client = with_auth(
+            ApiClient(
+                httpx_client,
+                middlewares=[fix_accept],
+            ),
+            api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}")
         )
-        client.lapidary_authenticate(api_key_tokenAuth(f"Token {os.environ['GSM_TASKS_TOKEN']}"))
         yield client
 
 
@@ -45,8 +47,7 @@ async def test_single_param_query(client_authenticated: ApiClient) -> None:
 
 @pytest.mark.asyncio
 async def test_invalid_token_raises():
-    client = ApiClient(middlewares=[fix_accept])
-    client.lapidary_authenticate(api_key_tokenAuth('7'))
+    client = with_auth(ApiClient(middlewares=[fix_accept]), api_key_tokenAuth('7'))
 
     with pytest.raises(HttpErrorResponse):
         await client.accounts_list(page_size_q=1)
