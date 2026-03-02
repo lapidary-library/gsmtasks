@@ -3,6 +3,9 @@ from lapidary.runtime import HttpxMiddleware
 
 
 class MediaFixer(HttpxMiddleware[str]):
+    async def handle_request(self, request: httpx.Request) -> None:
+        pass
+
     async def handle_response(self, response: httpx.Response, request: httpx.Request, _: None) -> None:
         accept_arr = request.headers.get('Accept', '').split(',')
         if accept_arr:
