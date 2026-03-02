@@ -5,13 +5,19 @@ This code is machine generated using [Lapidary](https://github.com/python-lapida
 ## Usage
 
 ```python
+from importlib.metadata import version
 from gsmtasks import ApiClient
 from gsmtasks.components.securitySchemes import api_key_tokenAuth
 
 # First, create a client:
 
-client = ApiClient()
-client.lapidary_authenticate(api_key_tokenAuth('Token ${YOUR API KEY}'))
+client = ApiClient(
+    headers = {
+        'User-Agent': YOUR_CLIENT_NAME_VERSION,
+    },
+    timeout=30.,
+)
+client.lapidary_authenticate(api_key_tokenAuth('Token YOUR_TOKEN'))
 
 # Now call your endpoint and use your models:
 
