@@ -5,15 +5,16 @@ This code is machine generated using [Lapidary](https://github.com/python-lapida
 ## Usage
 
 ```python
+from lapidary.runtime import with_auth
 from gsmtasks import ApiClient
 from gsmtasks.components.securitySchemes import api_key_tokenAuth
 
 # First, create a client:
-
 client = ApiClient()
-client.lapidary_authenticate(api_key_tokenAuth('Token ${YOUR API KEY}'))
 
-# Now call your endpoint and use your models:
+# authenticate
+client = with_auth(client, api_key_tokenAuth('Token ${YOUR API KEY}'))
 
+# Call your endpoint and use your models:
 accounts, _ = await client.accounts_list()
 ```
