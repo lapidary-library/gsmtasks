@@ -1,12 +1,13 @@
 import logging
 import os
 import uuid
+from importlib.metadata import version
 from typing import AsyncGenerator
 
 import httpx
 import pytest
 import pytest_asyncio
-from lapidary.runtime import HttpErrorResponse, lapidary_user_agent, with_auth
+from lapidary.runtime import HttpErrorResponse, with_auth
 from lapidary.runtime.http_consts import USER_AGENT
 
 from gsmtasks import ApiClient
@@ -22,7 +23,7 @@ async def client_authenticated() -> AsyncGenerator[ApiClient, None]:
     async with httpx.AsyncClient(
         timeout=30.0,
         headers={
-            USER_AGENT: lapidary_user_agent(),
+            USER_AGENT: f'gsmtasks-client/{version('gsmtasks-client')} (+https://github.com/lapidary-library/gsmtasks; pytest)',
         }
     ) as httpx_client:
         client = with_auth(
